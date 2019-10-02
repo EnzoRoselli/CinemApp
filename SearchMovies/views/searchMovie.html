@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+  <!-- <link rel="stylesheet" href="bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
+  <script class="cssdeck" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+  <script src='script.js'></script>
+</head>
+
+<body>
+
+  <nav class="nav-container">
+    <a href="" class="nav-title">
+      <h2>CinemApp</h2>
+    </a>
+    <form action="../process/searchMovie.php" method="GET">
+      <div class="search-wrapper active">
+        <div class="input-holder">
+          <input name="title" type="text" class="search-input" placeholder="Type to search" />
+          <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+        </div>
+        <!-- <span class="close" onclick="searchToggle(this, event);"></span> -->
+      </div>
+      <button type="button" class="btn btn-light mr-4">
+        <!-- <img src="mas1.svg" alt="" class="ico-nav" width="23" height="23"> -->
+       <label for="">Filtros Avanzados</label>
+      </button>
+    </form>
+  </nav>
+
+
+
+  <!-- POPUP -->
+
+  <!-- <div class="overlay">
+    <div class="popup">
+      <div class="form-header">
+        <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+        <h3>Filtros</h3>
+
+      </div>
+      <form method="GET" action="process/searchMoviesWithFilters.php">
+        <div class="form-inputs">
+          <label>Genero</label>
+          <select name="genres[]" multiple>
+            <option value="Accion">Accion</option>
+            <option value="Terror">Terror</option>
+            <option value="Comedy">Comedia</option>
+          </select>
+          <label>Fecha</label>
+          <input type="date" name="form-date" id="form-date">
+
+        </div>
+
+        <div class="form-footer">
+          <button type="button" class="btn btn-link">Cancelar</button>
+          <input type="submit" value="Aceptar">
+
+        </div>
+
+      </form>
+    </div>
+  </div>  -->
+
+
+</body>
+
+</html>
