@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "Enzo",
+        "adress": "Centro",
+        "capacity": "",
+        "ticketValue": ""
+    },
+    {
+        "id": 2,
+        "name": "lili",
+        "adress": "Centro",
+        "capacity": "",
+        "ticketValue": ""
+    },
+    {
+        "id": 3,
+        "name": "Mati",
+        "adress": "Puerto",
+        "capacity": "2000",
+        "ticketValue": "200"
+    },
+    {
+        "id": 4,
+        "name": "Negro",
+        "adress": "villa",
+        "capacity": "400",
+        "ticketValue": "100"
+    }
+]
