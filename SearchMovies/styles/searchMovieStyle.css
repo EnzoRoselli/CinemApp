@@ -1,8 +1,10 @@
 .inputGroup {
+  
   background-color: #fff;
   display: block;
   margin: 10px 0;
   position: relative;
+  width: 216px;
 }
 .inputGroup label {
   padding: 12px 30px;
@@ -73,11 +75,11 @@
 }
 .form {
   padding: 0 16px;
-  max-width: 550px;
-  margin: 50px auto;
+  max-width: 343px;
+  margin: 70px 100px;
   font-size: 18px;
   font-weight: 600;
-  line-height: 36px;
+  line-height: 6px;
 }
 body {
   background-color: #d1d7dc;

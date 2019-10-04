@@ -8,15 +8,16 @@ Autoload::Start();
 use InfoAPI\genresAPI as genresAPI;
 use InfoAPI\moviesAPI as moviesAPI;
 
-$genresInfo=new genresAPI();
+
 $moviesAPI=new moviesAPI();
 
 if (isset($_GET['genres'])) {
    
-$movies=$moviesAPI->getMoviesFromApi();
-$MovieGenres=$genresInfo->getGenres();
+$movies=moviesAPI::getMoviesFromApi();
+$MovieGenres=genresAPI::getGenres();
 $Genres=$_GET['genres'];
-$moviesWithGenres=getMovieForGenres($Genres,$MovieGenres,$movies);
+
+$moviesWithGenres=moviesAPI::getMovieForGenres($Genres,$movies);
 var_dump($moviesWithGenres);
 }
 
