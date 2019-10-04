@@ -3,7 +3,10 @@ namespace Controllers;
 // require_once ("../Model/Cine.php");
 
 
-require_once ("../Config/Autoload.php");
+require "../Config/Autoload.php";
+Use Config\Autoload as Autoload;
+
+Autoload::start();
 
     Use Model\Cine as Cine;
     Use DAO\CineRepository as daoCine;
@@ -16,11 +19,8 @@ require_once ("../Config/Autoload.php");
 
         $cine = new Cine($name, $adress, $capacity, $price);
         
-        var_dump($cine);
-        
         $cineDao = new daoCine();
         $cineDao->add($cine);
-        echo "---------------------SOY getALL------------------------------------------------------<br>";
         $cineDao->getAll();
         
 
