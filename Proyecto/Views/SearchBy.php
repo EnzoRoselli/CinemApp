@@ -18,8 +18,8 @@ use InfoAPI\genresAPI as genresAPI;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Search movies with filters</title>
-    <link rel="stylesheet"  href="css/searchMovieStyle.css">
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+    <!-- <link rel="stylesheet"  href="css/searchMovieStyle.css"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet"> -->
   </head>
   <body>
    <form class="form" action="../process/searchMoviesWithFilters.php" method="GET">

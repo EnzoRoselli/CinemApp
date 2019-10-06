@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="./View/css/addCineView.css">
+    <link rel="stylesheet" href="./css/AddCineView.css">
     <title>Document</title>
 </head>
 <body>
     
     <div class="wrapper">
-        <form action="./Controllers/cineController.php" method="POST" class="form">
+        <form action="../Controllers/CineController.php" method="POST" class="form">
             <div class="input-fields-list">
                 <input type="text" name="name" placeholder="Nombre..." class="input-field">
                 <input type="text" name="adress" placeholder="Dirección..." class="input-field">
