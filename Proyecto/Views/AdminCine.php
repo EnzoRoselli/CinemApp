@@ -5,8 +5,14 @@ include('nav.php');
 
 require "../Config/Autoload.php";
 Use Config\Autoload as Autoload;
+Use DAO\CineRepository as CineRepository;
+use Model\Cine;
 
 Autoload::start();
+
+$cines = new CineRepository();
+
+$cines->getAll();
 
 ?>
 

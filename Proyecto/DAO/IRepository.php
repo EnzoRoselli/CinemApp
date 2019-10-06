@@ -1,5 +1,5 @@
 <?php 
-namespace Interfaces;
+namespace DAO;
 require_once ("../Config/Autoload.php");
 Use Model\Cine as Cine;
 interface IRepository{
