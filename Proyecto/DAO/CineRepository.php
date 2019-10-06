@@ -105,12 +105,14 @@ class CineRepository implements IRepository
 
     public function getAll()
     {
+  
         $this->getData();
-        foreach ($this->cineList as $aux) {
-            echo '<pre>';
-            var_dump($aux);
-            echo '<pre>';
-        }
+        return $this->cineList;
+        // foreach ($this->cineList as $aux) {
+        //     echo '<pre>';
+        //     var_dump($aux);
+        //     echo '<pre>';
+        // }
     }
 
     public function fixId(Cine $cine){

@@ -12,7 +12,8 @@ Autoload::start();
 
 $cines = new CineRepository();
 
-$cines->getAll();
+$cines =  $cines->getAll();
+
 
 ?>
 
@@ -31,7 +32,7 @@ $cines->getAll();
                         <object type="image/svg+xml" data="img/plus.svg" width="16" height="16"></object>
                     </button>
 
-                    <label for="">Accion múltiple</label>
+                    <label for="">Selección</label>
                     <select name="action" class="form-control ml-3">
                         <option value="trash">Eliminar</option>
                         <option value="enable">publicar</option>
@@ -48,29 +49,26 @@ $cines->getAll();
                         <tr>
                             <th></th>
                             <th>ID</th>
-                            <th>Título</th>
-                            <th>Autor</th>
-                            <th>Categoría</th>
-                            <th>Fecha</th>
-                            <th>Texto</th>
-                            <th>Actions</th>
+                            <th>Name</th>
+                            <th>Adress</th>
+                            <th>Capacity</th>
+                            <th>TicketValue</th>
                         </tr>
                     </thead>
                     <tbody>
 
                             <?php 
-                              foreach($postList as $post){
+                              foreach($cines as $cine){
                                 ?>
                                         <tr> 
                                         <td><input type="checkbox" name="userschecked[]" /></td>
-                                             <td><?php echo $post->getID(); ?></td>
-                                             <td><?php echo $post->getTitle(); ?></td>
-                                             <td><?php echo $post->getAuthor(); ?></td>
-                                             <td><?php echo $post->getCategory(); ?></td>
-                                             <td><?php echo $post->getDate(); ?></td>
-                                             <td><?php echo $post->getText  (); ?></td>
+                                             <td><?php echo $cine->getId(); ?></td>
+                                             <td><?php echo $cine->getName(); ?></td>
+                                             <td><?php echo $cine->getAdress(); ?></td>
+                                             <td><?php echo $cine->getCapacity(); ?></td>
+                                             <td><?php echo $cine->getTicketValue(); ?></td>
                                              <td>
-                                         <a href="/examen_c1/posts.php?delete=<?php echo $post->getID() ?>" class="btn btn-light">
+                                         <a href="/examen_c1/cines.php?delete=<?php echo $cine->getId() ?>" class="btn btn-light">
                                         <object type="image/svg+xml" data="img/trash-2.svg" width="16" height="16">
                                             Your browser does not support SVG
                                         </object>
@@ -113,43 +111,32 @@ $cines->getAll();
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label>Título</label>
+                        <label>Nombre</label>
                         <input type="text" class="form-control" name="title" />
                     </div>
 
                     <div class="form-group">
-                        <label>Autor</label>
-                        <input type="text" disabled value="<?php echo $user->getName() ?>" class="form-control">
-                        <input type="hidden" name="author" value="<?php echo $user->getName() ?>" class="form-control">
+                        <label>Dirección</label>
+                        <input type="text" class="form-control" name="adress" />
                     </div>
 
                     <div class="form-group">
-                        <label>Categoría</label>
-
-                        <select name="category">
-
-                            <?php foreach($categories as $cat){
-                                echo '<option value=" '. $cat->getName() .' ">' . $cat->getName() . '</option>';
-                            }
-                            ?>
-                        </select>
+                        <label>Capacidad</label>
+                        <input type="number" class="form-control" name="capacity" />
                     </div>
+
+                    <div class="form-group">
+                        <label>Valor de Entrada</label>
+                        <input type="number" class="form-control" name="ticketValue" />
+                    </div>
+
                     
-                    <div class="form-group">
-                        <label>Fecha</label>
-                        <input type="date" class="form-control" name="date" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Texto</label>
-                        <textarea name="text" class="form-control"></textarea>
-                    </div>
 
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-dark">Publicar</button>
+                    <button type="submit" class="btn btn-dark">Aceptar</button>
                 </div>
             </form>
 
