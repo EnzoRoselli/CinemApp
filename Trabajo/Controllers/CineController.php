@@ -2,7 +2,7 @@
 namespace Controllers;
 // require_once ("../Model/Cine.php");
 
-
+/*-*/ 
 require "../Config/Autoload.php";
 Use Config\Autoload as Autoload;
 
