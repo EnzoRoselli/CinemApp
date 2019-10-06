@@ -7,15 +7,12 @@ Use Config\Autoload as Autoload;
 use DAO\IRepository as IRepository;
 use Model\Cine as Cine;
 
+include ('../Config/Constants/CineConstants.php');
 
 Autoload::start();
 
 define("FILE_DIR", '../Data/cine.json');
-define('CINE_ID', 'id');
-define('CINE_NAME', 'name');
-define('CINE_ADRESS', 'adress');
-define('CINE_CAPACITY', 'capacity');
-define('CINE_TICKETVALUE', 'ticketValue');
+
 /*mandar al config.php*/
 
 class CineRepository implements IRepository

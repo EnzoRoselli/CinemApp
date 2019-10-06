@@ -7,7 +7,7 @@ require "../Config/Autoload.php";
 Use Config\Autoload as Autoload;
 Use DAO\CineRepository as CineRepository;
 use Model\Cine;
-
+include ('../Config/Constants/CineConstants.php');
 Autoload::start();
 
 $cines = new CineRepository();
@@ -68,7 +68,10 @@ $cines =  $cines->getAll();
                                              <td><?php echo $cine->getCapacity(); ?></td>
                                              <td><?php echo $cine->getTicketValue(); ?></td>
                                              <td>
-                                         <a href="/examen_c1/cines.php?delete=<?php echo $cine->getId() ?>" class="btn btn-light">
+                                        <!-- 
+                                            DELETE CINE
+                                         -->
+                                         <a href="./AdminCine.php?delete=<?php echo $cine->getId() ?>" class="btn btn-light">
                                         <object type="image/svg+xml" data="img/trash-2.svg" width="16" height="16">
                                             Your browser does not support SVG
                                         </object>
@@ -99,7 +102,7 @@ $cines =  $cines->getAll();
     <div class="modal fade" id="create-post" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
         <div class="modal-dialog" role="document">
 
-            <form class="modal-content" action="publish.php" method="POST">
+            <form class="modal-content" action="../Controllers/CineController.php" method="POST">
 
                 <div class="modal-header">
                     <h5 class="modal-title">Registrar cine</h5>
@@ -112,22 +115,22 @@ $cines =  $cines->getAll();
 
                     <div class="form-group">
                         <label>Nombre</label>
-                        <input type="text" class="form-control" name="title" />
+                        <input type="text" class="form-control" name=<?php echo CINE_NAME ?> />
                     </div>
 
                     <div class="form-group">
                         <label>Dirección</label>
-                        <input type="text" class="form-control" name="adress" />
+                        <input type="text" class="form-control" name=<?php echo CINE_ADRESS ?> />
                     </div>
 
                     <div class="form-group">
                         <label>Capacidad</label>
-                        <input type="number" class="form-control" name="capacity" />
+                        <input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> />
                     </div>
 
                     <div class="form-group">
                         <label>Valor de Entrada</label>
-                        <input type="number" class="form-control" name="ticketValue" />
+                        <input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE ?> />
                     </div>
 
                     
