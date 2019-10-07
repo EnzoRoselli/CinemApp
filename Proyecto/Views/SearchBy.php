@@ -1,10 +1,12 @@
 <?php 
-namespace views;
-require_once ('../config/autoload.php');
+namespace Views;
+
+require "../Config/Autoload.php";
+
 use config\autoload as autoload;
 autoload::Start();
 
-use InfoAPI\genresAPI as genresAPI;
+use DAO\InfoAPI\genresAPI as genresAPI;
 
 
 

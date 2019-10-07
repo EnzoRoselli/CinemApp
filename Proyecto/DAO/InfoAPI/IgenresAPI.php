@@ -1,5 +1,5 @@
 <?php 
-namespace InfoAPI;
+namespace DAO\InfoAPI;
 interface IgenresAPI 
 {
     static function GetGenres();

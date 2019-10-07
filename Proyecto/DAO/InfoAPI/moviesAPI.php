@@ -1,5 +1,5 @@
 <?php 
-namespace InfoAPI;
+namespace DAO\InfoAPI;
 
 class moviesAPI implements ImoviesAPI{
    

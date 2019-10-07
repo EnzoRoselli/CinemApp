@@ -1,6 +1,6 @@
 <?php
 
-require_once("../config/autoload.php");
+require "../Config/Autoload.php";
 
 use config\autoload as Autoload;
 Autoload::Start();

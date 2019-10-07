@@ -1,5 +1,5 @@
 <?php
-namespace InfoAPI;
+namespace DAO\InfoAPI;
 interface ImoviesAPI{
     static function getMoviesFromApi();
     static function searchMovieByTitle($movieArray,$title);

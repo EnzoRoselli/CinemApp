@@ -1,6 +1,6 @@
 <?php
 
-namespace InfoAPI;
+namespace DAO\InfoAPI;
 
 class genresAPI implements IgenresAPI
 {

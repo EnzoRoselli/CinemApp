@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
     <script class="cssdeck" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> -->
+    <link rel="stylesheet" href="css/nav.css">
     <script src='js/SearchMovie.js'></script>
     <title>CinemApp</title>
   </head>
