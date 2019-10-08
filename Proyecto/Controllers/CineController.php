@@ -13,7 +13,6 @@ Autoload::start();
     Use DAO\CineRepository as daoCine;
 
     if($_POST){
-        var_dump($_POST);
         $name = $_POST[CINE_NAME];
         $adress = $_POST[CINE_ADRESS];
         $capacity = $_POST[CINE_CAPACITY];
