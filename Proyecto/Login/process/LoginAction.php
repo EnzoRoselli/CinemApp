@@ -8,16 +8,7 @@
         }else{
             echo "<script> if(confirm('Error al ingresar los datos, vuelva a intentarlo !'));";  
             echo "window.location = '../LoginSignup.php'; </script>";
-
         }
     }
-
-
-
-
-
-
-
-
 
 ?>

@@ -59,11 +59,15 @@ use DAO\InfoAPI\genresAPI as genresAPI;
         <?php }
         } ?>
         </table>
-
+        
         <button>Enviar</button>
       </form>
+      <div class='dateFilter'>
+          <label for="date">Select Date:</label>
+          <input type="date"  min="<?php echo date('Y-m-d',strtotime(date('Y-m-d',time())));?>" name="date">         
+        </div>
 
-      </form>
+
 </body>
 
 </html>
