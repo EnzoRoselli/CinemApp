@@ -10,8 +10,10 @@
         </div>
         <!-- <span class="close" onclick="searchToggle(this, event);"></span> -->
       </div>
-      <button type="button" class="btn btn-light mr-4">
-       <label for="">Filtros Avanzados</label>
+      </form>
+      <form action="SearchMoviesWithFilters.php">
+      <button class="btn btn-light mr-4">
+       <label for="">Búsqueda Avanzada</label>
       </button>
     </form>
   </nav>

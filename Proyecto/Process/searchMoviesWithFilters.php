@@ -5,11 +5,8 @@ require "../Config/Autoload.php";
 use config\autoload as Autoload;
 Autoload::Start();
 
-use InfoAPI\genresAPI as genresAPI;
-use InfoAPI\moviesAPI as moviesAPI;
-
-
-$moviesAPI=new moviesAPI();
+use DAO\InfoAPI\genresAPI as genresAPI;
+use DAO\InfoAPI\moviesAPI as moviesAPI;
 
 if (isset($_GET['genres'])) {
    
