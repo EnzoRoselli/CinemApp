@@ -1,51 +1,42 @@
 [
     {
         "id": 1,
-        "name": "Enzo",
-        "adress": "Centro",
+        "name": "Facu",
+        "adress": "Constitucion",
         "capacity": "",
-        "ticketValue": ""
+        "ticketValue": "",
+        "active": true
     },
     {
         "id": 2,
-        "name": "lili",
-        "adress": "Centro",
+        "name": "Mati",
+        "adress": "Puerto",
         "capacity": "",
-        "ticketValue": ""
+        "ticketValue": "",
+        "active": false
     },
     {
         "id": 3,
-        "name": "Mati",
-        "adress": "Puerto",
-        "capacity": "2000",
-        "ticketValue": "200"
+        "name": "Negro",
+        "adress": "Villa",
+        "capacity": "",
+        "ticketValue": "",
+        "active": true
     },
     {
         "id": 4,
-        "name": "Negro",
-        "adress": "villa",
-        "capacity": "400",
-        "ticketValue": "100"
+        "name": "Papa",
+        "adress": "nose",
+        "capacity": "",
+        "ticketValue": "",
+        "active": false
     },
     {
         "id": 5,
-        "name": null,
-        "adress": "",
+        "name": "Enzo",
+        "adress": "Centro",
         "capacity": "",
-        "ticketValue": ""
-    },
-    {
-        "id": 6,
-        "name": null,
-        "adress": "ASDSA",
-        "capacity": "213",
-        "ticketValue": null
-    },
-    {
-        "id": 7,
-        "name": "nombre1",
-        "adress": "dir1",
-        "capacity": "10",
-        "ticketValue": "100"
+        "ticketValue": "",
+        "active": false
     }
 ]

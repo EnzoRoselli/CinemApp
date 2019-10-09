@@ -12,15 +12,29 @@ use Model\Cine;
 include('../Config/Constants/CineConstants.php');
 Autoload::start();
 
-$cines = new CineRepository();
+$cinesRepo = new CineRepository();
 
-$cines =  $cines->getAll();
+$cines = $cinesRepo->getAll();
+/*
+if($cinesRepo->exists(null, 'agregado', 'direc')){
+    echo 'lo encontr';
+}
+*/
 
+if($_GET){
 
+    if(isset($_GET['delete'])){
+
+        $id=$_GET['delete'];
+        $cinesRepo->delete($id);
+    }
+}
 ?>
+    
+</body>
+</html>
 
-
-
+<div class="tuvieja">
 <main class="p-5">
     <div class="container">
 
@@ -34,13 +48,13 @@ $cines =  $cines->getAll();
                     <object type="image/svg+xml" data="img/plus.svg" width="16" height="16"></object>
                 </button>
 
-                <label for="">Selección</label>
+                <!-- <label for="">Selección</label>
                 <select name="action" class="form-control ml-3">
                     <option value="trash">Eliminar</option>
                     <option value="enable">publicar</option>
                     <option value="disable">despublicar</option>
                 </select>
-                <button type="submit" class="btn btn-dark ml-3">Enviar</button>
+                <button type="submit" class="btn btn-dark ml-3">Enviar</button> -->
 
 
             </div>
@@ -61,6 +75,7 @@ $cines =  $cines->getAll();
 
                     <?php
                     foreach ($cines as $cine) {
+                        if($cine->getActive() === true){
                         ?>
                         <tr>
                             <td><input type="checkbox" name="userschecked[]" /></td>
@@ -74,14 +89,16 @@ $cines =  $cines->getAll();
                                             DELETE CINE
                                          -->
                                 <a href="./AdminCine.php?delete=<?php echo $cine->getId() ?>" class="btn btn-light">
-                                    <object type="image/svg+xml" data="img/trash-2.svg" width="16" height="16">
+                                    <!-- <object type="image/svg+xml" data="img/trash-2.svg" width="50" height="50">
                                         Your browser does not support SVG
-                                    </object>
+                                    </object> -->
+                                    <button type="button" width="50" height="50">borrar
+                                    </button>
                                 </a>
                             </td>
                         </tr>
                     <?php
-                    } ?>
+                    }} ?>
                 </tbody>
             </table>
         </form>
@@ -142,12 +159,14 @@ $cines =  $cines->getAll();
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-dark">Aceptar</button>
+                <button type="button" class="btn btn-med btn-light" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-med btn-light">Aceptar</button>
             </div>
         </form>
 
     </div>
 </div>
+</div>
+
 
 <?php include('footer.php'); ?>

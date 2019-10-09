@@ -6,14 +6,12 @@
       <div class="search-wrapper active">
         <div class="input-holder">
           <input name="title" type="text" class="search-input" placeholder="Type to search" />
-          <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+          <button class="search-icon"><img src="./img/search-32.png" alt="search" class="icon-32"></button>
         </div>
-        <!-- <span class="close" onclick="searchToggle(this, event);"></span> -->
+        
       </div>
-      </form>
-      <form action="SearchMoviesWithFilters.php">
-      <button class="btn btn-light mr-4">
-       <label for="">Búsqueda Avanzada</label>
+      <button type="button" class="btn btn-large btn-light" id="btn-filter">
+       <label for="">Filtros Avanzados</label>
       </button>
     </form>
   </nav>

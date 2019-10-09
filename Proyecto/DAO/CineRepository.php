@@ -24,38 +24,57 @@ class CineRepository implements IRepository
     {
         $this->getData();
 
-        if($this->exists($cine)){
-            echo 'Se encuentra <br>';
+        if($this->exists(null, $cine->getName(), $cine->getAdress())){
+            echo "<script> if(confirm('Verifique que los datos sean correctos'));";
+            echo "window.location ='../Views/AdminCine.php'; </script>";
         }else{
             $this->fixId($cine);
             array_push($this->cineList, $cine);
 
             $this->saveData();
+            echo "<script> if(confirm('Agregado correctamente'));";
+            echo "window.location ='../Views/AdminCine.php'; </script>";
         }
             
     }
 
-    public function exists($cine){
+    public function exists($id=null, $name=null, $adress=null){
         $flag = false;
-            for ($i = 0; $i < count($this->cineList) && !$flag; $i++) {
-                if ($this->cineList[$i]->equals($cine)) {
-                    $flag = true;
-                } else {
-                    $flag = false;
-                }
+       
+        foreach ($this->cineList as $key) {
+            if($key->getId() == $id || ($key->getName()===$name && $key->getAdress()===$adress)){
+                $flag=true;
+                break;
             }
+        }
             return $flag;
     }
 
-    public function delete(Cine $cine)
+    public function delete($id)
     {
+        $cine= $this->searchById($id);
 
         if (($key = array_search($cine, $this->cineList)) !== false) {
-            unset($this->cineList[$key]);
-            echo 'lo borro';
+            $this->cineList[$key]->setActive(false);
+
+        }
+    
+        $this->saveData();
+    }
+
+    public function searchById($id){
+
+
+        if($this->exists($id)){
+            foreach ($this->cineList as $key) {
+                if($key->getId() == $id){
+                    return $key;
+                    break;
+                }
+            }
         }
 
-        $this->saveData();
+        return null;
     }
 
     public function saveData()
@@ -70,6 +89,7 @@ class CineRepository implements IRepository
             $valueArray[CINE_ADRESS] = $aux->getAdress();
             $valueArray[CINE_CAPACITY] = $aux->getCapacity();
             $valueArray[CINE_TICKETVALUE] = $aux->getTicketValue();
+            $valueArray[CINE_ACTIVE] = $aux->getActive();
 
             array_push($arrayToEncode, $valueArray);
         }
@@ -78,7 +98,7 @@ class CineRepository implements IRepository
         file_put_contents('../Data/cine.json', $jsonContent);
     }
 
-    public function getData()
+    public function getData($allCine=null)
     {
         $this->cineList=array();
         if (file_exists(FILE_DIR)) {
@@ -91,10 +111,10 @@ class CineRepository implements IRepository
             }
            
             foreach ($arrayToDecode as $valueArray) {
-               
-                $aux = new Cine($valueArray[CINE_NAME], $valueArray[CINE_ADRESS], $valueArray[CINE_CAPACITY], $valueArray[CINE_TICKETVALUE]);
-                 $aux->setId($valueArray[CINE_ID]);
 
+                $aux = new Cine($valueArray[CINE_NAME], $valueArray[CINE_ADRESS], $valueArray[CINE_CAPACITY], $valueArray[CINE_TICKETVALUE]);
+                $aux->setId($valueArray[CINE_ID]);
+                $aux->setActive($valueArray[CINE_ACTIVE]);
                 array_push($this->cineList, $aux);
             }
         }
@@ -103,7 +123,7 @@ class CineRepository implements IRepository
     public function getAll()
     {
   
-        $this->getData();
+    $this->getData();
         return $this->cineList;
         // foreach ($this->cineList as $aux) {
         //     echo '<pre>';
