@@ -24,6 +24,6 @@ if(isset($_SESSION['facebook_access_token'])){
 }else{
 	$helper = $fb->getRedirectLoginHelper();
 	$permissions = []; // optional
-	$loginUrl = $helper->getLoginUrl('http://localhost/proyectos/Final-Tp-Lab4/Proyecto/Login/facebook_login/login-callback.php', $permissions);
+	$loginUrl = $helper->getLoginUrl('http://localhost/Final-Tp-Lab4/Proyecto/Login/facebook_login/login-callback.php', $permissions);
 	echo '<a href="' . $loginUrl . '">Logueate con Facebook!</a>';
 }
