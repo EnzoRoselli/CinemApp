@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(212, 211, 203);
+}
+
+.container{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1rem;
+    height: 100%;
+    width: 100%;
+    margin-top: 5%;
+    background-color: rebeccapurple;
+}
+
+.block{
+    position: relative;
+    margin: 50px ;
+    height: 300px;
+    width: 300px;
+    background-color: red;
+}
