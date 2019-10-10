@@ -1,6 +1,6 @@
 <?php
 
-use config\autoload as Autoload;
+use Config\Autoload as Autoload;
 Autoload::Start();
 
 use DAO\InfoAPI\genresAPI as genresAPI;
@@ -36,6 +36,7 @@ $Date=$_GET['date'];
     $MovieGenres=genresAPI::getGenres();
     $Genres=$_GET['genres'];  
     $moviesWithGenres=moviesAPI::getMovieForGenres($Genres,$movies);//Retornaria estas peliculas
+    var_dump($moviesWithGenres);
 }else if (isset($_GET['date'])) {
     $Date=$_GET['date'];
     //Tomar todas aqullas peliculas de la fecha recibida 

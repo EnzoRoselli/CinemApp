@@ -196,6 +196,11 @@ if($_GET){
             <div class="modal-body">
                 
                 <div class="form-group">
+                    <label>Cine ID</label>
+                    <input type="text" class="form-control" name=<?php echo CINE_ID . "update"; ?> value=<?php echo $cineUpdate->getId() ?> />
+                </div>
+            
+                <div class="form-group">
                     <label>Nombre</label>
                     <input type="text" class="form-control" name=<?php echo CINE_NAME . "update" ?> value=<?php echo $cineUpdate->getName() ?> />
                 </div>

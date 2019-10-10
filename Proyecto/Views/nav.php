@@ -12,7 +12,7 @@
 
     </div>
   </form>
-  <form action="SearchMoviesWithFilters.php">
+  <form action="../process/SearchMoviesWithFilters.php">
     <button class="btn btn-light mr-4">
       <label for="">Búsqueda Avanzada</label>
   </form>

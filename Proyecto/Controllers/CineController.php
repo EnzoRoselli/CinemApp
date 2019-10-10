@@ -31,12 +31,16 @@ Autoload::start();
         
         if(isset($_POST[CINE_NAME . "update"])){
 
-            $id=$_GET['update'];
+             $idUpdate=$_POST[CINE_ID . "update"];
 
             $nameUpdate=$_POST[CINE_NAME . "update"];
+            $adressUpdate=$_POST[CINE_ADRESS . "update"];
+            $capacityUpdate=$_POST[CINE_CAPACITY . "update"];
+            $priceUpdate=$_POST[CINE_TICKETVALUE . "update"];
 
-            $cine = new Cine($nameUpdate);
-            $cine->setId($id);
+            $cine = new Cine($nameUpdate,$adressUpdate,$capacityUpdate,$priceUpdate);
+            $cine->setId($idUpdate);
+            
 
             $cineDao->modifyCine($cine);
 

@@ -78,28 +78,33 @@ class CineRepository implements IRepository
     }
 
     public function modifyCine($cine){
-
+        
+        $this->getData();
+        echo $cine->getId();
         if(($cineToModify = $this->searchById($cine->getId())) !== null){
-
+            
             if($cine->getName() !== "" && $cine->getName() !== $cineToModify->getName()){
-
+                var_dump($cine);
+                
                 $cineToModify->setName($cine->getName());
             }
 
-            if(!$cine->getAdress() === "" && !$cine->getAdress() === $cineToModify->getAdress()){
+            if($cine->getAdress() !== "" && $cine->getAdress() !== $cineToModify->getAdress()){
 
                 $cineToModify->setAdress($cine->getAdress());
             }
 
-            if(!$cine->getCapacity() === "" && !$cine->getCapacity() === $cineToModify->getCapacity()){
+            if($cine->getCapacity() !== "" && $cine->getCapacity() !== $cineToModify->getCapacity()){
 
                 $cineToModify->setCapacity($cine->getCapacity());
             }
 
-            if(!$cine->getTicketValue() === "" && !$cine->getTicketValue() === $cineToModify->getTicketValue()){
+            if($cine->getTicketValue() !== "" && $cine->getTicketValue() !== $cineToModify->getTicketValue()){
 
                 $cineToModify->setTicketValue($cine->getTicketValue());
             }
+
+            var_dump($cineToModify);
 
             if (($key = array_search($this->searchById($cine->getId()), $this->cineList)) !== false) {
                 $this->cineList[$key]=$cineToModify;
