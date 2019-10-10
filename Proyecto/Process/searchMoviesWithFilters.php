@@ -42,12 +42,7 @@ $Date=$_GET['date'];
     //Tomar todas aqullas peliculas de la fecha recibida 
     //Osea llamar a MoviesDateFilter()
 }
-$movies=moviesAPI::getMoviesFromApi();
-for ($i=0; $i < count($movies); $i++) { 
-   $poster=$movies[$i]->poster_path;
-}
 
-//      http://image.tmdb.org/t/p/w185/   Luego de esto debe ir $poster.
 
 
 
