@@ -7,7 +7,7 @@ require "../Config/Autoload.php";
 
 use Config\Autoload as Autoload;
 use DAO\CineRepository as CineRepository;
-use Model\Cine;
+use Model\Cine as Cine;
 
 include('../Config/Constants/CineConstants.php');
 Autoload::start();
@@ -16,7 +16,7 @@ Autoload::start();
 $cinesRepo = new CineRepository();
 
 $cines = $cinesRepo->getAll();
-$cineUpdate = new Cine();
+$cineUpdate = new Cine("","","",""); //FIJENSE PORQUE EL CONSTRUCTOR, LE PIDE PARAMETROS ----------------------------------------------------------------------
 /*
 if($cinesRepo->exists(null, 'agregado', 'direc')){
     echo 'lo encontr';

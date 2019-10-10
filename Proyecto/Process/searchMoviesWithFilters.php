@@ -42,6 +42,10 @@ $Date=$_GET['date'];
     //Tomar todas aqullas peliculas de la fecha recibida 
     //Osea llamar a MoviesDateFilter()
 }
+$movies=moviesAPI::getMoviesFromApi();
+for ($i=0; $i < count($movies); $i++) { 
+   $poster=$movies[$i]->
+}
 
 
 
