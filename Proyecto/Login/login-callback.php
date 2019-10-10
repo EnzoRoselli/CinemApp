@@ -1,7 +1,8 @@
-  
-<?php
+<?php 
 require 'app/fb_init.php';
+
 $helper = $fb->getRedirectLoginHelper();
+
 try {
   $accessToken = $helper->getAccessToken();
 } catch(Facebook\Exceptions\FacebookResponseException $e) {
@@ -13,10 +14,13 @@ try {
   echo 'Facebook SDK returned an error: ' . $e->getMessage();
   exit;
 }
+
+
 if (isset($accessToken)) {
-  // Logged in!
-  $_SESSION['facebook_access_token'] = (string) $accessToken;
-  header('Location: index.php');
-  // Now you can redirect to another page and use the
-  // access token from $_SESSION['facebook_access_token']
+    $_SESSION['facebook_access_token'] = (string) $accessToken;
+    header('Location: LoginSignup.php');
 }
+
+
+
+
