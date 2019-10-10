@@ -66,15 +66,46 @@ class CineRepository implements IRepository
 
 
         if($this->exists($id)){
-            foreach ($this->cineList as $key) {
-                if($key->getId() == $id){
-                    return $key;
+            foreach ($this->cineList as $cine) {
+                if($cine->getId() == $id){
+                    return $cine;
                     break;
                 }
             }
         }
 
         return null;
+    }
+
+    public function modifyCine($cine){
+
+        if(($cineToModify = $this->searchById($cine->getId())) !== null){
+
+            if($cine->getName() !== "" && $cine->getName() !== $cineToModify->getName()){
+
+                $cineToModify->setName($cine->getName());
+            }
+
+            if(!$cine->getAdress() === "" && !$cine->getAdress() === $cineToModify->getAdress()){
+
+                $cineToModify->setAdress($cine->getAdress());
+            }
+
+            if(!$cine->getCapacity() === "" && !$cine->getCapacity() === $cineToModify->getCapacity()){
+
+                $cineToModify->setCapacity($cine->getCapacity());
+            }
+
+            if(!$cine->getTicketValue() === "" && !$cine->getTicketValue() === $cineToModify->getTicketValue()){
+
+                $cineToModify->setTicketValue($cine->getTicketValue());
+            }
+
+            if (($key = array_search($this->searchById($cine->getId()), $this->cineList)) !== false) {
+                $this->cineList[$key]=$cineToModify;
+    
+            }
+        }
     }
 
     public function saveData()

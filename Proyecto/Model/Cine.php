@@ -13,7 +13,7 @@ require_once ("../Config/Autoload.php");
     /**
      * Class constructor.
      */
-    public function __construct($name, $adress, $capacity, $ticketValue)
+    public function __construct($name="", $adress="", $capacity="", $ticketValue="")
     {
         $this->name = $name;
         $this->adress = $adress;
