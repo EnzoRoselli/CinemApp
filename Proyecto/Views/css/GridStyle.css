@@ -16,7 +16,9 @@ body{
     height: 100%;
     width: 100%;
     margin-top: 5%;
-    background-color: rebeccapurple;
+    background: #FF416C;
+	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+	background: linear-gradient(to right, #FF4B2B, #FF416C);
 }
 
 .block{
