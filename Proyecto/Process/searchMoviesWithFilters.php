@@ -44,8 +44,10 @@ $Date=$_GET['date'];
 }
 $movies=moviesAPI::getMoviesFromApi();
 for ($i=0; $i < count($movies); $i++) { 
-   $poster=$movies[$i]->
+   $poster=$movies[$i]->poster_path;
 }
+
+//      http://image.tmdb.org/t/p/w185/   Luego de esto debe ir $poster.
 
 
 
