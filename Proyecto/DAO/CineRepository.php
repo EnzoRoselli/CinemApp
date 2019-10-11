@@ -80,12 +80,11 @@ class CineRepository implements IRepository
     public function modifyCine($cine){
         
         $this->getData();
-        echo $cine->getId();
+
         if(($cineToModify = $this->searchById($cine->getId())) !== null){
             
             if($cine->getName() !== "" && $cine->getName() !== $cineToModify->getName()){
-                var_dump($cine);
-                
+
                 $cineToModify->setName($cine->getName());
             }
 
@@ -103,11 +102,13 @@ class CineRepository implements IRepository
 
                 $cineToModify->setTicketValue($cine->getTicketValue());
             }
-
-            var_dump($cineToModify);
-
+            
             if (($key = array_search($this->searchById($cine->getId()), $this->cineList)) !== false) {
+
                 $this->cineList[$key]=$cineToModify;
+                $this->saveData();
+
+                return true;
     
             }
         }

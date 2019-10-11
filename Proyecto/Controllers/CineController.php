@@ -31,8 +31,7 @@ Autoload::start();
         
         if(isset($_POST[CINE_NAME . "update"])){
 
-             $idUpdate=$_POST[CINE_ID . "update"];
-
+            $idUpdate=$_POST[CINE_ID . "update"];
             $nameUpdate=$_POST[CINE_NAME . "update"];
             $adressUpdate=$_POST[CINE_ADRESS . "update"];
             $capacityUpdate=$_POST[CINE_CAPACITY . "update"];
@@ -41,9 +40,8 @@ Autoload::start();
             $cine = new Cine($nameUpdate,$adressUpdate,$capacityUpdate,$priceUpdate);
             $cine->setId($idUpdate);
             
-
             $cineDao->modifyCine($cine);
-
+            
         }
     }
 ?>
