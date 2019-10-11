@@ -1,15 +1,6 @@
 <?php namespace config;
     class Router {
-        public function __construct()
-        {
-            # code...
-        }
-        /**
-         * @method route
-         * Se encarga de direccionar a la pagina solicitada
-         *
-         * @param Request $request
-         */
+
         public static function route(Request $request) {
             /**
              * Concatena el primer dato que obtuvo el request (el que usaremos como controlador) con la palabra Controller

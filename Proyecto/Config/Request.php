@@ -17,10 +17,10 @@ class Request {
            */
           $ArregloUrl = array_filter($urlToArray);
            /**
-            * Si el array tiene elementos, el primero lo guardamos en controller, si no, guardamos Home como controller por defecto
+            * Si el array tiene elementos, el primero lo guardamos en controller, si no, guardamos   Home como controller por defecto
             */
            if(empty($ArregloUrl)) {
-                $this->controller = 'Home';
+                $this->controller = 'Cine';
            } else {
                 $this->controller = ucwords(array_shift($ArregloUrl));
            }
