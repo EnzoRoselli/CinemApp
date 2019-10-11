@@ -1,11 +1,11 @@
 [
     {
         "id": 1,
-        "name": "Facu",
+        "name": "Ricardo",
         "adress": "Constitucion",
         "capacity": "",
-        "ticketValue": "",
-        "active": true
+        "ticketValue": "200",
+        "active": false
     },
     {
         "id": 2,
@@ -19,8 +19,8 @@
         "id": 3,
         "name": "Negro",
         "adress": "Villa",
-        "capacity": "",
-        "ticketValue": "",
+        "capacity": "250",
+        "ticketValue": "200",
         "active": true
     },
     {
@@ -38,5 +38,45 @@
         "capacity": "",
         "ticketValue": "",
         "active": false
+    },
+    {
+        "id": 6,
+        "name": "sadsdads",
+        "adress": "asd",
+        "capacity": "",
+        "ticketValue": "",
+        "active": false
+    },
+    {
+        "id": 7,
+        "name": "Ernsesto\/",
+        "adress": "AAAAA",
+        "capacity": "5000\/",
+        "ticketValue": "150\/",
+        "active": false
+    },
+    {
+        "id": 8,
+        "name": "Nico",
+        "adress": "Centro",
+        "capacity": "41",
+        "ticketValue": "50",
+        "active": false
+    },
+    {
+        "id": 9,
+        "name": "Julian",
+        "adress": "Septiembre",
+        "capacity": "500",
+        "ticketValue": "20",
+        "active": true
+    },
+    {
+        "id": 10,
+        "name": "Flor",
+        "adress": "Jujuy",
+        "capacity": "100",
+        "ticketValue": "100",
+        "active": true
     }
 ]

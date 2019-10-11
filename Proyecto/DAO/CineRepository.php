@@ -24,25 +24,37 @@ class CineRepository implements IRepository
     {
         $this->getData();
 
-        if($this->exists(null, $cine->getName(), $cine->getAdress())){
-            echo "<script> if(confirm('Verifique que los datos sean correctos'));";
-            echo "window.location ='../Views/AdminCine.php'; </script>";
+        if($this->existsNameAndAdress($cine->getName(), $cine->getAdress())){
+           
+            return false;
         }else{
             $this->fixId($cine);
             array_push($this->cineList, $cine);
 
             $this->saveData();
-            echo "<script> if(confirm('Agregado correctamente'));";
-            echo "window.location ='../Views/AdminCine.php'; </script>";
+
+            return true;
         }
             
     }
 
-    public function exists($id=null, $name=null, $adress=null){
+    public function existsId($id){
         $flag = false;
        
         foreach ($this->cineList as $key) {
-            if($key->getId() == $id || ($key->getName()===$name && $key->getAdress()===$adress)){
+            if($key->getId() == $id){
+                $flag=true;
+                break;
+            }
+        }
+            return $flag;
+    }
+
+    public function existsNameAndAdress($name, $adress){
+        $flag = false;
+       
+        foreach ($this->cineList as $key) {
+            if($key->getName()===$name && $key->getAdress()===$adress){
                 $flag=true;
                 break;
             }
@@ -65,7 +77,7 @@ class CineRepository implements IRepository
     public function searchById($id){
 
 
-        if($this->exists($id)){
+        if($this->existsId($id)){
             foreach ($this->cineList as $cine) {
                 if($cine->getId() == $id){
                     return $cine;

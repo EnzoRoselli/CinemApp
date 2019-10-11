@@ -16,32 +16,46 @@ Autoload::start();
 
         $cineDao = new daoCine();
 
-        if(isset($_POST[CINE_NAME])){
+        if($_POST[CINE_ID] !== ""){
 
-            $name = $_POST[CINE_NAME];
-            $adress = $_POST[CINE_ADRESS];
-            $capacity = $_POST[CINE_CAPACITY];
-            $price = $_POST[CINE_TICKETVALUE];
-    
-            $cine = new Cine($name, $adress, $capacity, $price);
-            
-            $cineDao->add($cine);
-            $cineDao->getAll();
-        }
-        
-        if(isset($_POST[CINE_NAME . "update"])){
-
-            $idUpdate=$_POST[CINE_ID . "update"];
-            $nameUpdate=$_POST[CINE_NAME . "update"];
-            $adressUpdate=$_POST[CINE_ADRESS . "update"];
-            $capacityUpdate=$_POST[CINE_CAPACITY . "update"];
-            $priceUpdate=$_POST[CINE_TICKETVALUE . "update"];
+            $idUpdate=$_POST[CINE_ID];
+            $nameUpdate=$_POST[CINE_NAME];
+            $adressUpdate=$_POST[CINE_ADRESS];
+            $capacityUpdate=$_POST[CINE_CAPACITY];
+            $priceUpdate=$_POST[CINE_TICKETVALUE];
 
             $cine = new Cine($nameUpdate,$adressUpdate,$capacityUpdate,$priceUpdate);
             $cine->setId($idUpdate);
             
-            $cineDao->modifyCine($cine);
-            
+            if($cineDao->modifyCine($cine)){
+
+                echo "<script> if(confirm('Modificado correctamente'));";
+                echo "window.location ='../Views/AdminCine.php'; </script>";
+            }else{
+                echo "<script> if(confirm('Error al modificar los datos'));";
+                echo "window.location ='../Views/AdminCine.php'; </script>";
+            }
+
+        }else if($_POST[CINE_ID] == ""){
+
+            if(isset($_POST[CINE_NAME])){
+
+                $name = $_POST[CINE_NAME];
+                $adress = $_POST[CINE_ADRESS];
+                $capacity = $_POST[CINE_CAPACITY];
+                $price = $_POST[CINE_TICKETVALUE];
+        
+                $cine = new Cine($name, $adress, $capacity, $price);
+                
+                if($cineDao->add($cine)){
+
+                    echo "<script> if(confirm('Agregado correctamente'));";
+                    echo "window.location ='../Views/AdminCine.php'; </script>";
+                }else{
+                    echo "<script> if(confirm('Verifique que los datos no esten repetidos'));";
+                    echo "window.location ='../Views/AdminCine.php'; </script>";
+                }
+            }
         }
     }
 ?>

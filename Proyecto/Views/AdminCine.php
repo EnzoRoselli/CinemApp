@@ -16,34 +16,26 @@ Autoload::start();
 $cinesRepo = new CineRepository();
 
 $cines = $cinesRepo->getAll();
-$cineUpdate = new Cine("","","",""); //FIJENSE PORQUE EL CONSTRUCTOR, LE PIDE PARAMETROS ----------------------------------------------------------------------
-/*
-if($cinesRepo->exists(null, 'agregado', 'direc')){
-    echo 'lo encontr';
-}
-*/
 
 if($_GET){
-
+    
     if(isset($_GET['delete'])){
-
+        
         $id=$_GET['delete'];
         $cinesRepo->delete($id);
     }
-
+    
     if(isset($_GET['update'])){
-
+        $cineUpdate = new Cine();
+        
         $id=$_GET['update'];
 
         $cineUpdate=$cinesRepo->searchById($id);
 
-        
+        var_dump($cineUpdate->getCapacity());
     }
 }
 ?>
-    
-</body>
-</html>
 
 <div class="tuvieja">
 <main class="p-5">
@@ -118,17 +110,6 @@ if($_GET){
             </table>
         </form>
 
-        <!-- Esto como si no existiera -->
-        <?php if (isset($successMje) || isset($errorMje)) { ?>
-            <div class="alert <?php if (isset($successMje)) echo 'alert-success';
-                                    else echo 'alert-danger'; ?> alert-dismissible fade show mt-3" role="alert">
-                <strong><?php if (isset($successMje)) echo $successMje;
-                            else echo $errorMje; ?></strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <?php } ?>
     </div>
 </main>
 
@@ -147,24 +128,26 @@ if($_GET){
 
             <div class="modal-body">
 
+                <input type="hidden" name=<?php echo CINE_ID ?> value=<?php if(isset($cineUpdate)){echo $cineUpdate->getId();}else{echo null;} ?>>
+
                 <div class="form-group">
                     <label>Nombre</label>
-                    <input type="text" class="form-control" name=<?php echo CINE_NAME ?> />
+                    <input type="text" class="form-control" name=<?php echo CINE_NAME ?> value=<?php if(isset($cineUpdate)){echo $cineUpdate->getName();} ?>>
                 </div>
 
                 <div class="form-group">
                     <label>Dirección</label>
-                    <input type="text" class="form-control" name=<?php echo CINE_ADRESS ?> />
+                    <input type="text" class="form-control" name=<?php echo CINE_ADRESS ?> value=<?php if(isset($cineUpdate)){echo $cineUpdate->getAdress();} ?>>
                 </div>
 
                 <div class="form-group">
                     <label>Capacidad</label>
-                    <input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> />
+                    <input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> value=<?php if(isset($cineUpdate)){echo (int) $cineUpdate->getCapacity();} ?>>
                 </div>
 
                 <div class="form-group">
                     <label>Valor de Entrada</label>
-                    <input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE ?> />
+                    <input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE ?> value=<?php if(isset($cineUpdate)){echo (int) $cineUpdate->getTicketValue();} ?>>
                 </div>
 
 
@@ -180,58 +163,6 @@ if($_GET){
     </div>
 </div>
 
-<!--UPDATE POSTS-->
-<div class="modal fade" id="create-post" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-
-        <form class="modal-content" action="../Controllers/CineController.php" method="POST">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Modificar cine</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                
-                <!-- <div class="form-group">
-                    <label>Cine ID</label> -->
-                    <input type="hidden" name=<?php echo CINE_ID . "update"; ?> value=<?php echo $cineUpdate->getId() ?> />
-                <!-- </div> -->
-            
-                <div class="form-group">
-                    <label>Nombre</label>
-                    <input type="text" class="form-control" name=<?php echo CINE_NAME . "update" ?> value=<?php echo $cineUpdate->getName() ?> />
-                </div>
-
-                <div class="form-group">
-                    <label>Dirección</label>
-                    <input type="text" class="form-control" name=<?php echo CINE_ADRESS . "update" ?> value=<?php echo $cineUpdate->getAdress() ?> />
-                </div>
-
-                <div class="form-group">
-                    <label>Capacidad</label>
-                    <input type="number" class="form-control" name=<?php echo CINE_CAPACITY . "update" ?> value=<?php echo $cineUpdate->getCapacity() ?> />
-                </div>
-
-                <div class="form-group">
-                    <label>Valor de Entrada</label>
-                    <input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE . "update" ?> value=<?php echo $cineUpdate->getTicketValue() ?> />
-                </div>
-
-
-
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-med btn-light" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-med btn-light">Aceptar</button>
-            </div>
-        </form>
-
-    </div>
-</div>
 
 </div>
 
