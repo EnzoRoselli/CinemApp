@@ -56,7 +56,7 @@ require 'app/fb_init.php';
 					
 					
 					echo "Logged in as ". $userNode->getName();
-					echo '<br/> <a href="logout.php"> </a>';
+					echo '<br/> <a href="logout.php"> Log out</a>';
 				}
 					else {
 						$helper = $fb->getRedirectLoginHelper();
