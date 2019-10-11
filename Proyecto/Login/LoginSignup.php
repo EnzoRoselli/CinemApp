@@ -37,11 +37,11 @@ require 'app/fb_init.php';
 		<div class="form-container sign-in-container">
 			<form action="process/LoginAction.php">
 				<h1>Log in</h1>
-				<div class="social-container">
+				<!-- <div class="social-container"> -->
 
 					<?php
 					if (isset($_SESSION['facebook_access_token'])) { 
-						$fb=setDefaultAccessToken($_SESSION['facebook_access_token']);
+						$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 						try {
 							$response=$fb->get('/me');
 							$userNode = $response->getGraphUser();
@@ -65,7 +65,7 @@ require 'app/fb_init.php';
 
 						echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
 					} ?>
-				</div>
+				<!-- </div> -->
 				<span>or use your account</span>
 				<input type="LoginEmail" placeholder="Email" />
 				<input type="LoginPassword" placeholder="Password" />
