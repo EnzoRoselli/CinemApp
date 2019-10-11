@@ -2,7 +2,7 @@
   <a href="" class="nav-title">
     <h2>CinemApp</h2>
   </a>
-  <form action="../process/searchMovie.php" method="GET">
+  <form action="../Controllers/searchMovie.php" method="GET">
     <div class="search-wrapper active">
       <div class="input-holder">
         <input name="title" type="text" class="search-input" placeholder="Type to search" />
@@ -12,7 +12,7 @@
 
     </div>
   </form>
-  <form action="../process/SearchMoviesWithFilters.php">
+  <form action="../views/SearchMoviesWithFilters.php">
     <button class="btn btn-light mr-4">
       <label for="">Búsqueda Avanzada</label>
   </form>

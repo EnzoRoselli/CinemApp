@@ -1,14 +1,20 @@
 <?php 
 
+
+require_once("../config/autoload.php");
+
+use config\autoload as Autoload;
+Autoload::Start();
+use Model\User as User;
+use DAO\UsersDAO as UsersList;
+session_start();
+$UsersList=new UsersList();
+
+
     if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
-        //Mandar los datos de los post a una query para corroborar
-        //Caso que acceda
-        if ($comprobationLogin) {
-            header('');//A la pagina principal
-        }else{
-            echo "<script> if(confirm('Error al ingresar los datos, vuelva a intentarlo !'));";  
-            echo "window.location = '../LoginSignup.php'; </script>";
-        }
+    $userLoging=new User($_POST['LoginEmail'],$_POST['LoginPassword']);//HACERLO IF LO DE ABAJO!! Y PONERLE EL SCRIPT AL SEGUNDO ARGUMENTO
+    $UsersList->Exists($userLoging) ?  header('../../views/AdminCine.php') : array_push($_SESSION['LoginErrors'],'Los datos ingresaos no coinciden') ;
+       
     }
 
 ?>

@@ -1,5 +1,6 @@
 <?php
 
+require_once("../config/autoload.php");
 use Config\Autoload as Autoload;
 Autoload::Start();
 
@@ -18,7 +19,7 @@ function moviesDateFilter($movieFunctions,$date)
 }
 
 if (isset($_GET['genres']) && isset($_GET['date'])) {  
-
+    
    
 $movies=moviesAPI::getMoviesFromApi();
 $MovieGenres=genresAPI::getGenres();
