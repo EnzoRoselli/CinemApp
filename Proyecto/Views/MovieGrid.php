@@ -20,11 +20,27 @@
 
         use DAO\InfoAPI\moviesAPI as moviesAPI;
 
+        
         $movies = moviesAPI::getMoviesFromApi();
+        
+
         for ($i = 0; $i < count($movies); $i++) {
             $poster = $movies[$i]->poster_path;
             ?>
-            <div class="block"><img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $poster; ?> class="imagen" ></div>
+            <div class="block">
+                <button class="card-image">
+                    <a href="">
+                    <img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $poster; ?> class="image">
+                    </a>
+                    
+                    
+                    <div class="overview">
+                        <h2><?php echo $movies[$i]->original_title;?></h2>
+                        <p><?php echo $movies[$i]->release_date;?></p>
+                    </div>
+                </button>
+
+            </div>
         <?php
         }
         ?>
@@ -33,3 +49,8 @@
 </body>
 
 </html>
+
+
+<h2><?php echo $movies[$i]->original_title . '(' . $movies[$i]->release_date . ')'  ; ?></h2>
+                        <p >Picos</p>
+                        <p>Lorem ipsum dolor</p>

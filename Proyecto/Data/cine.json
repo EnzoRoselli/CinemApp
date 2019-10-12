@@ -21,7 +21,7 @@
         "adress": "Villa",
         "capacity": "250",
         "ticketValue": "200",
-        "active": true
+        "active": false
     },
     {
         "id": 4,
@@ -101,6 +101,22 @@
         "adress": "Rusia",
         "capacity": "500",
         "ticketValue": "100",
+        "active": false
+    },
+    {
+        "id": 14,
+        "name": "",
+        "adress": "",
+        "capacity": "",
+        "ticketValue": "",
+        "active": false
+    },
+    {
+        "id": 15,
+        "name": "nuevo",
+        "adress": "nuevo",
+        "capacity": "10",
+        "ticketValue": "10",
         "active": false
     }
 ]
