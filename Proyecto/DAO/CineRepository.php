@@ -3,11 +3,11 @@
 namespace DAO;
 
 require_once("../Config/Autoload.php");
+include ('../Config/Constants/CineConstants.php');
+
 Use Config\Autoload as Autoload;
 use DAO\IRepository as IRepository;
 use Model\Cine as Cine;
-
-include ('../Config/Constants/CineConstants.php');
 
 Autoload::start();
 
@@ -169,16 +169,11 @@ class CineRepository implements IRepository
         }
     }
 
-    public function getAll()
-    {
+    public function getAll() {
   
-    $this->getData();
+        $this->getData();
+
         return $this->cineList;
-        // foreach ($this->cineList as $aux) {
-        //     echo '<pre>';
-        //     var_dump($aux);
-        //     echo '<pre>';
-        // }
     }
 
     public function fixId(Cine $cine){

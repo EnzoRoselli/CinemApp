@@ -78,5 +78,29 @@
         "capacity": "100",
         "ticketValue": "100",
         "active": true
+    },
+    {
+        "id": 11,
+        "name": "Dani",
+        "adress": "Catamarca",
+        "capacity": "2000",
+        "ticketValue": "50",
+        "active": true
+    },
+    {
+        "id": 12,
+        "name": "lightsoldier",
+        "adress": "Cordoba",
+        "capacity": "1000",
+        "ticketValue": "200",
+        "active": true
+    },
+    {
+        "id": 13,
+        "name": "Rubia",
+        "adress": "Rusia",
+        "capacity": "500",
+        "ticketValue": "100",
+        "active": false
     }
 ]

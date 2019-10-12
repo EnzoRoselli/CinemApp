@@ -120,7 +120,7 @@ if($_GET){
         <form class="modal-content" action="../Controllers/CineController.php" method="POST">
 
             <div class="modal-header">
-                <h5 class="modal-title">Registrar cine</h5>
+                <h5 class="modal-title">Registrar/Modificar cine</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
