@@ -8,7 +8,6 @@ Use Config\Autoload as Autoload;
 Use Model\Cine as Cine;
 Use DAO\CineRepository as daoCine;
 
-
 Autoload::start();
 
     
@@ -18,11 +17,11 @@ if($_POST){
 
     if($_POST[CINE_ID] !== ""){
 
-        $cineController->updateCinemaRegister();
+        $cineController->updateCinema();
 
     }else if($_POST[CINE_ID] == ""){
 
-        $cineController->createCinemaRegister();
+        $cineController->createCinema();
     }
 }
 
@@ -35,7 +34,7 @@ class CineController{
         $this->cineRepository = new daoCine();
     }
 
-    public function updateCinemaRegister(){
+    public function updateCinema(){
 
         $updatedId=$_POST[CINE_ID];
         $updatedName=$_POST[CINE_NAME];
@@ -56,7 +55,7 @@ class CineController{
         }
     }
 
-    public function createCinemaRegister(){
+    public function createCinema(){
         
 
         $name = $_POST[CINE_NAME];

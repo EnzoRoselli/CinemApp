@@ -29,7 +29,7 @@ use DAO\InfoAPI\genresAPI as genresAPI;
   <h1>Filtros</h1>
   <br>
   <h2>Generos<h2>
-      <form class="form" action="../Controllers/searchMoviesWithFilters.php" method="GET">
+      <form class="form" action="../Controllers/searchMovieWithFiltersController.php" method="GET">
         <table>
           <?php $genres = genresAPI::getGenres();
           for ($i = 0; $i < count($genres); $i++) {

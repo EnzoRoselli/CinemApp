@@ -3,12 +3,10 @@ namespace Views;
 
 require "../Config/Autoload.php";
 
-use config\autoload as autoload;
-autoload::Start();
-
+use config\autoload as Autoload;
 use DAO\InfoAPI\genresAPI as genresAPI;
 
-
+Autoload::Start();
 
 
 
@@ -24,7 +22,7 @@ use DAO\InfoAPI\genresAPI as genresAPI;
     <!-- <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet"> -->
   </head>
   <body>
-   <form class="form" action="../process/searchMoviesWithFilters.php" method="GET">
+   <form class="form" action="../process/searchMovieWithFiltersController.php" method="GET">
   
   <h1>Filtros</h1>
   <br>
