@@ -1,7 +1,7 @@
 <?php
 
 include('header.php');
-include('nav.php');
+// include('nav.php');
 
 require "../Config/Autoload.php";
 
@@ -31,8 +31,13 @@ if ($_GET) {
         $id = $_GET['update'];
 
         $cineUpdate = $cinesRepo->searchById($id);
+        ?>
+        <script>window.addEventListener("load",function(){
+	                overlay.classList.add('active');
+	                popup.classList.add('active');
+        })</script>
+        <?php
 
-        var_dump($cineUpdate->getCapacity());
     }
 }
 ?>
@@ -56,7 +61,7 @@ if ($_GET) {
     <main class="p-5">
         <div class="container">
             <h1 class="mb-5">Listado de cines</h1>
-            <button id="btn-abrir-popup" class="btn-abrir-popup">Nuevo Cine</button>
+            <button id="btn-abrir-popup">Nuevo Cine</button>
                 <div class="form-group mb-4">
                 </div>
                 <table class="table">
@@ -107,12 +112,14 @@ if ($_GET) {
 
     <div class="overlay" id="overlay">
         <div class="popup" id="popup">
-            <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+            <!-- <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a> -->
+            <a href="http://localhost/Proyecto/Views/AdminCine.php " class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+            
             <h3>Registrar/Modificar cine</h3>
 
             <form class="modal-content" action="../Controllers/CineController.php" method="POST">
                 <div class="contenedor-inputs">
-                    <input type="hidden" name=<?php echo CINE_ID ?> value=<?php if (isset($cineUpdate)) { echo $cineUpdate->getId();} else {echo null;} ?>>
+                    <input type="hidden" name=<?php echo CINE_ID ?> value=<?php if (isset($cineUpdate)) { echo $cineUpdate->getId();} ?>>
 
                     <div class="form-group">
                         <label>Nombre</label>
@@ -131,6 +138,7 @@ if ($_GET) {
                     <div class="form-group">
                         <label>Capacidad</label>
                         <input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> value=<?php if (isset($cineUpdate)) {
+                                                                                                                echo (int) $cineUpdate->getCapacity();
                                                                                                             } ?>>
                     </div>
 

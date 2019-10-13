@@ -76,13 +76,13 @@
         "name": "Flor",
         "adress": "Jujuy",
         "capacity": "100",
-        "ticketValue": "100",
+        "ticketValue": "200",
         "active": true
     },
     {
         "id": 11,
         "name": "Dani",
-        "adress": "Catamarca",
+        "adress": "Centro",
         "capacity": "2000",
         "ticketValue": "50",
         "active": true
@@ -117,6 +117,14 @@
         "adress": "nuevo",
         "capacity": "10",
         "ticketValue": "10",
+        "active": false
+    },
+    {
+        "id": 16,
+        "name": "Facu",
+        "adress": "Champagnat",
+        "capacity": "2000",
+        "ticketValue": "200",
         "active": false
     }
 ]
