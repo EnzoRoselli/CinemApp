@@ -56,6 +56,7 @@ if ($_GET) {
 				<th>Adress</th>
 				<th>Capacity</th>
 				<th>TicketValue</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>

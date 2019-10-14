@@ -13,7 +13,7 @@
   }
   
   .content-table thead tr {
-    background-color: #FF416C;
+    background: linear-gradient(#FF416C, #FF4B2B);
     color: #ffffff;
     text-align: left;
     font-weight: bold;
