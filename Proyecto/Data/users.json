@@ -33,5 +33,15 @@
         "email": "aba@b.b",
         "password": "b",
         "name": "facundo mateu"
+    },
+    {
+        "email": "w@w",
+        "password": "w",
+        "name": "www"
+    },
+    {
+        "email": "b@b",
+        "password": "b",
+        "name": "enzo"
     }
 ]

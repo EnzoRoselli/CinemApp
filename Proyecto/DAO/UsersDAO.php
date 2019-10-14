@@ -48,7 +48,7 @@ class UsersDAO
         UsersDAO::RetrieveData();
         if(!empty(UsersDAO::$UsersList)){
             for ($i=0; $i < count(UsersDAO::$UsersList); $i++) { 
-                if ($user->getEmail()==UsersDAO::$UsersList[$i]->getEmail() && $user->getPassword()()==UsersDAO::$UsersList[$i]->getPassword()){
+                if ($user->getEmail()==UsersDAO::$UsersList[$i]->getEmail() && $user->getPassword()==UsersDAO::$UsersList[$i]->getPassword()){
                     return UsersDAO::$UsersList[$i];
                 }
             }
