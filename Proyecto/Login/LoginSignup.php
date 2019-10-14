@@ -59,7 +59,7 @@ require 'app/fb_init.php';
 				} else {
 					$helper = $fb->getRedirectLoginHelper();
 					$permissions = []; // Optional permissions
-					$loginUrl = $helper->getLoginUrl('http://localhost/Final-Tp-Lab4/Proyecto/Login/login-callback.php', $permissions);
+					$loginUrl = $helper->getLoginUrl('http://localhost/Final-Tp-Lab4/Final-Tp-Lab4/Proyecto/Login/login-callback.php', $permissions);
 
 					echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
 				} ?>
