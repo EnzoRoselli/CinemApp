@@ -1,6 +1,8 @@
 <?php
-
 namespace Views;
+
+    include('header.php');
+    include('nav.php');
 
 require "../Config/Autoload.php";
 
@@ -24,11 +26,8 @@ use DAO\InfoAPI\genresAPI as genresAPI;
 </head>
 
 <body>
-
-
-  <h1>Filtros</h1>
   <br>
-  <h2>Generos<h2>
+<h1>Select your genres</h1>
       <form class="form" action="../Controllers/searchMovieWithFiltersController.php" method="GET">
         <table>
           <?php $genres = genresAPI::getGenres();
@@ -62,10 +61,10 @@ use DAO\InfoAPI\genresAPI as genresAPI;
         
         <button>Enviar</button>
       </form>
-      <div class='dateFilter'>
+      <!-- <div class='dateFilter'>
           <label for="date">Select Date:</label>
-          <input type="date"  min="<?php echo date('Y-m-d',strtotime(date('Y-m-d',time())));?>" name="date">         
-        </div>
+          <input type="date"  min="<?php /*echo date('Y-m-d',strtotime(date('Y-m-d',time())));*/?>" name="date">         
+        </div> -->
 
 
 </body>

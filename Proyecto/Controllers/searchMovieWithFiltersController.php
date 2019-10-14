@@ -1,5 +1,7 @@
 <?php
 
+include('../views/header.php');
+include('../views/nav.php');
 require_once("../config/autoload.php");
 use Config\Autoload as Autoload;
 use DAO\InfoAPI\genresAPI as genresAPI;
