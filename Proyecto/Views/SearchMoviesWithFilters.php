@@ -27,7 +27,9 @@ use DAO\InfoAPI\genresAPI as genresAPI;
 
 <body>
   <br>
-<h1>Select your genres</h1>
+  <PRE>   <h1>             Select your genres</h1></PRE>
+
+  <div>
       <form class="form" action="../Controllers/searchMovieWithFiltersController.php" method="GET">
         <table>
           <?php $genres = genresAPI::getGenres();
@@ -35,8 +37,7 @@ use DAO\InfoAPI\genresAPI as genresAPI;
             $genreName = $genres[$i]->name; ?>
             <tr>
               <td>
-
-                <div class='inputGroup'>
+                <div class='inputGroup' id="first-input">
                   <input value=<?php echo "$genreName"; ?> id=<?php echo "$genreName"; ?> name="genres[]" type='checkbox' />
 
                   <label for=<?php echo "$genreName"; ?>> <?php echo "$genreName"; ?> </label>
@@ -49,7 +50,7 @@ use DAO\InfoAPI\genresAPI as genresAPI;
               $genreName = $genres[($i += 1)]->name;
               ?>
             <td>
-              <div class='inputGroup'>
+              <div class='inputGroup'  id="second-input">
                 <input value=<?php echo "$genreName"; ?> id=<?php echo "$genreName"; ?> name="genres[]" type='checkbox' />
                 <label for=<?php echo "$genreName"; ?>> <?php echo "$genreName"; ?> </label>
               </div>
@@ -59,8 +60,9 @@ use DAO\InfoAPI\genresAPI as genresAPI;
         } ?>
         </table>
         
-        <button>Enviar</button>
+        <button id="btn-searchWithFilters">Filter</button>
       </form>
+      </div>
       <!-- <div class='dateFilter'>
           <label for="date">Select Date:</label>
           <input type="date"  min="<?php /*echo date('Y-m-d',strtotime(date('Y-m-d',time())));*/?>" name="date">         

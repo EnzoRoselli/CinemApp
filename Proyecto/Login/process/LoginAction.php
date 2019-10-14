@@ -7,8 +7,8 @@ use Config\Autoload as Autoload;
 Autoload::Start();
 use Model\User as User;
 use DAO\UsersDAO as UsersList;
-
 session_start();
+
 
 
     if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
@@ -19,10 +19,8 @@ session_start();
     $UserInfo=$UsersList->ExistsLogin($userLoging);
 
     if ($UserInfo!=false) {
-
         $_SESSION['loggedUser']=$UserInfo->getName();
-
-
+        
         echo "<script> alert('Logeo exitoso!');" ;    
         echo "window.location= '../../views/home.php'; </script> ";
 

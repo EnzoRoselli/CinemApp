@@ -206,7 +206,7 @@ button {
   display: block;
   margin: 10px 0;
   position: relative;
-  width: 216px;
+  width: 240px;
 }
 
 .inputGroup label {
@@ -303,4 +303,19 @@ html {
 code {
   background-color: #9aa3ac;
   padding: 0 8px;
+}
+
+/*LOS INPUTS Y BOTONES DE LOS FILTROS*/
+#first-input{
+  background: rgb(182, 104, 104);
+}
+#second-input{
+  background: #906c8a;
+}
+#btn-searchWithFilters{
+  background-color: white;
+  color: black;
+  border: 2px solid rgb(0, 0, 0); 
+  height: 40px;
+  width: 90px;
 }

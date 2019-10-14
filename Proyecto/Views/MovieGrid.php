@@ -29,7 +29,7 @@
             ?>
             <div class="block">
                 <button class="card-image">
-                    <a href="">
+                    <a href="#">
                     <img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $poster; ?> class="image">
                     </a>
                     

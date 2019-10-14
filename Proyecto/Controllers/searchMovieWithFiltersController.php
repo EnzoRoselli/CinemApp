@@ -77,33 +77,41 @@ class SearchMoviesWithFiltersController{
     <title>Document</title>
 </head>
 
-<body>
+<body><?php 
+    $searchMoviesFilterDateController= new SearchMoviesWithFiltersController();
+    $moviesWithGenres=  $searchMoviesFilterDateController->searchByGenres();
+if (!empty($moviesWithGenres)) {?>
     <div class="container">
-        <?php
-        $searchMoviesFilterDateController= new SearchMoviesWithFiltersController();
-        $moviesWithGenres=  $searchMoviesFilterDateController->searchByGenres();
-        for ($i = 0; $i < count($moviesWithGenres); $i++) {
-            $poster = $moviesWithGenres[$i]->poster_path;
-            ?>
-            <div class="block">
-                <button class="card-image">
-                    <a href="">
-                    <img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $poster; ?> class="image">
-                    </a>
-                    
-                    
-                    <div class="overview">
-                        <h2><?php echo $moviesWithGenres[$i]->original_title;?></h2>
-                        <p><?php echo $moviesWithGenres[$i]->release_date;?></p>
-                    </div>
-                </button>
+    <?php
 
-            </div>
-        <?php
-        }
+   
+    for ($i = 0; $i < count($moviesWithGenres); $i++) {
+        $poster = $moviesWithGenres[$i]->poster_path;
         ?>
+        <div class="block">
+            <button class="card-image">
+                <a href="">
+                <img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $poster; ?> class="image">
+                </a>
+                
+                
+                <div class="overview">
+                    <h2><?php echo $moviesWithGenres[$i]->original_title;?></h2>
+                    <p><?php echo $moviesWithGenres[$i]->release_date;?></p>
+                </div>
+            </button>
 
-    </div>
+        </div>
+    <?php
+    }
+    ?>
+
+</div>
+   <?php }else{
+               echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');" ; 
+               echo "window.location= '../views/home.php'; </script> ";
+   } ?>
+    
 </body>
 
 </html>
