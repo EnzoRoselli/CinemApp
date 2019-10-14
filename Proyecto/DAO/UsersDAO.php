@@ -31,7 +31,7 @@ class UsersDAO
 
    
 
-    public function Exists(User $user){
+    public function ExistsRegister(User $user){
         UsersDAO::RetrieveData();
         if(!empty(UsersDAO::$UsersList)){
             for ($i=0; $i < count(UsersDAO::$UsersList); $i++) { 
@@ -44,6 +44,18 @@ class UsersDAO
         
     }
 
+    public function ExistsLogin(User $user){
+        UsersDAO::RetrieveData();
+        if(!empty(UsersDAO::$UsersList)){
+            for ($i=0; $i < count(UsersDAO::$UsersList); $i++) { 
+                if ($user->getEmail()==UsersDAO::$UsersList[$i]->getEmail() && $user->getPassword()()==UsersDAO::$UsersList[$i]->getPassword()){
+                    return UsersDAO::$UsersList[$i];
+                }
+            }
+        }
+            return false;
+        
+    }
     static private function SaveData()
     {
         $arrayToEncode = array();

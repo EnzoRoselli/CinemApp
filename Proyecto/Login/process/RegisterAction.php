@@ -15,13 +15,13 @@ use DAO\UsersDAO as UsersList;
         $newUser->setName($_POST['SignupName']);
 
         $UserInfo=$UsersList->Exists($newUser);
-        if ( $UserInfo==false) {
+        if ( $UserInfo!=false) {
             echo "<script> alert('El usuario que intenta registrar ya se encuentra!');" ; 
             echo "window.location= '../LoginSignup.php'; </script> ";
         }else {
             $UsersList->add($newUser);
             echo "<script> alert('Se creó el usuario correctamente!');" ; 
-            $_SESSION['logggedUser']=$UserInfo->getName();;
+            $_SESSION['loggedUser']=$UserInfo->getName();;
             echo "window.location= '../../views/home.php'; </script> ";
         }
           

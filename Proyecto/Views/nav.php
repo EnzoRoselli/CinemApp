@@ -20,7 +20,14 @@
   <form action="../views/AdminCine.php">
       <button class="btn btn-light mr-4" id="btn-cine">Cine</button>
   </form>
-
+<?php session_start();
+if (isset($_SESSION['loggedUser'])) {?>
+  <div class="logSign"> 
+        <p><?php echo $_SESSION['loggedUser']?></p>  
+  </div>
+  <?php
+}
+?>
   <div class="logSign">
     <form action="../Login/LoginSignup.php">
         <button class="btn btn-light mr-4" id="btn-Log-in">Log-in | Sign-up</button>

@@ -18,7 +18,7 @@ session_start();
     $UserInfo=$UsersList->Exists($newUser);
     if ($UserInfo!=false) {
         echo "<script> alert('Logeo exitoso!');" ; 
-        $_SESSION['logggedUser']=$UserInfo->getName();;
+        $_SESSION['loggedUser']=$UserInfo->getName();;
         echo "window.location= '../../views/home.php'; </script> ";
     }else {
         echo "<script> alert('Los datos ingresados no concuerdan!');" ; 
