@@ -135,7 +135,7 @@ if ($_GET) {
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-med btn-light" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-med btn-light" data-dismiss="modal" id="btn-cerrar-popup">Cancelar</button>
 				<button type="submit" class="btn btn-med btn-light">Aceptar</button>
 			</div>
 		</form>

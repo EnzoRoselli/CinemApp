@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="../views/css/style.css">
     <link rel="stylesheet" href="../views/css/cineView.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-
+    <link rel="stylesheet" href="../views/css/table.css">
 
     <script src='js/SearchMovie.js'></script>
     <title>CinemApp</title>
