@@ -19,8 +19,15 @@ session_start();
             echo "<script> alert('El usuario que intenta registrar ya se encuentra!');" ; 
             echo "window.location= '../LoginSignup.php'; </script> ";
         }else {
+
+
+            
             $UsersList->add($newUser);
             $_SESSION['loggedUser']=$UserInfo->getName();
+
+
+
+
             echo "<script> alert('Se creó el usuario correctamente!');" ; 
             echo "window.location= '../../views/home.php'; </script> ";
             

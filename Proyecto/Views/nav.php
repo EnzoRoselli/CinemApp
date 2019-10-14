@@ -21,9 +21,15 @@
       <button class="btn btn-light mr-4" id="btn-cine">Cine</button>
   </form>
 <?php session_start();
+if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
+  session_destroy();
+  header("Location:".$link .= $_SERVER['REQUEST_URI']);
+}
+
 if (isset($_SESSION['loggedUser'])) {?>
   <div class="loggedUser"> 
         <p><?php  echo substr(strtoupper($_SESSION['loggedUser']), 0, 8); ?></p>     
+        <a href="../views/Home.php?delete=1">Log out</a>
   </div>
   <?php
 }else{
