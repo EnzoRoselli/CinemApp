@@ -43,5 +43,10 @@
         "email": "b@b",
         "password": "b",
         "name": "enzo"
+    },
+    {
+        "email": "f@f",
+        "password": "f",
+        "name": "facu"
     }
 ]
