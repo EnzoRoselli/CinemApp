@@ -7,7 +7,7 @@ use Config\Autoload as Autoload;
 Autoload::Start();
 use Model\User as User;
 use DAO\UsersDAO as UsersList;
-
+session_start();
 
 
     if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
@@ -15,9 +15,10 @@ use DAO\UsersDAO as UsersList;
     $userLoging=new User($_POST['LoginEmail'],$_POST['LoginPassword']);
 
     $UsersList=new UsersList();
-
-    if ($UsersList->Exists($userLoging)) {
+    $UserInfo=$UsersList->Exists($newUser);
+    if ($UserInfo!=false) {
         echo "<script> alert('Logeo exitoso!');" ; 
+        $_SESSION['logggedUser']=$UserInfo->getName();;
         echo "window.location= '../../views/home.php'; </script> ";
     }else {
         echo "<script> alert('Los datos ingresados no concuerdan!');" ; 

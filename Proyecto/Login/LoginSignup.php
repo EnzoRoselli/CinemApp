@@ -28,7 +28,7 @@ require 'app/fb_init.php';
 
 				</div>
 				<!-- <span>or use your email for registration</span> -->
-				<!-- <input name="SignupName" type="text" placeholder="Name" /> -->
+				<input name="SignupName" type="text" placeholder="Name" />
 				<input name="SignupEmail" type="email" placeholder="Email" />
 				<input name="SignupPassword" type="SignupPassword" placeholder="Password" />
 				<button>Sign Up</button>

@@ -34,10 +34,14 @@ class UsersDAO
     public function Exists(User $user){
         UsersDAO::RetrieveData();
         if(!empty(UsersDAO::$UsersList)){
-            return in_array($user,UsersDAO::$UsersList) ;
-        }else {
-            return false;
+            for ($i=0; $i < count(UsersDAO::$UsersList); $i++) { 
+                if ($user->getEmail()==UsersDAO::$UsersList[$i]->getEmail()){
+                    return UsersDAO::$UsersList[$i];
+                }
+            }
         }
+            return false;
+        
     }
 
     static private function SaveData()
