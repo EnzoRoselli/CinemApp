@@ -1,19 +1,19 @@
 <nav class="nav-container">
-  <a href="../views/Home.php" class="nav-title">
+  <a href="./Home.php" class="nav-title">
     <h2>CinemApp</h2>
   </a>
-  <form action="../Controllers/SearchMovie.php" method="GET">
+  <form action="../Controllers/SearchMoviesWithFilters.php" method="GET">
     <div class="search-wrapper active">
       <div class="input-holder">
         <input name="title" type="text" class="search-input" placeholder="Type to search"/>
         <button class="search-icon">
-      <img src="../views/img/search-32.png" alt=""></button>
+      <img src="./img/search-32.png" alt=""></button>
       </div>
 
     </div>
   </form>
 
-  <form action="../views/SearchMoviesWithFilters.php">
+  <form action="SearchMoviesWithFilters.php">
       <button class="btn btn-light mr-4" id="btn-filter">Browse</button>
   </form>
 

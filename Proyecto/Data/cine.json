@@ -77,7 +77,7 @@
         "adress": "Jujuy",
         "capacity": "100",
         "ticketValue": "200",
-        "active": true
+        "active": false
     },
     {
         "id": 11,
@@ -126,5 +126,21 @@
         "capacity": "2000",
         "ticketValue": "200",
         "active": false
+    },
+    {
+        "id": 17,
+        "name": "nuevo",
+        "adress": "dir1",
+        "capacity": "500",
+        "ticketValue": "5000",
+        "active": true
+    },
+    {
+        "id": 18,
+        "name": "nuevo2",
+        "adress": "dir2",
+        "capacity": "500",
+        "ticketValue": "50",
+        "active": true
     }
 ]
