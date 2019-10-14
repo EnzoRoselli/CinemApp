@@ -1,9 +1,9 @@
 <?php 
 
 
-require_once("../config/autoload.php");
+require_once("../../Config/Autoload.php");
 
-use config\autoload as Autoload;
+use Config\Autoload as Autoload;
 Autoload::Start();
 use Model\User as User;
 use DAO\UsersDAO as UsersList;

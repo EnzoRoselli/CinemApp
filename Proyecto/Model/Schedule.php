@@ -1,7 +1,6 @@
 <?php
 namespace Model;
 
-require_once("../Config/Autoload.php");
 
 class Schedule{
 

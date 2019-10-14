@@ -1,13 +1,9 @@
 <?php 
+
 namespace DAO;
 
-require "../Config/Autoload.php";
 
-use config\autoload as autoload;
-
-autoload::Start();
 use Model\User as User;
-
 
 class UsersDAO  
 {
@@ -20,7 +16,7 @@ class UsersDAO
     public function GetAll(){
         UsersDAO::RetrieveData();
 
-        return UsersDAO::$usersList;
+        return UsersDAO::$UsersList;
     }
 
 
@@ -28,23 +24,30 @@ class UsersDAO
     {
             
         UsersDAO::RetrieveData();
-        array_push(UsersDAO::$usersList,$user);
+        array_push(UsersDAO::$UsersList,$user);
         UsersDAO::SaveData();
     }
 
-    static public function Exists(User $user)
-    {
-        return in_array($user,UsersDAO::$usersList) ;
+   
+
+    public function Exists(User $user){
+        $this->RetrieveData();
+        
+        if(!empty($this->userList)){
+            return in_array($user,UsersDAO::$UsersList) ;
+        }else {
+            return false;
+        }
     }
 
     static private function SaveData()
     {
         $arrayToEncode = array();
 
-        foreach(UsersDAO::$usersList as $user)
+        foreach(UsersDAO::$UsersList as $user)
         {
-            $valuesArray["email"] = $user->getLastName();
-            $valuesArray["password"] = $user->getDni();
+            $valuesArray["email"] = $user->getEmail();
+            $valuesArray["password"] = $user->getPassword();
             array_push($arrayToEncode, $valuesArray);
         }
 
@@ -53,9 +56,9 @@ class UsersDAO
         file_put_contents('../Data/users.json', $jsonContent);
     }
 
-    private function RetrieveData()
+   static private function RetrieveData()
     {
-        UsersDAO::$usersList = array();
+        UsersDAO::$UsersList = array();
 
         if(file_exists('../Data/users.json'))
         {
@@ -66,7 +69,7 @@ class UsersDAO
             foreach($arrayToDecode as $valuesArray)
             {
                 $user = new User($valuesArray["email"], $valuesArray["password"]);
-                array_push(UsersDAO::$usersList, $user);
+                array_push(UsersDAO::$UsersList, $user);
             }
         }
     }

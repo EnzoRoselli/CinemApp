@@ -21,53 +21,53 @@ require 'app/fb_init.php';
 	<h2>CinemApp</h2>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
-			<form action="process/RegisterAction.php">
+			<form action="process/RegisterAction.php" method="POST">
 				<h1>Create Account</h1>
 				<div class="social-container">
 					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> -->
 
 				</div>
 				<!-- <span>or use your email for registration</span> -->
+				<!-- <input name="SignupName" type="text" placeholder="Name" /> -->
 				<input name="SignupEmail" type="email" placeholder="Email" />
-				<input type="SignupPassword" placeholder="Password" />
+				<input name="SignupPassword" type="SignupPassword" placeholder="Password" />
 				<button>Sign Up</button>
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
-			<form action="process/LoginAction.php">
+			<form action="process/LoginAction.php" method="POST">
 				<h1>Log in</h1>
 				<!-- <div class="social-container"> -->
 
-					<?php
-					if (isset($_SESSION['facebook_access_token'])) { 
-						$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
-						try {
-							$response=$fb->get('/me');
-							$userNode = $response->getGraphUser();
-						} catch (Facebook\Exceptions\FacebookResponseException $e) {
-							echo "graph returned an error: ". $e->getMessage();
-							exit;
-						}catch(Facebook\Exceptions\FacebookSDKException $e){
-							echo "SDK returned an error: ". $e->getMessage();
-							exit;
+				<?php
+				if (isset($_SESSION['facebook_access_token'])) {
+					$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+					try {
+						$response = $fb->get('/me');
+						$userNode = $response->getGraphUser();
+					} catch (Facebook\Exceptions\FacebookResponseException $e) {
+						echo "graph returned an error: " . $e->getMessage();
+						exit;
+					} catch (Facebook\Exceptions\FacebookSDKException $e) {
+						echo "SDK returned an error: " . $e->getMessage();
+						exit;
+					}
 
-						}
-					
-					
-					echo "Logged in as ". $userNode->getName();
+
+					echo "Logged in as " . $userNode->getName();
 					echo '<br/> <a href="logout.php"> Log out</a>';
-				}
-					else {
-						$helper = $fb->getRedirectLoginHelper();
-						$permissions = []; // Optional permissions
-						$loginUrl = $helper->getLoginUrl('http://localhost/Final-Tp-Lab4/Proyecto/Login/login-callback.php', $permissions);
+				} else {
+					$helper = $fb->getRedirectLoginHelper();
+					$permissions = []; // Optional permissions
+					$loginUrl = $helper->getLoginUrl('http://localhost/Final-Tp-Lab4/Proyecto/Login/login-callback.php', $permissions);
 
-						echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
-					} ?>
+					echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
+				} ?>
+
 				<!-- </div> -->
 				<span>or use your account</span>
-				<input type="LoginEmail" placeholder="Email" />
-				<input type="LoginPassword" placeholder="Password" />
+				<input name="LoginEmail" type="LoginEmail" placeholder="Email" />
+				<input name="LoginPassword" type="LoginPassword" placeholder="Password" />
 				<a href="ForgotPassword.html">Forgot your password?</a>
 				<button>Log In</button>
 			</form>

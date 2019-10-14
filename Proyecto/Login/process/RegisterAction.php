@@ -1,6 +1,6 @@
 <?php
 
-require_once("../config/autoload.php");
+require_once("../../config/autoload.php");
 
 use config\autoload as Autoload;
 Autoload::Start();
@@ -10,18 +10,16 @@ use DAO\UsersDAO as UsersList;
 
 
     if (isset($_POST['SignupEmail']) && isset($_POST['SignupPassword'])){
-    
-        $newUser=new User($_POST['SingupEmail'],$_POST['SignupPassword']);
-        
         $UsersList=new UsersList();
+        $newUser=new User($_POST['SignupEmail'],$_POST['SignupPassword']);     
         
         if ( $UsersList->Exists($newUser)) {
-            echo "<script> alert('El usuario que intenta registrar ya se encuentra!');" ; 
-            echo "window.location= '../LoginSignup.php'; </script> ";
+            echo "<script> alert('El usuario que intenta registrar ya se encuentra!');</script>" ; 
+            //echo "window.location= '../LoginSignup.php'; </script> ";
         }else {
             $UsersList->add($newUser);
-            echo "<script> alert('Se creó el usuario correctamente!');" ; 
-            echo "window.location= '../LoginSignup.php'; </script> ";
+            echo "<script> alert('Se creó el usuario correctamente!');</script>" ; 
+           // echo "window.location= '../LoginSignup.php'; </script> ";
         }
           
 
