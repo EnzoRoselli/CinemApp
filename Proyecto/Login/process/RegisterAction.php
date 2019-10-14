@@ -7,11 +7,14 @@ Autoload::Start();
 use Model\User as User;
 use DAO\UsersDAO as UsersList;
 
-    if (isset($_POST['SignupName']) && isset($_POST['SignupEmail']) && isset($_POST['SignupPassword'])){
+
+
+    if (isset($_POST['SignupEmail']) && isset($_POST['SignupPassword'])){
     
         $newUser=new User($_POST['SingupEmail'],$_POST['SignupPassword']);
-        $newUser->setName($_POST['SignupName']);
+        
         $UsersList=new UsersList();
+        
         if ( $UsersList->Exists($newUser)) {
             echo "<script> alert('El usuario que intenta registrar ya se encuentra!');" ; 
             echo "window.location= '../LoginSignup.php'; </script> ";

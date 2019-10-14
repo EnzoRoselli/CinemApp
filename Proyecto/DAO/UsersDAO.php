@@ -12,47 +12,63 @@ use Model\User as User;
 class UsersDAO  
 {
     static private $UsersList=array();
+
     public function __construct() {
        
     }
 
     public function GetAll(){
-        $this->RetrieveData();
+        UsersDAO::RetrieveData();
 
-        return $this->userList;
+        return UsersDAO::$usersList;
     }
 
 
     static public function Add(User $user)
     {
             
-        $this->RetrieveData();
-        array_push($this->UsersList,$user);
-        $this->SaveData();
+        UsersDAO::RetrieveData();
+        array_push(UsersDAO::$usersList,$user);
+        UsersDAO::SaveData();
     }
 
     static public function Exists(User $user)
     {
-        return in_array($user,$this->UsersList) ;
+        return in_array($user,UsersDAO::$usersList) ;
     }
 
     static private function SaveData()
     {
         $arrayToEncode = array();
 
-        foreach(UsersDAO::$userList as $user)
+        foreach(UsersDAO::$usersList as $user)
         {
-            $valuesArray["name"] = $user->getFirstName();
             $valuesArray["email"] = $user->getLastName();
             $valuesArray["password"] = $user->getDni();
-
-
             array_push($arrayToEncode, $valuesArray);
         }
 
         $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
         
         file_put_contents('../Data/users.json', $jsonContent);
+    }
+
+    private function RetrieveData()
+    {
+        UsersDAO::$usersList = array();
+
+        if(file_exists('../Data/users.json'))
+        {
+            $jsonContent = file_get_contents('../Data/users.json');
+
+            $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
+
+            foreach($arrayToDecode as $valuesArray)
+            {
+                $user = new User($valuesArray["email"], $valuesArray["password"]);
+                array_push(UsersDAO::$usersList, $user);
+            }
+        }
     }
 
 

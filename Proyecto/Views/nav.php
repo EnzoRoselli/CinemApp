@@ -13,7 +13,7 @@
     </div>
   </form>
 
-  <form action="../views/SearchMovieWithFiltersController.php">
+  <form action="../views/SearchMoviesWithFiltersController.php">
       <button class="btn btn-light mr-4" id="btn-filter">Browse</button>
   </form>
 

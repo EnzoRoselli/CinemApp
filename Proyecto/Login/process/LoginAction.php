@@ -7,14 +7,27 @@ use config\autoload as Autoload;
 Autoload::Start();
 use Model\User as User;
 use DAO\UsersDAO as UsersList;
-session_start();
-$UsersList=new UsersList();
+
 
 
     if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
-    $userLoging=new User($_POST['LoginEmail'],$_POST['LoginPassword']);//HACERLO IF LO DE ABAJO!! Y PONERLE EL SCRIPT AL SEGUNDO ARGUMENTO
-    $UsersList->Exists($userLoging) ?  header('../../views/AdminCine.php') : array_push($_SESSION['LoginErrors'],'Los datos ingresaos no coinciden') ;
+
+    $userLoging=new User($_POST['LoginEmail'],$_POST['LoginPassword']);
+
+    $UsersList=new UsersList();
+
+    if ($UsersList->Exists($userLoging)) {
+        echo "<script> alert('Logeo exitoso!');" ; 
+        echo "window.location= '../../views/home.php'; </script> ";
+    }else {
+        echo "<script> alert('Los datos ingresados no concuerdan!');" ; 
+        echo "window.location= '../LoginSignup.php'; </script> ";
+    }
+   
        
+    }else {
+        echo "<script> alert('Complete todos los campos!');" ; 
+        echo "window.location= '../LoginSignup.php'; </script> ";
     }
 
 ?>
