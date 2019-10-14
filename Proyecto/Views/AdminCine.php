@@ -42,22 +42,6 @@ if ($_GET) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/cineView.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-    <title>CineView</title>
-</head>
-<body>
-    
-</body>
-</html>
-
-
     <main class="p-5">
         <div class="container">
             <h1 class="mb-5">Listado de cines</h1>
@@ -113,7 +97,7 @@ if ($_GET) {
     <div class="overlay" id="overlay">
         <div class="popup" id="popup">
             <!-- <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a> -->
-            <a href="http://localhost/Proyecto/Views/AdminCine.php " class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+            <a href="./AdminCine.php" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
             
             <h3>Registrar/Modificar cine</h3>
 
