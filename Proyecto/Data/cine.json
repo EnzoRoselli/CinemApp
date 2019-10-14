@@ -83,7 +83,7 @@
         "id": 11,
         "name": "Dani",
         "adress": "Centro",
-        "capacity": "2000",
+        "capacity": "5000",
         "ticketValue": "50",
         "active": true
     },

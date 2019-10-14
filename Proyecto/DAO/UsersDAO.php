@@ -5,6 +5,7 @@ namespace DAO;
 
 use Model\User as User;
 
+
 class UsersDAO  
 {
     static private $UsersList=array();
@@ -32,8 +33,7 @@ class UsersDAO
 
     public function Exists(User $user){
         $this->RetrieveData();
-        
-        if(!empty($this->userList)){
+        if(!empty(UsersDAO::$UsersList)){
             return in_array($user,UsersDAO::$UsersList) ;
         }else {
             return false;
@@ -53,16 +53,16 @@ class UsersDAO
 
         $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
         
-        file_put_contents('../Data/users.json', $jsonContent);
+        file_put_contents('../../Data/users.json', $jsonContent);
     }
 
    static private function RetrieveData()
     {
         UsersDAO::$UsersList = array();
 
-        if(file_exists('../Data/users.json'))
+        if(file_exists('../../Data/users.json'))
         {
-            $jsonContent = file_get_contents('../Data/users.json');
+            $jsonContent = file_get_contents('../../Data/users.json');
 
             $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
