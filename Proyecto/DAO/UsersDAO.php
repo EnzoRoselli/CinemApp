@@ -32,7 +32,7 @@ class UsersDAO
    
 
     public function Exists(User $user){
-        $this->RetrieveData();
+        UsersDAO::RetrieveData();
         if(!empty(UsersDAO::$UsersList)){
             return in_array($user,UsersDAO::$UsersList) ;
         }else {

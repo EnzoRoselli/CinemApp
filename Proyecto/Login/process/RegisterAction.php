@@ -14,12 +14,12 @@ use DAO\UsersDAO as UsersList;
         $newUser=new User($_POST['SignupEmail'],$_POST['SignupPassword']);     
         
         if ( $UsersList->Exists($newUser)) {
-            echo "<script> alert('El usuario que intenta registrar ya se encuentra!');</script>" ; 
-            //echo "window.location= '../LoginSignup.php'; </script> ";
+            echo "<script> alert('El usuario que intenta registrar ya se encuentra!');" ; 
+            echo "window.location= '../LoginSignup.php'; </script> ";
         }else {
             $UsersList->add($newUser);
-            echo "<script> alert('Se creó el usuario correctamente!');</script>" ; 
-           // echo "window.location= '../LoginSignup.php'; </script> ";
+            echo "<script> alert('Se creó el usuario correctamente!');" ; 
+            echo "window.location= '../LoginSignup.php'; </script> ";
         }
           
 
