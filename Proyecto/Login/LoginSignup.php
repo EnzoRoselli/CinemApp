@@ -55,6 +55,9 @@ require 'app/fb_init.php';
 
 
 					echo "Logged in as " . $userNode->getName();
+					session_start();
+					$_SESSION['loggedUser']=$userNode->getName();
+					header("Location: ../views/home.php");
 					echo '<br/> <a href="logout.php"> Log out</a>';
 				} else {
 					$helper = $fb->getRedirectLoginHelper();
