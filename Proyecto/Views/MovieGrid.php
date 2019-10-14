@@ -49,8 +49,3 @@
 </body>
 
 </html>
-
-
-<h2><?php echo $movies[$i]->original_title . '(' . $movies[$i]->release_date . ')'  ; ?></h2>
-                        <p >Picos</p>
-                        <p>Lorem ipsum dolor</p>

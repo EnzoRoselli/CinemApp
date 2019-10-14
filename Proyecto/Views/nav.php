@@ -5,7 +5,7 @@
   <form action="../Controllers/searchMovieController.php" method="GET">
     <div class="search-wrapper active">
       <div class="input-holder">
-        <input name="title" type="text" class="search-input" placeholder="Type to search" />
+        <input name="title" type="text" class="search-input" placeholder="Type to search"/>
         <button class="search-icon">
       <img src="./img/search-32.png" alt=""></button>
       </div>
