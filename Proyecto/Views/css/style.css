@@ -148,7 +148,20 @@ button {
   left: 520%;
   top: 25%;
 }
+#btn-abrir-popup{
+ background-color: transparent;
+ border: none;
+ border-radius: 50px;
+ transition: .3s ease all;
+}
 
+#btn-abrir-popup:hover{
+  background-color: #FF416C;
+  
+  transition: .3s ease all;
+  
+ }
+ 
 .btn:hover {
   background-color: rgb(226, 220, 220);
   border: 1px solid;
