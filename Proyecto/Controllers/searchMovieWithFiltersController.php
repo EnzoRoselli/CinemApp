@@ -56,12 +56,52 @@ class SearchMoviesWithFiltersController{
     public function searchByGenres(){
 
         $movies=moviesAPI::getMoviesFromApi();
-        $MovieGenres=genresAPI::getGenres();
         $Genres=$_GET['genres'];  
         $moviesWithGenres=moviesAPI::getMovieForGenres($Genres,$movies);
-        var_dump($moviesWithGenres);
+        return $moviesWithGenres;
     }
 }
 
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../views/css/GridStyle.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <?php
+        $searchMoviesFilterDateController= new SearchMoviesWithFiltersController();
+        $moviesWithGenres=  $searchMoviesFilterDateController->searchByGenres();
+        for ($i = 0; $i < count($moviesWithGenres); $i++) {
+            $poster = $moviesWithGenres[$i]->poster_path;
+            ?>
+            <div class="block">
+                <button class="card-image">
+                    <a href="">
+                    <img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $poster; ?> class="image">
+                    </a>
+                    
+                    
+                    <div class="overview">
+                        <h2><?php echo $moviesWithGenres[$i]->original_title;?></h2>
+                        <p><?php echo $moviesWithGenres[$i]->release_date;?></p>
+                    </div>
+                </button>
+
+            </div>
+        <?php
+        }
+        ?>
+
+    </div>
+</body>
+
+</html>
