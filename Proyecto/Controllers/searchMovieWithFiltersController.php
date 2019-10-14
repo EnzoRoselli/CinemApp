@@ -58,7 +58,7 @@ class SearchMoviesWithFiltersController{
         $movies=moviesAPI::getMoviesFromApi();
         $MovieGenres=genresAPI::getGenres();
         $Genres=$_GET['genres'];  
-        $moviesWithGenres=moviesAPI::getMovieForGenres($Genres,$movies);//Retornaria estas peliculas
+        $moviesWithGenres=moviesAPI::getMovieForGenres($Genres,$movies);
         var_dump($moviesWithGenres);
     }
 }

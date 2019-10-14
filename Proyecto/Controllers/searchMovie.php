@@ -7,13 +7,13 @@ Autoload::Start();
 
 use DAO\InfoAPI\moviesAPI as moviesAPI;
 
-$moviesAPI=new moviesAPI();
+
 
 if (isset($_GET['title'])){
     $title=$_GET['title'];
-    $allMoviesAPI=$moviesAPI->getMoviesFromApi();
+    $allMoviesAPI=moviesAPI::getMoviesFromApi();
    
-    $comprobationMovie=$moviesAPI->searchMovieByTitle($allMoviesAPI,$title);
+    $comprobationMovie=moviesAPI::searchMovieByTitle($allMoviesAPI,$title);
     if ($comprobationMovie!=null) {
         echo "<script> alert('Se encontró la pelicula ingresada!');" ;
 
