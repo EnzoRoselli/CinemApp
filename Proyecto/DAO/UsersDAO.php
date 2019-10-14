@@ -36,11 +36,11 @@ class UsersDAO
         if(!empty(UsersDAO::$UsersList)){
             for ($i=0; $i < count(UsersDAO::$UsersList); $i++) { 
                 if ($user->getEmail()==UsersDAO::$UsersList[$i]->getEmail()){
-                    return UsersDAO::$UsersList[$i];
+                    return false;
                 }
             }
         }
-            return false;
+            return $user;
         
     }
 
@@ -64,6 +64,7 @@ class UsersDAO
         {
             $valuesArray["email"] = $user->getEmail();
             $valuesArray["password"] = $user->getPassword();
+            $valuesArray['name']=$user->getName();
             array_push($arrayToEncode, $valuesArray);
         }
 
@@ -85,6 +86,7 @@ class UsersDAO
             foreach($arrayToDecode as $valuesArray)
             {
                 $user = new User($valuesArray["email"], $valuesArray["password"]);
+                $user->setName($valuesArray["name"]);
                 array_push(UsersDAO::$UsersList, $user);
             }
         }

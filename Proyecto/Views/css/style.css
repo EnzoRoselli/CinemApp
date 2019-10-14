@@ -61,6 +61,7 @@ nav {
   position: absolute;
   top: 0px;
   left: 0px;
+  width: 100%;
   background: transparent;
   box-sizing: border-box;
   border: none;
@@ -161,7 +162,29 @@ button {
   left: 29%;
   top: 25%;
 }
+.loggedUser{
+  position: relative;
+  left: 36%;
+  top: 10%;
+  height: 20%; 
+  color: black;
 
+  box-sizing: content-box;
+  width: 80px;
+  padding: 20px;
+  
+  border-radius: 32px;
+  font-family: 'Montserrat', sans-serif;
+
+  text-align: center;
+
+  background: -webkit-linear-gradient(0deg, rgba(247,247,247,1) 0, rgba(255,255,255,0.5) 24%, rgba(255,255,255,0.77) 51%, rgba(255,255,255,0.5) 79%, rgba(247,247,247,1) 100%), -webkit-linear-gradient(0deg, rgba(155,153,153,1) 0, rgba(40,39,39,1) 100%), -webkit-linear-gradient(0deg, rgba(150,150,150,1) 0, rgba(122,112,112,1) 11%, rgba(81,75,75,1) 19%, rgba(132,123,123,1) 42%, rgba(132,123,123,1) 52%, rgba(71,66,66,1) 82%, rgba(99,86,86,1) 88%, rgba(30,30,30,1) 100%), -webkit-linear-gradient(0deg, rgba(211,141,149,1) 0, rgba(210,75,90,1) 50%, rgba(186,39,55,1) 51%, rgba(241,142,153,1) 100%), -webkit-linear-gradient(-90deg, rgba(255,104,177,1) 0, rgba(255,16,50,1) 50%, rgba(255,0,7,1) 51%, rgba(255,40,94,1) 100%), #7a0707;
+  background: -moz-linear-gradient(90deg, rgba(247,247,247,1) 0, rgba(255,255,255,0.5) 24%, rgba(255,255,255,0.77) 51%, rgba(255,255,255,0.5) 79%, rgba(247,247,247,1) 100%), -moz-linear-gradient(90deg, rgba(155,153,153,1) 0, rgba(40,39,39,1) 100%), -moz-linear-gradient(90deg, rgba(150,150,150,1) 0, rgba(122,112,112,1) 11%, rgba(81,75,75,1) 19%, rgba(132,123,123,1) 42%, rgba(132,123,123,1) 52%, rgba(71,66,66,1) 82%, rgba(99,86,86,1) 88%, rgba(30,30,30,1) 100%), -moz-linear-gradient(90deg, rgba(211,141,149,1) 0, rgba(210,75,90,1) 50%, rgba(186,39,55,1) 51%, rgba(241,142,153,1) 100%), -moz-linear-gradient(180deg, rgba(255,104,177,1) 0, rgba(255,16,50,1) 50%, rgba(255,0,7,1) 51%, rgba(255,40,94,1) 100%), #7a0707;
+  background: linear-gradient(90deg, rgba(247,247,247,1) 0, rgba(255,255,255,0.5) 24%, rgba(255,255,255,0.77) 51%, rgba(255,255,255,0.5) 79%, rgba(247,247,247,1) 100%), linear-gradient(90deg, rgba(155,153,153,1) 0, rgba(40,39,39,1) 100%), linear-gradient(90deg, rgba(150,150,150,1) 0, rgba(122,112,112,1) 11%, rgba(81,75,75,1) 19%, rgba(132,123,123,1) 42%, rgba(132,123,123,1) 52%, rgba(71,66,66,1) 82%, rgba(99,86,86,1) 88%, rgba(30,30,30,1) 100%), linear-gradient(90deg, rgba(211,141,149,1) 0, rgba(210,75,90,1) 50%, rgba(186,39,55,1) 51%, rgba(241,142,153,1) 100%), linear-gradient(180deg, rgba(255,104,177,1) 0, rgba(255,16,50,1) 50%, rgba(255,0,7,1) 51%, rgba(255,40,94,1) 100%), #7a0707;
+  
+  
+
+}
 /* ////////////////////////////////////searchMovieStyle///////////////////////// */
 
 .inputGroup {

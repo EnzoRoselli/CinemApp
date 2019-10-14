@@ -1,18 +1,37 @@
 [
     {
         "email": "enzo1999@live.com.ar",
-        "password": "dsaas"
+        "password": "dsaas",
+        "name": null
     },
     {
         "email": "enzo1999@live.com.ar",
-        "password": "asd"
+        "password": "asd",
+        "name": null
     },
     {
         "email": "enzo1999@live.com.ar",
-        "password": "asd"
+        "password": "asd",
+        "name": null
     },
     {
         "email": "a@a.a",
-        "password": "a"
+        "password": "a",
+        "name": null
+    },
+    {
+        "email": "b@b.b",
+        "password": "b",
+        "name": "asd"
+    },
+    {
+        "email": "ab@b.b",
+        "password": "b",
+        "name": "asd"
+    },
+    {
+        "email": "aba@b.b",
+        "password": "b",
+        "name": "facundo mateu"
     }
 ]

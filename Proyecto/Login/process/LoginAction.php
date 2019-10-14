@@ -15,11 +15,13 @@ session_start();
     $userLoging=new User($_POST['LoginEmail'],$_POST['LoginPassword']);
 
     $UsersList=new UsersList();
-    $UserInfo=$UsersList->Exists($newUser);
+    $UserInfo=$UsersList->ExistsLogin($newUser);
     if ($UserInfo!=false) {
-        echo "<script> alert('Logeo exitoso!');" ; 
         $_SESSION['loggedUser']=$UserInfo->getName();;
+        echo "<script> alert('Logeo exitoso!');" ; 
+    
         echo "window.location= '../../views/home.php'; </script> ";
+       
     }else {
         echo "<script> alert('Los datos ingresados no concuerdan!');" ; 
         echo "window.location= '../LoginSignup.php'; </script> ";
