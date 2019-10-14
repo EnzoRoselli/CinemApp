@@ -1,7 +1,7 @@
 <?php
 
 include('header.php');
-// include('nav.php');
+include('nav.php');
 
 require "../Config/Autoload.php";
 
@@ -42,55 +42,53 @@ if ($_GET) {
 }
 ?>
 
-    <main class="p-5">
-        <div class="container">
-            <h1 class="mb-5">Listado de cines</h1>
-            <button id="btn-abrir-popup">Nuevo Cine</button>
-                <div class="form-group mb-4">
-                </div>
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Adress</th>
-                            <th>Capacity</th>
-                            <th>TicketValue</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($cines as $cine) {
-                            if ($cine->getActive() === true) {
-                                ?>
-                                <tr>
-                                    
-                                    <td><?php echo $cine->getId(); ?></td>
-                                    <td><?php echo $cine->getName(); ?></td>
-                                    <td><?php echo $cine->getAdress(); ?></td>
-                                    <td><?php echo $cine->getCapacity(); ?></td>
-                                    <td><?php echo $cine->getTicketValue(); ?></td>
-                                    <td>
-                                        <!-- UPDATE CINE -->
-                                        <a href="./AdminCine.php?update=<?php echo $cine->getId() ?>" class="btn btn-light">
-                                       
-                                            <button type="button" width="50" height="50">update</button>
-                                        </a>
-                                        <!-- DELETE CINE -->
-                                        <a href="./AdminCine.php?delete=<?php echo $cine->getId() ?>" class="btn btn-light">
-                                      
-                                            <button type="button" width="50" height="50">delete</button>
-                                        </a>
-                                    </td>
-                                </tr>
-                        <?php
-                            }
-                        } ?>
-                    </tbody>
-                </table>
-        </div>
-    </main>
+<main class="p-5">
+			<div class="container">
+				<h1 class="mb-5">Listado de cines</h1>
+				<button id="btn-abrir-popup">Nuevo Cine</button>
+					<table class="table">
+						<thead class="thead-dark">
+							<tr>
+								
+								<th>ID</th>
+								<th>Name</th>
+								<th>Adress</th>
+								<th>Capacity</th>
+								<th>TicketValue</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							foreach ($cines as $cine) {
+								if ($cine->getActive() === true) {
+									?>
+									<tr>
+										
+										<td><?php echo $cine->getId(); ?></td>
+										<td><?php echo $cine->getName(); ?></td>
+										<td><?php echo $cine->getAdress(); ?></td>
+										<td><?php echo $cine->getCapacity(); ?></td>
+										<td><?php echo $cine->getTicketValue(); ?></td>
+										<td>
+											<!-- UPDATE CINE -->
+											<a href="./AdminCine.php?update=<?php echo $cine->getId() ?>" class="btn btn-light">
+										   
+												<button type="button" width="50" height="50">update</button>
+											</a>
+											<!-- DELETE CINE -->
+											<a href="./AdminCine.php?delete=<?php echo $cine->getId() ?>" class="btn btn-light">
+										  
+												<button type="button" width="50" height="50">delete</button>
+											</a>
+										</td>
+									</tr>
+							<?php
+								}
+							} ?>
+						</tbody>
+					</table>
+			</div>
+		</main>
 
     <!--CREATE CINE-->
 
@@ -143,5 +141,27 @@ if ($_GET) {
     <script src="js/popup.js"></script>
 </div>
 
+<!--===============================================================================================-->	
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+			
+		
+	</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
 
 <?php include('footer.php'); ?>

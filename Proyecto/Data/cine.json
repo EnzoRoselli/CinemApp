@@ -85,7 +85,7 @@
         "adress": "Centro",
         "capacity": "5000",
         "ticketValue": "50",
-        "active": true
+        "active": false
     },
     {
         "id": 12,
