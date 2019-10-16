@@ -44,52 +44,59 @@ if ($_GET) {
 }
 ?>
 
-
-<div class="container">
+<body class="admin-cine-body">
+<div class="admin-cine-header">
 	<h1>Listado de cines</h1>
 	<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
-	<table class="content-table">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<th>Adress</th>
-				<th>Capacity</th>
-				<th>TicketValue</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
-			foreach ($cines as $cine) {
-				if ($cine->getActive() === true) {
-					?>
-					<tr>
-
-						<td><?php echo $cine->getId(); ?></td>
-						<td><?php echo $cine->getName(); ?></td>
-						<td><?php echo $cine->getAdress(); ?></td>
-						<td><?php echo $cine->getCapacity(); ?></td>
-						<td><?php echo $cine->getTicketValue(); ?></td>
-						<td>
-							<!-- UPDATE CINE -->
-							<a href="./AdminCine.php?update=<?php echo $cine->getId() ?>" class="btn btn-light">
-
-								<i class="fas fa-edit"></i>
-							</a>
-							<!-- DELETE CINE -->
-							<a href="./AdminCine.php?delete=<?php echo $cine->getId() ?>" class="btn btn-light">
-
-								<i class="fas fa-trash"></i>
-							</a>
-						</td>
-					</tr>
-			<?php
-				}
-			} ?>
-		</tbody>
-	</table>
 </div>
+
+<div class="admin-cine-table">
+
+<table class="content-table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Adress</th>
+			<th>Capacity</th>
+			<th>TicketValue</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		foreach ($cines as $cine) {
+			if ($cine->getActive() === true) {
+				?>
+				<tr>
+
+					<td><?php echo $cine->getId(); ?></td>
+					<td><?php echo $cine->getName(); ?></td>
+					<td><?php echo $cine->getAdress(); ?></td>
+					<td><?php echo $cine->getCapacity(); ?></td>
+					<td><?php echo $cine->getTicketValue(); ?></td>
+					<td>
+						<!-- UPDATE CINE -->
+						<a href="./AdminCine.php?update=<?php echo $cine->getId() ?>" class="btn btn-light">
+
+							<i class="fas fa-edit"></i>
+						</a>
+						<!-- DELETE CINE -->
+						<a href="./AdminCine.php?delete=<?php echo $cine->getId() ?>" class="btn btn-light">
+
+							<i class="fas fa-trash"></i>
+						</a>
+					</td>
+				</tr>
+		<?php
+			}
+		} ?>
+	</tbody>
+</table>
+</div>
+</body>
+
+
 
 <!--CREATE CINE-->
 

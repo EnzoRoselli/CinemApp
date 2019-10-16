@@ -8,34 +8,59 @@ use DAO\InfoAPI\moviesAPI as moviesAPI;
 Autoload::Start();
 
 
-if (isset($_GET['title'])){
-    
-    $movieController=new SearchMovieController();
-
-    $movieController->searchMovie();
-}
 
 class SearchMovieController{
     
-    private $moviesAPI;
+    private $allMovies;
+ 
+    public function __construct() {
+        $this->allMovies = moviesAPI::getMoviesFromApi(); 
+    }
 
-    public function searchMovie(){
-
-        $moviesAPI=new moviesAPI();
-
+    public function searchMovieByName(){
         $title=$_GET['title'];
-        $allMoviesAPI=$moviesAPI->getMoviesFromApi();
-    
-        $comprobationMovie=$moviesAPI->searchMovieByTitle($allMoviesAPI,$title);
-        if ($comprobationMovie!=null) {
-            echo "<script> alert('Se encontró la pelicula ingresada!');" ;
-            echo "window.location= '../views/AdminCine.php'; </script> ";
-        }else{
-            echo "<script> alert('NO se encontró la pelicula ingresada!');" ; 
-            echo "window.location= '../views/SearchMovieWithFiltersController.php'; </script> ";
+        $comprobationMovie=moviesAPI::searchMovieByTitle($this->allMovies,$title);
+        if ($comprobationMovie != null) {
+        require_once('../Views/SearchMovieByName.php');
+        }else {
+            echo "<script> alert('No se encontró la pelicula ingresada!');";
+            echo "window.location= '../views/home.php'; </script> ";
         }
     }
-}
 
+    public function searchByGenres(){
+
+        $Genres=$_GET['genres'];  
+        $moviesWithGenres=moviesAPI::getMovieForGenres($Genres,$this->allMovies);
+        if (!empty($moviesWithGenres)) {
+        require_once('../Views/ShowFilteredMovies.php');
+    }else{
+        echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');" ; 
+        echo "window.location= '../views/home.php'; </script> ";
+     }   
+}
+//CUANDO CREAMOS LAS FUNCIONES, AHI LAS ACTIVAMOS
+    /*public function moviesDateFilter($movieFunctions){
+        
+        $date=$_GET['date'];
+        $result=array();
+
+        for ($i=0; $i < count($movieFunctions); $i++) { 
+            if ($movieFunctions[$i]->getDate()==$date) {
+            array_push($result,$movieFunctions[$i]);
+            }
+        }
+        return $result;
+    }*/
+
+  /*  public function searchByGenresAndDate(){
+
+        $movies=moviesAPI::getMoviesFromApi();
+        $MovieGenres=genresAPI::getGenres();
+        $Genres=$_GET['genres'];
+        $Date=$_GET['date'];
+    }*/
+
+}
 
 ?>

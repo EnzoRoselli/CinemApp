@@ -1,6 +1,8 @@
 <?php
     include('header.php');
     include('nav.php');
-    include('MovieGrid.php');
+   
+    include('lastArrival.php');
+     include('MovieGrid.php');
 
 ?>

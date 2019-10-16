@@ -1,0 +1,164 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+/* container */
+
+.navbar{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background: linear-gradient(#FF416C, #FF4B2B);
+    width: 100vw;
+    height: 8vh;
+    z-index: 50;
+}
+
+/* HOME BUTTON */
+
+.home-btn *{
+    display: inline-block;
+    margin: 0 -3px;
+    transition: all 0.2s ease 0s;
+}
+
+.home-btn{
+    display: flex;
+    flex: 1 1 auto;
+    margin-left: 5%;
+    cursor: pointer;
+    font-size: 1.8rem;
+}
+
+/* SEARCH BAR */
+
+
+.search-bar{
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    height: 70%;
+    width: 25%;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 15px;
+    color: #ffffff;
+    margin-left: 5%;
+}
+
+.search-bar .search-input{
+    background: rgba(0, 0, 0, 0.5);;
+    width: 100%;
+    border: none;
+    font-size: 1.2rem;
+    padding-left: 8px;
+    border-radius: 15px;
+    color: #ffffff;
+    outline: none;
+    transition: all 0.2s ease 0s;
+}
+
+.search-bar .search-input:hover{
+    background: rgba(0, 0, 0, 0.7);;
+    
+}
+
+::placeholder{
+    color: #d6d6d6;
+    padding-left: 5px;
+    font-size: 1.0rem;
+}
+
+.search-btn{
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.search-btn img{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    filter: brightness(300%);
+    transition: all 0.2s ease 0s;
+}
+
+
+/* NAV LINKS */
+
+.nav-links{
+    display: flex;
+    justify-content: right;
+    list-style: none;
+    margin-right: 10%; 
+    margin: 0 5%;
+}
+
+.nav-links li a{
+    margin: 0 15px;
+    text-decoration: none;
+    color: #000000;
+    font-size: 1.2rem;
+    transition: all 0.2s ease 0s;
+}
+
+/* HOVER */
+
+.nav-links li a:hover {
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+/* .home-btn:hover  p{
+    font-size: 1.8rem;
+    margin: 0 5px;
+} */
+
+.search-btn img:hover{
+    height: 25px;
+    width: 25px;
+    
+}
+
+#home-icon {
+    position: absolute;
+    display: none;
+    color: #fff;
+    height: 32px;
+    width: 32px;
+}
+
+@media(max-width: 700px){
+   
+    .navbar{
+        height: 12vh;
+    }
+
+    .search-bar{
+        position: absolute;
+        margin: 0 auto;
+        width: 75%;
+    }
+
+    .home-btn{
+        display: none;
+    }  
+
+    .nav-links{
+        display: none;
+    }
+
+    #home-icon{
+        display: inline;
+        top: 25%;
+        left: 3%; 
+    }
+
+}

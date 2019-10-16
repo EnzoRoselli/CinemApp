@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/GridStyle.css">
+    <link rel="stylesheet" href="./css/GridStyle.css">
     <title>Document</title>
 </head>
 
@@ -29,7 +29,7 @@
             ?>
             <div class="block">
                 <button class="card-image">
-                    <a href="#">
+                    <a href="">
                     <img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $poster; ?> class="image">
                     </a>
                     

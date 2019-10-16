@@ -7,7 +7,7 @@
 }
 
 /* ///////////////////////////////// NAV ///////////////////////////////// */
-
+/* 
 nav {
   background-color: #131418;
   box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
@@ -39,22 +39,22 @@ nav {
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-}
+} */
 
 /*Searcher: fondo*/
-
+/* 
 .search-wrapper .input-holder {
-  height: 60px; /*in relation to the nav container*/
+  height: 60px; 
   width: 450px;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 50px;
   position: relative;
   transition: all 0.3s ease-in-out;
-}
+} */
 
 /*Searcher: "Type to search" y Lupa*/
-
+/* 
 .search-wrapper .input-holder .search-input {
   height: 50px;
   padding: 30px 25px;
@@ -69,8 +69,8 @@ nav {
   color: #FFF;
 
   opacity: 1;
-}
-
+} */
+/* 
 .search-wrapper .input-holder .search-icon {
   width: 70px;
   height: 70px;
@@ -91,14 +91,14 @@ nav {
   height: 50px;
   margin: 5px;
   border-radius: 30px;
-}
+} */
 
 /* ICONO LUPA */
-
+/* 
 .icon-32 {
   width: 30px;
   height: 30px;
-}
+} */
 
 /* Botones */
 
@@ -148,19 +148,9 @@ button {
   left: 520%;
   top: 25%;
 }
-#btn-abrir-popup{
- background-color: transparent;
- border: none;
- border-radius: 50px;
- transition: .3s ease all;
-}
 
-#btn-abrir-popup:hover{
-  background-color: #FF416C;
-  
-  transition: .3s ease all;
-  
- }
+
+
  
 
 .btn:hover {
@@ -206,7 +196,7 @@ button {
   display: block;
   margin: 10px 0;
   position: relative;
-  width: 240px;
+  width: 216px;
 }
 
 .inputGroup label {
@@ -305,17 +295,35 @@ code {
   padding: 0 8px;
 }
 
-/*LOS INPUTS Y BOTONES DE LOS FILTROS*/
-#first-input{
-  background: rgb(182, 104, 104);
+/* ADMIN CINE  */
+
+#btn-abrir-popup{
+  background-color: transparent;
+  border: none;
+  border-radius: 50px;
+  transition: .3s ease all;
+  padding-top: 10px;
+ }
+
+#btn-abrir-popup:hover{
+  background-color: #FF416C;
+  
+  transition: .3s ease all;
+  
 }
-#second-input{
-  background: #906c8a;
+
+.admin-cine-body{
+  height: 100vh;
+  width: 100vw;
 }
-#btn-searchWithFilters{
-  background-color: white;
-  color: black;
-  border: 2px solid rgb(0, 0, 0); 
-  height: 40px;
-  width: 90px;
+
+.admin-cine-table{
+  position: relative;
+  top: 20%;
+}
+
+.admin-cine-header{
+  position: relative;
+  top: 15%;
+  display: flex;
 }

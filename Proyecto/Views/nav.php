@@ -1,44 +1,45 @@
-<nav class="nav-container">
-  <a href="../views/Home.php" class="nav-title">
-    <h2>CinemApp</h2>
-  </a>
-  <form action="../Controllers/SearchMovie.php" method="GET">
-      <div class="search-wrapper active">
-      <div class="input-holder">
-        <input name="title" type="text" class="search-input" placeholder="Type to search"/>
-        <button class="search-icon">
-        <img src="../views/img/search-32.png" alt=""></button>
-      </div>
-
-    </div>
-  </form>
-
-  <form action="../views/SearchMoviesWithFilters.php"> 
-       <button class="btn btn-light mr-4" id="btn-filter">Browse</button>
-  </form>
-
-  <form action="../views/AdminCine.php">
-      <button class="btn btn-light mr-4" id="btn-cine">Cine</button>
-  </form>
 <?php session_start();
 if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
   session_destroy();
-  header("Location:".$link .= $_SERVER['REQUEST_URI']);
+  header("Location:" . $link .= $_SERVER['REQUEST_URI']);
 }
-
-if (isset($_SESSION['loggedUser'])) {?>
-  <div class="loggedUser"> 
-        <p><?php  echo substr(strtoupper($_SESSION['loggedUser']), 0, 8); ?></p>     
-        <a href="../views/Home.php?delete=1">Log out</a>
-  </div>
-  <?php
-}else{
 ?>
-  <div class="logSign">
-    <form action="../Login/LoginSignup.php">
-        <button class="btn btn-light mr-4" id="btn-Log-in">Log-in | Sign-up</button>
-    </form>
+
+<nav class="navbar">
+
+  <div class="home-btn">
+    <p>Cinem</p>
+    <p>App</p>
   </div>
-<?php }?>
-  
+
+  <a href="#">
+    <i class="fas fa-home fa-2x" id="home-icon"></i>
+  </a>
+  <form action="<?php echo  FRONT_ROOT . "searchMovie/searchMovieByName " ?>" method="GET">
+    <div class="search-bar">
+      <input name="title" type="text" class="search-input" placeholder="Type to search" />
+      <button class="search-btn">
+        <img src="../views/img/search-32.png" alt=""></button>
+      </button>
+    </div>
+  </form>
+  <ul class="nav-links">
+    <li><a href=<?php echo  FRONT_ROOT . "Cine/showGenresFilter " ?>>Cine</a></li>
+    <li><a href=<?php echo  FRONT_ROOT . "genres/showGenresFilter " ?>>Browse</a></li>
+    <?php
+    if (isset($_SESSION['loggedUser'])) { ?>
+      <div class="">
+        <p><?php echo substr(strtoupper($_SESSION['loggedUser']), 0, 8); ?></p>
+        <a href="../views/Home.php?delete=1">Log out</a>
+      </div>
+    <?php
+    } else {
+      ?>
+
+
+      <li><a href="../views/AdminCine.php">Log-Sig</a></li>
+      </form>
+
+    <?php } ?>
+  </ul>
 </nav>
