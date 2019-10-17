@@ -1,12 +1,6 @@
 <?php 
 
-require_once("../config/autoload.php");
-
-use config\autoload as Autoload;
 use DAO\InfoAPI\moviesAPI as moviesAPI;
-
-Autoload::Start();
-
 
 
 class SearchMovieController{

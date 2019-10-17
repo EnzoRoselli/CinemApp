@@ -2,14 +2,8 @@
 
 namespace DAO;
 
-require_once("../Config/Autoload.php");
-include ('../Config/Constants/CineConstants.php');
-
-Use Config\Autoload as Autoload;
 use DAO\IRepository as IRepository;
 use Model\Cine as Cine;
-
-Autoload::start();
 
 define("FILE_DIR", '../Data/cine.json');
 
