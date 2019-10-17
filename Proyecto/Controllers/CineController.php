@@ -4,20 +4,6 @@ namespace Controllers;
 Use Model\Cine as Cine;
 Use DAO\CineRepository as daoCine;
 
-    
-// if($_POST){
-
-//     $cineController=new CineController();
-
-//     if($_POST[CINE_ID] !== ""){
-
-//         $cineController->updateCinema();
-
-//     }else if($_POST[CINE_ID] == ""){
-
-//         $cineController->createCinema();
-//     }
-// }
 
 class CineController{
 
@@ -26,6 +12,20 @@ class CineController{
     public function __construct()
     {
         $this->cineRepository = new daoCine();
+    }
+
+    public function determinateUpdateCreate()
+    {
+        if($_POST){     
+            if($_POST[CINE_ID] !== ""){
+                
+                $this->updateCinema();
+
+            }else if($_POST[CINE_ID] == ""){
+
+                $this->createCinema();
+            }
+        }
     }
 
     public function createCinema(){
@@ -37,35 +37,72 @@ class CineController{
         
         $cine = new Cine($name, $adress, $capacity, $price);
 
-        if(isCapacityValid($capacity) && isTicketValueValid($price)){
+        if($this->isCapacityValid($capacity) && $this->isTicketValueValid($price)){
 
             if($this->cineRepository->add($cine)){
     
                 CineController::showMessage(0);
-                require_once('../Views/AdminCine.php');
+                $this->showCinemaMenu(); 
             }else{
                 CineController::showMessage(1);
-                require_once('../Views/AdminCine.php');
-            }
+                $this->showCinemaMenu();            }
 
-        }else if(!isCapacityValid($capacity) && isTicketValueValid($price)){
+        }else if(!$this->isCapacityValid($capacity) && $this->isTicketValueValid($price)){
 
             CineController::showMessage(4);
-            require_once('../Views/AdminCine.php');
-
-        }else if(isCapacityValid($capacity) && !isTicketValueValid($price)){
+            $this->showCinemaMenu();
+        }else if($this->isCapacityValid($capacity) && !$this->isTicketValueValid($price)){
 
             CineController::showMessage(5);
-            require_once('../Views/AdminCine.php');
-
-        }else if(!isCapacityValid($capacity) && !isTicketValueValid($price)){
+            $this->showCinemaMenu();
+        }else if(!$this->isCapacityValid($capacity) && !$this->isTicketValueValid($price)){
 
             CineController::showMessage(6);
-            require_once('../Views/AdminCine.php');
+            $this->showCinemaMenu(); 
         }
         
         
     }
+
+
+    public function showCinemaMenu()
+    {
+     
+        $cines = $this->cineRepository->getAll();
+
+        if(isset($_GET['delete']) || isset($_GET['update'])){
+
+            if (isset($_GET['delete'])) {
+    
+                $id = $_GET['delete'];
+                $this->cineRepository->delete($id);
+                require_once(VIEWS  .'/AdminCine.php');
+            }
+            
+            if (isset($_GET['update'])) {
+
+                $cineUpdate = new Cine();
+                $id = $_GET['update'];
+        
+                $cineUpdate = $this->cineRepository->searchById($id);
+                
+                echo "<script type='text/javascript'>
+                    window.addEventListener('load', function() {
+                        overlay.classList.add('active');
+                        popup.classList.add('active');
+                    })
+                </script>";
+                
+                require_once(VIEWS  .'/AdminCine.php');
+            
+            }
+
+        }else{
+            require_once(VIEWS  .'/AdminCine.php');
+        }
+    
+    }
+
 
     public function updateCinema(){
 
@@ -78,32 +115,32 @@ class CineController{
         $modifiedCinema = new Cine($updatedName,$updatedAdress,$updatedCapacity,$updatedPrice);
         $modifiedCinema->setId($updatedId);
 
-        if(isCapacityValid($updatedCapacity) && isTicketValueValid($updatedPrice)){
+        if($this->isCapacityValid($updatedCapacity) && $this->isTicketValueValid($updatedPrice)){
 
             if($this->cineRepository->modifyCine($modifiedCinema)){
-    
+                
                 CineController::showMessage(2);
-                require_once('../Views/AdminCine.php');
+                $this->showCinemaMenu();
             }else{
+
                 CineController::showMessage(3);
-                require_once('../Views/AdminCine.php');
+                $this->showCinemaMenu();
             }
 
-        }else if(!isCapacityValid($updatedCapacity) && isTicketValueValid($updatedPrice)){
+        }else if(!$this->isCapacityValid($updatedCapacity) && $this->isTicketValueValid($updatedPrice)){
 
             CineController::showMessage(4);
-            require_once('../Views/AdminCine.php');
-
-        }else if(isCapacityValid($updatedCapacity) && !isTicketValueValid($updatedPrice)){
+            $this->showCinemaMenu();
+        }else if($this->isCapacityValid($updatedCapacity) && !$this->isTicketValueValid($updatedPrice)){
 
             CineController::showMessage(5);
-            require_once('../Views/AdminCine.php');
-
-        }else if(!isCapacityValid($updatedCapacity) && !isTicketValueValid($updatedPrice)){
+            $this->showCinemaMenu();
+        }else if(!$this->isCapacityValid($updatedCapacity) && !$this->isTicketValueValid($updatedPrice)){
 
             CineController::showMessage(6);
-            require_once('../Views/AdminCine.php');
+            $this->showCinemaMenu(); 
         }
+
     }
 
     private function isCapacityValid($capacity){
@@ -122,6 +159,16 @@ class CineController{
         }else{
             return 1;
         }
+    }
+    public function delete()
+    {
+        $this->cineRepository->delete($_GET['id']);
+        
+    }
+    public function update()
+    {
+        $this->cineRepository->modifyCine($_GET['id']);      
+     
     }
 
     public static function showMessage($messageNumber){
@@ -149,12 +196,10 @@ class CineController{
                 echo "<script> if(confirm('La capacidad y el valor del ticket deben ser mayor a 0'));</script>";
                 break;
             default:
-                # code...
+               
+
                 break;
         }
     }
 
 }
-
-
-?>

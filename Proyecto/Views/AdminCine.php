@@ -1,47 +1,7 @@
 <?php
-
 include('header.php');
 include('nav.php');
 
-require "../Config/Autoload.php";
-
-use Config\Autoload as Autoload;
-use DAO\CineRepository as CineRepository;
-use Model\Cine as Cine;
-
-include('../Config/Constants/CineConstants.php');
-Autoload::start();
-
-
-$cinesRepo = new CineRepository();
-
-$cines = $cinesRepo->getAll();
-
-if ($_GET) {
-
-	if (isset($_GET['delete'])) {
-
-		$id = $_GET['delete'];
-		$cinesRepo->delete($id);
-	}
-
-	if (isset($_GET['update'])) {
-		$cineUpdate = new Cine();
-
-		$id = $_GET['update'];
-
-		$cineUpdate = $cinesRepo->searchById($id);
-		?>
-		<script>
-			window.addEventListener("load", function() {
-				overlay.classList.add('active');
-				popup.classList.add('active');
-			})
-		</script>
-<?php
-
-	}
-}
 ?>
 
 <body class="admin-cine-body">
@@ -53,6 +13,7 @@ if ($_GET) {
 <div class="admin-cine-table">
 
 <table class="content-table">
+
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -76,16 +37,18 @@ if ($_GET) {
 					<td><?php echo $cine->getCapacity(); ?></td>
 					<td><?php echo $cine->getTicketValue(); ?></td>
 					<td>
+						<form action="<?php echo  FRONT_ROOT ."/Cine/ShowCinemaMenu"?>">
+						
 						<!-- UPDATE CINE -->
-						<a href="./AdminCine.php?update=<?php echo $cine->getId() ?>" class="btn btn-light">
-
-							<i class="fas fa-edit"></i>
-						</a>
+						<button name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+						<i class="fas fa-edit"></i>
+						</button>
 						<!-- DELETE CINE -->
-						<a href="./AdminCine.php?delete=<?php echo $cine->getId() ?>" class="btn btn-light">
-
-							<i class="fas fa-trash"></i>
-						</a>
+						<button name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+						<i class="fas fa-trash"></i>
+						</button>
+						
+						</form>
 					</td>
 				</tr>
 		<?php
@@ -103,11 +66,11 @@ if ($_GET) {
 <div class="overlay" id="overlay">
 	<div class="popup" id="popup">
 		<!-- <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a> -->
-		<a href="./AdminCine.php" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+		<a href="<?php echo VIEWS_PATH . "/AdminCine.php" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 
 		<h3>Registrar/Modificar cine</h3>
 
-		<form class="modal-content" action="../Controllers/CineController.php" method="POST">
+		<form class="modal-content" action="<?php echo  FRONT_ROOT ."/Cine/determinateUpdateCreate"?>" method="POST">
 			<div class="contenedor-inputs">
 				<input type="hidden" name=<?php echo CINE_ID ?> value=<?php if (isset($cineUpdate)) {
 																			echo $cineUpdate->getId();
@@ -143,33 +106,16 @@ if ($_GET) {
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-med btn-light" data-dismiss="modal" id="btn-cerrar-popup">Cancelar</button>
-				<button type="submit" class="btn btn-med btn-light">Aceptar</button>
+				
+				<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
+					<button type="submit" class="btn btn-med btn-light">Aceptar</button>
+				</form>
+
 			</div>
 		</form>
 	</div>
 </div>
-<script src="js/popup.js"></script>
+<script src="<?php echo JS_PATH."/popup.js"?>"></script>
 </div>
-
-<!--===============================================================================================-->
-<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/bootstrap/js/popper.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script>
-	$('.js-pscroll').each(function() {
-		var ps = new PerfectScrollbar(this);
-
-		$(window).on('resize', function() {
-			ps.update();
-		})
-	});
-</script>
-<!--===============================================================================================-->
-<script src="js/main.js"></script>
 
 <?php include('footer.php'); ?>

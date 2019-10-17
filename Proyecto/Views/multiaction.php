@@ -1,9 +1,5 @@
 <?php
 
-require_once"./Config/Autoload.php";
-
-
-session_start();
 
 if(isset($_SESSION['user'])){
     $data = $_POST;

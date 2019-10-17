@@ -20,7 +20,7 @@ class Request {
             * Si el array tiene elementos, el primero lo guardamos en controller, si no, guardamos   Home como controller por defecto
             */
            if(empty($ArregloUrl)) {
-                $this->controller = 'Cine';
+                $this->controller = 'Home';
            } else {
                 $this->controller = ucwords(array_shift($ArregloUrl));
            }
@@ -28,7 +28,7 @@ class Request {
           * Si el array tiene elementos, el primero lo guardamos en method, si no, guardamos index como method por defecto
           */
           if(empty($ArregloUrl)) {
-               $this->method = 'index';
+               $this->method = 'Index';
           } else {
                $this->method = array_shift($ArregloUrl);
           }

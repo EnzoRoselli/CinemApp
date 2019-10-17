@@ -22,6 +22,7 @@
              * Crea la instancia controladora
              */
             $instance = new $class;
+   
             
             /**
              *

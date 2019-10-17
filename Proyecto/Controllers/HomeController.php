@@ -5,7 +5,10 @@
     {
         public function Index($message = "")
         {
-            require_once(VIEWS_PATH."AdminCine.php");
+            // Proceso
+            require_once(VIEWS."/header.php");
+            require_once(VIEWS."/home.php");
+            require_once(VIEWS."/footer.php");
         }        
     }
 ?>

@@ -10,7 +10,7 @@
   <PRE>   <h1>             Select your genres</h1></PRE>
 
    <div><!--PONER TODOS LOS ACTIONS CON CLASE Y / METODO  -->
-      <form class="form" action="<?php echo  FRONT_ROOT."searchMovie/searchByGenres "?>" method="GET">
+      <form class="form" action=<?php echo  FRONT_ROOT . "/searchMovie/searchByGenres "?> method="GET">
         <table>
           <?php 
           for ($i = 0; $i < count($this->genres); $i++) {
@@ -47,4 +47,9 @@
           <label for="date">Select Date:</label>
           <input type="date"  min="<?php /*echo date('Y-m-d',strtotime(date('Y-m-d',time())));*/?>" name="date">         
         </div> -->
+
+        <?php
+    include('footer.php');
+
+?>
 

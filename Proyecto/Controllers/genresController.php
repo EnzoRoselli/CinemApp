@@ -5,14 +5,15 @@ use DAO\InfoAPI\genresAPI as genresAPI;
 
 class genresController 
 {
-    private $allGenres;
+    private $genres;
 
     public function __construct() {
         $this->genres = genresAPI::getGenres();
     }
 
     public function showGenresFilter(){
-        require_once('../Views/ShowMovieFilters.php');
+        $genres=$this->genres;
+        require_once(VIEWS.'/ShowMovieFilters.php');
     }
 }
 

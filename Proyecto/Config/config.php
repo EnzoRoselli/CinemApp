@@ -1,11 +1,26 @@
 <?php namespace Config;
 
-define("ROOT", dirname(__DIR__) . "/");
+// BACK PATH
+define("ROOT", dirname(__DIR__));
+define('VIEWS', ROOT . '/Views');
+define("JSON", ROOT . "/data");
+
 //Path to your project's root folder
-define("FRONT_ROOT", "proyectos/Final-Tp-Lab4/Proyecto/");
-define("VIEWS_PATH", "Views/");
-define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "css/");
-define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");
-define("IMG_PATH", VIEWS_PATH . "img/");
+
+// FRONT PATH
+define("FRONT_ROOT", "http://localhost/Final-Tp-Lab4/Proyecto");
+define("VIEWS_PATH", FRONT_ROOT . "/Views");
+define("CSS_PATH", VIEWS_PATH . "/css");
+define("JS_PATH", VIEWS_PATH . "/js");
+define("IMG_PATH", VIEWS_PATH . "/img");
+//PARA LA COMPU DE MATI 
+define("FRONT_ROOT2", "http://localhost:90/Final-Tp-Lab4/Proyecto");
+
+// echo ROOT;
+// echo FRONT_ROOT;
+// echo VIEWS_PATH;
+// echo CSS_PATH;
+// echo JS_PATH;
+// echo IMG_PATH;
 ?>
 

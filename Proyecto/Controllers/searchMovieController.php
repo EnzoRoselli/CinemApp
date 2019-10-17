@@ -1,6 +1,7 @@
 <?php 
-
+namespace Controllers;
 use DAO\InfoAPI\moviesAPI as moviesAPI;
+use DAO\CineRepository as CineRepository;
 
 
 class SearchMovieController{
@@ -15,10 +16,10 @@ class SearchMovieController{
         $title=$_GET['title'];
         $comprobationMovie=moviesAPI::searchMovieByTitle($this->allMovies,$title);
         if ($comprobationMovie != null) {
-        require_once('../Views/SearchMovieByName.php');
+        require_once(VIEWS .'/SearchMovieByName.php');
         }else {
             echo "<script> alert('No se encontró la pelicula ingresada!');";
-            echo "window.location= '../views/home.php'; </script> ";
+            echo "window.location= ROOT.'/home.php'; </script> ";
         }
     }
 
@@ -27,10 +28,10 @@ class SearchMovieController{
         $Genres=$_GET['genres'];  
         $moviesWithGenres=moviesAPI::getMovieForGenres($Genres,$this->allMovies);
         if (!empty($moviesWithGenres)) {
-        require_once('../Views/ShowFilteredMovies.php');
+        require_once(VIEWS.'/ShowFilteredMovies.php');
     }else{
         echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');" ; 
-        echo "window.location= '../views/home.php'; </script> ";
+        echo "window.location= ROOT.'/home.php'; </script> ";
      }   
 }
 //CUANDO CREAMOS LAS FUNCIONES, AHI LAS ACTIVAMOS

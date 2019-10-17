@@ -1,154 +1,34 @@
 [
     {
         "id": 1,
-        "name": "Ricardo",
-        "adress": "Constitucion",
-        "capacity": "",
-        "ticketValue": "200",
+        "name": "Rubia",
+        "adress": "Centro",
+        "capacity": "2000",
+        "ticketValue": "50",
         "active": false
     },
     {
         "id": 2,
-        "name": "Mati",
-        "adress": "Puerto",
-        "capacity": "",
-        "ticketValue": "",
-        "active": false
+        "name": "Lightsoldier",
+        "adress": "Centro",
+        "capacity": "2000",
+        "ticketValue": "500",
+        "active": true
     },
     {
         "id": 3,
-        "name": "Negro",
-        "adress": "Villa",
-        "capacity": "250",
+        "name": "Ambassador",
+        "adress": "Peatonal",
+        "capacity": "2000",
         "ticketValue": "200",
-        "active": false
+        "active": true
     },
     {
         "id": 4,
-        "name": "Papa",
-        "adress": "nose",
-        "capacity": "",
-        "ticketValue": "",
-        "active": false
-    },
-    {
-        "id": 5,
-        "name": "Enzo",
+        "name": "Paseo",
         "adress": "Centro",
-        "capacity": "",
-        "ticketValue": "",
-        "active": false
-    },
-    {
-        "id": 6,
-        "name": "sadsdads",
-        "adress": "asd",
-        "capacity": "",
-        "ticketValue": "",
-        "active": false
-    },
-    {
-        "id": 7,
-        "name": "Ernsesto\/",
-        "adress": "AAAAA",
-        "capacity": "5000\/",
-        "ticketValue": "150\/",
-        "active": false
-    },
-    {
-        "id": 8,
-        "name": "Nico",
-        "adress": "Centro",
-        "capacity": "41",
-        "ticketValue": "50",
-        "active": false
-    },
-    {
-        "id": 9,
-        "name": "Julian",
-        "adress": "Septiembre",
-        "capacity": "500",
-        "ticketValue": "20",
-        "active": false
-    },
-    {
-        "id": 10,
-        "name": "Flor",
-        "adress": "Jujuy",
-        "capacity": "100",
-        "ticketValue": "200",
-        "active": false
-    },
-    {
-        "id": 11,
-        "name": "Dani",
-        "adress": "Centro",
-        "capacity": "5000",
-        "ticketValue": "50",
-        "active": false
-    },
-    {
-        "id": 12,
-        "name": "lightsoldier",
-        "adress": "Cordoba",
-        "capacity": "1000",
-        "ticketValue": "200",
-        "active": true
-    },
-    {
-        "id": 13,
-        "name": "Rubia",
-        "adress": "Rusia",
-        "capacity": "500",
-        "ticketValue": "100",
-        "active": false
-    },
-    {
-        "id": 14,
-        "name": "",
-        "adress": "",
-        "capacity": "",
-        "ticketValue": "",
-        "active": false
-    },
-    {
-        "id": 15,
-        "name": "nuevo",
-        "adress": "nuevo",
-        "capacity": "10",
-        "ticketValue": "10",
-        "active": false
-    },
-    {
-        "id": 16,
-        "name": "Facu",
-        "adress": "Champagnat",
         "capacity": "2000",
-        "ticketValue": "200",
-        "active": false
-    },
-    {
-        "id": 17,
-        "name": "nuevo",
-        "adress": "dir1",
-        "capacity": "500",
-        "ticketValue": "5000",
+        "ticketValue": "150",
         "active": true
-    },
-    {
-        "id": 18,
-        "name": "nuevo2",
-        "adress": "dir2",
-        "capacity": "500",
-        "ticketValue": "50",
-        "active": true
-    },
-    {
-        "id": 19,
-        "name": "enzoforro",
-        "adress": "dir3",
-        "capacity": "500",
-        "ticketValue": "65",
-        "active": false
     }
 ]

@@ -10,11 +10,10 @@
 
 .navbar{
     position: fixed;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 0px;
     align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
     background: linear-gradient(#FF416C, #FF4B2B);
     width: 100vw;
     height: 8vh;
@@ -25,17 +24,31 @@
 
 .home-btn *{
     display: inline-block;
-    margin: 0 -3px;
+    margin: 0 -7px;
     transition: all 0.2s ease 0s;
 }
 
 .home-btn{
     display: flex;
     flex: 1 1 auto;
-    margin-left: 5%;
+    width: 50%;
+    margin-left:3%;
     cursor: pointer;
     font-size: 1.8rem;
 }
+
+.home-ref{
+    text-decoration: none;
+    color: #000000;
+}
+
+
+#home-icon, #menu-icon {
+    position: absolute;
+    display: none;
+    color: #fff;
+}
+
 
 /* SEARCH BAR */
 
@@ -44,13 +57,12 @@
     position: relative;
     display: flex;
     flex: 1 1 auto;
-    height: 70%;
-    width: 25%;
+    height: 7vh;
+    width: 100%;
     background: rgba(0, 0, 0, 0.5);
     border: none;
     border-radius: 15px;
     color: #ffffff;
-    margin-left: 5%;
 }
 
 .search-bar .search-input{
@@ -96,9 +108,9 @@
 .nav-links{
     display: flex;
     justify-content: right;
+    width: 80%;
+    margin-left: 8%;
     list-style: none;
-    margin-right: 10%; 
-    margin: 0 5%;
 }
 
 .nav-links li a{
@@ -116,10 +128,10 @@
     color: #ffffff;
 }
 
-/* .home-btn:hover  p{
+.home-btn:hover  p{
     font-size: 1.8rem;
     margin: 0 5px;
-} */
+}
 
 .search-btn img:hover{
     height: 25px;
@@ -127,13 +139,6 @@
     
 }
 
-#home-icon {
-    position: absolute;
-    display: none;
-    color: #fff;
-    height: 32px;
-    width: 32px;
-}
 
 @media(max-width: 700px){
    
@@ -142,12 +147,12 @@
     }
 
     .search-bar{
-        position: absolute;
-        margin: 0 auto;
-        width: 75%;
+        width: 75vw;
+        
+        /* margin-left: 25vw; */
     }
 
-    .home-btn{
+    .home-btn .home-ref{
         display: none;
     }  
 
@@ -157,8 +162,13 @@
 
     #home-icon{
         display: inline;
-        top: 25%;
+        top: 32%;
         left: 3%; 
+    }
+    #menu-icon{
+        display: inline;
+        top: 32%;
+        right: 5%;
     }
 
 }

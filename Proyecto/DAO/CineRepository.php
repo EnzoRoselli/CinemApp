@@ -5,7 +5,7 @@ namespace DAO;
 use DAO\IRepository as IRepository;
 use Model\Cine as Cine;
 
-define("FILE_DIR", '../Data/cine.json');
+define("FILE_DIR", JSON ."/cine.json");
 
 /*mandar al config.php*/
 
@@ -86,25 +86,26 @@ class CineRepository implements IRepository
     public function modifyCine($cine){
         
         $this->getData();
+        $cineToModify = $this->searchById($cine->getId());
 
-        if(($cineToModify = $this->searchById($cine->getId())) !== null){
+        if($cineToModify  !== null){
             
-            if($cine->getName() !== "" && $cine->getName() !== $cineToModify->getName()){
+            if($cineToModify->getName() !== ""){
 
                 $cineToModify->setName($cine->getName());
             }
 
-            if($cine->getAdress() !== "" && $cine->getAdress() !== $cineToModify->getAdress()){
+            if($cineToModify->getAdress() !== ""){
 
                 $cineToModify->setAdress($cine->getAdress());
             }
 
-            if($cine->getCapacity() !== "" && $cine->getCapacity() !== $cineToModify->getCapacity()){
+            if($cine->getCapacity() !== ""){
 
                 $cineToModify->setCapacity($cine->getCapacity());
             }
 
-            if($cine->getTicketValue() !== "" && $cine->getTicketValue() !== $cineToModify->getTicketValue()){
+            if($cine->getTicketValue() !== ""){
 
                 $cineToModify->setTicketValue($cine->getTicketValue());
             }
@@ -138,20 +139,24 @@ class CineRepository implements IRepository
         }
         $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
 
-        file_put_contents('../Data/cine.json', $jsonContent);
+        file_put_contents(JSON ."/cine.json", $jsonContent);
     }
 
     public function getData($allCine=null)
     {
+       
         $this->cineList=array();
-        if (file_exists(FILE_DIR)) {
-            $jsonContent = file_get_contents(FILE_DIR);
+          
+        if (file_exists(JSON ."/cine.json")) {
+         
+            $jsonContent = file_get_contents(JSON ."/cine.json");
 
             $arrayToDecode = array();
-
+         
             if ($jsonContent) {
                 $arrayToDecode = json_decode($jsonContent, true);
             }
+            
            
             foreach ($arrayToDecode as $valueArray) {
 
@@ -159,6 +164,7 @@ class CineRepository implements IRepository
                 $aux->setId($valueArray[CINE_ID]);
                 $aux->setActive($valueArray[CINE_ACTIVE]);
                 array_push($this->cineList, $aux);
+                
             }
         }
     }
