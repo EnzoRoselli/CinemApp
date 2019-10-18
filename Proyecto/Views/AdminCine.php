@@ -66,11 +66,11 @@ include('nav.php');
 <div class="overlay" id="overlay">
 	<div class="popup" id="popup">
 		<!-- <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a> -->
-		<a href="<?php echo VIEWS_PATH . "/AdminCine.php" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+		<a href="<?php echo FRONT_ROOT ."/Cine/ShowCinemaMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 
 		<h3>Registrar/Modificar cine</h3>
 
-		<form class="modal-content" action="<?php echo  FRONT_ROOT ."/Cine/determinateUpdateCreate"?>" method="POST">
+		<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
 			<div class="contenedor-inputs">
 				<input type="hidden" name=<?php echo CINE_ID ?> value=<?php if (isset($cineUpdate)) {
 																			echo $cineUpdate->getId();
@@ -105,14 +105,14 @@ include('nav.php');
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-med btn-light" data-dismiss="modal" id="btn-cerrar-popup">Cancelar</button>
 				
-				<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
+				<a href="<?php echo FRONT_ROOT ."/Cine/ShowCinemaMenu" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+				
 					<button type="submit" class="btn btn-med btn-light">Aceptar</button>
-				</form>
+				
 
 			</div>
-		</form>
+			</form>
 	</div>
 </div>
 <script src="<?php echo JS_PATH."/popup.js"?>"></script>

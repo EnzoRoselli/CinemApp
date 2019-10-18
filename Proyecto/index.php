@@ -6,7 +6,8 @@
 	
 	require "Config/Autoload.php";
     require "Config/Config.php";
-    require "Config/Constants/CineConstants.php";
+	require "Config/Constants/CineConstants.php";
+//	require "Controllers/ExceptionController.php" y hacer el use despues
 
 	use Config\Autoload as Autoload;
 	use Config\Router 	as Router;

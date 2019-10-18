@@ -9,11 +9,11 @@
     },
     {
         "id": 2,
-        "name": "Lightsoldier",
+        "name": "Lightsoldirrr",
         "adress": "Centro",
         "capacity": "2000",
         "ticketValue": "200",
-        "active": true
+        "active": false
     },
     {
         "id": 3,
@@ -25,10 +25,26 @@
     },
     {
         "id": 4,
-        "name": "Paseo",
+        "name": "Pase",
         "adress": "Centro",
         "capacity": "2000",
         "ticketValue": "150",
+        "active": false
+    },
+    {
+        "id": 5,
+        "name": "enzo",
+        "adress": "enzpo",
+        "capacity": "500",
+        "ticketValue": "500",
+        "active": true
+    },
+    {
+        "id": 6,
+        "name": "k",
+        "adress": "es",
+        "capacity": "2",
+        "ticketValue": "3",
         "active": true
     }
 ]
