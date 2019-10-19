@@ -8,10 +8,7 @@ namespace Model;
         private $ticketValue;
         private $id;
         private $active;
-        //private static $counter = 0;
-    /**
-     * Class constructor.
-     */
+
     public function __construct($name="", $adress="", $capacity="", $ticketValue="")
     {
         $this->name = $name;

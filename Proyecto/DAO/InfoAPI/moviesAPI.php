@@ -15,7 +15,7 @@ return $moviesList;
 static function searchMovieByTitle($movieArray,$title)
 {
     for ($i=0; $i < count($movieArray); $i++) {  
-        if (strtolower($movieArray[$i]->original_title)==$title) {            
+        if (strcasecmp($movieArray[$i]->original_title,$title) == 0) {            
            return $movieArray[$i];
           }      
       }

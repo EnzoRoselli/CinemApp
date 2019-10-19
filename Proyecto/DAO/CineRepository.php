@@ -18,7 +18,7 @@ class CineRepository implements IRepository
     {
         $this->getData();
 
-        if($this->existsNameAndAdress($cine->getName(), $cine->getAdress())){
+        if($this->existsNameAndAdress($cine->getName(), $cine->getAdress()) || $this->areCapacityAndPriceValid($cine->getCapacity(),$cine->getTicketValue())){
            
             return false;
         }else{
@@ -56,6 +56,16 @@ class CineRepository implements IRepository
             return $flag;
     }
 
+     public function areCapacityAndPriceValid($capacity,$ticketValue){
+
+        if($capacity == 0 || $ticketValue == 0){
+
+            return true;
+        }else{
+            return false;
+        }
+     }
+
     public function delete($id)
     {
         $cine= $this->searchById($id);
@@ -90,33 +100,36 @@ class CineRepository implements IRepository
 
         if($cineToModify  !== null){
             
-            if($cineToModify->getName() !== ""){
-
-                $cineToModify->setName($cine->getName());
-            }
-
-            if($cineToModify->getAdress() !== ""){
-
-                $cineToModify->setAdress($cine->getAdress());
-            }
-
-            if($cine->getCapacity() !== ""){
-
-                $cineToModify->setCapacity($cine->getCapacity());
-            }
-
-            if($cine->getTicketValue() !== ""){
-
-                $cineToModify->setTicketValue($cine->getTicketValue());
-            }
-            
             if (($key = array_search($this->searchById($cine->getId()), $this->cineList)) !== false) {
 
-                $this->cineList[$key]=$cineToModify;
-                $this->saveData();
+                if($cineToModify != $cine){
+                    
+                    if($cineToModify->getName() !== ""){
 
-                return true;
+                        $cineToModify->setName($cine->getName());
+                    }
+        
+                    if($cineToModify->getAdress() !== ""){
+        
+                        $cineToModify->setAdress($cine->getAdress());
+                    }
+        
+                    if($cine->getCapacity() !== ""){
+        
+                        $cineToModify->setCapacity($cine->getCapacity());
+                    }
+        
+                    if($cine->getTicketValue() !== ""){
+        
+                        $cineToModify->setTicketValue($cine->getTicketValue());
+                    }
+
+                    $this->cineList[$key]=$cineToModify;
+                    $this->saveData();
     
+                    return true;
+                }
+
             }
         }
     }

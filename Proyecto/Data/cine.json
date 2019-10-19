@@ -20,7 +20,7 @@
         "name": "Ambassador",
         "adress": "Peatonal",
         "capacity": "2000",
-        "ticketValue": "200",
+        "ticketValue": "20",
         "active": true
     },
     {
@@ -41,10 +41,10 @@
     },
     {
         "id": 6,
-        "name": "k",
+        "name": "Paseo",
         "adress": "es",
         "capacity": "2",
-        "ticketValue": "3",
+        "ticketValue": "5",
         "active": true
     }
 ]

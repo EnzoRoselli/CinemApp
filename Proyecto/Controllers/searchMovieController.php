@@ -14,7 +14,7 @@ class SearchMovieController{
 
     public function searchMovieByName(){
         $ErrorsList=array();//Futuramente se guardaran los msj de errores
-        $title= strtolower($_GET['title']);
+        $title= $_GET['title'];
 
         $comprobationMovie=moviesAPI::searchMovieByTitle($this->allMovies,$title);
         if ($comprobationMovie != null) {

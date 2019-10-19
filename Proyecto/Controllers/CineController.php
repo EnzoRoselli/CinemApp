@@ -45,7 +45,8 @@ class CineController{
                 $this->showCinemaMenu(); 
             }else{
                 CineController::showMessage(1);
-                $this->showCinemaMenu();            }
+                $this->showCinemaMenu(); 
+           }
 
         }else if(!$this->isCapacityValid($capacity) && $this->isTicketValueValid($price)){
 
@@ -63,46 +64,6 @@ class CineController{
         
         
     }
-
-
-    public function showCinemaMenu()
-    {
-     
-        $cines = $this->cineRepository->getAll();
-
-        if(isset($_GET['delete']) || isset($_GET['update'])){
-
-            if (isset($_GET['delete'])) {
-    
-                $id = $_GET['delete'];
-                $this->cineRepository->delete($id);
-                require_once(VIEWS  .'/AdminCine.php');
-            }
-            
-            if (isset($_GET['update'])) {
-
-                $cineUpdate = new Cine();
-                $id = $_GET['update'];
-        
-                $cineUpdate = $this->cineRepository->searchById($id);
-                
-                echo "<script type='text/javascript'>
-                    window.addEventListener('load', function() {
-                        overlay.classList.add('active');
-                        popup.classList.add('active');
-                    })
-                </script>";
-                
-                require_once(VIEWS  .'/AdminCine.php');
-            
-            }
-
-        }else{
-            require_once(VIEWS  .'/AdminCine.php');
-        }
-    
-    }
-
 
     public function updateCinema(){
 
@@ -160,6 +121,45 @@ class CineController{
             return 1;
         }
     }
+
+    public function showCinemaMenu()
+    {
+     
+        $cines = $this->cineRepository->getAll();
+
+        if(isset($_GET['delete']) || isset($_GET['update'])){
+
+            if (isset($_GET['delete'])) {
+    
+                $id = $_GET['delete'];
+                $this->cineRepository->delete($id);
+                require_once(VIEWS  .'/AdminCine.php');
+            }
+            
+            if (isset($_GET['update'])) {
+
+                $cineUpdate = new Cine();
+                $id = $_GET['update'];
+        
+                $cineUpdate = $this->cineRepository->searchById($id);
+                
+                echo "<script type='text/javascript'>
+                    window.addEventListener('load', function() {
+                        overlay.classList.add('active');
+                        popup.classList.add('active');
+                    })
+                </script>";
+                
+                require_once(VIEWS  .'/AdminCine.php');
+            
+            }
+
+        }else{
+            require_once(VIEWS  .'/AdminCine.php');
+        }
+    
+    }
+
     public function delete()
     {
         $this->cineRepository->delete($_GET['id']);
@@ -184,7 +184,7 @@ class CineController{
                 echo "<script> if(confirm('Modificado correctamente'));</script>";      
                 break;
             case 3:
-                echo "<script> if(confirm('Error al modificar los datos'));</script>";
+                echo "<script> if(confirm('Sin modificacion'));</script>";
                 break;
             case 4:
                 echo "<script> if(confirm('La capacidad debe ser mayor a 0'));</script>";
