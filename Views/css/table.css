@@ -2,22 +2,24 @@
   .content-table {
     border-collapse: collapse;
     position: relative;
-    width: 97%;
+    width: 99%;
     margin: 25px auto;
-    font-size: 0.9em;
+    font-size: 1.1rem;
     min-width: 400px;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
+    border-radius: 5px 5px 0 0; 
+    overflow: scroll;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
   }
   
   .content-table thead tr {
     background: linear-gradient(#FF416C, #FF4B2B);
     color: #ffffff;
     text-align: left;
-    font-weight: bold;
+    font-size: 1.1rem;
   }
-  
+
+
   .content-table th,
   .content-table td {
     padding: 12px 15px;
@@ -35,7 +37,3 @@
     border-bottom: 2px solid #FF416C;
   }
   
-  .content-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
-  }

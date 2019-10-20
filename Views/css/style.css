@@ -314,16 +314,17 @@ code {
 
 .admin-cine-body{
   height: 100vh;
-  width: 100vw;
+  
 }
 
 .admin-cine-table{
   position: relative;
-  top: 20%;
+  top: 14%;
 }
 
 .admin-cine-header{
   position: relative;
-  top: 15%;
+  top: 12%;
   display: flex;
+  margin-left: 7px;
 }
