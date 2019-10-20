@@ -39,15 +39,17 @@ class CineController{
 
         if($this->isCapacityValid($capacity) && $this->isTicketValueValid($price)){
 
-            if($this->cineRepository->add($cine)){
+        //     if($this->cineRepository->add($cine)){
     
-                CineController::showMessage(0);
-                $this->showCinemaMenu(); 
-            }else{
-                CineController::showMessage(1);
-                $this->showCinemaMenu(); 
-           }
-
+        //         CineController::showMessage(0);
+        //         $this->showCinemaMenu(); 
+        //     }else{
+        //         CineController::showMessage(1);
+        //         $this->showCinemaMenu(); 
+        //    }
+        $this->cineRepository->add($cine);
+        $this->showCinemaMenu();    
+        
         }else if(!$this->isCapacityValid($capacity) && $this->isTicketValueValid($price)){
 
             CineController::showMessage(4);
@@ -126,7 +128,6 @@ class CineController{
     {
      
         $cines = $this->cineRepository->getAll();
-
         if(isset($_GET['delete']) || isset($_GET['update'])){
 
             if (isset($_GET['delete'])) {

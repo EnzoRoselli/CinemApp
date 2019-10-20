@@ -5,58 +5,60 @@ include('nav.php');
 ?>
 
 <body class="admin-cine-body">
-<div class="admin-cine-header">
-	<h1>Listado de cines</h1>
-	<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
-</div>
+	<div class="admin-cine-header">
+		<h1>Listado de cines</h1>
+		<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
+	</div>
 
-<div class="admin-cine-table">
+	<div class="admin-cine-table">
 
-<table class="content-table">
+		<table class="content-table">
 
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Adress</th>
-			<th>Capacity</th>
-			<th>TicketValue</th>
-			<th>Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php
-		foreach ($cines as $cine) {
-			if ($cine->getActive() === true) {
-				?>
+			<thead>
 				<tr>
-
-					<td><?php echo $cine->getId(); ?></td>
-					<td><?php echo $cine->getName(); ?></td>
-					<td><?php echo $cine->getAdress(); ?></td>
-					<td><?php echo $cine->getCapacity(); ?></td>
-					<td><?php echo $cine->getTicketValue(); ?></td>
-					<td>
-						<form action="<?php echo  FRONT_ROOT ."/Cine/ShowCinemaMenu"?>">
-						
-						<!-- UPDATE CINE -->
-						<button name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
-						<i class="fas fa-edit"></i>
-						</button>
-						<!-- DELETE CINE -->
-						<button name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
-						<i class="fas fa-trash"></i>
-						</button>
-						
-						</form>
-					</td>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Adress</th>
+					<th>Capacity</th>
+					<th>TicketValue</th>
+					<th>Action</th>
 				</tr>
-		<?php
-			}
-		} ?>
-	</tbody>
-</table>
-</div>
+			</thead>
+			<tbody>
+				<?php
+				if (!empty($cines)) {
+					foreach ($cines as $cine) {
+						if ($cine->getActive() === true) {
+							?>
+							<tr>
+
+								<td><?php echo $cine->getId(); ?></td>
+								<td><?php echo $cine->getName(); ?></td>
+								<td><?php echo $cine->getAdress(); ?></td>
+								<td><?php echo $cine->getCapacity(); ?></td>
+								<td><?php echo $cine->getTicketValue(); ?></td>
+								<td>
+									<form action="<?php echo  FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>">
+
+										<!-- UPDATE CINE -->
+										<button name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<i class="fas fa-edit"></i>
+										</button>
+										<!-- DELETE CINE -->
+										<button name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<i class="fas fa-trash"></i>
+										</button>
+
+									</form>
+								</td>
+							</tr>
+				<?php
+						}
+					}
+				}?>
+			</tbody>
+		</table>
+	</div>
 </body>
 
 
@@ -66,7 +68,7 @@ include('nav.php');
 <div class="overlay" id="overlay">
 	<div class="popup" id="popup">
 		<!-- <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a> -->
-		<a href="<?php echo FRONT_ROOT ."/Cine/ShowCinemaMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+		<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 
 		<h3>Registrar/Modificar cine</h3>
 
@@ -105,17 +107,17 @@ include('nav.php');
 				</div>
 			</div>
 			<div class="modal-footer">
-				
-				<a href="<?php echo FRONT_ROOT ."/Cine/ShowCinemaMenu" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup"><i class="fas fa-times"></i></a>
-				
-					<button type="submit" class="btn btn-med btn-light">Aceptar</button>
-				
+
+				<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+
+				<button type="submit" class="btn btn-med btn-light">Aceptar</button>
+
 
 			</div>
-			</form>
+		</form>
 	</div>
 </div>
-<script src="<?php echo JS_PATH."/popup.js"?>"></script>
+<script src="<?php echo JS_PATH . "/popup.js" ?>"></script>
 </div>
 
 <?php include('footer.php'); ?>
