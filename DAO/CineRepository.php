@@ -21,7 +21,9 @@ class CineRepository implements IRepository
         
         try {
             
-            $query = "INSERT INTO " . " " . $this->tableName . " " . " (cinema_name, address, capacity,ticket_value) VALUES (:name,:address,:capacity,:ticket_value);";
+            $query = "INSERT INTO " . " " . $this->tableName . " " . 
+            " (cinema_name, address, capacity,ticket_value) VALUES
+             (:name,:address,:capacity,:ticket_value);";
 
             //----------------Y ACA ARMARIA LA QUERY--------
             //cinema_name, address, capacity,ticket_value,active
@@ -176,10 +178,12 @@ class CineRepository implements IRepository
             foreach ($resultSet as $row) {
                 
                 $cine = new Cine();
+                $cine->setId($row['id']);
                 $cine->setName($row['cinema_name']);
                 $cine->setAdress($row['address']);
                 $cine->setCapacity($row['capacity']);
                 $cine->setTicketValue($row['ticket_value']);
+                
                 array_push($this->cineList, $cine);
             }
             return $this->cineList;
