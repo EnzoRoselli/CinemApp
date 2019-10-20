@@ -4,37 +4,37 @@ namespace Model;
 
 class Showtime{
 
-    private $cinemaId;
-    private $date;
-    private $hour;
+    private $showtimeId;
     private $movieId;
+    private $cinemaId;
+    private $day;
+    private $hour;
     private $ticketStock;
-    private $id;
     private $active;
 
-    public function __construct($movieId,$cinemaId,$date,$hour,$ticketStock)
+    public function __construct($showtimeId,$movieId,$cinemaId,$day,$hour,$ticketStock)
     {
+        $this->showtimeId=$showtimeId;
         $this->movieId = $movieId;
         $this->cinemaId = $cinemaId;
-        $this->date = $date;
+        $this->day = $day;
         $this->hour = $hour;
         $this->ticketStock = $ticketStock;
-        $this->id=0;
         $this->active = true;
     }
 
-    public function getId(){return $this->id;}
+    public function getShowtimeId(){return $this->showtimeId;}
     public function getCinemaId(){return $this->cinemaId;}
     public function getMovieId(){return $this->movieId;}
-    public function getDate(){return $this->date;}
+    public function getDay(){return $this->day;}
     public function getHour(){return $this->hour;}
     public function getTicketStock(){return $this->ticketStock;}
     public function getActive(){return $this->active;}
 
-    public function setId($id){$this->id=$id;}
+    public function setShowtimeId($showtimeId){$this->showtimeId=$showtimeId;}
     public function setCinemaId($cinemaId){$this->cinemaId=$cinemaId;}
     public function setMovieId($movieId){$this->movieId=$movieId;}
-    public function setDate($date){$this->date=$date;}
+    public function setDay($day){$this->day=$day;}
     public function setHour($hour){$this->hour=$hour;}
     public function setTicketStock($ticketStock){
         if($ticketStock > 0){
