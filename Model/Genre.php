@@ -1,17 +1,21 @@
 <?php
+namespace Model;
 
     class Genre 
     {
-        private $id;
-        private $nombre;
+        private $genreId;
+        private $name;
 
-        public function __construct($id,$nombre) {
-            $this->id=$id;
-            $this->nombre=$nombre;
-
+        public function __construct($genreId,$name) {
+            $this->genreId=$genreId;
+            $this->name=$name;
         }
 
-        //getters y setters
+        public function getGenreId(){ return $this->genreId;}
+        public function getName(){ return $this->name;}
+
+        public function setGenreId($genreId){$this->genreId = $genreId;}
+        public function setName($name){$this->name=$name;}
     }
     
 ?>
