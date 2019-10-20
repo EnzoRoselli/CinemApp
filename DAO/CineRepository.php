@@ -70,7 +70,7 @@ class CineRepository implements IRepository
     public function areCapacityAndPriceValid($capacity, $ticketValue)
     {
 
-        if ($capacity == 0 || $ticketValue == 0) {
+        if ($capacity <= 0 || $ticketValue <= 0) {
 
             return true;
         } else {
