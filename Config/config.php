@@ -22,5 +22,12 @@ define("IMG_PATH", VIEWS_PATH . "/img");
 // echo CSS_PATH;
 // echo JS_PATH;
 // echo IMG_PATH;
+
+//DATABASE 
+define("DB_HOST","localhost");
+define("DB_USER","root");
+define("DB_NAME","CinemApp");
+define("DB_PASS","");
+
 ?>
 
