@@ -65,33 +65,22 @@ class CineController{
 
         $modifiedCinema = new Cine($updatedName,$updatedAdress,$updatedCapacity,$updatedPrice);
         $modifiedCinema->setId($updatedId);
-
+            //COROBORAR TODOS LOS CAMPOS NO SEAN NULOS Y QUE LOS NUEVOS NO LOS CONTENGA OTRO CINE
         if($this->isCapacityValid($updatedCapacity) && $this->isTicketValueValid($updatedPrice)){
 
-            if($this->cineRepository->modifyCine($modifiedCinema)){
-                
-                CineController::showMessage(2);
+            if($this->CineDao->modifyCine($modifiedCinema)){             
+                $advice= CineController::showMessage(2);
                 $this->showCinemaMenu();
             }else{
 
-                CineController::showMessage(3);
+                $advice= CineController::showMessage(3);
                 $this->showCinemaMenu();
             }
 
-        }else if(!$this->isCapacityValid($updatedCapacity) && $this->isTicketValueValid($updatedPrice)){
-
-            CineController::showMessage(4);
-            $this->showCinemaMenu();
-        }else if($this->isCapacityValid($updatedCapacity) && !$this->isTicketValueValid($updatedPrice)){
-
-            CineController::showMessage(5);
-            $this->showCinemaMenu();
-        }else if(!$this->isCapacityValid($updatedCapacity) && !$this->isTicketValueValid($updatedPrice)){
-
-            CineController::showMessage(6);
-            $this->showCinemaMenu(); 
+        }else{
+            $advice=CineController::showMessage(4);
+            $this->showCinemaMenu(); //SIEMPRE TESTEAR SI LA VARIABLE NO ESTA VACIA EN LA VIEW, Y SINO HACERLE EL ALERT CON DE TEXTO EL &advice
         }
-
     }
 
 
