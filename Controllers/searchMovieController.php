@@ -1,7 +1,7 @@
 <?php 
 namespace Controllers;
 use DAO\InfoAPI\moviesAPI as moviesAPI;
-use DAO\CineRepository as CineRepository;
+use DAO\CinemasDAO as CinemasDAO;
 
 
 class SearchMovieController{

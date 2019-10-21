@@ -2,16 +2,16 @@
 namespace Controllers;
 
 Use Model\Cine as Cine;
-Use DAO\CineRepository as daoCine;
+Use DAO\CinemasDAO as daoCine;
 
 
 class CineController{
 
-    private $cineRepository;
+    private $CineDao;
 
     public function __construct()
     {
-        $this->cineRepository = new daoCine();
+        $this->CineDao = new daoCine();
     }
 
     public function determinateUpdateCreate()
@@ -39,30 +39,20 @@ class CineController{
 
         if($this->isCapacityValid($capacity) && $this->isTicketValueValid($price)){
 
-        //     if($this->cineRepository->add($cine)){
+            if($this->CineDao->add($cine)){
     
-        //         CineController::showMessage(0);
-        //         $this->showCinemaMenu(); 
-        //     }else{
-        //         CineController::showMessage(1);
-        //         $this->showCinemaMenu(); 
-        //    }
-        $this->cineRepository->add($cine);
-        $this->showCinemaMenu();    
-        
-        }else if(!$this->isCapacityValid($capacity) && $this->isTicketValueValid($price)){
+                $advice=  CineController::showMessage(0);
+                $this->showCinemaMenu(); 
+            }else{
+                $advice=  CineController::showMessage(1);
+                $this->showCinemaMenu(); 
+           }
+        }else{
+            $advice=CineController::showMessage(4);
+            $this->showCinemaMenu(); //SIEMPRE TESTEAR SI LA VARIABLE NO ESTA VACIA EN LA VIEW, Y SINO HACERLE EL ALERT CON DE TEXTO EL &advice
 
-            CineController::showMessage(4);
-            $this->showCinemaMenu();
-        }else if($this->isCapacityValid($capacity) && !$this->isTicketValueValid($price)){
 
-            CineController::showMessage(5);
-            $this->showCinemaMenu();
-        }else if(!$this->isCapacityValid($capacity) && !$this->isTicketValueValid($price)){
-
-            CineController::showMessage(6);
-            $this->showCinemaMenu(); 
-        }
+        } 
         
         
     }
@@ -80,60 +70,51 @@ class CineController{
 
         if($this->isCapacityValid($updatedCapacity) && $this->isTicketValueValid($updatedPrice)){
 
-            if($this->cineRepository->modifyCine($modifiedCinema)){
+            if($this->CineDao->modifyCine($modifiedCinema)){
                 
-                CineController::showMessage(2);
+                $advice= CineController::showMessage(2);
                 $this->showCinemaMenu();
             }else{
 
-                CineController::showMessage(3);
+               $advice= CineController::showMessage(3);
                 $this->showCinemaMenu();
             }
+        }else{
+            $advice=CineController::showMessage(4);
+            $this->showCinemaMenu(); //SIEMPRE TESTEAR SI LA VARIABLE NO ESTA VACIA EN LA VIEW, Y SINO HACERLE EL ALERT CON DE TEXTO EL &advice
 
-        }else if(!$this->isCapacityValid($updatedCapacity) && $this->isTicketValueValid($updatedPrice)){
-
-            CineController::showMessage(4);
-            $this->showCinemaMenu();
-        }else if($this->isCapacityValid($updatedCapacity) && !$this->isTicketValueValid($updatedPrice)){
-
-            CineController::showMessage(5);
-            $this->showCinemaMenu();
-        }else if(!$this->isCapacityValid($updatedCapacity) && !$this->isTicketValueValid($updatedPrice)){
-
-            CineController::showMessage(6);
-            $this->showCinemaMenu(); 
-        }
+        } 
 
     }
 
     private function isCapacityValid($capacity){
 
         if($capacity <= 0){
-            return 0;
+            return false;
         }else{
-            return 1;
+            return true;
         }
     }
 
     private function isTicketValueValid($price){
 
         if($price <= 0){
-            return 0;
+            return false;
         }else{
-            return 1;
+            return true;
         }
     }
 
     public function showCinemaMenu()
     {
      
-        $cines = $this->cineRepository->getAll();
+        $cines = $this->CineDao->getAll();
         if(isset($_GET['delete']) || isset($_GET['update'])){
 
             if (isset($_GET['delete'])) {
     
                 $id = $_GET['delete'];
-                $this->cineRepository->delete($id);
+                $this->CineDao->delete($id);
                 require_once(VIEWS  .'/AdminCine.php');
             }
             
@@ -142,7 +123,7 @@ class CineController{
                 $cineUpdate = new Cine();
                 $id = $_GET['update'];
         
-                $cineUpdate = $this->cineRepository->searchById($id);
+                $cineUpdate = $this->CineDao->searchById($id);
                 
                 echo "<script type='text/javascript'>
                     window.addEventListener('load', function() {
@@ -163,12 +144,12 @@ class CineController{
 
     public function delete()
     {
-        $this->cineRepository->delete($_GET['id']);
+        $this->CineDao->delete($_GET['id']);
         
     }
     public function update()
     {
-        $this->cineRepository->modifyCine($_GET['id']);      
+        $this->CineDao->modifyCine($_GET['id']);      
      
     }
 
@@ -176,26 +157,22 @@ class CineController{
 
         switch ($messageNumber) {
             case 0:
-                echo "<script> if(confirm('Agregado correctamente'));</script>";
+                return "Agregado correctamente";
                 break;
             case 1:
-                 echo "<script> if(confirm('Verifique que los datos no esten repetidos'));</script>";
+                return "Verifique que los datos no esten repetidos";
                 break;
             case 2:
-                echo "<script> if(confirm('Modificado correctamente'));</script>";      
+                return "Modificado correctamente";      
                 break;
             case 3:
-                echo "<script> if(confirm('Sin modificacion'));</script>";
+                return "Sin modificacion";
                 break;
-            case 4:
-                echo "<script> if(confirm('La capacidad debe ser mayor a 0'));</script>";
-                break;
-            case 5:
-                echo "<script> if(confirm('El valor del ticket debe ser mayor a 0'));</script>";
-                break;
-            case 6:
-                echo "<script> if(confirm('La capacidad y el valor del ticket deben ser mayor a 0'));</script>";
-                break;
+                case 4:
+                return "La capacidad y el valor del ticket deben ser mayor a 0(cero)";
+      
+                    break;
+           
             default:
                
 

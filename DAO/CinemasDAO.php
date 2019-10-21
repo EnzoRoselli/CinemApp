@@ -1,26 +1,25 @@
 <?php
 
+use DAO\CinemasDAO;
+
+
 namespace DAO;
 
 use DAO\IRepository as IRepository;
 use Model\Cine as Cine;
 
-//define("FILE_DIR", JSON ."/cine.json");
-
-/*mandar al config.php*/
-
-class CineRepository implements IRepository
+class CinemasDAO implements IRepository
 {
 
     private $cineList  = array();
     private $connection;
-    private $tableName = "cinemas"; //agregar nombre de la tabla
+    private $tableName = "cinemas"; 
 
     public function add(Cine $cine)
     {
-        if ($cine->getCapacity() > 0 && $cine->getTicketValue() > 0) {
+      
 
-            if (!existsCine($cine)) {
+           
                 try {
 
                     $query = "INSERT INTO " . " " . $this->tableName . " " .
@@ -35,14 +34,13 @@ class CineRepository implements IRepository
 
                     $this->connection = Connection::GetInstance();
                     $this->connection->ExecuteNonQuery($query, $parameters);
+                    return true;
                 } catch (\Throwable $ex) {
+                    return false;
                     throw $ex;
                 }
-            }
-        } else {
-            $errorMsj = array();
-            array_push($errorMsj, "El precio o la capacidad no pueden ser menor o igual que 0");
-        }
+        
+       
     }
 
     public function existsCine(Cine $cine)
