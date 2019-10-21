@@ -1,8 +1,8 @@
 
-CREATE DATABASE CINEMAPP;
+CREATE DATABASE IF NOT EXISTS CINEMAPP;
 USE CINEMAPP;
 
-CREATE TABLE cinemas(
+CREATE TABLE IF NOT EXISTS cinemas(
 id int AUTO_INCREMENT,
 cinema_name varchar(50),
 address varchar(50),
@@ -11,7 +11,7 @@ ticket_value float,
 active boolean,
 CONSTRAINT pk_cinemas PRIMARY KEY (id));
 
-CREATE TABLE movies(
+CREATE TABLE IF NOT EXISTS movies(
 id int,
 title varchar(50),
 duration int(3), /* VER SI SE USA ASI O UN TIPO DE DATO DE TIEMPO */
@@ -23,14 +23,14 @@ poster_path varchar(50),
 
 constraint pk_movies PRIMARY KEY (id));
 
-CREATE TABLE genres(
+CREATE TABLE IF NOT EXISTS genres(
 id int,
 genre_name varchar(50),
 constraint pk_genres PRIMARY KEY (id),
 CONSTRAINT unq_genres UNIQUE (genre_name));
 
 
-CREATE TABLE genres_by_movies (
+CREATE TABLE IF NOT EXISTS genres_by_movies (
 id_movie int,
 id_genre int, 
 constraint pk_genres_by_movies_id_movie_id_genre PRIMARY KEY (id_movie, id_genre),
@@ -39,14 +39,19 @@ constraint fk_genres_by_movies_id_genre FOREIGN KEY (id_genre) REFERENCES genres
 
 
 
-CREATE TABLE users(
+CREATE TABLE IF NOT EXISTS users(
 id int AUTO_INCREMENT,
 username varchar(20),
 password varchar(12),
+email varchar(30),
+name varchar(30),
+lastname varchar(30),
+dni varchar(9),
 constraint pk_users PRIMARY KEY (id),
 CONSTRAINT unq_users UNIQUE (username));
 
-CREATE TABLE showviews(
+
+CREATE TABLE IF NOT EXISTS showviews(
 id int AUTO_INCREMENT,
 id_movie int,
 id_cinema int,
@@ -57,7 +62,7 @@ CONSTRAINT fk_id_movie FOREIGN KEY (id_movie) REFERENCES movies(id) ON DELETE CA
 CONSTRAINT fk_id_cinema FOREIGN KEY (id_cinema) REFERENCES cinemas(id) ON DELETE CASCADE);
 
 
-CREATE TABLE ticket(
+CREATE TABLE IF NOT EXISTS ticket(
 id int AUTO_INCREMENT,
 qr int,
 id_showview int,
@@ -66,7 +71,7 @@ CONSTRAINT pk_ticket PRIMARY KEY (id),
 CONSTRAINT fk_id_showview FOREIGN KEY (id_showview) REFERENCES showviews(id) ON DELETE RESTRICT,
 CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users(username) ON DELETE RESTRICT);
 
-CREATE TABLE credit_cards(
+CREATE TABLE IF NOT EXISTS credit_cards(
 cc_number varchar(16),
 owner_name varchar(50),
 cc_company varchar(50),

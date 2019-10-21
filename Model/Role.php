@@ -1,8 +1,6 @@
 <?php
 namespace Model;
 
-
-
 class Role{
 
     private $description;

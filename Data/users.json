@@ -3,31 +3,31 @@
     {
         "email": "b@b.b",
         "password": "b",
-        "name": "asd"
+        "username": "asd"
     },
     {
         "email": "ab@b.b",
         "password": "b",
-        "name": "asd"
+        "username": "asd"
     },
     {
         "email": "aba@b.b",
         "password": "b",
-        "name": "facundo mateu"
+        "username": "facundo mateu"
     },
     {
         "email": "w@w",
         "password": "w",
-        "name": "www"
+        "username": "www"
     },
     {
         "email": "b@b",
         "password": "b",
-        "name": "enzo"
+        "username": "enzo"
     },
     {
         "email": "f@f",
         "password": "f",
-        "name": "facu"
+        "username": "facu"
     }
 ]

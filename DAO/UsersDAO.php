@@ -8,44 +8,106 @@ use Model\User as User;
 
 class UsersDAO  
 {
-    static private $UsersList=array();
 
-    public function __construct() {
-       
-    }
-
-    public function GetAll(){
-        UsersDAO::RetrieveData();
-
-        return UsersDAO::$UsersList;
-    }
+    private $userList = array();
+    private $connection;
+    private $tableName = "users";
 
 
-    static public function Add(User $user)
-    {
+    public function add(User $user)
+    {  
+        try {
+
+            $query = "INSERT INTO " . " " . $this->tableName . " " . 
+            " (email, password, name) VALUES
+             (:email,:password,:name);";
+
+            $parameters["name"] = $user->getEmail();
+            $parameters["address"] = $user->getPassword();
+            $parameters["capacity"] = $user->getName();
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
             
-        UsersDAO::RetrieveData();
-        array_push(UsersDAO::$UsersList,$user);
-        UsersDAO::SaveData();
-    }
-
-   
-
-    public function ExistsRegister(User $user){
-        UsersDAO::RetrieveData();
-        if(!empty(UsersDAO::$UsersList)){
-            for ($i=0; $i < count(UsersDAO::$UsersList); $i++) { 
-                if ($user->getEmail()==UsersDAO::$UsersList[$i]->getEmail()){
-                    return false;
-                }
-            }
+        } catch (\Throwable $ex) {
+            throw $ex;
         }
-            return $user;
-        
     }
+
+    public function delete($username)
+    {
+        $user = $this->searchByusername($username);
+
+        if (($key = array_search($user, $this->userList)) !== false) {
+            $this->userList[$key]->setActive(false);
+        }
+
+        $this->saveData();
+    }
+
+    public function searchByUsername($username)
+    {
+        try {
+
+            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE username=:username";
+
+            $parameters["username"] = $username;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        return null;
+    }
+
+    public function getAll()
+    {
+        try {
+            $this->userList = array();
+            $query = "SELECT * FROM" . ' ' . $this->tableName;
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+            foreach ($resultSet as $row) {
+                
+                $user = new User($row['email'], $row['password']);
+                $user->setUsername($row['username']);
+                $user->setName($row['name']);
+                $user->setLastName($row['lastname']);
+                $user->setDni($row['dni']);
+                array_push($this->userList, $user);
+            }
+            return $this->userList;
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+        
+    public function existsUser(User $user)
+    {
+        try {
+
+            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE username=:username and email=:email";
+
+            $parameters["username"] = $user->getUsername();
+            $parameters["email"] = $user->getEmail();
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+            return true;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        return null;
+    }
+
 
     public function ExistsLogin(User $user){
-        UsersDAO::RetrieveData();
+
         if(!empty(UsersDAO::$UsersList)){
             for ($i=0; $i < count(UsersDAO::$UsersList); $i++) { 
                 if ($user->getEmail()==UsersDAO::$UsersList[$i]->getEmail() && $user->getPassword()==UsersDAO::$UsersList[$i]->getPassword()){
@@ -56,43 +118,6 @@ class UsersDAO
             return false;
         
     }
-    static private function SaveData()
-    {
-        $arrayToEncode = array();
-
-        foreach(UsersDAO::$UsersList as $user)
-        {
-            $valuesArray["email"] = $user->getEmail();
-            $valuesArray["password"] = $user->getPassword();
-            $valuesArray['name']=$user->getName();
-            array_push($arrayToEncode, $valuesArray);
-        }
-
-        $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-        
-        file_put_contents('../../Data/users.json', $jsonContent);
-    }
-
-   static private function RetrieveData()
-    {
-        UsersDAO::$UsersList = array();
-
-        if(file_exists('../../Data/users.json'))
-        {
-            $jsonContent = file_get_contents('../../Data/users.json');
-
-            $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
-
-            foreach($arrayToDecode as $valuesArray)
-            {
-                $user = new User($valuesArray["email"], $valuesArray["password"]);
-                $user->setName($valuesArray["name"]);
-                array_push(UsersDAO::$UsersList, $user);
-            }
-        }
-    }
-
-
 }
 
 ?>
