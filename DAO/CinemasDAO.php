@@ -1,47 +1,41 @@
 <?php
 
+use DAO\CinemasDAO;
+
+
 namespace DAO;
 
 use DAO\IRepository as IRepository;
 use Model\Cine as Cine;
 
-//define("FILE_DIR", JSON ."/cine.json");
-
-/*mandar al config.php*/
-
-class CineRepository implements IRepository
+class CinemasDAO implements IRepository
 {
 
     private $cineList  = array();
     private $connection;
-    private $tableName = "cinemas"; //agregar nombre de la tabla
+    private $tableName = "cinemas";
 
     public function add(Cine $cine)
     {
-        if ($cine->getCapacity() > 0 && $cine->getTicketValue() > 0) {
 
-            if (!existsCine($cine)) {
-                try {
+        try {
 
-                    $query = "INSERT INTO " . " " . $this->tableName . " " .
-                        " (cinema_name, address, capacity,ticket_value) VALUES
+            $query = "INSERT INTO " . " " . $this->tableName . " " .
+                " (cinema_name, address, capacity,ticket_value) VALUES
                                  (:name,:address,:capacity,:ticket_value);";
 
 
-                    $parameters["name"] = $cine->getName();
-                    $parameters["address"] = $cine->getAddress();
-                    $parameters["capacity"] = $cine->getCapacity();
-                    $parameters["ticket_value"] = $cine->getTicketValue();
+            $parameters["name"] = $cine->getName();
+            $parameters["address"] = $cine->getAddress();
+            $parameters["capacity"] = $cine->getCapacity();
+            $parameters["ticket_value"] = $cine->getTicketValue();
 
-                    $this->connection = Connection::GetInstance();
-                    $this->connection->ExecuteNonQuery($query, $parameters);
-                } catch (\Throwable $ex) {
-                    throw $ex;
-                }
-            }
-        } else {
-            $errorMsj = array();
-            array_push($errorMsj, "El precio o la capacidad no pueden ser menor o igual que 0");
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+            return true;
+        } catch (\Throwable $ex) {
+            return false;
+            throw $ex;
         }
     }
 
@@ -67,15 +61,24 @@ class CineRepository implements IRepository
 
     public function delete($id)
     {
-        $cine = $this->searchById($id);
-        if ($cine != null) {
-            $query = "DELETE FROM " . " " . $this->tableName . " " . "WHERE id=:id";
+        $comprobationID = $this->searchById($id);
+        if ($comprobationID) {
+            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
             $parameters["id"] = $id;
+            $parameters["active"] = false;
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         }
-        if (($key = array_search($cine, $this->cineList)) !== false) {
-            $this->cineList[$key]->setActive(false);
+    }
+    public function activeAcinema($id)
+    {
+        $comprobationID = $this->searchById($id);
+        if ($comprobationID) {
+            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
+            $parameters["id"] = $id;
+            $parameters["active"] = true;
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
         }
     }
 
@@ -90,35 +93,38 @@ class CineRepository implements IRepository
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
-            return $resultSet;
+            return true;
         } catch (\Throwable $th) {
             throw $th;
         }
 
-        return null;
+        return false;
     }
 
     public function modifyCine($cine) //si los valores son vacios , que no se updatee
     {
-        if (isset($cine->getName()) && isset($cine->getAddress()) && $cine->getCapacity()>0 && $cine->getTicketValue()>0) { 
+
         try {
 
-            $query = "UPDATE " . " " . $this->tableName . " " . "SET name=:name, address=:address, capacity=:capacity, ticket_value=:ticket_value";
+            $query = "UPDATE " . " " . $this->tableName . " " . "SET name=:name, address=:address, capacity=:capacity, ticket_value=:ticket_value WHERE id=:id";
 
             $parameters["name"] = $cine->getName();
             $parameters["address"] = $cine->getAddress();
             $parameters["capacity"] = $cine->getCapacity();
             $parameters["ticket_value"] = $cine->getTicketValue();
+            $parameters["id"] = $cine->getId();
+
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $th) {
             throw $th;
         }
-    }else{
         return false;
     }
-    }
+
+
+
 
 
     public function getAll()
