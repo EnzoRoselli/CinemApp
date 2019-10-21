@@ -61,15 +61,24 @@ class CinemasDAO implements IRepository
 
     public function delete($id)
     {
-        $cine = $this->searchById($id);
-        if ($cine != null) {
-            $query = "DELETE FROM " . " " . $this->tableName . " " . "WHERE id=:id";
+        $comprobationID = $this->searchById($id);
+        if ($comprobationID) {
+            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
             $parameters["id"] = $id;
+            $parameters["active"] = false;
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         }
-        if (($key = array_search($cine, $this->cineList)) !== false) {
-            $this->cineList[$key]->setActive(false);
+    }
+    public function activeAcinema($id)
+    {
+        $comprobationID = $this->searchById($id);
+        if ($comprobationID) {
+            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
+            $parameters["id"] = $id;
+            $parameters["active"] = true;
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
         }
     }
 
@@ -84,12 +93,12 @@ class CinemasDAO implements IRepository
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
-            return $resultSet;
+            return true;
         } catch (\Throwable $th) {
             throw $th;
         }
 
-        return null;
+        return false;
     }
 
     public function modifyCine($cine) //si los valores son vacios , que no se updatee

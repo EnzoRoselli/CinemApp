@@ -105,18 +105,12 @@ class CineController{
 
     public function showCinemaMenu()
     {
-     
-        $cines = $this->CineDao->getAll();
-        if(isset($_GET['delete']) || isset($_GET['update'])){
-
             if (isset($_GET['delete'])) {
     
                 $id = $_GET['delete'];
                 $this->CineDao->delete($id);
                 require_once(VIEWS  .'/AdminCine.php');
-            }
-            
-            if (isset($_GET['update'])) {
+            }else if(isset($_GET['update'])) {
 
                 $cineUpdate = new Cine();
                 $id = $_GET['update'];
@@ -132,13 +126,15 @@ class CineController{
                 
                 require_once(VIEWS  .'/AdminCine.php');
             
+            }else{
+                require_once(VIEWS  .'/AdminCine.php');
             }
 
-        }else{
-            require_once(VIEWS  .'/AdminCine.php');
         }
+            
     
-    }
+    
+    
 
     public function delete()
     {
