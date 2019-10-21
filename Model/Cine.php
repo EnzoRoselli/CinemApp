@@ -3,16 +3,16 @@ namespace Model;
 
     class Cine{
         private $name;
-        private $adress;
+        private $address;
         private $capacity;
         private $ticketValue;
         private $id;
         private $active;
 
-    public function __construct($name="", $adress="", $capacity="", $ticketValue="")
+    public function __construct($name="", $address="", $capacity="", $ticketValue="")
     {
         $this->name = $name;
-        $this->adress = $adress;
+        $this->address = $address;
         $this->capacity = $capacity;
         $this->ticketValue = $ticketValue;
         $this->id=0;
@@ -21,14 +21,14 @@ namespace Model;
 
     public function getId(){ return $this->id;}
     public function getName(){ return $this->name;}
-    public function getAdress(){ return $this->adress;}
+    public function getAddress(){ return $this->address;}
     public function getCapacity(){ return $this->capacity;}
     public function getTicketValue(){ return $this->ticketValue;}
     public function getActive(){ return $this->active;}
 
 
     public function setName($name){$this->name=$name;}
-    public function setAdress($adress){$this->adress=$adress;}
+    public function setAddress($address){$this->address=$address;}
     public function setCapacity($capacity){
         if($capacity > 0)
             $this->capacity=$capacity;
@@ -41,7 +41,7 @@ namespace Model;
     public function setActive($active){$this->active = $active;}
     
     public function equals($cine){
-        if($this->getName() === $cine->getName() && $this->getAdress() === $cine->getAdress()){
+        if($this->getName() === $cine->getName() && $this->getAddress() === $cine->getAddress()){
             return true;
         }else{
             return false;

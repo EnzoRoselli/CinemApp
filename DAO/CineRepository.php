@@ -12,95 +12,52 @@ use Model\Cine as Cine;
 class CineRepository implements IRepository
 {
 
-    private $cineList = array();
+    private $cineList  = array();
     private $connection;
     private $tableName = "cinemas"; //agregar nombre de la tabla
 
     public function add(Cine $cine)
     {
-        
-        try {
-            
-            $query = "INSERT INTO " . " " . $this->tableName . " " . 
-            " (cinema_name, address, capacity,ticket_value) VALUES
-             (:name,:address,:capacity,:ticket_value);";
+        if ($cine->getCapacity() > 0 && $cine->getTicketValue() > 0) {
 
-            //----------------Y ACA ARMARIA LA QUERY--------
-            //cinema_name, address, capacity,ticket_value,active
+            if (!existsCine($cine)) {
+                try {
 
-            $parameters["name"] = $cine->getName();
-            $parameters["address"] = $cine->getAdress();
-            $parameters["capacity"] = $cine->getCapacity();
-            $parameters["ticket_value"] = $cine->getTicketValue();
+                    $query = "INSERT INTO " . " " . $this->tableName . " " .
+                        " (cinema_name, address, capacity,ticket_value) VALUES
+                                 (:name,:address,:capacity,:ticket_value);";
 
-            $this->connection = Connection::GetInstance();
-            $this->connection->ExecuteNonQuery($query, $parameters);
-            
-        } catch (\Throwable $ex) {
-            throw $ex;
-        }
-    }
 
-    public function existsId($id)
-    {
-        $flag = false;
+                    $parameters["name"] = $cine->getName();
+                    $parameters["address"] = $cine->getAddress();
+                    $parameters["capacity"] = $cine->getCapacity();
+                    $parameters["ticket_value"] = $cine->getTicketValue();
 
-        foreach ($this->cineList as $key) {
-            if ($key->getId() == $id) {
-                $flag = true;
-                break;
+                    $this->connection = Connection::GetInstance();
+                    $this->connection->ExecuteNonQuery($query, $parameters);
+                } catch (\Throwable $ex) {
+                    throw $ex;
+                }
             }
-        }
-        return $flag;
-    }
-
-    public function existsNameAndAdress($name, $adress)
-    {
-        $flag = false;
-
-        foreach ($this->cineList as $key) {
-            if ($key->getName() === $name && $key->getAdress() === $adress) {
-                $flag = true;
-                break;
-            }
-        }
-        return $flag;
-    }
-
-    public function areCapacityAndPriceValid($capacity, $ticketValue)
-    {
-
-        if ($capacity <= 0 || $ticketValue <= 0) {
-
-            return true;
         } else {
-            return false;
+            $errorMsj = array();
+            array_push($errorMsj, "El precio o la capacidad no pueden ser menor o igual que 0");
         }
     }
 
-    public function delete($id)
+    public function existsCine(Cine $cine)
     {
-        $cine = $this->searchById($id);
-
-        if (($key = array_search($cine, $this->cineList)) !== false) {
-            $this->cineList[$key]->setActive(false);
-        }
-
-        $this->saveData();
-    }
-
-    public function searchById($id)
-    {
-
 
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE id=:id";
+            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE name=:cineName and address=:cineAddress";
 
-            $parameters["id"] = $id;
+            $parameters["cineName"] = $cine->getName();
+            $parameters["cineAddress"] = $cine->getAddress();
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
+            return true;
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -108,16 +65,48 @@ class CineRepository implements IRepository
         return null;
     }
 
-    public function modifyCine($cine)
+    public function delete($id)
+    {
+        $cine = $this->searchById($id);
+        if ($cine != null) {
+            $query = "DELETE FROM " . " " . $this->tableName . " " . "WHERE id=:id";
+            $parameters["id"] = $id;
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
+        if (($key = array_search($cine, $this->cineList)) !== false) {
+            $this->cineList[$key]->setActive(false);
+        }
+    }
+
+    public function searchById($id)
     {
 
 
         try {
+            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE id=:id";
 
-            $query = "UPDATE " . " " . $this->tableName . "SET name=:name, adress=:adress, capacity=:capacity, ticket_value=:ticket_value";
+            $parameters["id"] = $id;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+            return $resultSet;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        return null;
+    }
+
+    public function modifyCine($cine) //si los valores son vacios , que no se updatee
+    {
+        if (isset($cine->getName()) && isset($cine->getAddress()) && $cine->getCapacity()>0 && $cine->getTicketValue()>0) { 
+        try {
+
+            $query = "UPDATE " . " " . $this->tableName . " " . "SET name=:name, address=:address, capacity=:capacity, ticket_value=:ticket_value";
 
             $parameters["name"] = $cine->getName();
-            $parameters["address"] = $cine->getAdress();
+            $parameters["address"] = $cine->getAddress();
             $parameters["capacity"] = $cine->getCapacity();
             $parameters["ticket_value"] = $cine->getTicketValue();
 
@@ -126,44 +115,9 @@ class CineRepository implements IRepository
         } catch (\Throwable $th) {
             throw $th;
         }
-
-
-        $this->getData();
-        $cineToModify = $this->searchById($cine->getId());
-
-        if ($cineToModify  !== null) {
-
-            if (($key = array_search($this->searchById($cine->getId()), $this->cineList)) !== false) {
-
-                if ($cineToModify != $cine) {
-
-                    if ($cineToModify->getName() !== "") {
-
-                        $cineToModify->setName($cine->getName());
-                    }
-
-                    if ($cineToModify->getAdress() !== "") {
-
-                        $cineToModify->setAdress($cine->getAdress());
-                    }
-
-                    if ($cine->getCapacity() !== "") {
-
-                        $cineToModify->setCapacity($cine->getCapacity());
-                    }
-
-                    if ($cine->getTicketValue() !== "") {
-
-                        $cineToModify->setTicketValue($cine->getTicketValue());
-                    }
-
-                    $this->cineList[$key] = $cineToModify;
-                    $this->saveData();
-
-                    return true;
-                }
-            }
-        }
+    }else{
+        return false;
+    }
     }
 
 
@@ -176,21 +130,19 @@ class CineRepository implements IRepository
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
-                
+
                 $cine = new Cine();
                 $cine->setId($row['id']);
                 $cine->setName($row['cinema_name']);
-                $cine->setAdress($row['address']);
+                $cine->setAddress($row['address']);
                 $cine->setCapacity($row['capacity']);
                 $cine->setTicketValue($row['ticket_value']);
-                
+
                 array_push($this->cineList, $cine);
             }
             return $this->cineList;
-            
         } catch (\Throwable $th) {
             throw $th;
         }
     }
-    
 }
