@@ -66,24 +66,34 @@ class CineController{
         $modifiedCinema = new Cine($updatedName,$updatedAdress,$updatedCapacity,$updatedPrice);
         $modifiedCinema->setId($updatedId);
 
-        if (isset($cine->getName()) && isset($cine->getAddress()) && $cine->getCapacity()>0 && $cine->getTicketValue()>0) { 
+        if($this->isCapacityValid($updatedCapacity) && $this->isTicketValueValid($updatedPrice)){
 
-            if($this->CineDao->modifyCine($modifiedCinema)){
+            if($this->cineRepository->modifyCine($modifiedCinema)){
                 
-                $advice= CineController::showMessage(2);
+                CineController::showMessage(2);
                 $this->showCinemaMenu();
             }else{
 
-               $advice= CineController::showMessage(3);
+                CineController::showMessage(3);
                 $this->showCinemaMenu();
             }
-        }else{
-            $advice=CineController::showMessage(4);
-            $this->showCinemaMenu(); //SIEMPRE TESTEAR SI LA VARIABLE NO ESTA VACIA EN LA VIEW, Y SINO HACERLE EL ALERT CON DE TEXTO EL &advice
 
-        } 
+        }else if(!$this->isCapacityValid($updatedCapacity) && $this->isTicketValueValid($updatedPrice)){
+
+            CineController::showMessage(4);
+            $this->showCinemaMenu();
+        }else if($this->isCapacityValid($updatedCapacity) && !$this->isTicketValueValid($updatedPrice)){
+
+            CineController::showMessage(5);
+            $this->showCinemaMenu();
+        }else if(!$this->isCapacityValid($updatedCapacity) && !$this->isTicketValueValid($updatedPrice)){
+
+            CineController::showMessage(6);
+            $this->showCinemaMenu(); 
+        }
 
     }
+
 
     private function isCapacityValid($capacity){
 
