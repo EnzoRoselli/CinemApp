@@ -8,7 +8,6 @@ Use DAO\CinemasDAO as daoCine;
 class CineController{
 
     private $CineDao;
-
     public function __construct()
     {
         $this->CineDao = new daoCine();
@@ -36,8 +35,9 @@ class CineController{
         $price = $_POST[CINE_TICKETVALUE];
         
         $cine = new Cine($name, $adress, $capacity, $price);
+        $cine->setActive(true);
 
-        if (isset($cine->getName()) && isset($cine->getAddress()) && $cine->getCapacity()>0 && $cine->getTicketValue()>0) { 
+        if ($cine->getName()!==null && $cine->getAddress()!==null && $cine->getCapacity()>0 && $cine->getTicketValue()>0) { 
 
             if($this->CineDao->add($cine)){
     
@@ -115,6 +115,9 @@ class CineController{
 
     public function showCinemaMenu()
     {
+            $cines = $this->CineDao->getAll();
+            
+
             if (isset($_GET['delete'])) {
     
                 $id = $_GET['delete'];
@@ -134,17 +137,22 @@ class CineController{
                     })
                 </script>";
                 
-                require_once(VIEWS  .'/AdminCine.php');
+                require_once(VIEWS  ."/AdminCine.php");
             
+            }else if(isset($_GET['activate']) || isset($_GET['deactivate'])){
+
+                if(isset($_GET['activate'])){
+                    $this->activateCinema($_GET['activate']);
+                }else{
+                    $this->deactivateCinema($_GET['deactivate']);
+                }
+                require_once(VIEWS  ."/AdminCine.php");
             }else{
-                require_once(VIEWS  .'/AdminCine.php');
+               
+                require_once(VIEWS  ."/AdminCine.php");
             }
 
         }
-            
-    
-    
-    
 
     public function delete()
     {
@@ -155,6 +163,16 @@ class CineController{
     {
         $this->CineDao->modifyCine($_GET['id']);      
      
+    }
+
+    public function activateCinema($id){
+        
+        $this->CineDao->activateCinema($id);
+    }
+
+    public function deactivateCinema($id){
+        
+        $this->CineDao->deactivateCinema($id);
     }
 
     public static function showMessage($messageNumber){

@@ -28,13 +28,13 @@ include('nav.php');
 				<?php
 				if (!empty($cines)) {
 					foreach ($cines as $cine) {
-						if ($cine->getActive() === true) {
+						// var_dump($cine);
 							?>
 							<tr>
 
 								<td><?php echo $cine->getId(); ?></td>
 								<td><?php echo $cine->getName(); ?></td>
-								<td><?php echo $cine->getAdress(); ?></td>
+								<td><?php echo $cine->getAddress(); ?></td>
 								<td><?php echo $cine->getCapacity(); ?></td>
 								<td><?php echo $cine->getTicketValue(); ?></td>
 								<td>
@@ -49,11 +49,26 @@ include('nav.php');
 											<i class="fas fa-trash"></i>
 										</button>
 
+										<?php if($cine->getActive()){
+											?>
+										<button name="deactivate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<i class="fas fa-toggle-on"></i>
+										</button>
+										<?php }else{
+											?>
+											<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<i class="fas fa-toggle-off"></i>
+										</button>
+										<?php 
+										}
+										?>
+
+										
+
 									</form>
 								</td>
 							</tr>
 				<?php
-						}
 					}
 				}?>
 			</tbody>

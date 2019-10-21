@@ -70,27 +70,39 @@ class CinemasDAO implements IRepository
             $this->connection->ExecuteNonQuery($query, $parameters);
         }
     }
-    public function activeAcinema($id)
+    public function activateCinema($id)
     {
-        $comprobationID = $this->searchById($id);
-        if ($comprobationID) {
+        //if ($this->searchById($id)) {
+            
             $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
+            
             $parameters["id"] = $id;
-            $parameters["active"] = true;
+            $parameters["active"] = 1;
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-        }
+            
+        //}
+    }
+    public function deactivateCinema($id)
+    {
+        //if ($this->searchById($id)) {
+            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
+            $parameters["id"] = $id;
+            $parameters["active"] = 0;
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+            
+        //}
     }
 
     public function searchById($id)
     {
 
-
         try {
             $query = "SELECT * FROM " . " " . $this->tableName . "WHERE id=:id";
 
             $parameters["id"] = $id;
-
+            
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             return true;
@@ -143,7 +155,12 @@ class CinemasDAO implements IRepository
                 $cine->setAddress($row['address']);
                 $cine->setCapacity($row['capacity']);
                 $cine->setTicketValue($row['ticket_value']);
-
+                if($row['active'] == 1){
+                    $cine->setActive(true);
+                }else{
+                    $cine->setActive(false);
+                }
+                
                 array_push($this->cineList, $cine);
             }
             return $this->cineList;
