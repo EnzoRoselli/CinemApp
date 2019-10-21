@@ -13,34 +13,30 @@ class CinemasDAO implements IRepository
 
     private $cineList  = array();
     private $connection;
-    private $tableName = "cinemas"; 
+    private $tableName = "cinemas";
 
     public function add(Cine $cine)
     {
-      
 
-           
-                try {
+        try {
 
-                    $query = "INSERT INTO " . " " . $this->tableName . " " .
-                        " (cinema_name, address, capacity,ticket_value) VALUES
+            $query = "INSERT INTO " . " " . $this->tableName . " " .
+                " (cinema_name, address, capacity,ticket_value) VALUES
                                  (:name,:address,:capacity,:ticket_value);";
 
 
-                    $parameters["name"] = $cine->getName();
-                    $parameters["address"] = $cine->getAddress();
-                    $parameters["capacity"] = $cine->getCapacity();
-                    $parameters["ticket_value"] = $cine->getTicketValue();
+            $parameters["name"] = $cine->getName();
+            $parameters["address"] = $cine->getAddress();
+            $parameters["capacity"] = $cine->getCapacity();
+            $parameters["ticket_value"] = $cine->getTicketValue();
 
-                    $this->connection = Connection::GetInstance();
-                    $this->connection->ExecuteNonQuery($query, $parameters);
-                    return true;
-                } catch (\Throwable $ex) {
-                    return false;
-                    throw $ex;
-                }
-        
-       
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+            return true;
+        } catch (\Throwable $ex) {
+            return false;
+            throw $ex;
+        }
     }
 
     public function existsCine(Cine $cine)
@@ -98,25 +94,28 @@ class CinemasDAO implements IRepository
 
     public function modifyCine($cine) //si los valores son vacios , que no se updatee
     {
-        if (isset($cine->getName()) && isset($cine->getAddress()) && $cine->getCapacity()>0 && $cine->getTicketValue()>0) { 
+
         try {
 
-            $query = "UPDATE " . " " . $this->tableName . " " . "SET name=:name, address=:address, capacity=:capacity, ticket_value=:ticket_value";
+            $query = "UPDATE " . " " . $this->tableName . " " . "SET name=:name, address=:address, capacity=:capacity, ticket_value=:ticket_value WHERE id=:id";
 
             $parameters["name"] = $cine->getName();
             $parameters["address"] = $cine->getAddress();
             $parameters["capacity"] = $cine->getCapacity();
             $parameters["ticket_value"] = $cine->getTicketValue();
+            $parameters["id"] = $cine->getId();
+
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $th) {
             throw $th;
         }
-    }else{
         return false;
     }
-    }
+
+
+
 
 
     public function getAll()

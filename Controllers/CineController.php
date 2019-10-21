@@ -37,7 +37,7 @@ class CineController{
         
         $cine = new Cine($name, $adress, $capacity, $price);
 
-        if($this->isCapacityValid($capacity) && $this->isTicketValueValid($price)){
+        if (isset($cine->getName()) && isset($cine->getAddress()) && $cine->getCapacity()>0 && $cine->getTicketValue()>0) { 
 
             if($this->CineDao->add($cine)){
     
@@ -50,8 +50,6 @@ class CineController{
         }else{
             $advice=CineController::showMessage(4);
             $this->showCinemaMenu(); //SIEMPRE TESTEAR SI LA VARIABLE NO ESTA VACIA EN LA VIEW, Y SINO HACERLE EL ALERT CON DE TEXTO EL &advice
-
-
         } 
         
         
@@ -68,7 +66,7 @@ class CineController{
         $modifiedCinema = new Cine($updatedName,$updatedAdress,$updatedCapacity,$updatedPrice);
         $modifiedCinema->setId($updatedId);
 
-        if($this->isCapacityValid($updatedCapacity) && $this->isTicketValueValid($updatedPrice)){
+        if (isset($cine->getName()) && isset($cine->getAddress()) && $cine->getCapacity()>0 && $cine->getTicketValue()>0) { 
 
             if($this->CineDao->modifyCine($modifiedCinema)){
                 
