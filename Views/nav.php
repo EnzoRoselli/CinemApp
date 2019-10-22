@@ -41,6 +41,7 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
   </form>
   <ul class="nav-links">
     <li><a href=<?php echo  FRONT_ROOT . "/Cine/showCinemaMenu" ?>>Cine</a></li>
+    <li><a href=<?php echo  FRONT_ROOT . "/Showtime/showShowtimeMenu" ?>>Showtimes</a></li>
     <li><a href=<?php echo  FRONT_ROOT . "/genres/showGenresFilter " ?>>Browse</a></li>
     <?php
     if (isset($_SESSION['loggedUser'])) { ?>

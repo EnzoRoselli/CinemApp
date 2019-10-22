@@ -45,9 +45,7 @@ include('nav.php');
 											<i class="fas fa-edit"></i>
 										</button>
 										<!-- DELETE CINE -->
-										<button name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
-											<i class="fas fa-trash"></i>
-										</button>
+									
 
 										<?php if($cine->getActive()){
 											?>
@@ -62,6 +60,9 @@ include('nav.php');
 										<?php 
 										}
 										?>
+											<button name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<i class="fas fa-trash"></i>
+										</button>
 
 										
 
@@ -104,7 +105,7 @@ include('nav.php');
 
 				<div class="form-group">
 					<label>Dirección</label>
-					<input type="text" class="form-control" name=<?php echo CINE_ADRESS ?> value=<?php if (isset($cineUpdate)) {
+					<input type="text" class="form-control" name=<?php echo CINE_ADDRESS ?> value=<?php if (isset($cineUpdate)) {
 																										echo $cineUpdate->getAddress();
 																									} ?>>
 				</div>

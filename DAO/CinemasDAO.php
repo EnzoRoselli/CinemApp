@@ -17,7 +17,7 @@ class CinemasDAO implements IRepository
 
     public function add(Cine $cine)
     {
-
+        if ($this->existsCine($cine)==null) {  
         try {
 
             $query = "INSERT INTO " . " " . $this->tableName . " " .
@@ -38,42 +38,48 @@ class CinemasDAO implements IRepository
             throw $ex;
         }
     }
+    }
 
     public function existsCine(Cine $cine)
     {
 
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE cinema_name=:cineName and address=:cineAddress";
+            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE cinema_name=:cineName and address=:cineAddress";
 
             $parameters["cineName"] = $cine->getName();
             $parameters["cineAddress"] = $cine->getAddress();
 
             $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query);
+            $resultSet = $this->connection->Execute($query,$parameters);
+            if ($resultSet==null) {
+                return null;
+            }else{
+                return true;    
+            }
             return true;
         } catch (\Throwable $th) {
             throw $th;
         }
 
-        return null;
+ 
     }
 
     public function delete($id)
     {
-        
+
         $comprobationID = $this->searchById($id);
+
         if ($comprobationID!=null) {
-            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
+            $query = "DELETE" . " " ."FROM". " ". $this->tableName . " " . " WHERE id=:id";
             $parameters["id"] = $id;
-            $parameters["active"] = 0;
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         }
     }
     public function activateCinema($id)
     {
-        //if ($this->searchById($id)) {
+        if ($this->searchById($id)) {
             
             $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
             
@@ -82,11 +88,11 @@ class CinemasDAO implements IRepository
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             
-        //}
+        }
     }
     public function desactivateCinema($id)
     {
-        //if ($this->searchById($id)) {
+        if ($this->searchById($id)) {
             $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
             $parameters["id"] = $id;
             $parameters["active"] = 0;
@@ -94,7 +100,7 @@ class CinemasDAO implements IRepository
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             
-        //}
+        }
     }
 
     public function searchById($id)
@@ -108,16 +114,20 @@ class CinemasDAO implements IRepository
             $this->connection = Connection::GetInstance();
          
             $resultSet = $this->connection->Execute($query,$parameters);
-
-            $updateCinema=new Cine();
-            $updateCinema->setID($resultSet[0]["id"]);
-            $updateCinema->setName($resultSet[0]["cinema_name"]);
-            $updateCinema->setAddress($resultSet[0]["address"]);
-            $updateCinema->setCapacity($resultSet[0]["capacity"]);
-            $updateCinema->setTicketValue($resultSet[0]["ticket_value"]);
-            $updateCinema->setActive($resultSet[0]["active"]);
-            
-            return $updateCinema;
+            if ($resultSet!=null) {
+                $updateCinema=new Cine();
+                $updateCinema->setID($resultSet[0]["id"]);
+                $updateCinema->setName($resultSet[0]["cinema_name"]);
+                $updateCinema->setAddress($resultSet[0]["address"]);
+                $updateCinema->setCapacity($resultSet[0]["capacity"]);
+                $updateCinema->setTicketValue($resultSet[0]["ticket_value"]);
+                $updateCinema->setActive($resultSet[0]["active"]);
+                
+                return $updateCinema;
+            }else {
+                return null;
+            }
+          
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -129,7 +139,7 @@ class CinemasDAO implements IRepository
     {
 
         try {
-
+            
             $query = "UPDATE " . " " . $this->tableName . " " . "SET cinema_name=:name, address=:address, capacity=:capacity, ticket_value=:ticket_value WHERE id=:id";
 
             $parameters["name"] = $cine->getName();

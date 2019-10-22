@@ -5,22 +5,47 @@
 ?>
 
 
+  <div class="filters-container">
+      <form action=<?php echo  FRONT_ROOT . "/SearchMovie/searchByGenres"?> method="GET">
+        <div class="genres">
+            <div class="genre-list">
+              <ul>
+                  <?php foreach($this->genres as $genre){
+                    ?>
+                    <li>
+                    <input value=<?php echo $genre->name; ?> id=<?php echo $genre->name; ?> name="genres[]" type='checkbox' />
+                    <label for=<?php echo $genre->name; ?>> <?php echo $genre->name; ?> </label>
+                    </li>
+                  <?php }?>
+              </ul>
+            </div>
+            <div class="filters-buttons">
+                    <button class="btn-med" type="submit">Filtrar</button>
+            </div>
+        </div>
+        <div class="date-list">
+            <ul>
+              
+            </ul>
+        </div>
+        <div class="dates">
 
-  <br>
-  <PRE>   <h1>             Select your genres</h1></PRE>
+        </div>
+      </form>
+  </div>
 
    <div><!--PONER TODOS LOS ACTIONS CON CLASE Y / METODO  -->
       <form class="form" action=<?php echo  FRONT_ROOT . "/searchMovie/searchByGenres "?> method="GET">
-        <table>
+        <table class="tevoyaborrar">
           <?php 
           for ($i = 0; $i < count($this->genres); $i++) {
             $genreName = $this->genres[$i]->name; ?>
             <tr>
               <td>
                 <div class='inputGroup' id="first-input">
-                  <input value=<?php echo "$genreName"; ?> id=<?php echo "$genreName"; ?> name="genres[]" type='checkbox' />
+                  <input value=<?php echo $genreName; ?> id=<?php echo $genreName; ?> name="genres[]" type='checkbox' />
 
-                  <label for=<?php echo "$genreName"; ?>> <?php echo "$genreName"; ?> </label>
+                  <label for=<?php echo $genreName; ?>> <?php echo $genreName; ?> </label>
                 </div>
               </td>
               <?php if ((count($genres) - $i) == 1) { ?>
@@ -49,7 +74,6 @@
         </div> -->
 
         <?php
-    include('footer.php');
 
 ?>
 

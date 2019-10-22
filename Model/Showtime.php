@@ -5,42 +5,47 @@ namespace Model;
 class Showtime{
 
     private $showtimeId;
-    private $movieId;
-    private $cinemaId;
-    private $day;
+    private $movie;
+    private $cinema;
+    private $date;
     private $hour;
-    private $ticketStock;
+    private $ticketAvialable;
+    private $language;
+    private $subtitle;
     private $active;
 
-    public function __construct($showtimeId,$movieId,$cinemaId,$day,$hour,$ticketStock)
+    public function __construct($showtimeId,$movie,$cinema,$date,$hour,$language,$subtitle)
     {
         $this->showtimeId=$showtimeId;
-        $this->movieId = $movieId;
-        $this->cinemaId = $cinemaId;
-        $this->day = $day;
+        $this->movie = $movie;
+        $this->cinema = $cinema;
+        $this->date = $date;
         $this->hour = $hour;
-        $this->ticketStock = $ticketStock;
-        $this->active = true;
+        $this->language=$language;
+        $this->subtitle=$subtitle;
+        $this->ticketAvialable = $this->cinema->getCapacity();
     }
 
     public function getShowtimeId(){return $this->showtimeId;}
-    public function getCinemaId(){return $this->cinemaId;}
-    public function getMovieId(){return $this->movieId;}
-    public function getDay(){return $this->day;}
+    public function getCinema(){return $this->cinema;}
+    public function getMovie(){return $this->movie;}
+    public function getDate(){return $this->date;}
     public function getHour(){return $this->hour;}
-    public function getTicketStock(){return $this->ticketStock;}
+    public function getLanguage(){return $this->language;}
     public function getActive(){return $this->active;}
+    public function isSubtitle(){return $this->subtitle;}
+   
+    public function getTicketAvialable(){
+        return $this->ticketAvialable;
+    }
 
     public function setShowtimeId($showtimeId){$this->showtimeId=$showtimeId;}
-    public function setCinemaId($cinemaId){$this->cinemaId=$cinemaId;}
-    public function setMovieId($movieId){$this->movieId=$movieId;}
-    public function setDay($day){$this->day=$day;}
+    public function setCinema($cinema){$this->cinema=$cinema;}
+    public function setMovie($movie){$this->movie=$movie;}
+    public function setDate($date){$this->date=$date;}
     public function setHour($hour){$this->hour=$hour;}
-    public function setTicketStock($ticketStock){
-        if($ticketStock > 0){
-            $this->ticketStock=$ticketStock;
-        }
-    }
+    public function setLanguage($language){$this->language=$language;}
+    public function setSubtitle($subtitle){$this->subtitle=$subtitle;} 
     public function setActive($active){$this->active;}
 }
 

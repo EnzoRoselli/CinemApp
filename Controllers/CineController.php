@@ -19,12 +19,13 @@ class CineController
     {
         if ($_POST) {
             if ($_POST[CINE_ID] != "") {
-
+         
                 $this->updateCinema();
             } else if ($_POST[CINE_ID] == "") {
-
+           
                 $this->createCinema();
             }
+          
         }
     }
 
@@ -32,7 +33,7 @@ class CineController
     {
 
         $name = $_POST[CINE_NAME];
-        $adress = $_POST[CINE_ADRESS];
+        $adress = $_POST[CINE_ADDRESS];
         $capacity = $_POST[CINE_CAPACITY];
         $price = $_POST[CINE_TICKETVALUE];
 
@@ -42,12 +43,12 @@ class CineController
         if ($cine->getName() != null && $cine->getAddress() != null && $cine->getCapacity() > 0 && $cine->getTicketValue() > 0) {
 
             if ($this->CineDao->add($cine)) {
-
+              
                 $advice =  CineController::showMessage(0);
                 $this->showCinemaMenu();
             } else {
                 $advice =  CineController::showMessage(1);
-                $this->showCinemaMenu();
+               $this->showCinemaMenu();
             }
         } else {
             $advice = CineController::showMessage(4);
@@ -60,11 +61,14 @@ class CineController
 
         $updatedId = $_POST[CINE_ID];
         $updatedName = $_POST[CINE_NAME];
-        $updatedAdress = $_POST[CINE_ADRESS];
+        $updatedAddress = $_POST[CINE_ADDRESS];
         $updatedCapacity = $_POST[CINE_CAPACITY];
         $updatedPrice = $_POST[CINE_TICKETVALUE];
-
-        $modifiedCinema = new Cine($updatedName, $updatedAdress, $updatedCapacity, $updatedPrice);
+      
+        if ($updatedName!=null && $updatedAddress!=null && $updatedCapacity!=null && $updatedPrice!=null) {
+            
+   
+        $modifiedCinema = new Cine($updatedName, $updatedAddress, $updatedCapacity, $updatedPrice);
         $modifiedCinema->setId($updatedId);
 
         //COROBORAR TODOS LOS CAMPOS NO SEAN NULOS Y QUE LOS NUEVOS NO LOS CONTENGA OTRO CINE
@@ -72,16 +76,21 @@ class CineController
 
             if ($this->CineDao->modifyCine($modifiedCinema)) {
                 $advice = CineController::showMessage(2);
-                $this->showCinemaMenu();
+               $this->showCinemaMenu();
             } else {
 
                 $advice = CineController::showMessage(3);
-                $this->showCinemaMenu();
+               $this->showCinemaMenu();
             }
         } else {
             $advice = CineController::showMessage(4);
             $this->showCinemaMenu(); //SIEMPRE TESTEAR SI LA VARIABLE NO ESTA VACIA EN LA VIEW, Y SINO HACERLE EL ALERT CON DE TEXTO EL &advice
         }
+    }else{
+        $this->showCinemaMenu();
+
+        $advice="Los campos no pueden ser vacíos";
+    }
     }
 
 
@@ -107,40 +116,41 @@ class CineController
 
     public function showCinemaMenu()
     {
+       
+
         $cines = $this->CineDao->getAll();
-
-
         if (isset($_GET['delete'])) {
 
             $id = $_GET['delete'];
             $this->CineDao->delete($id);
+        
+            $cines = $this->CineDao->getAll();
             require_once(VIEWS  . '/AdminCine.php');
         } else if (isset($_GET['update'])) {
 
             $cineUpdate = new Cine();
             $id = $_GET['update'];
             $cineUpdate = $this->CineDao->searchById($id);
-
-            echo "<script type='text/javascript'>
-                    window.addEventListener('load', function() {
-                        overlay.classList.add('active');
-                        popup.classList.add('active');
-                    })
-                </script>";
-
+            //Abre el pop up
+            echo "<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})                </script>";
+       
             require_once(VIEWS  . "/AdminCine.php");
         } else if (isset($_GET['activate']) || isset($_GET['desactivate'])) {
 
             if (isset($_GET['activate'])) {
+                
                 $this->activateCinema($_GET['activate']);
             } else {
                 $this->desactivateCinema($_GET['desactivate']);
             }
+            $cines = $this->CineDao->getAll();
             require_once(VIEWS  . "/AdminCine.php");
         } else {
-
+            $cines = $this->CineDao->getAll();
             require_once(VIEWS  . "/AdminCine.php");
         }
+        require_once(VIEWS  . "/AdminCine.php");
+
     }
 
     public function delete()
@@ -149,7 +159,11 @@ class CineController
     }
     public function update()
     {
-        $this->CineDao->modifyCine($_GET['id']);
+        var_dump($_GET);
+        if ($_GET['']) {
+           
+        }
+       $this->CineDao->modifyCine($_GET['id']);
     }
 
     public function activateCinema($id)

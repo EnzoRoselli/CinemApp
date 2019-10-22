@@ -28,7 +28,7 @@
     text-align: center;
     width: 600px;
     
-    transition: .3s ease all;
+    transition: .1s ease all;
     transform: scale(0.7);
     opacity: 0;
   }
@@ -85,7 +85,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     cursor: pointer;
-    transition: .3s ease all;
+    transition: .1s ease all;
   }
   
   .popup form .btn-submit:hover {
@@ -98,9 +98,9 @@
   /* ANIMACIONES */
   /* ------------------------- */
   .popup.active {	transform: scale(1); opacity: 1; }
-  .popup.active h3 { animation: entradaTitulo .8s ease .5s forwards; }
-  .popup.active h4 { animation: entradaSubtitulo .8s ease .5s forwards; }
-  .popup.active .contenedor-inputs { animation: entradaInputs 1s linear 1s forwards; }
+  .popup.active h3 { animation: entradaTitulo .0s ease .0s forwards; }
+  .popup.active h4 { animation: entradaSubtitulo .0s ease .0s forwards; }
+  .popup.active .contenedor-inputs { animation: entradaInputs 0s linear 0s forwards; }
   
   @keyframes entradaTitulo {
     from {
