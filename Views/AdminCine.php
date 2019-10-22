@@ -18,7 +18,7 @@ include('nav.php');
 				<tr>
 					<th>ID</th>
 					<th>Name</th>
-					<th>Adress</th>
+					<th>Address</th>
 					<th>Capacity</th>
 					<th>TicketValue</th>
 					<th>Action</th>
@@ -51,7 +51,7 @@ include('nav.php');
 
 										<?php if($cine->getActive()){
 											?>
-										<button name="deactivate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+										<button name="desactivate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-toggle-on"></i>
 										</button>
 										<?php }else{
@@ -87,9 +87,11 @@ include('nav.php');
 
 		<h3>Registrar/Modificar cine</h3>
 
+
 		<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
 			<div class="contenedor-inputs">
 				<input type="hidden" name=<?php echo CINE_ID ?> value=<?php if (isset($cineUpdate)) {
+				
 																			echo $cineUpdate->getId();
 																		} ?>>
 
@@ -103,7 +105,7 @@ include('nav.php');
 				<div class="form-group">
 					<label>Dirección</label>
 					<input type="text" class="form-control" name=<?php echo CINE_ADRESS ?> value=<?php if (isset($cineUpdate)) {
-																										echo $cineUpdate->getAdress();
+																										echo $cineUpdate->getAddress();
 																									} ?>>
 				</div>
 
