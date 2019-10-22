@@ -15,8 +15,7 @@ namespace Model;
         $this->address = $address;
         $this->capacity = $capacity;
         $this->ticketValue = $ticketValue;
-        $this->id=0;
-        $this->active = true;
+        
     }
 
     public function getId(){ return $this->id;}

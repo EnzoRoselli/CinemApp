@@ -18,7 +18,7 @@ include('nav.php');
 				<tr>
 					<th>ID</th>
 					<th>Name</th>
-					<th>Adress</th>
+					<th>Address</th>
 					<th>Capacity</th>
 					<th>TicketValue</th>
 					<th>Action</th>
@@ -28,13 +28,13 @@ include('nav.php');
 				<?php
 				if (!empty($cines)) {
 					foreach ($cines as $cine) {
-						if ($cine->getActive() === true) {
+						// var_dump($cine);
 							?>
 							<tr>
 
 								<td><?php echo $cine->getId(); ?></td>
 								<td><?php echo $cine->getName(); ?></td>
-								<td><?php echo $cine->getAdress(); ?></td>
+								<td><?php echo $cine->getAddress(); ?></td>
 								<td><?php echo $cine->getCapacity(); ?></td>
 								<td><?php echo $cine->getTicketValue(); ?></td>
 								<td>
@@ -45,15 +45,31 @@ include('nav.php');
 											<i class="fas fa-edit"></i>
 										</button>
 										<!-- DELETE CINE -->
-										<button name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+									
+
+										<?php if($cine->getActive()){
+											?>
+										<button name="desactivate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<i class="fas fa-toggle-on"></i>
+										</button>
+										<?php }else{
+											?>
+											<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<i class="fas fa-toggle-off"></i>
+										</button>
+										<?php 
+										}
+										?>
+											<button name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-trash"></i>
 										</button>
+
+										
 
 									</form>
 								</td>
 							</tr>
 				<?php
-						}
 					}
 				}?>
 			</tbody>
@@ -72,9 +88,11 @@ include('nav.php');
 
 		<h3>Registrar/Modificar cine</h3>
 
+
 		<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
 			<div class="contenedor-inputs">
 				<input type="hidden" name=<?php echo CINE_ID ?> value=<?php if (isset($cineUpdate)) {
+				
 																			echo $cineUpdate->getId();
 																		} ?>>
 
@@ -87,8 +105,8 @@ include('nav.php');
 
 				<div class="form-group">
 					<label>Dirección</label>
-					<input type="text" class="form-control" name=<?php echo CINE_ADRESS ?> value=<?php if (isset($cineUpdate)) {
-																										echo $cineUpdate->getAdress();
+					<input type="text" class="form-control" name=<?php echo CINE_ADDRESS ?> value=<?php if (isset($cineUpdate)) {
+																										echo $cineUpdate->getAddress();
 																									} ?>>
 				</div>
 

@@ -50,26 +50,35 @@ dni varchar(9),
 constraint pk_users PRIMARY KEY (id),
 CONSTRAINT unq_users UNIQUE (username));
 
-
-CREATE TABLE IF NOT EXISTS showviews(
+CREATE TABLE showtimes(
 id int AUTO_INCREMENT,
 id_movie int,
 id_cinema int,
-day date,
-time time,
-CONSTRAINT pk_showview PRIMARY KEY (id, id_cinema),
-CONSTRAINT fk_id_movie FOREIGN KEY (id_movie) REFERENCES movies(id) ON DELETE CASCADE,
-CONSTRAINT fk_id_cinema FOREIGN KEY (id_cinema) REFERENCES cinemas(id) ON DELETE CASCADE);
+view_date date,
+hour time,
+subtitles boolean,
+CONSTRAINT pk_showtimes PRIMARY KEY (id, id_cinema),
+constraint fk_id_language_showtimes FOREIGN KEY (id_language) REFERENCES languajes(id),
+CONSTRAINT fk_id_movie_showtimes FOREIGN KEY (id_movie) REFERENCES movies(id) ON DELETE CASCADE,
+CONSTRAINT fk_id_cinema_showtimes FOREIGN KEY (id_cinema) REFERENCES cinemas(id) ON DELETE CASCADE);
+
+CREATE TABLE languages(
+id int AUTO_INCREMENT,
+name_language varchar(18) 
+CONSTRAINT pk_language PRIMARY KEY(id),
+CONSTRAINT unq_name_language UNIQUE(name_language));
+)
 
 
-CREATE TABLE IF NOT EXISTS ticket(
+
+CREATE TABLE tickets(
 id int AUTO_INCREMENT,
 qr int,
-id_showview int,
+id_showtime int,
 username varchar(20),
 CONSTRAINT pk_ticket PRIMARY KEY (id),
-CONSTRAINT fk_id_showview FOREIGN KEY (id_showview) REFERENCES showviews(id) ON DELETE RESTRICT,
-CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users(username) ON DELETE RESTRICT);
+CONSTRAINT fk_id_showtimes_tickets FOREIGN KEY (id_showtime) REFERENCES showtimes(id) ON DELETE RESTRICT,
+CONSTRAINT fk_username_tickets FOREIGN KEY (username) REFERENCES users(username) ON DELETE RESTRICT);
 
 CREATE TABLE IF NOT EXISTS credit_cards(
 cc_number varchar(16),
