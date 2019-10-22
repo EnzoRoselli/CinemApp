@@ -1,12 +1,9 @@
 <?php 
 
-
-require_once("../../Config/Autoload.php");
-
-use Config\Autoload as Autoload;
-Autoload::Start();
 use Model\User as User;
-use DAO\UsersDAO as UsersList;
+use DAO\UsersDAO as usersDAO;
+
+
 session_start();
 
 
@@ -15,7 +12,10 @@ session_start();
 
     $userLoging=new User($_POST['LoginEmail'],$_POST['LoginPassword']);
 
-    $UsersList=new UsersList();
+   /* $UsersList=new UsersList();
+    $UserInfo=$UsersList->ExistsLogin($userLoging);*/
+
+    $UsersList=new UsersDAO();
     $UserInfo=$UsersList->ExistsLogin($userLoging);
 
     if ($UserInfo!=false) {

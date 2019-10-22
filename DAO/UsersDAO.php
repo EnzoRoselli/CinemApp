@@ -104,20 +104,7 @@ class UsersDAO
 
         return null;
     }
-
-
-    public function ExistsLogin(User $user){
-
-        if(!empty(UsersDAO::$UsersList)){
-            for ($i=0; $i < count(UsersDAO::$UsersList); $i++) { 
-                if ($user->getEmail()==UsersDAO::$UsersList[$i]->getEmail() && $user->getPassword()==UsersDAO::$UsersList[$i]->getPassword()){
-                    return UsersDAO::$UsersList[$i];
-                }
-            }
-        }
-            return false;
-        
-    }
+    
 }
 
 ?>
