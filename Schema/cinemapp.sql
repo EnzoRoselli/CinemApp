@@ -41,7 +41,6 @@ constraint fk_genres_by_movies_id_genre FOREIGN KEY (id_genre) REFERENCES genres
 
 CREATE TABLE IF NOT EXISTS users(
 id int AUTO_INCREMENT,
-username varchar(20),
 password varchar(12),
 email varchar(30),
 name varchar(30),
@@ -50,8 +49,9 @@ dni varchar(9),
 constraint pk_users PRIMARY KEY (id),
 CONSTRAINT unq_users UNIQUE (username));
 
-CREATE TABLE showtimes(
+CREATE TABLE IF NOT EXISTS showtimes(
 id int AUTO_INCREMENT,
+id_language int,
 id_movie int,
 id_cinema int,
 view_date date,
@@ -62,7 +62,7 @@ constraint fk_id_language_showtimes FOREIGN KEY (id_language) REFERENCES languaj
 CONSTRAINT fk_id_movie_showtimes FOREIGN KEY (id_movie) REFERENCES movies(id) ON DELETE CASCADE,
 CONSTRAINT fk_id_cinema_showtimes FOREIGN KEY (id_cinema) REFERENCES cinemas(id) ON DELETE CASCADE);
 
-CREATE TABLE languages(
+CREATE TABLE IF NOT EXISTS languages(
 id int AUTO_INCREMENT,
 name_language varchar(18) 
 CONSTRAINT pk_language PRIMARY KEY(id),
@@ -71,7 +71,7 @@ CONSTRAINT unq_name_language UNIQUE(name_language));
 
 
 
-CREATE TABLE tickets(
+CREATE TABLE IF NOT EXISTS tickets(
 id int AUTO_INCREMENT,
 qr int,
 id_showtime int,

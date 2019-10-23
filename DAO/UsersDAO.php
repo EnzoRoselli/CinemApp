@@ -2,9 +2,7 @@
 
 namespace DAO;
 
-
 use Model\User as User;
-
 
 class UsersDAO  
 {
@@ -19,18 +17,22 @@ class UsersDAO
         try {
 
             $query = "INSERT INTO " . " " . $this->tableName . " " . 
-            " (email, password, name) VALUES
-             (:email,:password,:name);";
+            " (password, email, name, lastname, dni) VALUES
+             (:password, :email, :name, :lastname, :dni);";
 
-            $parameters["name"] = $user->getEmail();
-            $parameters["address"] = $user->getPassword();
-            $parameters["capacity"] = $user->getName();
+            $parameters["password"] = $user->getPassword();
+            $parameters["email"] = $user->getEmail();
+            $parameters["name"] = $user->getName();
+            $parameters["lastname"] = $user->getLastName();
+            $parameters["dni"] = $user->getDni();
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-            
+
         } catch (\Throwable $ex) {
+
             throw $ex;
+            
         }
     }
 
@@ -104,7 +106,7 @@ class UsersDAO
 
         return null;
     }
-    
+
 }
 
 ?>
