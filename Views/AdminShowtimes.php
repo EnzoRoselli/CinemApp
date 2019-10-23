@@ -87,6 +87,12 @@ include('nav.php');
 				
 																			echo $showtimeUpdate->getId();
 																		} ?>>
+				<div class="form-group">
+					<label>Cinema</label>
+					<select name=<?php echo SHOWTIME_CINEMA ?> class="form-control">
+						<option value="">dasdassd</option>
+					</select>
+				</div>
 				
 				<div class="form-group">
 					<label>Movie</label>
@@ -105,13 +111,6 @@ include('nav.php');
 				<div class="form-group">
 					<label>Subtitle</label>
 					<input type="checkbox" class="form-control" name=<?php echo SHOWTIME_SUBTITLE ?> value=<?php  ?>>
-				</div>
-
-				<div class="form-group">
-					<label>Cinema</label>
-					<select name=<?php echo SHOWTIME_CINEMA ?> class="form-control">
-						<option value="">dasdassd</option>
-					</select>
 				</div>
 
 				<div class="form-group">

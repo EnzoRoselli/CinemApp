@@ -14,9 +14,8 @@ class Showtime{
     private $subtitle;
     private $active;
 
-    public function __construct($showtimeId,$movie,$cinema,$date,$hour,$language,$subtitle)
+    public function __construct($movie,$cinema,$date,$hour,$language,$subtitle)
     {
-        $this->showtimeId=$showtimeId;
         $this->movie = $movie;
         $this->cinema = $cinema;
         $this->date = $date;
