@@ -6,8 +6,6 @@ use DAO\UsersDAO as usersDAO;
 
 session_start();
 
-
-
     if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
 
     $userLoging=new User($_POST['LoginEmail'],$_POST['LoginPassword']);
@@ -15,10 +13,13 @@ session_start();
    /* $UsersList=new UsersList();
     $UserInfo=$UsersList->ExistsLogin($userLoging);*/
 
-    $UsersList=new UsersDAO();
-    $UserInfo=$UsersList->ExistsLogin($userLoging);
+    $UsersList = new UsersDAO();
 
-    if ($UserInfo!=false) {
+    //$UserInfo = $UsersList->ExistsLogin($userLoging);
+    $UserInfo = $UsersList->existsUser($userLoging);
+
+    if ($UserInfo != false) {
+        
         $_SESSION['loggedUser']=$UserInfo->getName();
         
         echo "<script> alert('Logeo exitoso!');" ;    
