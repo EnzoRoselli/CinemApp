@@ -9,7 +9,10 @@ define("JSON", ROOT . "/data");
 //FRONT PATH
 define("FRONT_ROOT", "http://localhost/Proyecto");
 
-//////////////////////////////
+
+// //PARA LA COMPU DE MATI 
+// define("FRONT_ROOT", "http://localhost:90/Proyecto");
+
 define("VIEWS_PATH", FRONT_ROOT . "/Views");
 define("CSS_PATH", VIEWS_PATH . "/css");
 define("JS_PATH", VIEWS_PATH . "/js");
@@ -22,12 +25,12 @@ define("IMG_PATH", VIEWS_PATH . "/img");
 
 //DATABASE 
 define("DB_HOST","localhost");
-define("DB_USER","root");
+ define("DB_USER","root");
 define("DB_NAME","CINEMAPP");
+
 define("DB_PASS","root");
 
 
 
 
 ?>
-
