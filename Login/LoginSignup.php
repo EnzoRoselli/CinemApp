@@ -18,6 +18,11 @@ require 'app/fb_init.php';
 
 <body>
 
+	<?php if(isset($message))
+		{
+		?><p><?=$message?></p>
+		<?php } ?> 
+
 	<h2>CinemApp</h2>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">

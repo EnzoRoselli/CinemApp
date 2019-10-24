@@ -4,8 +4,6 @@ use Model\User as User;
 use DAO\UsersDAO as usersDAO;
 
 
-session_start();
-
     if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
 
     $userLoging=new User($_POST['LoginEmail'],$_POST['LoginPassword']);

@@ -3,11 +3,11 @@ namespace Controllers;
 
 use DAO\UsersDAO as UsersDAO;
 use Model\User as User;
+use PHPMailer\PHPMailer\Exception;
 use Throwable;
 
 class UserController
 {
-
     private $usersDAO;
 
     public function __construct()
@@ -15,7 +15,7 @@ class UserController
         $this->usersDAO = new UsersDAO();
     }
 
-    public function createUser()
+    public function createUser() /// DEBIERA SER LLAMADO POR LA VISTA DE SIGNUP
     {
         $email = $_POST['SignupEmail'];
         $password = $_POST['SignupPassword'];
@@ -26,7 +26,7 @@ class UserController
         $user->setDni($_POST["SignupDNI"]);
 
         if ($this->checkInputParameters($user)) {
-            if($this->checkRegisterData()){
+            if($this->s()){
                 try{
                     $this->usersDAO->add($user); 
                     $advice =  UserController::showMessage(0);
@@ -40,10 +40,38 @@ class UserController
                 $advice =  UserController::showMessage(4);
                 require_once (VIEWS . "/LoginSignUp.php");
             }
+        }
+    }
 
+    public function showHome($message = null){
+        require_once(VIEWS_PATH . "home.php");
+    }
+
+    public function showLoginView($message = null){
+        require_once(VIEWS_PATH . "loginSignup.php");
+    }
+
+    public function loginAction(){
+
+        if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
+            
+            $loggingUser = new User($_POST['LoginEmail'], $_POST['LoginPassword']);
+                
+            try{
+
+             $UserInfo = $this->usersDAO->existsUser($loggingUser);
+             if(!$UserInfo){
+                 $this->showLoginView(LOGIN_FAILURE);
+             }
+             else{
+                 $_SESSION['loggedUser'] = $UserInfo[0]['lastName'];
+                 $this->showHome();
+             }
+            }catch(Exception $e) {
+                echo "asd";   /* catchear bien esta excepcin*/ 
             }
         }
-
+    }
 
     /*  -- CREAR METODO QUE CHEQUEE EN BD QUE NO EXISTA EL DNI Y MAIL INGRESADOS  checkRegisterData
         -- ARMAR EL showLoginSignupMenu
@@ -54,35 +82,6 @@ class UserController
             return true;
         else
             return false;
-    }
-
-
-    public static function showMessage($messageNumber)
-    {
-
-        switch ($messageNumber) {
-            case 0:
-                return "Agregado correctamente";
-                break;
-            case 1:
-                return "Verifique que los datos no esten repetidos";
-                break;
-            case 2:
-                return "Modificado correctamente";
-                break;
-            case 3:
-                return "Sin modificacion";
-                break;
-
-            case 4:
-                return "El usuario que intenta registrar ya se encuentra en nuestra base de datos";
-                break;
-
-            default:
-
-
-                break;
-        }
     }
 }
 ?>

@@ -8,6 +8,7 @@
         private $pdo = null;
         private $pdoStatement = null;
         private static $instance = null;
+        
         private function __construct()
         {
             try
@@ -20,12 +21,16 @@
                 throw $ex;
             }
         }
+
+
         public static function GetInstance()
         {
             if(self::$instance == null)
                 self::$instance = new Connection();
             return self::$instance;
         }
+
+
         public function Execute($query, $parameters = array(), $queryType = QueryType::Query)
 	    {
             try
