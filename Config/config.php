@@ -13,6 +13,7 @@ define("FRONT_ROOT", "http://localhost/CinemApp");
 // //PARA LA COMPU DE MATI 
 // define("FRONT_ROOT", "http://localhost:90/CinemApp");
 
+//////////////////////////////////
 define("VIEWS_PATH", FRONT_ROOT . "/Views");
 define("CSS_PATH", VIEWS_PATH . "/css");
 define("JS_PATH", VIEWS_PATH . "/js");
@@ -25,10 +26,7 @@ define("IMG_PATH", VIEWS_PATH . "/img");
 define("DB_HOST","localhost");
 define("DB_USER","root");
 define("DB_NAME","CINEMAPP");
-// define("DB_PASS","");
-
-// //PARA LA COMPU DE MATI 
-  define("DB_PASS", "root");
+define("DB_PASS", "root");
 
 
 
