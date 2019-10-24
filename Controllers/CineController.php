@@ -7,8 +7,9 @@ use DAO\CinemasDAO as daoCine;
 //LA EXCEPCION QUE TIRA ES SI NO CRE BIEN LA QUERY POR PARAMETROS, NO POR EL RESULTADO DEVUELTO
 //$advice , toma el valor en una funcion, pero luego en showtime no sigue con el valor.
 //IDEA: CREAR UN ARRAY COMO ATRIBUTO Y QUE CADA VEZ QUE ENTRE A SHOW CINEMA, SE INICIALIZE Y QUE TOME POR PARAMETRO UN ARRAY, PUEDE ESTAR VACIO COMO NO, SE PUEDE DECLARAR
-
-
+//SIEMPRE TESTEAR SI LA VARIABLE NO ESTA VACIA EN LA VIEW, Y SINO HACERLE EL ALERT CON DE TEXTO EL &advice
+//MODIFICAR NOMBRES DEL DAO, SOLO MODIFY NO MODIFYMA
+//($advices=array()) para los avisos
 class CineController
 {
 
@@ -22,14 +23,14 @@ class CineController
     {
         if ($_POST) {
             if ($_POST[CINE_ID] != "") {
-                $this->updateCinema();
+                $this->update();
             } else if ($_POST[CINE_ID] == "") {
-                $this->createCinema();
+                $this->create();
             }
         }
     }
 
-    public function createCinema()
+    public function create()
     {
 
         $name = $_POST[CINE_NAME];
@@ -41,17 +42,12 @@ class CineController
         $cine->setActive(true);
 
         if ($cine->testValuesValidation()) {
-            try {
-               
+            try {          
                 if (!$this->CineDao->existsCine($cine)) {
-            
-
                     $this->CineDao->add($cine);
                     $advice =  CineController::showMessage(0);
                     $this->showCinemaMenu();
                 } else {
-                    
-
                     $advice =  CineController::showMessage(1);
                     $this->showCinemaMenu();
                 }
@@ -66,7 +62,7 @@ class CineController
         }
     }
 
-    public function updateCinema()
+    public function update()
     {
 
         $updatedId = $_POST[CINE_ID];
@@ -81,12 +77,12 @@ class CineController
             if ($modifiedCinema->testValuesValidation()) {
                 $cinemaToBeModified=$this->CineDao->searchById($updatedId);
                 if ($cinemaToBeModified->getName()==$modifiedCinema->getName() && $cinemaToBeModified->getAddress()==$modifiedCinema->getAddress()){
-                    $this->CineDao->modifyCine($modifiedCinema);
+                    $this->CineDao->modify($modifiedCinema);
                     $advice = CineController::showMessage(2);
                     $this->showCinemaMenu();                   
                 }else {
                     if (!$this->CineDao->existsCine($modifiedCinema)) {
-                        $this->CineDao->modifyCine($modifiedCinema);
+                        $this->CineDao->modify($modifiedCinema);
                         $advice = CineController::showMessage(2);
                         $this->showCinemaMenu();
                     } else {    
@@ -124,9 +120,9 @@ class CineController
 
             if (isset($_GET['activate'])) {
 
-                $this->activateCinema($_GET['activate']);
+                $this->activate($_GET['activate']);
             } else {
-                $this->desactivateCinema($_GET['desactivate']);
+                $this->desactivate($_GET['desactivate']);
             }
             $cines = $this->CineDao->getAll();
             require_once(VIEWS  . "/AdminCine.php");
@@ -144,29 +140,46 @@ class CineController
 
     public function delete()
     {
+        try {
         if (!empty($this->CineDao->searchById($_GET['id']))) {
             $this->CineDao->delete($_GET['id']);
+            $advice=CineController::showMessage(5);
         }
+    } catch (\Throwable $th) {
+        $advice=CineController::showMessage("DB");
     }
-    public function update()
+}
+   
+    public function activate($id)
     {
-        if (!empty($this->CineDao->searchById($_GET['id']) )) {
-            $this->CineDao->modifyCine($_GET['id']);
+        try {
+            if (!empty($this->CineDao->searchById($id))) {
+                $this->CineDao->activate($id);
+                $advice=CineController::showMessage("activado");
+            }else {
+                $advice=CineController::showMessage(3);
+            }
+        } catch (\Throwable $th) {
+            $advice=CineController::showMessage("DB");
+
         }
+        
     }
 
-    public function activateCinema($id)
+    public function desactivate($id)
     {
-        if (!empty($this->CineDao->searchById($id))) {
-            $this->CineDao->activateCinema($id);
-        }
-    }
+        try {
+             if (!empty($this->CineDao->searchById($id))) {
+             $this->CineDao->desactivate($id);
+             $advice=CineController::showMessage("desactivado");
+                }else {
+                 $advice=CineController::showMessage(3);
 
-    public function desactivateCinema($id)
-    {
-        if (!empty($this->CineDao->searchById($id))) {
-            $this->CineDao->desactivateCinema($id);
-        }
+                }
+            }catch (\Throwable $th) {
+             $advice=CineController::showMessage("DB");
+
+            }
     }
 
     public static function showMessage($messageNumber)
@@ -177,19 +190,24 @@ class CineController
                 return "Agregado correctamente";
                 break;
             case 1:
-                return "Verifique que los datos no esten repetidos";
-                break;
+                return "Verifique que los datos no esten repetidos";break;
             case 2:
-                return "Modificado correctamente";
-                break;
+                return "Modificado correctamente";break;
             case 3:
-                return "Sin modificacion";
-                break;
+                return "Sin modificacion";break;
             case "CamposInvalidos":
                 return "Los valores ingresados no son validos, verificar capacidad y valorTicket mayor a 0, O campos vacíos";break;
             case "DB":
                 return "Error al procesar la query"; break;
-
+                case 5:
+                return "Eliminado correctamente";
+                break;
+                case 'activado':
+                return "Se activó";
+                break;
+                case 'desactivado':
+                return "Se activó";
+                break;
             default:
                 break;
         }

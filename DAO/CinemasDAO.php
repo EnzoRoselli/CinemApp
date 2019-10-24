@@ -38,7 +38,7 @@ class CinemasDAO implements IRepository
         }    
     }
 
-    public function existsCine(Cine $cine)
+    public function exists(Cine $cine)
     {
        
         try {
@@ -73,7 +73,7 @@ class CinemasDAO implements IRepository
         }
         
     }
-    public function activateCinema($id)
+    public function activate($id)
     {        
         try {
             $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
@@ -87,7 +87,7 @@ class CinemasDAO implements IRepository
         }
         
     }
-    public function desactivateCinema($id)
+    public function desactivate($id)
     {
         try{
             $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
@@ -132,7 +132,7 @@ class CinemasDAO implements IRepository
         }
     }
 
-    public function modifyCine($cine) 
+    public function modify($cine) 
     {
 
         try {

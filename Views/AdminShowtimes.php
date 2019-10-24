@@ -71,7 +71,7 @@ include('nav.php');
 </body>
 
 <!--CREATE SHOWTIME-->
-
+<!-- PONER EN LA LISTA DE CINES, LAS IDS DE TODOS LOS CINES PARA SELECCIONAR, EN SHOWTIME_CINEMA, EL VALUE CON EL ID O EL CINE, TAMBIEN MOVIE -->
 <div class="overlay" id="overlay">
 	<div class="popup" id="popup">
 		<!-- <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a> -->
@@ -80,7 +80,7 @@ include('nav.php');
 		<h3>Registrar/Modificar showtime</h3>
 
 
-		<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
+		<form action="<?php echo  FRONT_ROOT . "/Showtime/determinateUpdateCreate" ?>" method="POST">
 			<div class="contenedor-inputs">
 
 				<input type="hidden" name=<?php echo SHOWTIME_ID ?> value=<?php if (isset($showtimeUpdate)) {
@@ -90,27 +90,27 @@ include('nav.php');
 				<div class="form-group">
 					<label>Cinema</label>
 					<select name=<?php echo SHOWTIME_CINEMA ?> class="form-control">
-						<option value="">dasdassd</option>
+						<option value="1">1</option>
 					</select>
 				</div>
 				
 				<div class="form-group">
 					<label>Movie</label>
 					<select name=<?php echo SHOWTIME_MOVIE ?> class="form-control">
-						<option value="">dasdassd</option>
+						<option value="1">1</option>
 					</select>
 				</div>
 
 				<div class="form-group">
 					<label>Language</label>
 					<select name=<?php echo SHOWTIME_LANGUAGE ?> class="form-control">
-						<option value="">dasdassd</option>
+						<option value="">esp</option>
 					</select>
 				</div>
 
 				<div class="form-group">
 					<label>Subtitle</label>
-					<input type="checkbox" class="form-control" name=<?php echo SHOWTIME_SUBTITLE ?> value=<?php  ?>>
+					<input type="checkbox" class="form-control" name=<?php echo SHOWTIME_SUBTITLE ?> value=<?php echo "a"; ?>>
 				</div>
 
 				<div class="form-group">
