@@ -4,6 +4,9 @@ namespace Controllers;
 
 use Model\Cine as Cine;
 use DAO\CinemasDAO as daoCine;
+//LA EXCEPCION QUE TIRA ES SI NO CRE BIEN LA QUERY POR PARAMETROS, NO POR EL RESULTADO DEVUELTO
+//$advice , toma el valor en una funcion, pero luego en showtime no sigue con el valor.
+//IDEA: CREAR UN ARRAY COMO ATRIBUTO Y QUE CADA VEZ QUE ENTRE A SHOW CINEMA, SE INICIALIZE Y QUE TOME POR PARAMETRO UN ARRAY, PUEDE ESTAR VACIO COMO NO, SE PUEDE DECLARAR
 
 
 class CineController
@@ -19,13 +22,10 @@ class CineController
     {
         if ($_POST) {
             if ($_POST[CINE_ID] != "") {
-         
                 $this->updateCinema();
             } else if ($_POST[CINE_ID] == "") {
-           
                 $this->createCinema();
             }
-          
         }
     }
 
@@ -40,19 +40,29 @@ class CineController
         $cine = new Cine($name, $adress, $capacity, $price);
         $cine->setActive(true);
 
-        if ($cine->getName() != null && $cine->getAddress() != null && $cine->getCapacity() > 0 && $cine->getTicketValue() > 0) {
+        if ($cine->testValuesValidation()) {
+            try {
+               
+                if (!$this->CineDao->existsCine($cine)) {
+            
 
-            if ($this->CineDao->add($cine)) {
-              
-                $advice =  CineController::showMessage(0);
+                    $this->CineDao->add($cine);
+                    $advice =  CineController::showMessage(0);
+                    $this->showCinemaMenu();
+                } else {
+                    
+
+                    $advice =  CineController::showMessage(1);
+                    $this->showCinemaMenu();
+                }
+             
+            } catch (\Throwable $th) {
+                $advice = CineController::showMessage("DB");
                 $this->showCinemaMenu();
-            } else {
-                $advice =  CineController::showMessage(1);
-               $this->showCinemaMenu();
             }
         } else {
-            $advice = CineController::showMessage(4);
-            $this->showCinemaMenu(); //SIEMPRE TESTEAR SI LA VARIABLE NO ESTA VACIA EN LA VIEW, Y SINO HACERLE EL ALERT CON DE TEXTO EL &advice
+            $advice = CineController::showMessage("CamposInvalidos");
+          $this->showCinemaMenu(); 
         }
     }
 
@@ -64,81 +74,56 @@ class CineController
         $updatedAddress = $_POST[CINE_ADDRESS];
         $updatedCapacity = $_POST[CINE_CAPACITY];
         $updatedPrice = $_POST[CINE_TICKETVALUE];
-      
-        if ($updatedName!=null && $updatedAddress!=null && $updatedCapacity!=null && $updatedPrice!=null) {
-            
-   
-        $modifiedCinema = new Cine($updatedName, $updatedAddress, $updatedCapacity, $updatedPrice);
-        $modifiedCinema->setId($updatedId);
 
-        //COROBORAR TODOS LOS CAMPOS NO SEAN NULOS Y QUE LOS NUEVOS NO LOS CONTENGA OTRO CINE
-        if ($this->isCapacityValid($updatedCapacity) && $this->isTicketValueValid($updatedPrice)) {
+            $modifiedCinema = new Cine($updatedName, $updatedAddress, $updatedCapacity, $updatedPrice);
+            $modifiedCinema->setId($updatedId);
 
-            if ($this->CineDao->modifyCine($modifiedCinema)) {
-                $advice = CineController::showMessage(2);
-               $this->showCinemaMenu();
+            if ($modifiedCinema->testValuesValidation()) {
+                $cinemaToBeModified=$this->CineDao->searchById($updatedId);
+                if ($cinemaToBeModified->getName()==$modifiedCinema->getName() && $cinemaToBeModified->getAddress()==$modifiedCinema->getAddress()){
+                    $this->CineDao->modifyCine($modifiedCinema);
+                    $advice = CineController::showMessage(2);
+                    $this->showCinemaMenu();                   
+                }else {
+                    if (!$this->CineDao->existsCine($modifiedCinema)) {
+                        $this->CineDao->modifyCine($modifiedCinema);
+                        $advice = CineController::showMessage(2);
+                        $this->showCinemaMenu();
+                    } else {    
+                        $advice = CineController::showMessage(3);
+                        $this->showCinemaMenu();
+                    }
+                }
+               
             } else {
-
-                $advice = CineController::showMessage(3);
-               $this->showCinemaMenu();
-            }
-        } else {
-            $advice = CineController::showMessage(4);
-            $this->showCinemaMenu(); //SIEMPRE TESTEAR SI LA VARIABLE NO ESTA VACIA EN LA VIEW, Y SINO HACERLE EL ALERT CON DE TEXTO EL &advice
+                $advice = CineController::showMessage("CamposInvalidos");
+                $this->showCinemaMenu();
+            }           
         }
-    }else{
-        $this->showCinemaMenu();
-
-        $advice="Los campos no pueden ser vacíos";
-    }
-    }
+    
 
 
-    private function isCapacityValid($capacity)
-    {
-
-        if ($capacity <= 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private function isTicketValueValid($price)
-    {
-
-        if ($price <= 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     public function showCinemaMenu()
     {
-       
-
+        try {       
         $cines = $this->CineDao->getAll();
         if (isset($_GET['delete'])) {
-
             $id = $_GET['delete'];
             $this->CineDao->delete($id);
-        
             $cines = $this->CineDao->getAll();
             require_once(VIEWS  . '/AdminCine.php');
         } else if (isset($_GET['update'])) {
-
             $cineUpdate = new Cine();
             $id = $_GET['update'];
             $cineUpdate = $this->CineDao->searchById($id);
-            //Abre el pop up
+
             echo "<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})                </script>";
-       
             require_once(VIEWS  . "/AdminCine.php");
         } else if (isset($_GET['activate']) || isset($_GET['desactivate'])) {
 
             if (isset($_GET['activate'])) {
-                
+
                 $this->activateCinema($_GET['activate']);
             } else {
                 $this->desactivateCinema($_GET['desactivate']);
@@ -150,32 +135,38 @@ class CineController
             require_once(VIEWS  . "/AdminCine.php");
         }
         require_once(VIEWS  . "/AdminCine.php");
+    } catch (\Throwable $th) {
+        $advice = CineController::showMessage("DB");
+        require_once(VIEWS  . "/AdminCine.php");
 
+    }
     }
 
     public function delete()
     {
-        $this->CineDao->delete($_GET['id']);
+        if (!empty($this->CineDao->searchById($_GET['id']))) {
+            $this->CineDao->delete($_GET['id']);
+        }
     }
     public function update()
     {
-        var_dump($_GET);
-        if ($_GET['']) {
-           
+        if (!empty($this->CineDao->searchById($_GET['id']) )) {
+            $this->CineDao->modifyCine($_GET['id']);
         }
-       $this->CineDao->modifyCine($_GET['id']);
     }
 
     public function activateCinema($id)
     {
-
-        $this->CineDao->activateCinema($id);
+        if (!empty($this->CineDao->searchById($id))) {
+            $this->CineDao->activateCinema($id);
+        }
     }
 
     public function desactivateCinema($id)
     {
-
-        $this->CineDao->desactivateCinema($id);
+        if (!empty($this->CineDao->searchById($id))) {
+            $this->CineDao->desactivateCinema($id);
+        }
     }
 
     public static function showMessage($messageNumber)
@@ -194,15 +185,14 @@ class CineController
             case 3:
                 return "Sin modificacion";
                 break;
-            case 4:
-                return "La capacidad y el valor del ticket deben ser mayor a 0(cero)";
-
-                break;
+            case "CamposInvalidos":
+                return "Los valores ingresados no son validos, verificar capacidad y valorTicket mayor a 0, O campos vacíos";break;
+            case "DB":
+                return "Error al procesar la query"; break;
 
             default:
-
-
                 break;
         }
     }
+
 }

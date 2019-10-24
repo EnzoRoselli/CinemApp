@@ -28,7 +28,7 @@ include('nav.php');
 				<?php
 				if (!empty($cines)) {
 					foreach ($cines as $cine) {
-						// var_dump($cine);
+
 							?>
 							<tr>
 

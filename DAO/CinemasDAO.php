@@ -7,6 +7,8 @@ namespace DAO;
 
 use DAO\IRepository as IRepository;
 use Model\Cine as Cine;
+    //LA EXCEPCION QUE TIRA ES SI NO CRE BIEN LA QUERY POR PARAMETROS, NO POR EL RESULTADO DEVUELTO
+
 
 class CinemasDAO implements IRepository
 {
@@ -16,8 +18,7 @@ class CinemasDAO implements IRepository
     private $tableName = "cinemas";
 
     public function add(Cine $cine)
-    {
-        if ($this->existsCine($cine)==null) {  
+    {        
         try {
 
             $query = "INSERT INTO " . " " . $this->tableName . " " .
@@ -32,74 +33,72 @@ class CinemasDAO implements IRepository
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-            return true;
         } catch (\Throwable $ex) {
-            return false;
             throw $ex;
-        }
-    }
+        }    
     }
 
     public function existsCine(Cine $cine)
     {
-
+       
         try {
 
             $query = "SELECT * FROM " . " " . $this->tableName . " WHERE cinema_name=:cineName and address=:cineAddress";
 
             $parameters["cineName"] = $cine->getName();
             $parameters["cineAddress"] = $cine->getAddress();
-
+           
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
             if ($resultSet==null) {
-                return null;
+                return false;
             }else{
                 return true;    
             }
-            return true;
         } catch (\Throwable $th) {
             throw $th;
         }
-
- 
     }
 
     public function delete($id)
-    {
-
-        $comprobationID = $this->searchById($id);
-
-        if ($comprobationID!=null) {
+    {    
+        try {
             $query = "DELETE" . " " ."FROM". " ". $this->tableName . " " . " WHERE id=:id";
             $parameters["id"] = $id;
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
+            return true;
+        } catch (\Throwable $th) {
+            throw $th;
         }
+        
     }
     public function activateCinema($id)
-    {
-        if ($this->searchById($id)) {
-            
+    {        
+        try {
             $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
-            
             $parameters["id"] = $id;
             $parameters["active"] = 1;
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-            
+            return true;
+        } catch (\Throwable $th) {
+            throw $th;
         }
+        
     }
     public function desactivateCinema($id)
     {
-        if ($this->searchById($id)) {
+        try{
             $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
             $parameters["id"] = $id;
             $parameters["active"] = 0;
           
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-            
+            return true;
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 
@@ -131,11 +130,9 @@ class CinemasDAO implements IRepository
         } catch (\Throwable $th) {
             throw $th;
         }
-
-        return null;
     }
 
-    public function modifyCine($cine) //si los valores son vacios , que no se updatee
+    public function modifyCine($cine) 
     {
 
         try {
@@ -154,7 +151,6 @@ class CinemasDAO implements IRepository
         } catch (\Throwable $th) {
             throw $th;
         }
-        return false;
     }
 
 
