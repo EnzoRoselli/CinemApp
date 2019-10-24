@@ -1,5 +1,5 @@
 <?php namespace Config;
-//adssadd
+
 class Autoload {
      public static function start() {
           spl_autoload_register(function($classNotFound)
