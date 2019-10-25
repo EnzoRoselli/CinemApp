@@ -22,7 +22,8 @@ class Showtime{
         $this->hour = $hour;
         $this->language=$language;
         $this->subtitle=$subtitle;
-        $this->ticketAvaliable = $this->cinema->getCapacity();
+
+      //  $this->ticketAvaliable = $this->cinema->getCapacity();
     }
 
     public function getShowtimeId(){return $this->showtimeId;}
@@ -42,7 +43,7 @@ class Showtime{
     public function setHour($hour){$this->hour=$hour;}
     public function setLanguage($language){$this->language=$language;}
     public function setSubtitle($subtitle){$this->subtitle=$subtitle;} 
-    public function setActive($active){$this->active;}
+    public function setActive($active){$this->active = $active;}
     public function setTicketAvaliable($ticketAvaliable){$this->ticketAvaliable=$ticketAvaliable;}
 
     

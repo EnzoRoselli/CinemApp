@@ -3,17 +3,22 @@ namespace DAO;
 
 
 use Model\Showtime as Showtime;
-use DAO\CinemasDAO;
-use DAO\LanguagesDAO;
+use DAO\CinemasDAO as CinemasDAO;
+use DAO\LanguagesDAO as LanguagesDAO;
+ use DAO\MoviesDAO as MoviesDAO;
 
 class ShowtimesDAO {
 
     private $showtimesList  = array();
     private $connection;
     private $tableName = "showtimes";
-    private $CinemasDAO=new CinemasDAO();
-    private $LanguageDAO=New LanguagesDAO();
-    private $MoviesDAO=New MoviesDAO();
+
+    public function __construct() {
+        $this->LanguageDAO=new LanguagesDAO();
+        $this->CinemasDAO=new CinemasDAO();
+        $this->MoviesDAO=new MoviesDAO();
+    }
+ 
 
     public function add(Showtime $showtimes)
     {
@@ -21,18 +26,18 @@ class ShowtimesDAO {
                
 
                     $query = "INSERT INTO " . " " . $this->tableName . " " .
-                        " (id_movie, id_cinema,id_language,ticketAvaliable view_date,hour,subtitles) VALUES
-                                        (:id_movie,:id_cinema,:id_language,:ticketAvaliable,:view_date,:hour,:subtitles);";
+                        " (id_movie, id_cinema,id_language,ticketAvaliable, view_date,hour,subtitles,active) VALUES
+                                        (:id_movie,:id_cinema,:id_language,:ticketAvaliable,:view_date,:hour,:subtitles,:active);";
     
-    
-                    $parameters["id_movie"] = $showtimes->getMovie()->getMovieId();
-                    $parameters["id_cinema"] = $showtimes->getCinema()->getId();
+                    $parameters["id_movie"] = $showtimes->getMovie();
+                    $parameters["id_cinema"] = $showtimes->getCinema();
                     $parameters["id_language"] = $showtimes->getLanguage();
                     $parameters["ticketAvaliable"] = $showtimes->getTicketAvaliable();
                     $parameters["active"] = $showtimes->getActive();
                     $parameters["view_date"] = $showtimes->getDate();
                     $parameters["hour"] = $showtimes->getHour();
-                    $parameters["subtitles"] = $showtimes->getSubtitles();
+                    $parameters["subtitles"] = $showtimes->isSubtitle();
+        
     
                     $this->connection = Connection::GetInstance();
                     $this->connection->ExecuteNonQuery($query, $parameters);

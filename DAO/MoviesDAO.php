@@ -3,12 +3,12 @@ namespace DAO;
 
 use Controllers\SearchMovieController;
 use Model\Movie;
-
+//CASTEAR EN LOS SEARCHBYID
 class MoviesDAO  
 {
     private $moviesList  = array();
     private $connection;
-    private $tableName = "movie";
+    private $tableName = "movies";
 
     public function add(Movie $movie)
     {
@@ -70,15 +70,15 @@ class MoviesDAO
          
             $resultSet = $this->connection->Execute($query,$parameters);
             if ($resultSet!=null) {
-                $Movie=new SearchMovieController();
-                $Movie->setID($resultSet[0]["id"]);
+                $Movie=new Movie();
+                $Movie->setMovieId((int)$resultSet[0]["id"]);
                 $Movie->setTitle($resultSet[0]["title"]);
                 $Movie->setDuration($resultSet[0]["duration"]);
                 $Movie->setOriginalLanguage($resultSet[0]["original_language"]);
                 $Movie->setOverview($resultSet[0]["overview"]);
-                $Movie->getReleaseDate($resultSet[0]["release_date"]);
-                $Movie->getAdult($resultSet[0]["adult"]);
-                $Movie->getPosterPath($resultSet[0]["poster_path"]);
+                $Movie->setReleaseDate($resultSet[0]["release_date"]);
+                $Movie->setAdult($resultSet[0]["adult"]);
+                $Movie->setPosterPath($resultSet[0]["poster_path"]);
                 
                 return $Movie;
             }else {

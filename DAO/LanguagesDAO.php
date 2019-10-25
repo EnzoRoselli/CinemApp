@@ -2,7 +2,7 @@
 
 namespace DAO;
 
-use model\Language;
+use Model\Language as Language;
 class LanguagesDAO
 {
     private $connection;
@@ -54,6 +54,31 @@ class LanguagesDAO
             $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id=:id";
 
             $parameters["id"] = $id;
+            
+            $this->connection = Connection::GetInstance();         
+            $resultSet = $this->connection->Execute($query,$parameters);
+            
+            if ($resultSet!=null) {
+                $Language=new Language();
+                $Language->setID($resultSet[0]["id"]);
+                $Language->setName($resultSet[0]["name_language"]);
+                return $Language;
+            }else {
+                return null;
+            }
+          
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function searchByName($language)
+    {
+      
+        try {
+            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE name_language=:name_language";
+
+            $parameters["name_language"] = $language;
             
             $this->connection = Connection::GetInstance();         
             $resultSet = $this->connection->Execute($query,$parameters);

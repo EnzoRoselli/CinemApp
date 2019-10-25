@@ -12,7 +12,7 @@ namespace Model;
         private $adult;
         private $posterPath;
 
-        public function __construct($movieId,$title,$duration,$originalLanguage,$overview,$releaseDate,$adult,$posterPath)
+        public function __construct($movieId="",$title="",$duration="",$originalLanguage="",$overview="",$releaseDate="",$adult="",$posterPath="")
         {
             $this->movieId = $movieId;
             $this->title = $title;

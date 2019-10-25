@@ -17,6 +17,7 @@ class Cine
         $this->address = $address;
         $this->capacity = $capacity;
         $this->ticketValue = $ticketValue;
+        $this->active = true;
     }
 
     public function getId(){return $this->id;}

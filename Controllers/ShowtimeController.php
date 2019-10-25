@@ -3,18 +3,24 @@ namespace Controllers;
 
 use Model\Showtime as Showtime;
 use DAO\ShowtimesDAO as ShowtimeDAO;
-use DAO\CinemasDAO;
+use DAO\CinemasDAO as CinemasDAO;
+use DAO\MoviesDAO as MoviesDAO;
+use DAO\LanguagesDAO as LanguagesDAO;
 //VALIDAR QUE LOS DATOS DE LA FUNCIONN YA NO ESTEN CARGADOS, OSEA A LA MISMA HORA, MISMO CINE
 class ShowtimeController{
 
     private $showtimeDao;
-    private $CinemasDAO;
+    private $cinemasDAO;
+    private $moviesDAO;
+    private $languagesDAO;
 
 
     public function __construct()
     {
         $this->showtimeDao = new ShowtimeDAO();
-        $this->CinemasDAO= new CinemasDAO();
+        $this->cinemasDAO= new CinemasDAO();
+        $this->moviesDAO= new MoviesDAO();
+        $this->languagesDAO= new LanguagesDAO();
     }
 
     public function determinateUpdateCreate()
@@ -34,39 +40,46 @@ class ShowtimeController{
 
     public function create()
     {
-      
-        $cinema = $_POST[SHOWTIME_CINEMA];
-        $movie = $_POST[SHOWTIME_MOVIE];
         $date = $_POST[SHOWTIME_DATE];
         $hour = $_POST[SHOWTIME_HOUR];
-        $language = $_POST[SHOWTIME_LANGUAGE];
         $subtitles = $_POST[SHOWTIME_SUBTITLE];
 
-        $showtime = new Showtime($cinema, $movie, $date, $hour, $language, $subtitles);
+        $id_cinema=$_POST[SHOWTIME_CINEMA];
+         $cinema=$this->cinemasDAO->searchById($id_cinema);
+
+        $id_movie = $_POST[SHOWTIME_MOVIE];
+        // $movie=$this->moviesDAO->searchById($id_movie);
+        
+
+        $id_language = $_POST[SHOWTIME_LANGUAGE];
+
+ 
+        // $language=$this->languagesDAO->searchByName($name_language);
+
+        $showtime = new Showtime($id_movie,$id_cinema, $date, $hour, $id_language, $subtitles);
+
         $showtime->setActive(true);
+        $showtime->setTicketAvaliable($cinema->getCapacity());
+    
       
         if ($showtime->testValuesValidation()) {
            
         try {
             
-            $cinemaToSet=$this->CinemasDAO->searchById($_POST[SHOWTIME_CINEMA]);
-            if (!empty($cinemaToSet)) {
+
+            // if (!empty($cinemaToSet)) {
                //VALIDAR QUE LA FUNCION NO EXISTA YA, O QUE NO SE DE EN UN TIEMPO DONDE ESTÉ OTRA
                 $this->showtimeDao->add($showtime);
                 $advice =  ShowtimeController::showMessage(0);
                 $this->showShowtimeMenu();
-            }else {
+            // }else {
                $advice =  ShowtimeController::showMessage(1);
                $this->showShowtimeMenu();
-            }
-              
- 
-                  
-           
-             
-             
+            // }
+                          
         } catch (\Throwable $th) {
          echo $th->getMessage();
+   
             $advice=ShowtimeController::showMessage("DB");;
         }
     } else {

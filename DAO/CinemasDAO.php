@@ -22,14 +22,16 @@ class CinemasDAO implements IRepository
         try {
 
             $query = "INSERT INTO " . " " . $this->tableName . " " .
-                " (cinema_name, address, capacity,ticket_value) VALUES
-                                 (:name,:address,:capacity,:ticket_value);";
+                " (cinema_name, address, capacity,ticket_value, active) VALUES
+                                 (:name,:address,:capacity,:ticket_value, :active);";
 
 
             $parameters["name"] = $cine->getName();
             $parameters["address"] = $cine->getAddress();
             $parameters["capacity"] = $cine->getCapacity();
             $parameters["ticket_value"] = $cine->getTicketValue();
+            $parameters["active"] = $cine->getActive();
+
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);

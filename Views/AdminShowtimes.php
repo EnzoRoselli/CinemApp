@@ -35,25 +35,25 @@ include('nav.php');
 								<td><?php echo $showtime->getShowtimeId(); ?></td>
 								<td><?php echo $showtime->getDate(); ?></td>
 								<td><?php echo $showtime->getHour(); ?></td>
-								<td><?php echo $showtime->getMovie(); ?></td>
-								<td><?php echo $showtime->getLanguage(); ?></td>
+								<td><?php echo $showtime->getMovie()->getTitle(); ?></td>
+								<td><?php echo $showtime->getLanguage()->getName(); ?></td>
 								<td><?php echo $showtime->isSubtitle(); ?></td>
-								<td><?php echo $showtime->getCinema(); ?></td>
-								<td><?php echo $showtime->getTicketAvialable() . '/' . getCinema()->getCapacity(); ?></td>
+								<td><?php echo $showtime->getCinema()->getName(); ?></td>
+								<td><?php echo $showtime->getTicketAvaliable() . '/' . $showtime->getCinema()->getCapacity(); ?></td>
 								<td>
 									<form action="<?php echo  FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>">
 
 										
 										
 
-										<?php if($cine->getActive()){
+										<?php if($showtime->getCinema()->getActive()){
 											?>
-										<button name="desactivate" value="<?php echo $showtime->getId() ?>" class="btn btn-light">
+										<button name="desactivate" value="<?php echo $showtime->getShowtimeId() ?>" class="btn btn-light">
 											<i class="fas fa-toggle-on"></i>
 										</button>
 										<?php }else{
 											?>
-											<button name="activate" value="<?php echo $showtime->getId() ?>" class="btn btn-light">
+											<button name="activate" value="<?php echo $showtime->getShowtimeId() ?>" class="btn btn-light">
 											<i class="fas fa-toggle-off"></i>
 										</button>
 										<?php 
@@ -90,7 +90,7 @@ include('nav.php');
 				<div class="form-group">
 					<label>Cinema</label>
 					<select name=<?php echo SHOWTIME_CINEMA ?> class="form-control">
-						<option value="1">1</option>
+						<option value="4">4</option>
 					</select>
 				</div>
 				
@@ -104,13 +104,13 @@ include('nav.php');
 				<div class="form-group">
 					<label>Language</label>
 					<select name=<?php echo SHOWTIME_LANGUAGE ?> class="form-control">
-						<option value="">esp</option>
+						<option value="1">english</option>
 					</select>
 				</div>
 
 				<div class="form-group">
 					<label>Subtitle</label>
-					<input type="checkbox" class="form-control" name=<?php echo SHOWTIME_SUBTITLE ?> value=<?php echo "a"; ?>>
+					<input type="checkbox" class="form-control" name=<?php echo SHOWTIME_SUBTITLE ?> value=<?php echo true; ?>>
 				</div>
 
 				<div class="form-group">
