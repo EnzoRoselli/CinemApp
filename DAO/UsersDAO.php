@@ -88,13 +88,48 @@ class UsersDAO
     }
 
         
-    public function existsUser(User $user)
+    public function correctCredentials(User $user)
     {
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE username=:username and email=:email";
+            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE password=:password and email=:email";
 
-            $parameters["username"] = $user->getUsername();
+            $parameters["password"] = $user->getPassword();
+            $parameters["email"] = $user->getEmail();
+            
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+            return $resultSet;
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function existsDNI(User $user)
+    {
+        try {
+
+            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE dni=:dni";
+
+            $parameters["dni"] = $user->getDni();
+            
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+            return $resultSet;
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    
+    public function existsEmail(User $user)
+    {
+        try {
+
+            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE email=:email";
+
             $parameters["email"] = $user->getEmail();
             
             $this->connection = Connection::GetInstance();

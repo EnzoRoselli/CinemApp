@@ -25,32 +25,34 @@ class UserController
         $user->setLastName($_POST["SignupLastName"]);
         $user->setDni($_POST["SignupDNI"]);
 
-        if ($this->checkInputParameters($user)) {
-            if($this->s()){
-                try{
-                    $this->usersDAO->add($user); 
-                    $advice =  UserController::showMessage(0);
-                }catch (\Throwable $ex) {
-                    $advice =  UserController::showMessage(1);
+        if ($this->checkNotNullParameters($user)) {            
+            try
+            {
+                $UserDNI = $this->usersDAO->existsDNI($user);
+                if($UserDNI)
+                {
+                    $UserEmail = $this->usersDAO->existsEmail($user);
+                    if($UserEmail)
+                    {
+                        $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */
+                    }
+                    else
+                    {
+                        $this->showLoginSignupView(EMAIL_EXISTS);    
+                    }
                 }
-                finally{ $this->showLoginSignupMenu();
+                else 
+                {
+                    $this->showLoginSignupView(ID_NUMBER_EXISTS);
                 }
             }
-            else{
-                $advice =  UserController::showMessage(4);
-                require_once (VIEWS . "/LoginSignUp.php");
+            catch(\Throwable $ex) {
+               echo 'Un error ha ocurrido';
             }
         }
     }
-
-    public function showHome($message = null){
-        require_once(VIEWS_PATH . "home.php");
-    }
-
-    public function showLoginView($message = null){
-        require_once(VIEWS_PATH . "loginSignup.php");
-    }
-
+    
+    
     public function loginAction(){
 
         if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
@@ -59,12 +61,12 @@ class UserController
                 
             try{
 
-             $UserInfo = $this->usersDAO->existsUser($loggingUser);
-             if(!$UserInfo){
-                 $this->showLoginView(LOGIN_FAILURE);
+             $UserDNI = $this->usersDAO->correctCredentials($loggingUser);
+             if(!$UserDNI){
+                 $this->showLoginSignupView(LOGIN_FAILURE);
              }
              else{
-                 $_SESSION['loggedUser'] = $UserInfo[0]['lastName'];
+                 $_SESSION['loggedUser'] = $UserDNI[0]['lastName'];
                  $this->showHome();
              }
             }catch(Exception $e) {
@@ -73,11 +75,24 @@ class UserController
         }
     }
 
-    /*  -- CREAR METODO QUE CHEQUEE EN BD QUE NO EXISTA EL DNI Y MAIL INGRESADOS  checkRegisterData
-        -- ARMAR EL showLoginSignupMenu
-    */ 
 
-    private function checkInputParameters($user){
+
+    public function showHome($message = null){
+        require_once(VIEWS_PATH . "home.php");
+    }
+
+    public function showLoginSignupView($message = null){
+        require_once(VIEWS_PATH . "loginSignup.php");
+    }
+
+    public function addConfirmation($user){
+
+        $this->usersDAO->add($user); 
+        $this->showLoginSignupView(SIGNUP_SUCCESS);
+    }
+
+
+    private function checkNotNullParameters($user){
         if ($user->getName() != null && $user->getLastName() != null && $user->getDni() != null && $user->getEmail() != null && $user->getPassword() != null)
             return true;
         else

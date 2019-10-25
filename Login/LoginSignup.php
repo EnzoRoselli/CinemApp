@@ -26,7 +26,7 @@ require 'app/fb_init.php';
 	<h2>CinemApp</h2>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
-			<form action="process/RegisterAction.php" method="POST">
+			<form action="<?php echo FRONT_ROOT . "/User/createUser" ?>" method="POST">
 				<h1>Create Account</h1>
 				<div class="social-container">
 					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> -->
@@ -42,7 +42,7 @@ require 'app/fb_init.php';
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
-			<form action="process/LoginAction.php" method="POST">
+			<form action="<?php echo FRONT_ROOT . "/User/loginAction" ?>" method="POST">
 				<h1>Log in</h1>
 				<!-- <div class="social-container"> -->
 
