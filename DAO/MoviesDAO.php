@@ -101,6 +101,28 @@ class MoviesDAO
         }
         
     }
+    public function modify(movie $movie) 
+    {
+
+        try {
+            
+            $query = "UPDATE " . " " . $this->tableName . " " . "SET title=:title, duration=:duration, original_language=:original_language, overview=:overview, release_date=:release_date, adult=:adult, poster_path=:poster_path WHERE id=:id";
+
+            $parameters["name"] = $movie->getName();
+            $parameters["address"] = $movie->getAddress();
+            $parameters["capacity"] = $movie->getCapacity();
+            $parameters["ticket_value"] = $movie->getTicketValue();
+            $parameters["id"] = $movie->getId();
+            $parameters["id"] = $movie->getId();
+            $parameters["id"] = $movie->getId();
+
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 
 
 
