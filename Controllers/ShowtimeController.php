@@ -76,6 +76,13 @@ class ShowtimeController{
     }
 
     public function showShowtimeMenu(){
+        try {
+            $showtimes=$this->showtimeDao->getAll();
+            
+        } catch (\Throwable $th) {
+            $advice = ShowtimeController::showMessage("DB");
+            require_once(VIEWS . "/AdminShowtimes.php");
+        }
         require_once(VIEWS . "/AdminShowtimes.php");
     }
 

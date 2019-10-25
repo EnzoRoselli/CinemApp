@@ -43,7 +43,7 @@ class CineController
 
         if ($cine->testValuesValidation()) {
             try {          
-                if (!$this->CineDao->existsCine($cine)) {
+                if (!$this->CineDao->exists($cine)) {
                     $this->CineDao->add($cine);
                     $advice =  CineController::showMessage(0);
                     $this->showCinemaMenu();
@@ -81,7 +81,7 @@ class CineController
                     $advice = CineController::showMessage(2);
                     $this->showCinemaMenu();                   
                 }else {
-                    if (!$this->CineDao->existsCine($modifiedCinema)) {
+                    if (!$this->CineDao->exists($modifiedCinema)) {
                         $this->CineDao->modify($modifiedCinema);
                         $advice = CineController::showMessage(2);
                         $this->showCinemaMenu();

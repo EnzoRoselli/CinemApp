@@ -20,6 +20,7 @@ overview varchar(450),
 release_date varchar(10),
 adult boolean,
 poster_path varchar(50),
+constraint unq_title UNIQUE(title);
 constraint pk_movies PRIMARY KEY (id));
 
 CREATE TABLE IF NOT EXISTS genres(
@@ -41,12 +42,12 @@ CREATE TABLE IF NOT EXISTS users(
 id int AUTO_INCREMENT,
 password varchar(12),
 email varchar(30),
-name varchar(30),
+firstname varchar(30),
 lastname varchar(30),
-username varchar(30),
 dni varchar(9),
 constraint pk_users PRIMARY KEY (id),
-CONSTRAINT unq_users UNIQUE (username));
+CONSTRAINT unq_email UNIQUE (email));
+CONSTRAINT unq_dni UNIQUE (dni));
 
 CREATE TABLE IF NOT EXISTS languages(
 id int AUTO_INCREMENT,
@@ -63,6 +64,7 @@ view_date date,
 hour time,
 subtitles boolean,
 active boolean,
+ticketAvaliable int,
 CONSTRAINT pk_showtimes PRIMARY KEY (id, id_cinema),
 constraint fk_id_language_showtimes FOREIGN KEY (id_language) REFERENCES languages(id),
 CONSTRAINT fk_id_movie_showtimes FOREIGN KEY (id_movie) REFERENCES movies(id) ON DELETE CASCADE,
@@ -72,10 +74,10 @@ CREATE TABLE IF NOT EXISTS tickets(
 id int AUTO_INCREMENT,
 qr int,
 id_showtime int,
-username varchar(20),
+id_user varchar(20),
 CONSTRAINT pk_ticket PRIMARY KEY (id),
 CONSTRAINT fk_id_showtimes_tickets FOREIGN KEY (id_showtime) REFERENCES showtimes(id) ON DELETE RESTRICT,
-CONSTRAINT fk_username_tickets FOREIGN KEY (username) REFERENCES users(username) ON DELETE RESTRICT);
+CONSTRAINT fk_id_user_tickets FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE RESTRICT);
 
 CREATE TABLE IF NOT EXISTS credit_cards(
 cc_number varchar(16),

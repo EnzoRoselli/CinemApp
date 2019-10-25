@@ -1,27 +1,35 @@
 <?php
 namespace DAO;
 
-use DAO\IRepository as IRepository;
+
 use Model\Showtime as Showtime;
+use DAO\CinemasDAO;
+use DAO\LanguagesDAO;
 
 class ShowtimesDAO {
 
     private $showtimesList  = array();
     private $connection;
     private $tableName = "showtimes";
+    private $CinemasDAO=new CinemasDAO();
+    private $LanguageDAO=New LanguagesDAO();
+    private $MoviesDAO=New MoviesDAO();
 
     public function add(Showtime $showtimes)
     {
         try {
-                if($this->exists($showtimes)){
+               
 
                     $query = "INSERT INTO " . " " . $this->tableName . " " .
-                        " (id_movie, id_cinema, view_date,hour,subtitles) VALUES
-                                        (:id_movie,:id_cinema,:view_date,:hour,:subtitles);";
+                        " (id_movie, id_cinema,id_language,ticketAvaliable view_date,hour,subtitles) VALUES
+                                        (:id_movie,:id_cinema,:id_language,:ticketAvaliable,:view_date,:hour,:subtitles);";
     
     
                     $parameters["id_movie"] = $showtimes->getMovie()->getMovieId();
                     $parameters["id_cinema"] = $showtimes->getCinema()->getId();
+                    $parameters["id_language"] = $showtimes->getLanguage();
+                    $parameters["ticketAvaliable"] = $showtimes->getTicketAvaliable();
+                    $parameters["active"] = $showtimes->getActive();
                     $parameters["view_date"] = $showtimes->getDate();
                     $parameters["hour"] = $showtimes->getHour();
                     $parameters["subtitles"] = $showtimes->getSubtitles();
@@ -29,7 +37,7 @@ class ShowtimesDAO {
                     $this->connection = Connection::GetInstance();
                     $this->connection->ExecuteNonQuery($query, $parameters);
 
-                }
+                
 
             } catch (\Throwable $ex) {
 
@@ -50,8 +58,12 @@ class ShowtimesDAO {
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
+            if (!empty($resultSet)) {
+                return true;
+            }else {
+                return false;
+            }
 
-            return true;
         } catch (\Throwable $th) {
 
             throw $th;
@@ -70,15 +82,30 @@ class ShowtimesDAO {
             if (!empty($resultSet)) {
                 $showtime=new Showtime();
                 $showtime->setShowtimeId($resultSet[0]["id"]);
-                $showtime->setMovie($resultSet[0]["movie"]);
-                $showtime->setCinema($resultSet[0]["cinema"]);
-                $showtime->setDate($resultSet[0]["date"]);
-                $showtime->setHour($resultSet[0]["hour"]);
-                $showtime->setLanguage($resultSet[0]["language"]);
-                $showtime->setSubtitle($resultSet[0]["subtitle"]);
-                $showtime->setActive($resultSet[0]["active"]);
 
-                $showtime->setTicketAvaliable($resultSet[0]["ticketAvaliable"]);
+                $id_cinema=$resultSet[0]['id_cinema'];
+                $cinema=$this->CinemasDAO->searchById($id_cinema);
+                $showtime->setCinema($cinema);
+
+                $id_language=$resultSet[0]['id_language'];
+                $language=$this->LanguageDAO->searchById($id_language);
+                $showtime->setLanguage($language);
+
+                $id_movie=$resultSet[0]['id_movie'];
+                $movie=$this->MoviesDAO->searchById($id_movie);
+                $showtime->setMovie($movie);
+
+                
+                $showtime->setDate($resultSet[0]['view_date']);
+                $showtime->setHour($resultSet[0]['hour']);
+                $showtime->setSubtitle($resultSet[0]['subtitles']);
+                if($resultSet[0]['active'] == 1){
+                    $showtime->setActive(true);
+                }else{
+                    $showtime->setActive(false);
+                }
+                $showtime->setTicketAvaliable($resultSet[0]['ticketAvaliable']);
+
                 return $showtime;
             }else{
             return null;
@@ -126,6 +153,73 @@ class ShowtimesDAO {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             return true;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getAll()
+    {
+
+        
+        try {
+            $this->showtimesList = array();
+            $query = "SELECT * FROM" . ' ' . $this->tableName;
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+            foreach ($resultSet as $row) {
+
+                $Showtime = new Showtime();
+                $Showtime->setShowtimeId($row['id']);
+
+                $id_cinema=$row['id_cinema'];
+                $cinema=$this->CinemasDAO->searchById($id_cinema);
+                $Showtime->setCinema($cinema);
+
+                $id_language=$row['id_language'];
+                $language=$this->LanguageDAO->searchById($id_language);
+                $Showtime->setLanguage($language);
+
+                $id_movie=$row['id_movie'];
+                $movie=$this->MoviesDAO->searchById($id_movie);
+                $Showtime->setMovie($movie);
+
+                $Showtime->setDate($row['view_date']);
+                $Showtime->setHour($row['hour']);
+                $Showtime->setSubtitle($row['subtitles']);
+                if($row['active'] == 1){
+                    $Showtime->setActive(true);
+                }else{
+                    $Showtime->setActive(false);
+                }
+                $Showtime->setTicketAvaliable($row['ticketAvaliable']);
+                
+                array_push($this->showtimesList, $Showtime);
+            }
+            return $this->showtimesList;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+    public function modify(Showtime $showtime) 
+    {
+
+        try {
+            
+            $query = "UPDATE " . " " . $this->tableName . " " . "SET id_language=:id_language, id_movie=:id_movie, id_cinema=:id_cinema, view_date=:view_date, hour=:hour, subtitles=:subtitles, active=:active, ticketAvaliable=:ticketAvaliable WHERE id=:id";
+
+            $parameters["id_language"] = $showtime->getLanguage()->getId();
+            $parameters["id_movie"] = $showtime->getMovie()->getId();
+            $parameters["id_cinema"] = $showtime->getCinema()->getId();
+            $parameters["view_date"] = $showtime->getDate();
+            $parameters["hour"] = $showtime->getHour();
+            $parameters["subtitles"] = $showtime->isSubtitle();
+            $parameters["active"] = $showtime->getActive();
+            $parameters["ticketAvaliable"] = $showtime->getTicketAvaliable();
+
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $th) {
             throw $th;
         }

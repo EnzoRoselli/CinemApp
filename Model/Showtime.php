@@ -14,7 +14,7 @@ class Showtime{
     private $subtitle;
     private $active;
 
-    public function __construct($movie,$cinema,$date,$hour,$language,$subtitle)
+    public function __construct($movie= "",$cinema= "",$date= "",$hour= "",$language= "",$subtitle= "")
     {
         $this->movie = $movie;
         $this->cinema = $cinema;
@@ -22,7 +22,7 @@ class Showtime{
         $this->hour = $hour;
         $this->language=$language;
         $this->subtitle=$subtitle;
-        $this->ticketAvaliable = 3;//$this->cinema->getCapacity();
+        $this->ticketAvaliable = $this->cinema->getCapacity();
     }
 
     public function getShowtimeId(){return $this->showtimeId;}

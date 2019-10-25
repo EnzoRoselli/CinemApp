@@ -11,7 +11,6 @@ namespace Model;
         private $releaseDate;
         private $adult;
         private $posterPath;
-        private $active;
 
         public function __construct($movieId,$title,$duration,$originalLanguage,$overview,$releaseDate,$adult,$posterPath)
         {
@@ -23,22 +22,19 @@ namespace Model;
             $this->releaseDate = $releaseDate;
             $this->adult = $adult;
             $this->posterPath = $posterPath;
-            $this->active = true;
         }
 
         public function getMovieId(){return $this->movieId;}
         public function getTitle(){return $this->title;}
         public function getDuration(){return $this->duration;}
-        public function getOrignialLanguage(){return $this->orignialLanguage;}
+        public function getOriginalLanguage(){return $this->orignialLanguage;}
         public function getOverview(){return $this->overview;}
         public function getReleaseDate(){return $this->releaseDate;}
         public function getAdult(){return $this->adult;}
         public function getPosterPath(){return $this->posterPath;}
-        public function getActive(){ return $this->active;}
 
         public function setMovieId($movieId){$this->movieId=$movieId;}
         public function setTitle($title){$this->title=$title;}
-        //THROWEAR UNA EXCEPTION SI NO PUDO SETTEARSE Y NO TERMINAR CARGANDO EL CINE
         public function setDuration($duration){
             if($duration > 0){
                 $this->duration=$duration;
@@ -49,7 +45,7 @@ namespace Model;
         public function setReleaseDate($releaseDate){$this->releaseDate=$releaseDate;}
         public function setAdult($adult){$this->adult=$adult;}
         public function setPosterPath($posterPath){$this->posterPath=$posterPath;}
-        public function setActive($active){$this->active = $active;}
+
 
     }
 
