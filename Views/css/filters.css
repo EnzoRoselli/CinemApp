@@ -1,17 +1,33 @@
 .filters-container{
     position: relative;
     top: 100px;
+    background-color: rebeccapurple;
+    
 }
 
 .tevoyaborrar{
     position: relative;
     top: 800px;
 }
-
 .genres{
+    background-color: aqua;
     
 }
 
-.genre-list{
-    
+.genre-list ul{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.genre-list ul li{
+    /* padding: 20px 50px; */
+    list-style: none;
+}
+
+.genre-list ul li *{
+    /* background-color: yellow; */
 }
