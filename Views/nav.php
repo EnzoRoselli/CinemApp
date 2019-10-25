@@ -54,7 +54,7 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
       ?>
 
 
-      <li><a href=<?php echo VIEWS_PATH . '/AdminCine.php' ?>>Log-Sig</a></li>
+      <li><a href=<?php echo FRONT_ROOT . '/genres/showGenresFilter' ?>>Log-Sig</a></li>
       </form>
 
     <?php } ?>
