@@ -1,6 +1,6 @@
 <?php 
 
-require 'src/facebook-sdk-v5/autoload.php';
+include('../src/facebook-sdk-v5/autoload.php');
 
 session_start();
 

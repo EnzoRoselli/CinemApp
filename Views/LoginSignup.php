@@ -1,20 +1,28 @@
-<?php
+<?php namespace Views;
+  
 
-require 'app/fb_init.php';
+ 
+require '../Config/config.php';
+
+//require 'app/fb_init.php';
 
 ?>
 
-<body>
+
 
 	<?php if(isset($message))
 		{
-		?><p><?=$message?></p>
-		<?php } ?> 
-
+			foreach ($message as $value) { 
+					echo "<p> $value </p>";
+			
+		 }} ?> 
+		
+				
+	
 	<h2>CinemApp</h2>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
-			<form action="<?php echo FRONT_ROOT . "/User/createUser" ?>" method="POST">
+			<form action="<?php echo FRONT_ROOT."/User/createUser" ?>" method="POST">
 				<h1>Create Account</h1>
 				<div class="social-container">
 					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> -->
@@ -35,7 +43,7 @@ require 'app/fb_init.php';
 				<!-- <div class="social-container"> -->
 
 				<?php
-				if (isset($_SESSION['facebook_access_token'])) {
+			/*	if (isset($_SESSION['facebook_access_token'])) {
 					$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 					try {
 						$response = $fb->get('/me');
@@ -47,8 +55,6 @@ require 'app/fb_init.php';
 						echo "SDK returned an error: " . $e->getMessage();
 						exit;
 					}
-
-
 					echo "Logged in as " . $userNode->getName();
 					session_start();
 					$_SESSION['loggedUser']=$userNode->getName();
@@ -60,7 +66,7 @@ require 'app/fb_init.php';
 					$loginUrl = $helper->getLoginUrl('http://localhost/Final-Tp-Lab4/Final-Tp-Lab4/Proyecto/Login/login-callback.php', $permissions);
 
 					echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
-				} ?>
+				}*/ ?>
 
 				<!-- </div> -->
 				<span>or use your account</span>
@@ -94,6 +100,4 @@ require 'app/fb_init.php';
 		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
 	</p>
 </footer> -->
-</body>
-<script src="scripts.js"></script>
-
+<script src=<?php echo "js/scripts.js" ?>></script> 

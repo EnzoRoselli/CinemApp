@@ -14,7 +14,7 @@ CONSTRAINT pk_cinemas PRIMARY KEY (id));
 CREATE TABLE IF NOT EXISTS movies(
 id int auto_increment,
 title varchar(50),
-duration int(3), /* VER SI SE USA ASI O UN TIPO DE DATO DE TIEMPO */
+duration int(3), 
 original_language varchar(15),
 overview varchar(900),
 release_date varchar(10),

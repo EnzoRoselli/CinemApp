@@ -4,7 +4,7 @@ namespace Controllers;
 use DAO\UsersDAO as UsersDAO;
 use Model\User as User;
 use PHPMailer\PHPMailer\Exception;
-use Throwable;
+
 
 class UserController
 {
@@ -27,26 +27,20 @@ class UserController
 
         if ($this->checkNotNullParameters($user)) {            
             try
-            {
-                $UserDNI = $this->usersDAO->existsDNI($user);
-                if($UserDNI)
+            {               
+                $NewUserComprobation= $this->usersDAO->existsUserFromSignUp($user);
+                if($NewUserComprobation===false)
                 {
-                    $UserEmail = $this->usersDAO->existsEmail($user);
-                    if($UserEmail)
-                    {
-                        $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */
-                    }
-                    else
-                    {
-                        $this->showLoginSignupView(EMAIL_EXISTS);    
-                    }
+                    echo "NO EXISTEN, SE CARGAA";
+                   $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */              
                 }
                 else 
-                {
-                    $this->showLoginSignupView(ID_NUMBER_EXISTS);
+                {                 
+                    $this->showLoginSignupView($NewUserComprobation);           
                 }
             }
             catch(\Throwable $ex) {
+                var_dump($ex);
                echo 'Un error ha ocurrido';
             }
         }
@@ -57,16 +51,17 @@ class UserController
 
         if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
             
-            $loggingUser = new User($_POST['LoginEmail'], $_POST['LoginPassword']);
+            $UserLogging = new User($_POST['LoginEmail'], $_POST['LoginPassword']);
                 
             try{
 
-             $UserDNI = $this->usersDAO->correctCredentials($loggingUser);
-             if(!$UserDNI){
+             $LoginComprobation = $this->usersDAO->correctCredentials($UserLogging);
+             if(!$LoginComprobation){
                  $this->showLoginSignupView(LOGIN_FAILURE);
              }
              else{
-                 $_SESSION['loggedUser'] = $UserDNI[0]['lastName'];
+              
+                 $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
                  $this->showHome();
              }
             }catch(Exception $e) {
@@ -77,12 +72,12 @@ class UserController
 
 
 
-    public function showHome($message = null){
-        require_once(VIEWS_PATH . "home.php");
+    public function showHome($message = array()){
+        require_once(VIEWS . "/home.php");
     }
 
-    public function showLoginSignupView($message = null){
-        require_once(VIEWS_PATH . "loginSignup.php");
+    public function showLoginSignupView($message = array()){
+        require_once(VIEWS . '/loginSignup.php');
     }
 
     public function addConfirmation($user){

@@ -17,12 +17,12 @@ class UsersDAO
         try {
 
             $query = "INSERT INTO " . " " . $this->tableName . " " . 
-            " (password, email, name, lastname, dni) VALUES
-             (:password, :email, :name, :lastname, :dni);";
+            " (password, email, firstname, lastname, dni) VALUES
+             (:password, :email, :firstname, :lastname, :dni);";
 
             $parameters["password"] = $user->getPassword();
             $parameters["email"] = $user->getEmail();
-            $parameters["name"] = $user->getName();
+            $parameters["firstname"] = $user->getName();
             $parameters["lastname"] = $user->getLastName();
             $parameters["dni"] = $user->getDni();
 
@@ -56,7 +56,7 @@ class UsersDAO
             $parameters["username"] = $username;
 
             $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query);
+            $resultSet = $this->connection->Execute($query,$parameters);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -92,13 +92,13 @@ class UsersDAO
     {
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE password=:password and email=:email";
+            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE password=:password and email=:email";
 
             $parameters["password"] = $user->getPassword();
             $parameters["email"] = $user->getEmail();
             
             $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query);
+            $resultSet = $this->connection->Execute($query,$parameters);
             return $resultSet;
 
         } catch (\Throwable $th) {
@@ -110,14 +110,43 @@ class UsersDAO
     {
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE dni=:dni";
+            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE dni=:dni";
 
             $parameters["dni"] = $user->getDni();
             
             $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query);
+            $resultSet = $this->connection->Execute($query,$parameters);
             return $resultSet;
 
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function existsUserFromSignUp(User $user)
+    {
+        try {
+  
+            $query ="SELECT * FROM ". " ". $this->tableName. " WHERE dni=:dni or email=:email ";
+            $parameters["dni"] = $user->getDni();
+            $parameters["email"] = $user->getEmail();       
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query,$parameters);
+//TESTEO SI EXISTE ALGUNO YA SEA CON DNI OR EMAIL, SI NINGUN REGISTRO SE RELACIONA SE CARGA
+            if (empty($resultSet)) {
+                return false;
+            }else {
+                //SI HAY UN REGISTRO QUE CONTIENE EL DNI O EMAIL, CORROBORRO CUAL ES, SI IGUAL EMAIL O DNI
+                $errores=array();
+                if (!empty($this->existsEmail($user))){
+                   array_push($errores,EMAIL_EXISTS);                    
+                }
+                if (!empty($this->existsDNI($user))) {
+                    array_push($errores,ID_NUMBER_EXISTS);
+                }
+                return $errores;
+            }
+            
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -128,12 +157,12 @@ class UsersDAO
     {
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . "WHERE email=:email";
+            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE email=:email";
 
             $parameters["email"] = $user->getEmail();
             
             $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query);
+            $resultSet = $this->connection->Execute($query,$parameters);
             return $resultSet;
 
         } catch (\Throwable $th) {
