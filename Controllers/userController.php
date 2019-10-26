@@ -57,7 +57,9 @@ class UserController
 
              $LoginComprobation = $this->usersDAO->correctCredentials($UserLogging);
              if(!$LoginComprobation){
-                 $this->showLoginSignupView(LOGIN_FAILURE);
+                 $LoginErrors=array();
+                 array_push($LoginErrors,LOGIN_FAILURE);
+                 $this->showLoginSignupView($LoginErrors);
              }
              else{
               

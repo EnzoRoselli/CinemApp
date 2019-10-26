@@ -1,8 +1,7 @@
 <?php namespace Views;
   
 
- 
-require '../Config/config.php';
+
 
 //require 'app/fb_init.php';
 
