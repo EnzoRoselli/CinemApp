@@ -95,4 +95,6 @@ insert into languages(name_language) values ('English'), ('Spanish'), ('French')
 
 select * from movies;
 
-drop database cinemapp;
+select * from cinemas where id=2;
+
+/*drop database cinemapp;*/

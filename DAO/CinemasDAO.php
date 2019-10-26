@@ -115,16 +115,17 @@ class CinemasDAO implements IRepository
             $this->connection = Connection::GetInstance();
          
             $resultSet = $this->connection->Execute($query,$parameters);
+
             if ($resultSet!=null) {
-                $updateCinema=new Cine();
-                $updateCinema->setID($resultSet[0]["id"]);
-                $updateCinema->setName($resultSet[0]["cinema_name"]);
-                $updateCinema->setAddress($resultSet[0]["address"]);
-                $updateCinema->setCapacity($resultSet[0]["capacity"]);
-                $updateCinema->setTicketValue($resultSet[0]["ticket_value"]);
-                $updateCinema->setActive($resultSet[0]["active"]);
+                $cinema=new Cine();
+                $cinema->setID($resultSet[0]["id"]);
+                $cinema->setName($resultSet[0]["cinema_name"]);
+                $cinema->setAddress($resultSet[0]["address"]);
+                $cinema->setCapacity($resultSet[0]["capacity"]);
+                $cinema->setTicketValue($resultSet[0]["ticket_value"]);
+                $cinema->setActive($resultSet[0]["active"]);
                 
-                return $updateCinema;
+                return $cinema;
             }else {
                 return null;
             }

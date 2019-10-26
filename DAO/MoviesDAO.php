@@ -17,7 +17,7 @@ class MoviesDAO
             $query = "INSERT INTO " . " " . $this->tableName . " " .
                 " (title, duration,original_language,overview,release_date,adult,poster_path) VALUES
                 (:title,:duration,:original_language,:overview,:release_date,:adult,:poster_path);";
-            var_dump($movie);
+
             $parameters["title"] = $movie->getTitle();
             $parameters["duration"] = $movie->getDuration();
             $parameters["original_language"] = $movie->getOriginalLanguage();
@@ -101,17 +101,17 @@ class MoviesDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
             if ($resultSet != null) {
-                $Movie = new Movie();
-                $Movie->setMovieId((int) $resultSet[0]["id"]);
-                $Movie->setTitle($resultSet[0]["title"]);
-                $Movie->setDuration($resultSet[0]["duration"]);
-                $Movie->setOriginalLanguage($resultSet[0]["original_language"]);
-                $Movie->setOverview($resultSet[0]["overview"]);
-                $Movie->setReleaseDate($resultSet[0]["release_date"]);
-                $Movie->setAdult($resultSet[0]["adult"]);
-                $Movie->setPosterPath($resultSet[0]["poster_path"]);
+                $movie = new Movie();
+                $movie->setId((int) $resultSet[0]["id"]);
+                $movie->setTitle($resultSet[0]["title"]);
+                $movie->setDuration($resultSet[0]["duration"]);
+                $movie->setOriginalLanguage($resultSet[0]["original_language"]);
+                $movie->setOverview($resultSet[0]["overview"]);
+                $movie->setReleaseDate($resultSet[0]["release_date"]);
+                $movie->setAdult($resultSet[0]["adult"]);
+                $movie->setPosterPath($resultSet[0]["poster_path"]);
 
-                return $Movie;
+                return $movie;
             } else {
                 return null;
             }

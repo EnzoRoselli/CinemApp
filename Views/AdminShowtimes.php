@@ -80,27 +80,23 @@ include('nav.php');
 		<h3>Registrar/Modificar showtime</h3>
 
 
-		<form action="<?php echo  FRONT_ROOT . "/Showtime/determinateUpdateCreate" ?>" method="POST">
+		<form action="<?php echo  FRONT_ROOT . "/Showtime/create" ?>" method="POST">
 			<div class="contenedor-inputs">
 
-				<input type="hidden" name="id" value=<?php if (isset($showtimeUpdate)) {
-				
-																			echo $showtimeUpdate->getId();
-																		} ?>>
 				<div class="form-group">
 					<label>Cinema</label>
-					<select name="cinema" class="form-control">
+					<select name="idCinema" class="form-control">
 						<?php foreach($cinemasList as $cine){ ?>
-							<option value=<?= $cine->getName() ?>><?= $cine->getName() ?></option>	
+							<option value=<?= $cine->getId() ?>><?= $cine->getName() ?></option>	
 						<?php } ?>													
 					</select>
 				</div>
 				
 				<div class="form-group">
 					<label>Movie</label>
-					<select name="movie" class="form-control">
+					<select name="idMovie" class="form-control">
 						<?php foreach($moviesList as $movie){ ?>
-							<option value=<?= $movie->getTitle() ?>><?= $movie->getTitle() ?></option>	
+							<option value=<?= $movie->getId() ?>><?= $movie->getTitle() ?></option>	
 						<?php } ?>													
 					</select>
 				</div>
@@ -108,7 +104,7 @@ include('nav.php');
 				<div class="language-subtitle">
 					<div class="form-group">
 						<label>Language</label>
-						<select name="language" class="form-control">
+						<select name="nameLanguage" class="form-control">
 							<?php foreach($languagesList as $language){ ?>
 								<option value=<?= $language->getName() ?>><?= $language->getName() ?></option>	
 							<?php } ?>													
@@ -117,7 +113,7 @@ include('nav.php');
 
 					<div class="form-group">
 						<label>Subtitle</label>
-						<input type="checkbox" class="form-control" name="subtitle" value=<?php echo true; ?>>
+						<input type="checkbox" name="subtitle[]" class="form-control" value="off">
 					</div>
 				</div>
 					
@@ -135,12 +131,8 @@ include('nav.php');
 				
 			</div>
 			<div class="modal-footer">
-
-				
 				<a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup">Cancelar</a>
 				<button type="submit" class="btn btn-med btn-light">Aceptar</button>
-
-
 			</div>
 		</form>
 	</div>
