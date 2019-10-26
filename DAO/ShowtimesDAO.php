@@ -29,9 +29,9 @@ class ShowtimesDAO {
                         " (id_movie, id_cinema,id_language,ticketAvaliable, view_date,hour,subtitles,active) VALUES
                                         (:id_movie,:id_cinema,:id_language,:ticketAvaliable,:view_date,:hour,:subtitles,:active);";
     
-                    $parameters["id_movie"] = $showtimes->getMovie();
-                    $parameters["id_cinema"] = $showtimes->getCinema();
-                    $parameters["id_language"] = $showtimes->getLanguage();
+                    $parameters["id_movie"] = $showtimes->getMovie()->getId();
+                    $parameters["id_cinema"] = $showtimes->getCinema()->getId();
+                    $parameters["id_language"] = $showtimes->getLanguage()->getId();
                     $parameters["ticketAvaliable"] = $showtimes->getTicketAvaliable();
                     $parameters["active"] = $showtimes->getActive();
                     $parameters["view_date"] = $showtimes->getDate();

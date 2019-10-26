@@ -84,10 +84,10 @@ class LanguagesDAO
             $resultSet = $this->connection->Execute($query,$parameters);
             
             if ($resultSet!=null) {
-                $Language=new Language();
-                $Language->setID($resultSet[0]["id"]);
-                $Language->setName($resultSet[0]["name_language"]);
-                return $Language;
+                $language=new Language();
+                $language->setID($resultSet[0]["id"]);
+                $language->setName($resultSet[0]["name_language"]);
+                return $language;
             }else {
                 return null;
             }

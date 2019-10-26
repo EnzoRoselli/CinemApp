@@ -23,7 +23,7 @@ namespace Model;
             $this->posterPath = $posterPath;
         }
 
-        public function getMovieId(){return $this->movieId;}
+        public function getId(){return $this->movieId;}
         public function getTitle(){return $this->title;}
         public function getDuration(){return $this->duration;}
         public function getOriginalLanguage(){return $this->originalLanguage;}

@@ -41,6 +41,9 @@ class MovieController{
                     //mostrar error
                     echo 'error';
                 }
+                finally{
+                    require_once(VIEWS. "/home.php");
+                }
             }
         }
 

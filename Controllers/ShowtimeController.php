@@ -40,65 +40,42 @@ class ShowtimeController{
 
     public function create()
     {
-        $date = $_POST[SHOWTIME_DATE];
-        $hour = $_POST[SHOWTIME_HOUR];
-        $subtitles = $_POST[SHOWTIME_SUBTITLE];
 
-        $id_cinema=$_POST[SHOWTIME_CINEMA];
-         $cinema=$this->cinemasDAO->searchById($id_cinema);
+        $cinema = $this->cinemasDAO->searchById($_POST['idCinema']);
+        $movie = $this->moviesDAO->searchById($_POST['idMovie']);
+        $language = $this->languagesDAO->searchByName($_POST['nameLanguage']);
 
-        $id_movie = $_POST[SHOWTIME_MOVIE];
-        // $movie=$this->moviesDAO->searchById($id_movie);
-        
 
-        $id_language = $_POST[SHOWTIME_LANGUAGE];
+        $subtitled = ($_POST['subtitle'] === 'on') ? 1 : 0;
 
- 
-        // $language=$this->languagesDAO->searchByName($name_language);
 
-        $showtime = new Showtime($id_movie,$id_cinema, $date, $hour, $id_language, $subtitles);
-
+        $showtime = new Showtime($movie,$cinema, $_POST['date'], $_POST['hour'], $language, $subtitled);
         $showtime->setActive(true);
-        $showtime->setTicketAvaliable($cinema->getCapacity());
-    
-      
-        if ($showtime->testValuesValidation()) {
-           
-        try {
-            
 
-            // if (!empty($cinemaToSet)) {
-               //VALIDAR QUE LA FUNCION NO EXISTA YA, O QUE NO SE DE EN UN TIEMPO DONDE ESTÉ OTRA
-                $this->showtimeDao->add($showtime);
-                $advice =  ShowtimeController::showMessage(0);
-                $this->showShowtimeMenu();
-            // }else {
-               $advice =  ShowtimeController::showMessage(1);
-               $this->showShowtimeMenu();
-            // }
-                          
+        try {
+
+            $this->showtimeDao->add($showtime);
+            $this->showShowtimeMenu();
+                    
         } catch (\Throwable $th) {
-         echo $th->getMessage();
+            echo $th->getMessage();
    
-            $advice=ShowtimeController::showMessage("DB");;
         }
-    } else {
-        $advice = ShowtimeController::showMessage(4);
-       // $this->showShowtimeMenu(); 
-    }
-    }
+
+}
 
     public function showShowtimeMenu(){
         try {
-            $showtimes=$this->showtimeDao->getAll();
+            
             $cinemasList = $this->cinemasDAO->getAll();
             $moviesList = $this->moviesDAO->getAll();
             $languagesList = $this->languagesDAO->getAll();
+            require_once(VIEWS . "/AdminShowtimes.php");
+            $showtimes=$this->showtimeDao->getAll();
         } catch (\Throwable $th) {
             $advice = ShowtimeController::showMessage("DB");
-            
         }finally{
-            require_once(VIEWS . "/AdminShowtimes.php");
+            //require_once(VIEWS . "/AdminShowtimes.php");
         }
         
     }
