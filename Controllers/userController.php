@@ -36,7 +36,7 @@ class UserController
                 }
                 else 
                 {                 
-                    $this->showLoginSignupView($NewUserComprobation);           
+                    $this->showLoginSignup($NewUserComprobation);           
                 }
             }
             catch(\Throwable $ex) {
@@ -59,7 +59,7 @@ class UserController
              if(!$LoginComprobation){
                  $LoginErrors=array();
                  array_push($LoginErrors,LOGIN_FAILURE);
-                 $this->showLoginSignupView($LoginErrors);
+                 $this->showLoginSignup($LoginErrors);
              }
              else{
               
@@ -75,17 +75,22 @@ class UserController
 
 
     public function showHome($message = array()){
-        require_once(VIEWS . "/home.php");
+        if ($_GET['delete']) {
+            require_once(VIEWS . "/home.php"."?delete=1");
+        }else {
+            require_once(VIEWS . "/home.php");
+        }
+       
     }
 
-    public function showLoginSignupView($message = array()){
+    public function showLoginSignup($message = array()){
         require_once(VIEWS . '/loginSignup.php');
     }
 
     public function addConfirmation($user){
 
         $this->usersDAO->add($user); 
-        $this->showLoginSignupView(SIGNUP_SUCCESS);
+        $this->showLoginSignup(SIGNUP_SUCCESS);
     }
 
 

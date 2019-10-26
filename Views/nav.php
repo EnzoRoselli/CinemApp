@@ -48,13 +48,13 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
     if (isset($_SESSION['loggedUser'])) { ?>
       <div class="">
         <p><?php echo substr(strtoupper($_SESSION['loggedUser']), 0, 8); ?></p>
-        <a href=<?php echo VIEWS_PATH . '/Home.php?delete=1' ?>>Log out</a>
+        <a href=<?php echo FRONT_ROOT . '/user/showHome/delete=1' ?>>Log out</a>
       </div>
       </form>
     <?php
     } else {
       ?>
-      <li><a href=<?php echo VIEWS_PATH . '/LoginSignup.php' ?>>Log-Sig</a></li>
+      <li><a href=<?php echo FRONT_ROOT . '/user/showLoginSignup' ?>>Log-Sig</a></li>
       </form>
     <?php } ?>
   </ul>
