@@ -83,10 +83,6 @@ include('nav.php');
 		<form action="<?php echo  FRONT_ROOT . "/Showtime/create" ?>" method="POST">
 			<div class="contenedor-inputs">
 
-				<input type="hidden" name="id" value=<?php if (isset($showtimeUpdate)) {
-				
-																			echo $showtimeUpdate->getId();
-																		} ?>>
 				<div class="form-group">
 					<label>Cinema</label>
 					<select name="idCinema" class="form-control">
@@ -117,7 +113,7 @@ include('nav.php');
 
 					<div class="form-group">
 						<label>Subtitle</label>
-						<input type="checkbox" name="subtitle" class="form-control">
+						<input type="checkbox" name="subtitle[]" class="form-control" value="off">
 					</div>
 				</div>
 					
@@ -135,12 +131,8 @@ include('nav.php');
 				
 			</div>
 			<div class="modal-footer">
-
-				
 				<a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup">Cancelar</a>
 				<button type="submit" class="btn btn-med btn-light">Aceptar</button>
-
-
 			</div>
 		</form>
 	</div>

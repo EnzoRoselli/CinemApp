@@ -46,7 +46,7 @@ class ShowtimeController{
         $language = $this->languagesDAO->searchByName($_POST['nameLanguage']);
 
 
-        $subtitled = ($_POST['subtitle'] === 'on') ? 1 : 0;
+        $subtitled = ($_POST["subtitle[]"] === 'on') ? 1 : 0;
 
 
         $showtime = new Showtime($movie,$cinema, $_POST['date'], $_POST['hour'], $language, $subtitled);
