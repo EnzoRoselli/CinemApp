@@ -1,4 +1,4 @@
-
+/*drop database cinemapp;*/
 CREATE DATABASE IF NOT EXISTS CINEMAPP;
 USE CINEMAPP;
 
@@ -12,15 +12,15 @@ active boolean,
 CONSTRAINT pk_cinemas PRIMARY KEY (id));
 
 CREATE TABLE IF NOT EXISTS movies(
-id int,
+id int auto_increment,
 title varchar(50),
 duration int(3), /* VER SI SE USA ASI O UN TIPO DE DATO DE TIEMPO */
 original_language varchar(15),
-overview varchar(450),
+overview varchar(900),
 release_date varchar(10),
 adult boolean,
 poster_path varchar(50),
-constraint unq_title UNIQUE(title);
+constraint unq_title UNIQUE(title),
 constraint pk_movies PRIMARY KEY (id));
 
 CREATE TABLE IF NOT EXISTS genres(
@@ -46,7 +46,7 @@ firstname varchar(30),
 lastname varchar(30),
 dni varchar(9),
 constraint pk_users PRIMARY KEY (id),
-CONSTRAINT unq_email UNIQUE (email));
+CONSTRAINT unq_email UNIQUE (email),
 CONSTRAINT unq_dni UNIQUE (dni));
 
 CREATE TABLE IF NOT EXISTS languages(
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS tickets(
 id int AUTO_INCREMENT,
 qr int,
 id_showtime int,
-id_user varchar(20),
+id_user int,
 CONSTRAINT pk_ticket PRIMARY KEY (id),
 CONSTRAINT fk_id_showtimes_tickets FOREIGN KEY (id_showtime) REFERENCES showtimes(id) ON DELETE RESTRICT,
 CONSTRAINT fk_id_user_tickets FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE RESTRICT);
@@ -86,7 +86,13 @@ cc_company varchar(50),
 CONSTRAINT pk_credit_cards PRIMARY KEY (cc_number));
 
 
+insert into cinemas (cinema_name, address, capacity, ticket_value, active) values ('Aldrey', 'Vieja Terminal', '500', '350', true)
+																				 ,('Ambassador', 'Peatonal', '400', '250', true)
+                                                                                 ,('Gallegos', 'La Rioja', '600', '350', true)
+                                                                                 ,('Diagonal', 'Diagonal Pueyrredón', '250', '200', true);
 
+insert into languages(name_language) values ('English'), ('Spanish'), ('French'), ('Italian'), ('Russian');
 
+select * from movies;
 
-
+drop database cinemapp;

@@ -108,13 +108,13 @@
 .nav-links{
     display: flex;
     justify-content: right;
-    width: 80%;
+    width: 100%;
     margin-left: 8%;
     list-style: none;
 }
 
 .nav-links li a{
-    margin: 0 10px;
+    margin: 0 5px;
     text-decoration: none;
     color: #000000;
     font-size: 1.2rem;

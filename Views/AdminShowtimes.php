@@ -71,10 +71,10 @@ include('nav.php');
 </body>
 
 <!--CREATE SHOWTIME-->
-<!-- PONER EN LA LISTA DE CINES, LAS IDS DE TODOS LOS CINES PARA SELECCIONAR, EN SHOWTIME_CINEMA, EL VALUE CON EL ID O EL CINE, TAMBIEN MOVIE -->
+<
 <div class="overlay" id="overlay">
 	<div class="popup" id="popup">
-		<!-- <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a> -->
+		
 		<a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 
 		<h3>Registrar/Modificar showtime</h3>
@@ -83,52 +83,61 @@ include('nav.php');
 		<form action="<?php echo  FRONT_ROOT . "/Showtime/determinateUpdateCreate" ?>" method="POST">
 			<div class="contenedor-inputs">
 
-				<input type="hidden" name=<?php echo SHOWTIME_ID ?> value=<?php if (isset($showtimeUpdate)) {
+				<input type="hidden" name="id" value=<?php if (isset($showtimeUpdate)) {
 				
 																			echo $showtimeUpdate->getId();
 																		} ?>>
 				<div class="form-group">
 					<label>Cinema</label>
-					<select name=<?php echo SHOWTIME_CINEMA ?> class="form-control">
-						<option value="4">4</option>
+					<select name="cinema" class="form-control">
+						<?php foreach($cinemasList as $cine){ ?>
+							<option value=<?= $cine->getName() ?>><?= $cine->getName() ?></option>	
+						<?php } ?>													
 					</select>
 				</div>
 				
 				<div class="form-group">
 					<label>Movie</label>
-					<select name=<?php echo SHOWTIME_MOVIE ?> class="form-control">
-						<option value="1">1</option>
+					<select name="movie" class="form-control">
+						<?php foreach($moviesList as $movie){ ?>
+							<option value=<?= $movie->getTitle() ?>><?= $movie->getTitle() ?></option>	
+						<?php } ?>													
 					</select>
 				</div>
+			
+				<div class="language-subtitle">
+					<div class="form-group">
+						<label>Language</label>
+						<select name="language" class="form-control">
+							<?php foreach($languagesList as $language){ ?>
+								<option value=<?= $language->getName() ?>><?= $language->getName() ?></option>	
+							<?php } ?>													
+						</select>
+					</div>
 
-				<div class="form-group">
-					<label>Language</label>
-					<select name=<?php echo SHOWTIME_LANGUAGE ?> class="form-control">
-						<option value="1">english</option>
-					</select>
+					<div class="form-group">
+						<label>Subtitle</label>
+						<input type="checkbox" class="form-control" name="subtitle" value=<?php echo true; ?>>
+					</div>
 				</div>
-
-				<div class="form-group">
-					<label>Subtitle</label>
-					<input type="checkbox" class="form-control" name=<?php echo SHOWTIME_SUBTITLE ?> value=<?php echo true; ?>>
-				</div>
+					
 
 				<div class="form-group">
 					<label>Date</label>
-					<input type="date" class="form-control" name=<?php echo SHOWTIME_DATE ?> value=<?php  ?>>
+					<input type="date" class="form-control" name="date" value="">
 				</div>
 
 				<div class="form-group">
 					<label>Hour</label>
-					<input type="time" class="form-control" name=<?php echo SHOWTIME_HOUR ?> value=<?php  ?>>
+					<input type="time" class="form-control" name="hour" value="">
 				</div>
 
 				
 			</div>
 			<div class="modal-footer">
 
-				<a href="<?php echo FRONT_ROOT . "/Showtime/ShowCinemaMenu" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup"><i class="fas fa-times"></i></a>
-
+				
+				<a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup">Cancelar</a>
 				<button type="submit" class="btn btn-med btn-light">Aceptar</button>
 
 

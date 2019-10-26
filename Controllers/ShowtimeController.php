@@ -91,12 +91,16 @@ class ShowtimeController{
     public function showShowtimeMenu(){
         try {
             $showtimes=$this->showtimeDao->getAll();
-            
+            $cinemasList = $this->cinemasDAO->getAll();
+            $moviesList = $this->moviesDAO->getAll();
+            $languagesList = $this->languagesDAO->getAll();
         } catch (\Throwable $th) {
             $advice = ShowtimeController::showMessage("DB");
+            
+        }finally{
             require_once(VIEWS . "/AdminShowtimes.php");
         }
-        require_once(VIEWS . "/AdminShowtimes.php");
+        
     }
 
     public function delete()

@@ -13,6 +13,9 @@
     justify-content: center;
     display: flex;
     visibility: hidden;
+    overflow: scroll;
+    z-index: 100;
+    
   }
   
   .overlay.active {
@@ -27,7 +30,8 @@
     padding: 20px;
     text-align: center;
     width: 600px;
-    
+    height: 94%;
+    overflow: scroll;
     transition: .1s ease all;
     transform: scale(0.7);
     opacity: 0;
@@ -64,7 +68,7 @@
     opacity: 0;
   }
   
-  .popup form .contenedor-inputs input {
+  .popup form .contenedor-inputs input, select{
     width: 100%;
     margin-bottom: 20px;
     height: 52px;
@@ -74,6 +78,16 @@
     border: 1px solid #BBBBBB;
   }
   
+.language-subtitle{
+  display: flex;
+  justify-content: center;
+}
+
+.language-subtitle select{
+  width: 450px;
+  margin-right: 40px;
+}
+
   .popup form .btn-submit {
     padding: 0 20px;
     height: 40px;

@@ -4,13 +4,13 @@ include('nav.php');
 
 ?>
 
-<body class="admin-cine-body">
-	<div class="admin-cine-header">
+<body class="admin-body">
+	<div class="admin-header">
 		<h1>Listado de cines</h1>
 		<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
 	</div>
 
-	<div class="admin-cine-table">
+	<div class="admin-table">
 
 		<table class="content-table">
 

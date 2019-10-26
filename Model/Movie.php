@@ -12,9 +12,8 @@ namespace Model;
         private $adult;
         private $posterPath;
 
-        public function __construct($movieId="",$title="",$duration="",$originalLanguage="",$overview="",$releaseDate="",$adult="",$posterPath="")
+        public function __construct($title="",$duration="",$originalLanguage="",$overview="",$releaseDate="",$adult="",$posterPath="")
         {
-            $this->movieId = $movieId;
             $this->title = $title;
             $this->duration = $duration;
             $this->originalLanguage = $originalLanguage;
@@ -27,13 +26,13 @@ namespace Model;
         public function getMovieId(){return $this->movieId;}
         public function getTitle(){return $this->title;}
         public function getDuration(){return $this->duration;}
-        public function getOriginalLanguage(){return $this->orignialLanguage;}
+        public function getOriginalLanguage(){return $this->originalLanguage;}
         public function getOverview(){return $this->overview;}
         public function getReleaseDate(){return $this->releaseDate;}
         public function getAdult(){return $this->adult;}
         public function getPosterPath(){return $this->posterPath;}
 
-        public function setMovieId($movieId){$this->movieId=$movieId;}
+        public function setId($movieId){$this->movieId=$movieId;}
         public function setTitle($title){$this->title=$title;}
         public function setDuration($duration){
             if($duration > 0){
