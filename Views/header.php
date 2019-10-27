@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/table.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/navStyle.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/mainStyle.css">
-    <!-- <link rel="stylesheet" href="<?php echo CSS_PATH ?>/popup.css"> -->
+    <link rel="stylesheet" href="<?php echo CSS_PATH ?>/popup.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/GridStyle.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/filters.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/login.css">
