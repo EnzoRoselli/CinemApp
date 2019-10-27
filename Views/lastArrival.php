@@ -3,12 +3,12 @@
 
     <div class="headline">
 
-        <h2 class="headlight">Last Arrival</h2>
+        <h2 class="headlight">Último Estreno</h2>
 
         <div class="outstanding-container">
 
             <div class="movie-img">
-                <img src="http://image.tmdb.org/t/p/w185//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg" alt="">
+                <img src="http://image.tmdb.org/t/p/w780//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg" alt="">
             </div>
 
             <div class="movie-data">
@@ -26,8 +26,8 @@
                         </div>
         
                         <div class="movie-buttons">
-                            <button class="btn-dark-md">buy</button>
-                            <button class="btn-dark-md">showtimes</button>
+                            <button class="btn-dark-md">Entradas</button>
+                            <button class="btn-dark-md">Funciones</button>
                         </div>
             </div>
         </div>

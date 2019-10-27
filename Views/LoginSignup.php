@@ -1,5 +1,7 @@
-<?php namespace Views;
-  
+<?php
+
+namespace Views;
+
 
 
 
@@ -9,40 +11,39 @@
 
 
 
-	<?php if(isset($message))
-		{
-			foreach ($message as $value) { 
-					echo "<p> $value </p>";
-			
-		 }} ?> 
-		
-				
-	
-	<h2>CinemApp</h2>
-	<div class="container" id="container">
+<?php if (isset($message)) {
+	foreach ($message as $value) {
+		echo "<p> $value </p>";
+	}
+} ?>
+
+
+<body class="login-body">
+	<h1>CinemApp</h1>
+	<div class="login-container" id="container">
 		<div class="form-container sign-up-container">
-			<form action="<?php echo FRONT_ROOT."/User/createUser" ?>" method="POST">
-				<h1>Create Account</h1>
+			<form action="<?php echo FRONT_ROOT . "/User/createUser" ?>" method="POST" class="login-form">
+				<h2>Create Account</h2>
 				<div class="social-container">
 					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> -->
 
 				</div>
 				<!-- <span>or use your email for registration</span> -->
-				<input name="SignupName" type="text" placeholder="Name" />
-				<input name="SignupLastName" type="text" placeholder="Last Name" />
-				<input name="SignupDNI" type="text" placeholder="ID Number" />
-				<input name="SignupEmail" type="email" placeholder="Email" />
-				<input name="SignupPassword" type="SignupPassword" placeholder="Password" />
-				<button>Sign Up</button>
+				<input class="imput-login" name="SignupName" type="text" placeholder="Name" />
+				<input class="imput-login" name="SignupLastName" type="text" placeholder="Last Name" />
+				<input class="imput-login" name="SignupDNI" type="text" placeholder="ID Number" />
+				<input class="imput-login" name="SignupEmail" type="email" placeholder="Email" />
+				<input class="imput-login" name="SignupPassword" type="SignupPassword" placeholder="Password" />
+				<button class="login-button">Sign Up</button>
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
-			<form action="<?php echo FRONT_ROOT . "/User/loginAction" ?>" method="POST">
-				<h1>Log in</h1>
+			<form action="<?php echo FRONT_ROOT . "/User/loginAction" ?>" method="POST" class="login-form">
+				<h2>Log in</h2>
 				<!-- <div class="social-container"> -->
 
 				<?php
-			/*	if (isset($_SESSION['facebook_access_token'])) {
+				/*	if (isset($_SESSION['facebook_access_token'])) {
 					$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 					try {
 						$response = $fb->get('/me');
@@ -68,24 +69,24 @@
 				}*/ ?>
 
 				<!-- </div> -->
-				<span>or use your account</span>
-				<input name="LoginEmail" type="LoginEmail" placeholder="Email" />
-				<input name="LoginPassword" type="LoginPassword" placeholder="Password" />
-				<a href="ForgotPassword.html">Forgot your password?</a>
-				<button>Log In</button>
+				<span class="login-span">or use your account</span>
+				<input class="imput-login" name="LoginEmail" type="LoginEmail" placeholder="Email" />
+				<input class="imput-login" name="LoginPassword" type="LoginPassword" placeholder="Password" />
+				<a href="ForgotPassword.html" class="login-a">Forgot your password?</a>
+				<button class="login-button">Log In</button>
 			</form>
 		</div>
 		<div class="overlay-container">
 			<div class="overlay">
 				<div class="overlay-panel overlay-left">
-					<h1>Welcome Back!</h1>
-					<p>To keep connected with us please login with your info</p>
+					<h2>Welcome Back!</h2>
+					<p class="login-p">To keep connected with us please login with your info</p>
 					<button class="ghost" id="signIn">Sign In</button>
 				</div>
 				<div class="overlay-panel overlay-right">
-					<h1>Hello!</h1>
-					<p>Enter your personal details and welcome to CinemApp</p>
-					<button class="ghost" id="signUp">Sign Up</button>
+					<h2>Hello!</h2>
+					<p class="login-p">Enter your personal details and welcome to CinemApp</p>
+					<button class="ghost login-button" id="signUp">Sign Up</button>
 				</div>
 			</div>
 		</div>
@@ -99,4 +100,5 @@
 		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
 	</p>
 </footer> -->
-<script src=<?php echo "js/scripts.js" ?>></script> 
+	<script src=<?php echo "js/scripts.js" ?>></script>
+</body>
