@@ -13,8 +13,11 @@ class genresController
 
     public function showGenresFilter(){
         $genres=$this->genres;
-        require_once(VIEWS.'/ShowMovieFilters.php');
+        //require_once(VIEWS.'/ShowMovieFilters.php');
+        require_once(VIEWS.'/Filter.php');
     }
+
+    
 }
 
 ?>
