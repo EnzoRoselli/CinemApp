@@ -44,16 +44,20 @@ class ShowtimeController{
         $cinema = $this->cinemasDAO->searchById($_POST['idCinema']);
         $movie = $this->moviesDAO->searchById($_POST['idMovie']);
         $language = $this->languagesDAO->searchByName($_POST['nameLanguage']);
+        $subtitled = null;
 
-
-        $subtitled = ($_POST["subtitle[]"] === 'on') ? 1 : 0;
-
-
+        if(isset($_POST['subtitle']) && $_POST['subtitle']!="")
+        {
+            $subtitled = 1;
+        }else{
+            $subtitled = 0;
+        }
+        
         $showtime = new Showtime($movie,$cinema, $_POST['date'], $_POST['hour'], $language, $subtitled);
         $showtime->setActive(true);
-
+        
         try {
-
+            
             $this->showtimeDao->add($showtime);
             $this->showShowtimeMenu();
                     

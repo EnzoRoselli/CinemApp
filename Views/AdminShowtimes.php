@@ -113,7 +113,7 @@ include('nav.php');
 
 					<div class="form-group">
 						<label>Subtitle</label>
-						<input type="checkbox" name="subtitle[]" class="form-control" value="off">
+						<input type="checkbox" name="subtitle" class="form-control">
 					</div>
 				</div>
 					

@@ -20,30 +20,25 @@ class ShowtimesDAO {
     }
  
 
-    public function add(Showtime $showtimes)
+    public function add(Showtime $showtime)
     {
         try {
-               
 
-                    $query = "INSERT INTO " . " " . $this->tableName . " " .
-                        " (id_movie, id_cinema,id_language,ticketAvaliable, view_date,hour,subtitles,active) VALUES
-                                        (:id_movie,:id_cinema,:id_language,:ticketAvaliable,:view_date,:hour,:subtitles,:active);";
-    
-                    $parameters["id_movie"] = $showtimes->getMovie()->getId();
-                    $parameters["id_cinema"] = $showtimes->getCinema()->getId();
-                    $parameters["id_language"] = $showtimes->getLanguage()->getId();
-                    $parameters["ticketAvaliable"] = $showtimes->getTicketAvaliable();
-                    $parameters["active"] = $showtimes->getActive();
-                    $parameters["view_date"] = $showtimes->getDate();
-                    $parameters["hour"] = $showtimes->getHour();
-                    $parameters["subtitles"] = $showtimes->isSubtitle();
-        
-    
-                    $this->connection = Connection::GetInstance();
-                    $this->connection->ExecuteNonQuery($query, $parameters);
+            $query = "INSERT INTO " . " " . $this->tableName . " " .
+            " (id_movie, id_cinema,id_language,ticketAvaliable, view_date,hour,subtitles,active) VALUES
+            (:id_movie,:id_cinema,:id_language,:ticketAvaliable,:view_date,:hour,:subtitles,:active);";
+            
+            $parameters["id_cinema"] = $showtime->getCinema()->getId();
+            $parameters["id_movie"] = $showtime->getMovie()->getId();
+            $parameters["ticketAvaliable"] = $showtime->getTicketAvaliable();
+            $parameters["active"] = $showtime->getActive();
+            $parameters["view_date"] = $showtime->getDate();
+            $parameters["hour"] = $showtime->getHour();
+            $parameters["subtitles"] = $showtime->isSubtitle();
+            $parameters["id_language"] = $showtime->getLanguage()->getId();
 
-                
-
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
             } catch (\Throwable $ex) {
 
                 throw $ex;
@@ -165,7 +160,6 @@ class ShowtimesDAO {
 
     public function getAll()
     {
-
         
         try {
             $this->showtimesList = array();
@@ -201,6 +195,7 @@ class ShowtimesDAO {
                 
                 array_push($this->showtimesList, $Showtime);
             }
+            var_dump($this->showtimesList);
             return $this->showtimesList;
         } catch (\Throwable $th) {
             throw $th;
