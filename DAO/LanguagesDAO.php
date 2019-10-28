@@ -8,6 +8,7 @@ class LanguagesDAO
     private $connection;
     private $tableName = "languages";
     private  $LanguagesList=array();
+
     public function add($language)
     {
         try {
@@ -27,6 +28,32 @@ class LanguagesDAO
         }
     }
 
+    public function addAll()
+    {
+        try {
+
+            $languages=array();
+            array_push($languages,"English","Spanish","French","Italian","Portuguese");
+            
+            foreach ($languages as $language) {
+                if (!$this->exists($language)) {
+                 
+
+                    $query = "INSERT INTO " . " " . $this->tableName . " " .
+                        " (name_language) VALUES (:name_language);";
+    
+                    $parameters["name_language"] = $language;
+    
+                    $this->connection = Connection::GetInstance();
+                    $this->connection->ExecuteNonQuery($query, $parameters);
+                }                
+            }
+           
+        } catch (\Throwable $ex) {
+            echo "problemaa";
+            throw $ex;
+        }
+    }
     public function exists($language)
     {
         try {
@@ -113,7 +140,7 @@ class LanguagesDAO
     {
         
         try {
-           
+            $this->addAll();
             $query = "SELECT * FROM" . ' ' . $this->tableName;
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);

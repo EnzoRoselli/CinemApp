@@ -37,7 +37,11 @@ include('nav.php');
 								<td><?php echo $showtime->getHour(); ?></td>
 								<td><?php echo $showtime->getMovie()->getTitle(); ?></td>
 								<td><?php echo $showtime->getLanguage()->getName(); ?></td>
-								<td><?php echo $showtime->isSubtitle(); ?></td>
+								<td><?php  if ($showtime->isSubtitle()) {
+									echo "Contains";
+								}else {
+									echo "Doesnt Contain";
+								}  ?></td>
 								<td><?php echo $showtime->getCinema()->getName(); ?></td>
 								<td><?php echo $showtime->getTicketAvaliable() . '/' . $showtime->getCinema()->getCapacity(); ?></td>
 								<td>

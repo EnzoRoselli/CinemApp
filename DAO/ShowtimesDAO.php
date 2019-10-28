@@ -195,9 +195,9 @@ class ShowtimesDAO {
                 
                 array_push($this->showtimesList, $Showtime);
             }
-            var_dump($this->showtimesList);
             return $this->showtimesList;
         } catch (\Throwable $th) {
+            var_dump($th);
             throw $th;
         }
     }

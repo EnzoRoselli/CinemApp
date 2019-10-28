@@ -2,7 +2,7 @@
 
 namespace DAO;
 
-use Controllers\SearchMovieController;
+
 use Model\Movie as Movie;
 //CASTEAR EN LOS SEARCHBYID
 class MoviesDAO

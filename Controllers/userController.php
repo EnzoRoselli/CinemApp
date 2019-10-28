@@ -67,7 +67,7 @@ class UserController
                  $this->showHome();
              }
             }catch(Exception $e) {
-                echo "asd";   /* catchear bien esta excepcin*/ 
+                echo "asd";   /* catchear bien esta excepcin PONER ADVICE Y AVISAR*/ 
             }
         }
     }

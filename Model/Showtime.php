@@ -14,7 +14,7 @@ class Showtime{
     private $subtitle;
     private $active;
 
-    public function __construct($movie= "",$cinema= "",$date= "",$hour= "",$language= "",$subtitle= "")
+    public function __construct($movie= "",$cinema="",$date= "",$hour= "",$language= "",$subtitle= "")
     {
         $this->movie = $movie;
         $this->cinema = $cinema;
@@ -22,7 +22,7 @@ class Showtime{
         $this->hour = $hour;
         $this->language=$language;
         $this->subtitle=$subtitle;
-        $this->ticketAvaliable = $this->cinema->getCapacity();
+      //  $this->ticketAvaliable=$this->cinema->getCapacity();
     }
 
     public function getShowtimeId(){return $this->showtimeId;}
@@ -33,7 +33,7 @@ class Showtime{
     public function getLanguage(){return $this->language;}
     public function getActive(){return $this->active;}
     public function isSubtitle(){return $this->subtitle;}   
-    public function getTicketAvaliable(){return $this->ticketAvaliable;}
+    public function getTicketAvaliable(){return (int)$this->ticketAvaliable;}
 
     public function setShowtimeId($showtimeId){$this->showtimeId=$showtimeId;}
     public function setCinema($cinema){$this->cinema=$cinema;}
@@ -43,7 +43,11 @@ class Showtime{
     public function setLanguage($language){$this->language=$language;}
     public function setSubtitle($subtitle){$this->subtitle=$subtitle;} 
     public function setActive($active){$this->active = $active;}
-    public function setTicketAvaliable($ticketAvaliable){$this->ticketAvaliable=$ticketAvaliable;}
+    public function setTicketAvaliable($ticketAvaliable){
+        if (!empty($ticketAvaliable)) {
+            $this->ticketAvaliable=(int)$ticketAvaliable;
+        }       
+    }
 
     
     public function testValuesValidation()

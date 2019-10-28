@@ -74,12 +74,11 @@ class ShowtimeController{
             $cinemasList = $this->cinemasDAO->getAll();
             $moviesList = $this->moviesDAO->getAll();
             $languagesList = $this->languagesDAO->getAll();
-            require_once(VIEWS . "/AdminShowtimes.php");
             $showtimes=$this->showtimeDao->getAll();
         } catch (\Throwable $th) {
             $advice = ShowtimeController::showMessage("DB");
         }finally{
-            //require_once(VIEWS . "/AdminShowtimes.php");
+            require_once(VIEWS . "/AdminShowtimes.php");
         }
         
     }
@@ -88,10 +87,10 @@ class ShowtimeController{
     {try {
         if (!empty($this->showtimeDao->searchById($_GET['id']))) {
             $this->showtimeDao->delete($_GET['id']);
-            $advice=ShowtimeController::showMessage(5);;
+            $advice=ShowtimeController::showMessage(5);
         }
     } catch (\Throwable $th) {
-        $advice=ShowtimeController::showMessage("DB");;
+        $advice=ShowtimeController::showMessage("DB");
     }
       
     }

@@ -3,9 +3,9 @@
     use DAO\InfoAPI\moviesAPI as moviesAPI;
     use DAO\MoviesDAO as MoviesDAO;
     use Model\Movie as Movie;
-use PHPMailer\PHPMailer\Exception;
 
-class MovieController{
+
+        class MovieController{
         private $moviesDAO;
         private $movieList;
 

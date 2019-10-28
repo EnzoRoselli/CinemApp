@@ -22,7 +22,7 @@ class Cine
     public function getId(){return $this->id;}
     public function getName(){return $this->name;}
     public function getAddress(){return $this->address;}
-    public function getCapacity(){return $this->capacity;}
+    public function getCapacity(){return (int)$this->capacity;}
     public function getTicketValue(){return $this->ticketValue;}
     public function getActive(){return $this->active;}
 
