@@ -1,3 +1,6 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
 .filters-body {
     background-color: #171717;
 }
@@ -67,4 +70,6 @@
     width: 25%;
     margin-left: 10px;
     margin-top: 15px;
+    border-radius: 7px;
+    outline: none;
 }
