@@ -71,7 +71,7 @@ include('nav.php');
 </body>
 
 <!--CREATE SHOWTIME-->
-<
+
 <div class="overlay" id="overlay">
 	<div class="popup" id="popup">
 		
