@@ -162,23 +162,23 @@ class ShowtimesDAO {
     {
         
         try {
+            
             $this->showtimesList = array();
             $query = "SELECT * FROM" . ' ' . $this->tableName;
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
-
                 $Showtime = new Showtime();
-                $Showtime->setShowtimeId($row['id']);
-
+                $Showtime->setId($row['id']);
+                
                 $id_cinema=$row['id_cinema'];
                 $cinema=$this->CinemasDAO->searchById($id_cinema);
                 $Showtime->setCinema($cinema);
-
+                
                 $id_language=$row['id_language'];
                 $language=$this->LanguageDAO->searchById($id_language);
                 $Showtime->setLanguage($language);
-
+                
                 $id_movie=$row['id_movie'];
                 $movie=$this->MoviesDAO->searchById($id_movie);
                 $Showtime->setMovie($movie);
@@ -194,6 +194,7 @@ class ShowtimesDAO {
                 $Showtime->setTicketAvaliable($row['ticketAvaliable']);
                 
                 array_push($this->showtimesList, $Showtime);
+                
             }
             return $this->showtimesList;
         } catch (\Throwable $th) {

@@ -55,10 +55,12 @@ class ShowtimeController{
         
         $showtime = new Showtime($movie,$cinema, $_POST['date'], $_POST['hour'], $language, $subtitled);
         $showtime->setActive(true);
+        $showtime->setTicketAvaliable($cinema->getCapacity());
         
         try {
             
             $this->showtimeDao->add($showtime);
+           
             $this->showShowtimeMenu();
                     
         } catch (\Throwable $th) {
@@ -75,6 +77,7 @@ class ShowtimeController{
             $moviesList = $this->moviesDAO->getAll();
             $languagesList = $this->languagesDAO->getAll();
             $showtimes=$this->showtimeDao->getAll();
+            require_once(VIEWS . "/AdminShowtimes.php");
         } catch (\Throwable $th) {
             $advice = ShowtimeController::showMessage("DB");
         }finally{
