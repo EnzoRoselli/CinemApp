@@ -5,7 +5,7 @@ include('nav.php');
 
 <body class="filters-body">
 
-
+<form action="<?php echo  FRONT_ROOT . "/searchMovie/searchByGenresAndDate" ?>">
     <div class="filters-container">
         <div class="genres-container">
             <p id="filter-header">Filtrar por género</p>
@@ -23,16 +23,11 @@ include('nav.php');
         <div class="dates-container">
             <p id="filter-header">Filtrar por día de función</p>
             <div class="day-filter">
-                <select name="" id="filter-day">
-                    <option value="">Lunes</option>
-                    <option value="">Lunes</option>
-                    <option value="">Lunes</option>
-                    <option value="">Lunes</option>
-                    <option value="">Lunes</option>
-                    <option value="">Lunes</option>
-                </select>
+                <input type="date" name="date">
             </div>
         </div>
-        <button class="btn-dark-md" id="filter-btn">Filtrar</button>
+        <button type="submit" class="btn-dark-md" id="filter-btn">Filtrar</button>
     </div>
+</form>
+
 </body>

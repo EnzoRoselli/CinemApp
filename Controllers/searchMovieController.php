@@ -2,14 +2,44 @@
 namespace Controllers;
 use DAO\InfoAPI\moviesAPI as moviesAPI;
 use DAO\CinemasDAO as CinemasDAO;
+use DAO\ShowtimesDAO as ShowtimeDAO;
 
 
 class SearchMovieController{
     
     private $allMovies;
+    private $showtimeDao;
  
     public function __construct() {
         $this->allMovies = moviesAPI::getMoviesFromApi(); 
+        $this->showtimeDao = new ShowtimeDAO();
+    }
+
+    public function FilteredMovies(){
+
+        if(isset($_GET['genres']) && isset($_GET['date'])){
+
+            $this->showFilteredMovies();
+        }else if(isset($_GET['genres']) && !isset($_GET['date'])){
+
+            $this->showFilteredMovies();
+        }else if(!isset($_GET['genres']) && isset($_GET['date'])){
+
+            $this->showFilteredMovies();
+        }else{
+
+            $this->showFiltersView();
+        }
+    }
+
+    public function showFiltersView(){
+
+        require_once(VIEWS  . '/Filter.php');
+    }
+
+    public function showFilteredMovies(){
+
+        require_once(VIEWS  . '/ShowFilteredMovies.php');
     }
 
     public function searchMovieByName(){
@@ -28,14 +58,60 @@ class SearchMovieController{
     public function searchByGenres(){
 
         $Genres=$_GET['genres'];  
+        // var_dump($_GET['genres']);
         $moviesWithGenres=moviesAPI::getMovieForGenres($Genres,$this->allMovies);
         if (!empty($moviesWithGenres)) {
-        require_once(VIEWS.'/ShowFilteredMovies.php');
-    }else{
-        echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');" ; 
-        echo "window.location= ROOT.'/home.php'; </script> ";
-     }   
-}
+            require_once(VIEWS.'/ShowFilteredMovies.php');
+        }else{
+            echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');" ; 
+            echo "window.location= ROOT.'/home.php'; </script> ";
+        }   
+    }
+
+    public function searchByGenresAndDate(){
+
+        if(isset($_GET['genres'])){
+
+            $Genres=$_GET['genres'];  
+            // var_dump($_GET['genres']);
+            $moviesWithGenres=moviesAPI::getMovieForGenres($Genres,$this->allMovies);
+            if (!empty($moviesWithGenres)) {
+                require_once(VIEWS.'/ShowFilteredMovies.php');
+            }else{
+                echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');" ; 
+                echo "window.location= ROOT.'/home.php'; </script> ";
+            }   
+        }
+
+        if(isset($_GET['date'])){
+
+            $dateToSearch = $_GET['date'];
+            $showtimes = $this->showtimeDao->getAll();
+            $showtimesByDate = array();
+
+            foreach ($showtimes as $showtime) {
+                
+                if($showtime->getDate() == $dateToSearch && $showtime->getActive() == true){
+                    
+                    array_push($showtimesByDate, $showtime);
+                }
+            }
+
+            if (!empty($showtimesByDate)) {
+                require_once(VIEWS.'/ShowFilteredMovies.php');
+            }else{
+                echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');" ; 
+                echo "window.location= ROOT.'/home.php'; </script> ";
+            }
+
+            // var_dump($showtimes);
+            // var_dump($dateToSearch);
+        }
+    }
+
+    public function searchByDate(){
+        
+    }
 //CUANDO CREAMOS LAS FUNCIONES, AHI LAS ACTIVAMOS
     /*public function moviesDateFilter($movieFunctions){
         
