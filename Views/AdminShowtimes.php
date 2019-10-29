@@ -28,6 +28,7 @@ include('nav.php');
 			</thead>
 			<tbody>
 				<?php
+
 				if (!empty($showtimes)) {
 					foreach ($showtimes as $showtime) {
 							?>

@@ -185,6 +185,8 @@ class ShowtimesDAO {
 
                 $Showtime->setDate($row['view_date']);
                 $Showtime->setHour($row['hour']);
+
+     
                 $Showtime->setSubtitle($row['subtitles']);
                 if($row['active'] == 1){
                     $Showtime->setActive(true);

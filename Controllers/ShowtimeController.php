@@ -73,8 +73,7 @@ class ShowtimeController{
     public function showShowtimeMenu(){
         try {
            $cinemasList = $this->cinemasDAO->getAll();
-            $moviesList = $this->moviesDAO->getAll();
-            
+            $moviesList = $this->moviesDAO->getAll();            
             $languagesList = $this->languagesDAO->getAll();
             $showtimes=$this->showtimeDao->getAll();
         } catch (\Throwable $th) {
@@ -178,6 +177,25 @@ try {
                 break;
         }
     }
+    public function validateShowtimeDate(Showtime $newShowtime)
+    {
+        $newShowtimeDate=$newShowtime->getDate()." ".$newShowtime->getHour();
+        $newShowtimeDate=strtotime($newShowtimeDate);
+
+       $showtimes=$this->showtimeDao->getAll();
+
+       foreach ($showtimes as $showtime) {
+    
+        $date= $showtime->getDate()." ".$showtime->getHour();
+        $date=strtotime($date);
+        $MinimumDate=strtotime("-15 minute",strtotime($date));
+        $MaximumDate=strtotime("+".($showtime->getMovie->getDuration()+"15")."minute",strtotime($date));
+    //Si se encuentra dentro del plazo de los 15 mins ateriores a una funcion o, o los 15 posteriores al haber acabado la función, que no se pueda.
+        if ($newShowtimeDate>$MinimumDate && $newShowtimeDate<$MaximumDate) {
+            return false;
+        }
+    }
+    return true;
+    }
 
 }
-?>
