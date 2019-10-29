@@ -2,7 +2,7 @@
 
 namespace DAO;
 
-
+use Controllers\MovieController as MovieController;
 use Model\Movie as Movie;
 //CASTEAR EN LOS SEARCHBYID
 class MoviesDAO
@@ -61,6 +61,8 @@ class MoviesDAO
 
     public function getAll(){
         try {
+            $movieController=new MovieController();
+            $movieController->sendToDataBase();
             $this->moviesList = array();
             $query = "SELECT * FROM" . ' ' . $this->tableName;
             $this->connection = Connection::GetInstance();

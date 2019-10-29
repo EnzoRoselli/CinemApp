@@ -27,9 +27,6 @@
 
         public function sendToDataBase(){
             $this->getFromAPI();
-            echo '<pre>';
-            
-            echo '<pre>';
             foreach($this->movieList as $movie){
                 try{
 
@@ -41,9 +38,7 @@
                     //mostrar error
                     echo 'error';
                 }
-                finally{
-                    require_once(VIEWS. "/home.php");
-                }
+             
             }
         }
 

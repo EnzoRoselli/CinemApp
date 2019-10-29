@@ -30,7 +30,7 @@ class ShowtimesDAO {
             
             $parameters["id_cinema"] = $showtime->getCinema()->getId();
             $parameters["id_movie"] = $showtime->getMovie()->getId();
-            $parameters["ticketAvaliable"] = $showtime->getTicketAvaliable();
+            $parameters["ticketAvaliable"] = (int)$showtime->getTicketAvaliable();
             $parameters["active"] = $showtime->getActive();
             $parameters["view_date"] = $showtime->getDate();
             $parameters["hour"] = $showtime->getHour();
