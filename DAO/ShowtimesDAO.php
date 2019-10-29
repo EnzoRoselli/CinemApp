@@ -198,7 +198,7 @@ class ShowtimesDAO {
             }
             return $this->showtimesList;
         } catch (\Throwable $th) {
-            var_dump($th);
+
             throw $th;
         }
     }
