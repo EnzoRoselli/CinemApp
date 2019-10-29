@@ -3,7 +3,7 @@ include('header.php');
 include('nav.php');
 
 ?>
-
+<!-- DEBERIAMOS MOSTRAR TODAS LAS FUNCIONES ACTIVAS, NO UN GETALL -->
 <body class="admin-body">
 	<div class="admin-header">
 		<h1>Listado de showtimes</h1>

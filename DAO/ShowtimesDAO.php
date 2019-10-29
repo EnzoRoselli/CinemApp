@@ -204,6 +204,31 @@ class ShowtimesDAO {
             throw $th;
         }
     }
+    public function getShowtimesMovieOfAday(Showtime $showtime)
+    {
+        try {
+            $query = "select showtimes.id_cinema from showtimes  where showtimes.view_date=:date and showtimes.id_movie=:id_movie group by showtimes.id_cinema;";
+            $parameters["date"] = $showtime->getDate();
+            $parameters["id_movie"]= $showtime->getMovie()->getId();
+            
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query,$parameters);
+            if (!empty($resultSet)) {                  
+                    $id_cinema=$resultSet[0]['id_cinema'];
+ 
+                    
+                    return $id_cinema;
+                
+            }else {
+                    return null;
+            }
+           
+           
+        } catch (\Throwable $th) {
+
+            throw $th;
+        }
+    }
     public function modify(Showtime $showtime) 
     {
 
@@ -229,6 +254,3 @@ class ShowtimesDAO {
     }
 
 }
-
-
-?>

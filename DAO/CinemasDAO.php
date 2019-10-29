@@ -7,8 +7,7 @@ namespace DAO;
 
 use DAO\IRepository as IRepository;
 use Model\Cine as Cine;
-    //LA EXCEPCION QUE TIRA ES SI NO CRE BIEN LA QUERY POR PARAMETROS, NO POR EL RESULTADO DEVUELTO
-
+//Fijarse de no mostrar toodos los cines, sino los activos, o agregar un filtro de si quiere ver los activos nomas
 
 class CinemasDAO implements IRepository
 {
