@@ -1,3 +1,8 @@
+<?php 
+    include('header.php');
+    include('nav.php');
+?>
+
 <body>
     <div class="bg-image"></div>
 

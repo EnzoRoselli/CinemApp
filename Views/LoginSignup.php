@@ -12,8 +12,6 @@ include('nav.php');
 
 ?>
 
-
-
 <?php if (isset($message)) {
 	foreach ($message as $value) {
 		echo "<p> $value </p>";
@@ -34,11 +32,11 @@ include('nav.php');
 
 				</div>
 				<span>or use your email for registration</span>
-				<input class="input-login" name="SignupName" type="text" placeholder="Name" />
-				<input class="input-login" name="SignupLastName" type="text" placeholder="Last Name" />
-				<input class="input-login" name="SignupDNI" type="text" placeholder="ID Number" />
+				<input class="input-login" name="SignupName" type="text" placeholder="Nombre" />
+				<input class="input-login" name="SignupLastName" type="text" placeholder="Apellido" />
+				<input class="input-login" name="SignupDNI" type="text" placeholder="D.N.I" />
 				<input class="input-login" name="SignupEmail" type="email" placeholder="Email" />
-				<input class="input-login" name="SignupPassword" type="SignupPassword" placeholder="Password" />
+				<input class="input-login" name="SignupPassword" type="SignupPassword" placeholder="Contraseña" />
 				<button class="login-btn">Sign Up</button>
 			</form>
 		</div>
@@ -49,8 +47,8 @@ include('nav.php');
 					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> FIJARSE EL LOIGIN DE FB -->
 				</div>
 				<span>or use your account</span>
-				<input class="input-login" type="LoginEmail" placeholder="Email" />
-				<input class="input-login" type="LoginPassword" placeholder="Password" />
+				<input class="input-login" type="LoginEmail" name="LoginEmail" placeholder="Email" />
+				<input class="input-login" type="LoginPassword" name="LoginPassword" placeholder="Password" />
 				<a class="login-a" href="ForgotPassword.html">Forgot your password?</a>
 				<button class="login-btn">Log In</button>
 			</form>

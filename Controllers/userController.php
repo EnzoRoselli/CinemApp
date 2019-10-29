@@ -31,7 +31,7 @@ class UserController
                 $NewUserComprobation= $this->usersDAO->existsUserFromSignUp($user);
                 if($NewUserComprobation===false)
                 {
-                    echo "NO EXISTEN, SE CARGAA";
+
                    $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */              
                 }
                 else 
@@ -48,11 +48,10 @@ class UserController
     
     
     public function loginAction(){
-
+         
         if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
-            
             $UserLogging = new User($_POST['LoginEmail'], $_POST['LoginPassword']);
-                
+            echo ($_POST['LoginEmail']);
             try{
 
              $LoginComprobation = $this->usersDAO->correctCredentials($UserLogging);
@@ -64,7 +63,7 @@ class UserController
              else{
               
                  $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
-                 $this->showHome();
+                 HomeController::showMain();
              }
             }catch(Exception $e) {
                 echo "asd";   /* catchear bien esta excepcin PONER ADVICE Y AVISAR*/ 
@@ -75,11 +74,14 @@ class UserController
 
 
     public function showHome($message = array()){
+        echo $message;
+        HomeController::showMain();
+        /*
         if ($_GET['delete']) {
             require_once(VIEWS . "/home.php"."?delete=1");
         }else {
-            require_once(VIEWS . "/home.php");
-        }
+            HomeController::Index();
+        }*/
        
     }
 

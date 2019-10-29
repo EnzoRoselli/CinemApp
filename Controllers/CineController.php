@@ -97,7 +97,10 @@ class CineController
             }           
         }
     
-
+        public function showAdminCine($message = array())
+        {
+            require_once(VIEWS  . '/AdminCine.php');
+        }
 
 
     public function showCinemaMenu()
@@ -108,14 +111,14 @@ class CineController
             $id = $_GET['delete'];
             $this->CineDao->delete($id);
             $cines = $this->CineDao->getAll();
-            require_once(VIEWS  . '/AdminCine.php');
+
         } else if (isset($_GET['update'])) {
             $cineUpdate = new Cine();
             $id = $_GET['update'];
             $cineUpdate = $this->CineDao->searchById($id);
 
             echo "<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})                </script>";
-            require_once(VIEWS  . "/AdminCine.php");
+
         } else if (isset($_GET['activate']) || isset($_GET['desactivate'])) {
 
             if (isset($_GET['activate'])) {
@@ -125,17 +128,18 @@ class CineController
                 $this->desactivate($_GET['desactivate']);
             }
             $cines = $this->CineDao->getAll();
-            require_once(VIEWS  . "/AdminCine.php");
+
         } else {
             $cines = $this->CineDao->getAll();
-            require_once(VIEWS  . "/AdminCine.php");
         }
-        require_once(VIEWS  . "/AdminCine.php");
-    } catch (\Throwable $th) {
-        $advice = CineController::showMessage("DB");
-        require_once(VIEWS  . "/AdminCine.php");
+        
+        $this->showAdminCine();
 
+    } catch (\Throwable $th) {
+        //$advice = CineController::showMessage("DB");
+        $this->showAdminCine("DB");
     }
+
     }
 
     public function delete()
@@ -161,7 +165,6 @@ class CineController
             }
         } catch (\Throwable $th) {
             $advice=CineController::showMessage("DB");
-
         }
         
     }
@@ -174,11 +177,9 @@ class CineController
              $advice=CineController::showMessage("desactivado");
                 }else {
                  $advice=CineController::showMessage(3);
-
                 }
             }catch (\Throwable $th) {
              $advice=CineController::showMessage("DB");
-
             }
     }
 

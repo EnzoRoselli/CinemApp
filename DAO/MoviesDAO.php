@@ -61,8 +61,8 @@ class MoviesDAO
 
     public function getAll(){
         try {
-            $movieController=new MovieController();
-            $movieController->sendToDataBase();
+            //$movieController=new MovieController();
+            //$movieController->sendToDataBase();
             $this->moviesList = array();
             $query = "SELECT * FROM" . ' ' . $this->tableName;
             $this->connection = Connection::GetInstance();
@@ -85,6 +85,7 @@ class MoviesDAO
                 
                 array_push($this->moviesList, $movie);
             }
+            //var_dump($this->moviesList);
             return $this->moviesList;
         } catch (\Throwable $th) {
             throw $th;

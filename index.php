@@ -18,7 +18,7 @@
 	Autoload::start();
 
 	session_start();
-
+	
 	Router::Route(new Request());
 
 ?>
