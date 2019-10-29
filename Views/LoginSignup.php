@@ -49,8 +49,8 @@ include('nav.php');
 					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> FIJARSE EL LOIGIN DE FB -->
 				</div>
 				<span>or use your account</span>
-				<input class="input-login" type="LoginEmail" placeholder="Email" />
-				<input class="input-login" type="LoginPassword" placeholder="Password" />
+				<input class="input-login" name="LoginEmail" type="text" placeholder="Email" />
+				<input class="input-login" name="LoginPassword" type="password" placeholder="Password" />
 				<a class="login-a" href="ForgotPassword.html">Forgot your password?</a>
 				<button class="login-btn">Log In</button>
 			</form>
