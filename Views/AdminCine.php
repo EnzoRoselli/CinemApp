@@ -44,7 +44,7 @@ include('nav.php');
 										<button name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-edit"></i>
 										</button>
-										<!-- DELETE CINE -->
+								
 									
 
 										<?php if($cine->getActive()){
@@ -59,8 +59,9 @@ include('nav.php');
 										</button>
 										<?php 
 										}
-										?>
-											<button name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+										?>		
+										<!-- DELETE CINE -->
+											<button id="info" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-trash"></i>
 										</button>
 
@@ -136,6 +137,7 @@ include('nav.php');
 	</div>
 </div>
 <script src="<?php echo JS_PATH . "/popup.js" ?>"></script>
+
 </div>
 
 <?php include('footer.php'); ?>

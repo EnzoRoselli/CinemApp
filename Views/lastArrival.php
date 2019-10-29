@@ -31,7 +31,7 @@
                         </div>
         
                         <div class="movie-buttons">
-                            <button class="btn-dark-md">Entradas</button>
+                            <button class="btn-dark-md" id="submitForm">Entradas</button>
                             <button class="btn-dark-md">Funciones</button>
                         </div>
             </div>
