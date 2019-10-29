@@ -10,7 +10,9 @@ include('nav.php');
         <div class="genres-container">
             <p id="filter-header">Filtrar por género</p>
             <ul class="genres-list">
-                <?php foreach ($this->genres as $genre) {
+                <?php 
+
+                foreach ($genres as $genre) {
                     ?>
                     <li class="item-genre">
                         <input value=<?php echo $genre->name; ?> id=<?php echo $genre->name; ?> name="genres[]" type='checkbox' />
@@ -18,18 +20,18 @@ include('nav.php');
                     </li>
                 <?php } ?>
             </ul>
-
         </div>
         <div class="dates-container">
             <p id="filter-header">Filtrar por día de función</p>
             <div class="day-filter">
                 <select name="" id="filter-day">
-                    <option value="">Lunes</option>
-                    <option value="">Lunes</option>
-                    <option value="">Lunes</option>
-                    <option value="">Lunes</option>
-                    <option value="">Lunes</option>
-                    <option value="">Lunes</option>
+                    <?php 
+                        foreach($showtimesList as $showtime){  
+                            ?>
+                             <option value=""><?php $date = DateTime::createFromFormat("Y-m-d", $showtime->getDate());
+ 											    echo $date->format("l"); ?></option>
+                    <?php }
+                    ?>
                 </select>
             </div>
         </div>

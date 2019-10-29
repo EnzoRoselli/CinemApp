@@ -72,9 +72,8 @@ class ShowtimeController{
 
     public function showShowtimeMenu(){
         try {
-           $cinemasList = $this->cinemasDAO->getAll();
+            $cinemasList = $this->cinemasDAO->getAll();
             $moviesList = $this->moviesDAO->getAll();
-            
             $languagesList = $this->languagesDAO->getAll();
             $showtimes=$this->showtimeDao->getAll();
         } catch (\Throwable $th) {

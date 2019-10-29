@@ -5,10 +5,10 @@ use DAO\InfoAPI\genresAPI as genresAPI;
 
 class genresController 
 {
-    private $genres;
+    private $genresDAO;
 
     public function __construct() {
-        $this->genres = genresAPI::getGenres();
+        $this->genresDAO = genresAPI::getGenres();
     }
 
     public function showGenresFilter(){

@@ -33,7 +33,8 @@ include('nav.php');
 							?>
 							<tr>
 								<td><?php echo $showtime->getShowtimeId(); ?></td>
-								<td><?php echo $showtime->getDate(); ?></td>
+								<td><?php $date = DateTime::createFromFormat("Y-m-d", $showtime->getDate());
+ 											echo $date->format("l"); ?></td>
 								<td><?php echo $showtime->getHour(); ?></td>
 								<td><?php echo $showtime->getMovie()->getTitle(); ?></td>
 								<td><?php echo $showtime->getLanguage()->getName(); ?></td>
