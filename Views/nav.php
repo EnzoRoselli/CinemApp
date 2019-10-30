@@ -30,7 +30,7 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
   </div>
 
 
-  <form action="<?php echo  FRONT_ROOT . "/searchMovie/searchMovieByName " ?>" method="GET">
+  <form action="<?php echo  FRONT_ROOT . "/Filters/searchMovieByName " ?>" method="GET">
     <div class="search-bar">
       <input name="title" type="text" class="search-input" placeholder="Type to search" />
       <button class="search-btn">

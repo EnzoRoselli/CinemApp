@@ -37,17 +37,18 @@ class MoviesDAO
             throw $ex;
         }
     }
-    public function exists($movie) //falla
+    public function exists(Movie $movie) 
     {
 
         try {
 
             $query = "SELECT * FROM " . " " . $this->tableName . " WHERE title=:title";
 
-            $parameters["title"] = $movie;
+            $parameters["title"] = $movie->getTitle();
 
             $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query, $parameters);
+
+            $resultSet = $this->connection->Execute($query,$parameters);
 
             if (!empty($resultSet) ) {
                 $movie = new Movie();

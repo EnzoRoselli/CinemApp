@@ -1,17 +1,21 @@
 <?php
-    namespace DAO;
-    use Model\Genre as Genre;
 
-    class GenresDAO{
-        private $genreList;
-        private $connection;
-        private $tableName = "genres";
+namespace DAO;
 
-        public function __construct(){
-            $this->genreList = array();
-        }
+use Model\Genre as Genre;
 
-        public function add(Genre $genre)
+class GenresDAO
+{
+    private $genreList;
+    private $connection;
+    private $tableName = "genres";
+
+    public function __construct()
+    {
+        $this->genreList = array();
+    }
+
+    public function add(Genre $genre)
     {
         try {
             $query = "INSERT INTO " . " " . $this->tableName . " " .
@@ -24,8 +28,25 @@
             throw $ex;
         }
     }
+    public function exists(Genre $genre)
+    {
+        try {
+            $query = "SELECT * FROM" . " " . $this->tableName . " WHERE genre_name=:genre_name";
+            $parameters["genre_name"] = $genre->getName();
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+            if (!empty($resultSet)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 
-    public function getAll(){
+    public function getAll()
+    {
         try {
             $this->genreList = array();
             $query = "SELECT * FROM" . ' ' . $this->tableName;
@@ -42,6 +63,4 @@
             throw $th;
         }
     }
-
-    }
-?>
+}

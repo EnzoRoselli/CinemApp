@@ -5,7 +5,7 @@ include('nav.php');
 
 <body class="filters-body">
 
-<form action="<?php echo  FRONT_ROOT . "/searchMovie/searchByGenresAndDate" ?>">
+<form action="<?php echo  FRONT_ROOT . "/Filters/searchByGenresAndDate" ?>">
     <div class="filters-container">
         <div class="genres-container">
             <p id="filter-header">Filtrar por género</p>
