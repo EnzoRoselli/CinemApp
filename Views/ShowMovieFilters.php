@@ -6,7 +6,7 @@
 
 
   <div class="filters-container">
-      <form action=<?php echo  FRONT_ROOT . "/SearchMovie/searchByGenres"?> method="GET">
+      <form action=<?php echo  FRONT_ROOT . "/SearchMovie/FilteredMovies"?> method="GET">
         <div class="genres">
             <div class="genre-list">
               <ul>
@@ -35,7 +35,7 @@
   </div>
 
    <div><!--PONER TODOS LOS ACTIONS CON CLASE Y / METODO  -->
-      <form class="form" action=<?php echo  FRONT_ROOT . "/searchMovie/searchByGenres "?> method="GET">
+      <form class="form" action=<?php echo  FRONT_ROOT . "/searchMovie/FilteredMovies "?> method="GET">
         <table class="tevoyaborrar">
           <?php 
           for ($i = 0; $i < count($this->genres); $i++) {

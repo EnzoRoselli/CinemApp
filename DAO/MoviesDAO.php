@@ -37,22 +37,31 @@ class MoviesDAO
             throw $ex;
         }
     }
-    public function exists(Movie $movie)
+    public function exists($movie)
     {
 
         try {
 
             $query = "SELECT * FROM " . " " . $this->tableName . " WHERE title=:title";
 
-            $parameters["title"] = $movie->getTitle();
+            $parameters["title"] = $movie;
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            if ($resultSet == null) {
-                return false;
+            if (!empty($resultSet) ) {
+                $movie = new Movie();
+                $movie->setId($resultSet[0]['id']);
+                $movie->setTitle($resultSet[0]['title']);
+                $movie->setDuration($resultSet[0]['duration']);
+                $movie->setOriginalLanguage($resultSet[0]['original_language']);
+                $movie->setOverview($resultSet[0]['overview']);
+                $movie->setReleaseDate($resultSet[0]['release_date']);
+                $movie->setAdult($resultSet[0]['adult']);
+                $movie->setPosterPath($resultSet[0]['poster_path']);
+                return $movie;
             } else {
-                return true;
+                return false;
             }
         } catch (\Throwable $th) {
             throw $th;

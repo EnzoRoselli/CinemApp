@@ -53,8 +53,7 @@ class CineController
                 require_once(VIEWS  . '/AdminCine.php');
             }
         } else {
-            $cines = $this->CineDao->getAll();
-
+            $cines = $this->CineDao->getAll();           
             array_push($advices, CAMPOS_INVALIDOS);
             require_once(VIEWS  . '/AdminCine.php');
         }

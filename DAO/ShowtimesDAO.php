@@ -215,8 +215,6 @@ class ShowtimesDAO {
             $resultSet = $this->connection->Execute($query,$parameters);
             if (!empty($resultSet)) {                  
                     $id_cinema=$resultSet[0]['id_cinema'];
- 
-                    
                     return $id_cinema;
                 
             }else {
