@@ -133,8 +133,8 @@ $(document).on('click','#submitForm',function(e){
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.value) {
-
             form.submit();
         }
+        
     });
 });

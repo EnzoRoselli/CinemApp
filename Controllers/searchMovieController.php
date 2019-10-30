@@ -3,16 +3,18 @@ namespace Controllers;
 use DAO\InfoAPI\moviesAPI as moviesAPI;
 use DAO\CinemasDAO as CinemasDAO;
 use DAO\ShowtimesDAO as ShowtimeDAO;
-
+use DAO\GenresDAO as GenresDAO;
 
 class SearchMovieController{
     
     private $allMovies;
     private $showtimeDao;
+    private $genreDAO;
  
     public function __construct() {
         $this->allMovies = moviesAPI::getMoviesFromApi(); 
         $this->showtimeDao = new ShowtimeDAO();
+        $this->genreDAO = new GenresDAO();
     }
 
     public function FilteredMovies(){
@@ -28,13 +30,13 @@ class SearchMovieController{
             $this->showFilteredMovies();
         }else{
 
-            $this->showFiltersView();
+           // $this->showFilters();
         }
     }
 
-    public function showFiltersView(){
-
-        require_once(VIEWS  . '/Filter.php');
+    public function showFilters(){
+        $genres = $this->genresDAO->getAll();
+        //require_once(VIEWS  . '/Filter.php');
     }
 
     public function showFilteredMovies(){

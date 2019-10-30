@@ -33,7 +33,7 @@
                     if(!$this->moviesDAO->exists($movie)){
                         $this->moviesDAO->add($movie);
                     }
-
+                    
                 }catch(Exception $e){
                     //mostrar error
                     echo 'error';

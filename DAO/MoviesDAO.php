@@ -85,7 +85,7 @@ class MoviesDAO
                 
                 array_push($this->moviesList, $movie);
             }
-            //var_dump($this->moviesList);
+
             return $this->moviesList;
         } catch (\Throwable $th) {
             throw $th;

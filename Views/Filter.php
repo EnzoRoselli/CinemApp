@@ -10,7 +10,7 @@ include('nav.php');
         <div class="genres-container">
             <p id="filter-header">Filtrar por género</p>
             <ul class="genres-list">
-                <?php foreach ($this->genres as $genre) {
+                <?php foreach ($genres as $genre) {
                     ?>
                     <li class="item-genre">
                         <input value=<?php echo $genre->name; ?> id=<?php echo $genre->name; ?> name="genres[]" type='checkbox' />

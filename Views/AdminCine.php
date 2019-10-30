@@ -61,7 +61,7 @@ include('nav.php');
 										}
 										?>		
 										<!-- DELETE CINE -->
-											<button id="info" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<button id="submitForm" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-trash"></i>
 										</button>
 
