@@ -1,4 +1,4 @@
-drop database  cinemapp;
+drop database if exists cinemapp;
 CREATE DATABASE IF NOT EXISTS CINEMAPP;
 USE CINEMAPP;
 
