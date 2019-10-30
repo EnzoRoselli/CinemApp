@@ -38,7 +38,7 @@ include('nav.php');
 								<td><?php echo $cine->getCapacity(); ?></td>
 								<td><?php echo $cine->getTicketValue(); ?></td>
 								<td>
-									<form action="<?php echo  FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>">
+									<form id="form-cine" action="<?php echo  FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>" method="GET">
 
 										<!-- UPDATE CINE -->
 										<button name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
@@ -64,9 +64,6 @@ include('nav.php');
 											<button id="submitForm" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-trash"></i>
 										</button>
-
-										
-
 									</form>
 								</td>
 							</tr>

@@ -1,4 +1,4 @@
-/*drop database cinemapp;*/
+drop database  cinemapp;
 CREATE DATABASE IF NOT EXISTS CINEMAPP;
 USE CINEMAPP;
 
@@ -24,7 +24,7 @@ constraint unq_title UNIQUE(title),
 constraint pk_movies PRIMARY KEY (id));
 
 CREATE TABLE IF NOT EXISTS genres(
-id int,
+id int auto_increment,
 genre_name varchar(50),
 constraint pk_genres PRIMARY KEY (id),
 CONSTRAINT unq_genres UNIQUE (genre_name));

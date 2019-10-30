@@ -1,5 +1,6 @@
 <?php
     namespace DAO;
+    use Model\Genre as Genre;
 
     class GenresDAO{
         private $genreList;
@@ -36,7 +37,7 @@
                 $genre->setName($row['genre_name']);
                 array_push($this->genreList, $genre);
             }
-            return $this->moviesList;
+            return $this->genreList;
         } catch (\Throwable $th) {
             throw $th;
         }

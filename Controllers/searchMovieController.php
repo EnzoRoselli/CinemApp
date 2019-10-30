@@ -14,7 +14,6 @@ class SearchMovieController
     private $allMovies;
     private $showtimeDao;
     private $MoviesDAO;
-
     private $genreDAO;
  
     public function __construct() {
@@ -22,7 +21,7 @@ class SearchMovieController
         $this->showtimeDao = new ShowtimeDAO();
         $this->genreDAO = new GenresDAO();
         $this->MoviesDAO = new MoviesDAO();
-
+    }
   
 
     public function FilteredMovies()
@@ -47,7 +46,7 @@ class SearchMovieController
         $genres = $this->genresDAO->getAll();
         //require_once(VIEWS  . '/Filter.php');
 
-
+    }
 
     public function showFilteredMovies()
     {

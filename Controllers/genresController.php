@@ -4,7 +4,7 @@ use DAO\InfoAPI\genresAPI as genresAPI;
 use Model\Genre as Genre;
 use DAO\GenresDAO as GenreDAO;
 
-class genresController 
+class GenresController 
 {
     private $genres;
     private $genreDAO;
@@ -20,8 +20,10 @@ class genresController
     }
 
     public function sendToDataBase(){
-        foreach($this->genres as $genre){
-            var_dump($genre);
+        $genresList = json_decode(json_encode($this->genres), true);
+        foreach($genresList as $key){
+            $genre = new Genre();
+            $genre->setName($key['name']);
             $this->genreDAO->add($genre);
         }
     }

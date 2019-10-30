@@ -37,7 +37,7 @@ class MoviesDAO
             throw $ex;
         }
     }
-    public function exists($movie)
+    public function exists($movie) //falla
     {
 
         try {

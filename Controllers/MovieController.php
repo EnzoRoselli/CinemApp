@@ -6,6 +6,7 @@
 
 
         class MovieController{
+            
         private $moviesDAO;
         private $movieList;
 
@@ -30,10 +31,9 @@
             foreach($this->movieList as $movie){
                 try{
 
-                    if(!$this->moviesDAO->exists($movie)){
+                   // if(!$this->moviesDAO->exists($movie)){
                         $this->moviesDAO->add($movie);
-                    }
-                    
+                   // }
                 }catch(Exception $e){
                     //mostrar error
                     echo 'error';

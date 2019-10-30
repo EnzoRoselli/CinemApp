@@ -23,6 +23,7 @@
         public function showGrid()
         {
             $moviesList = $this->moviesDAO->getAll();
+            
             require_once(VIEWS."/MovieGrid.php");
         }
 
