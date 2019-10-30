@@ -51,9 +51,17 @@
 .day-filter {
     display: flex;
     background-color: #252525;
-    border-radius: 10px;
     height: 80px;
     margin-bottom: 10px;
+    border-radius: 10px;
+}
+.day-filter input{
+    height: 50px;
+    margin: auto 15px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    outline: none;
+    border: none;
 }
 
 #filter-btn {
