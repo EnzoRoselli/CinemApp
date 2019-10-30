@@ -106,7 +106,10 @@
     background: rgba(94,125,227, .9);
   }
   
-  
+  #cancel-button-showtime{
+    text-decoration:none;
+    font-size: 1.2rem;
+  }
 
   /* ------------------------- */
   /* ANIMACIONES */

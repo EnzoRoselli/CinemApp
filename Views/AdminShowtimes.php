@@ -39,9 +39,9 @@ include('nav.php');
 								<td><?php echo $showtime->getMovie()->getTitle(); ?></td>
 								<td><?php echo $showtime->getLanguage()->getName(); ?></td>
 								<td><?php  if ($showtime->isSubtitle()) {
-									echo "Contains";
+									echo "Si";
 								}else {
-									echo "Doesnt Contain";
+									echo "No";
 								}  ?></td>
 								<td><?php echo $showtime->getCinema()->getName(); ?></td>
 								<td><?php echo $showtime->getTicketAvaliable() . '/' . $showtime->getCinema()->getCapacity(); ?></td>
@@ -125,18 +125,19 @@ include('nav.php');
 
 				<div class="form-group">
 					<label>Date</label>
-					<input type="date" class="form-control" name="date" value="">
+					<input type="date" required min="<?php echo date('Y-m-d'); ?>" class="form-control" name="date">
 				</div>
 
 				<div class="form-group">
 					<label>Hour</label>
-					<input type="time" class="form-control" name="hour" value="">
+					<input type="time" required class="form-control" name="hour" >
 				</div>
 
 				
 			</div>
 			<div class="modal-footer">
-				<a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup">Cancelar</a>
+				<button type="submit" class="btn btn-med btn-light" ><a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup" id="cancel-button-showtime">Cancelar</a></button>			
+				
 				<button type="submit" class="btn btn-med btn-light">Aceptar</button>
 			</div>
 		</form>
