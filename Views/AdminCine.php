@@ -54,16 +54,22 @@ include('nav.php');
 										</button>
 										<?php }else{
 											?>
-											<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light" >
 											<i class="fas fa-toggle-off"></i>
 										</button>
+										
 										<?php 
 										}
 										?>		
 										<!-- DELETE CINE -->
-											<button id="submitForm" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<button onclick="return checkDelete()" id="" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-trash"></i>
 										</button>
+										<script language="JavaScript" type="text/javascript">
+										function checkDelete(){
+											return confirm('Are you sure?');
+										}
+										</script>
 									</form>
 								</td>
 							</tr>
@@ -96,7 +102,7 @@ include('nav.php');
 
 				<div class="form-group">
 					<label>Nombre</label>
-					<input type="text" class="form-control" name=<?php echo CINE_NAME ?> value=<?php if (isset($cineUpdate)) {
+					<input type="text" class="form-control" name=<?php echo CINE_NAME ?> required value=<?php if (isset($cineUpdate)) {
 																									echo $cineUpdate->getName();
 																								} ?>>
 				</div>
@@ -110,14 +116,14 @@ include('nav.php');
 
 				<div class="form-group">
 					<label>Capacidad</label>
-					<input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> value=<?php if (isset($cineUpdate)) {
+					<input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> min="1" required value=<?php if (isset($cineUpdate)) {
 																											echo (int) $cineUpdate->getCapacity();
 																										} ?>>
 				</div>
 
 				<div class="form-group">
 					<label>Valor de Entrada</label>
-					<input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE ?> value=<?php if (isset($cineUpdate)) {
+					<input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE ?> min="1" required value=<?php if (isset($cineUpdate)) {
 																											echo (int) $cineUpdate->getTicketValue();
 																										} ?>>
 				</div>
