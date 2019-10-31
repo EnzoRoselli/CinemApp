@@ -120,21 +120,74 @@ $(document).on('click', '#link', function(e) {
         })
 });
 
-$(document).on('click','#submitForm',function(e){
-    e.preventDefault();
-    var form = $(this).parents('form');
-    swal({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.value) {
-            form.submit();
-        }
-        
+$(document).ready(function() {
+    /**
+     * 
+     */
+    // $('#form-cine').submit(function(e) {
+    //     e.preventDefault();
+
+    //     console.log($(this).find('[name="delete"]'));
+    // });
+
+    /**
+     * 
+     */
+    $(".btn-aaa").click(function(e) {
+        e.preventDefault();
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            console.log(result.value);
+            if (result.value) {
+                $.ajax({
+                    url : $(this).data('url'),
+                    method : 'POST',
+                    data : { action : $(this).data('action'), id : $(this).data('id') },
+                    beforeSend : function() {
+
+                    },
+                    success : function() {
+                        
+                    },
+                    error : function() {
+
+                    }
+                })
+            }
+            
+        });
     });
 });
+
+// $(document).on('click','#submitForm',function(e) {
+//     e.preventDefault();
+//     var form = $('#form-cine');
+
+//     swal({
+//         title: 'Are you sure?',
+//         text: "You won't be able to revert this!",
+//         type: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Yes, delete it!'
+//     }).then((result) => {
+//         console.log(result.value);
+//         if (result.value) {
+//             $.ajax({
+//                 url : $(this).data('url'),
+//                 method : 'POST',
+//                 data : $(this).data('id'),
+
+//             })
+//         }
+        
+//     });
+// });

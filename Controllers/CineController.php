@@ -15,29 +15,27 @@ class CineController
         $this->CineDao = new daoCine();
     }
 
-    public function determinateUpdateCreate()
+    public function determinateUpdateCreate($id, $name, $adress, $capacity, $ticketValue)
     {
-        if ($_POST) {
-            if ($_POST[CINE_ID] != "") {
-                $this->update();
-            } else if ($_POST[CINE_ID] == "") {
-                $this->create();
+        var_dump($GLOBALS);
+        if ($id){
+            if ($id != "") {
+                $this->update($id, $name, $adress, $capacity, $ticketValue);
+            } else if ($id == "") {
+                $this->create($name, $adress, $capacity, $ticketValue);
             }
         }
     }
 
-    public function create()
+    public function create($name, $adress, $capacity, $ticketValue)
     {
         $advices = array();
-        $name = $_POST[CINE_NAME];
-        $adress = $_POST[CINE_ADDRESS];
-        $capacity = $_POST[CINE_CAPACITY];
-        $price = $_POST[CINE_TICKETVALUE];
 
-        $cine = new Cine($name, $adress, $capacity, $price);
+        $cine = new Cine($name, $adress, $capacity, $ticketValue);
+
         $cine->setActive(true);
 
-        if ($cine->testValuesValidation()) {
+        if ($this->checkNotEmptyParameters($cine)) {
             try {
                 if (!$this->CineDao->exists($cine)) {
                     $this->CineDao->add($cine);
@@ -59,21 +57,30 @@ class CineController
         }
     }
 
-    public function update()
+    public function update($id, $name, $adress, $capacity, $ticketValue)
     {
         $advices = array();
-        $updatedId = $_POST[CINE_ID];
-        $updatedName = $_POST[CINE_NAME];
-        $updatedAddress = $_POST[CINE_ADDRESS];
-        $updatedCapacity = $_POST[CINE_CAPACITY];
-        $updatedPrice = $_POST[CINE_TICKETVALUE];
 
-        $modifiedCinema = new Cine($updatedName, $updatedAddress, $updatedCapacity, $updatedPrice);
-        $modifiedCinema->setId($updatedId);
+        $modifiedCinema = new Cine($name, $adress, $capacity, $ticketValue);
+        $modifiedCinema->setId($id);
 
-        if ($modifiedCinema->testValuesValidation()) {
-            try {
-                $cinemaToBeModified = $this->CineDao->searchById($updatedId);
+
+        if ($this->checkNotEmptyParameters($modifiedCinema)) {
+            try{
+                $this->CineDao->modify($modifiedCinema);
+                array_push($advices, MODIFIED);
+
+            }catch (\Throwable $th) {
+                array_push($advices, DB_ERROR);
+
+            } finally {
+                $cines = $this->CineDao->getAll();
+                require_once(VIEWS  . '/AdminCine.php');
+            }
+
+
+           /* try {
+                $cinemaToBeModified = $this->CineDao->searchById($id);
                 if ($cinemaToBeModified->getName() == $modifiedCinema->getName() && $cinemaToBeModified->getAddress() == $modifiedCinema->getAddress()) {
                     $this->CineDao->modify($modifiedCinema);
                     array_push($advices, MODIFIED);
@@ -91,7 +98,7 @@ class CineController
                 $cines = $this->CineDao->getAll();
 
                 require_once(VIEWS  . '/AdminCine.php');
-            }
+            }*/
         } else {
             $cines = $this->CineDao->getAll();
 
@@ -105,9 +112,39 @@ class CineController
         require_once(VIEWS  . '/AdminCine.php');
     }*/
 
+    public function showCinemas(){
+        $cines = $this->CineDao->getAll();
+        require_once(VIEWS  . '/AdminCine.php');
+    }
 
-    public function showCinemaMenu()
+    public function executeAction($action, $id)
     {
+        switch($action){
+            case 'delete':
+                $this->CineDao->delete($id);
+            //    array_push($advices, ELIMINATED);
+                break;
+            case 'update':
+                $cineUpdate = new Cine();
+                $cineUpdate = $this->CineDao->searchById($id);
+                echo "<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');}) </script>";
+                
+                break;
+
+            case 'delete':
+            $this->CineDao->delete($id);
+        //    array_push($advices, ELIMINATED);
+            break;
+
+            case 'delete':
+            $this->CineDao->delete($id);
+        //    array_push($advices, ELIMINATED);
+            break;
+        }
+        
+
+
+
         $advices = array();
         try {
             $cines = $this->CineDao->getAll();
@@ -172,6 +209,12 @@ class CineController
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function checkNotEmptyParameters($cine)
+    {
+        if (!empty($cine->getName()) && !empty($cine->getAddress())&& !empty($cine->getCapacity()) && $cine->getCapacity()>0 && !empty($cine->getTicketValue()) && $cine->getTicketValue()>0){return true;}
+        else{return false;}
     }
 
 
