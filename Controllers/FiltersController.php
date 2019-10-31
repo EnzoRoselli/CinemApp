@@ -4,7 +4,6 @@ namespace Controllers;
 
 use DAO\InfoAPI\moviesAPI as moviesAPI;
 use DAO\InfoAPI\genresAPI as genresAPI;
-use DAO\CinemasDAO as CinemasDAO;
 use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\GenresDAO as GenresDAO;
@@ -19,18 +18,14 @@ class FiltersController
     private $MoviesDAO;
     private $genreDAO;
     private $MoviesAPI;
-private $genresAPI;
 private $MovieController;
 
     public function __construct()
     {
         $this->allMovies = moviesAPI::getMoviesFromApi();
-        $this->genresAPI=genresAPI::getGenres();
         $this->showtimeDao = new ShowtimeDAO();
         $this->genreDAO = new GenresDAO();
         $this->MoviesDAO = new MoviesDAO();
-        $this->MovieController=new MovieController();
-        $this->MovieController->sendToDataBase();
     }
 
     public function FilteredMovies()
@@ -53,14 +48,7 @@ private $MovieController;
 
     public function showFilters()
     {
-        foreach ($this->genresAPI as $genreItem) {
-            $genre=new Genre();
-            $genre->setId($genreItem->id);
-            $genre->setName($genreItem->name);
-            if (!$this->genreDAO->exists($genre)) {
-                $this->genreDAO->add($genre);
-            }
-        }
+
         $genres = $this->genreDAO->getAll();
         require_once(VIEWS  . '/Filter.php');
     }
@@ -91,6 +79,7 @@ private $MovieController;
     {
         $Genres = $_GET['genres'];
         $moviesWithGenres = moviesAPI::getMovieForGenres($Genres, $this->allMovies);
+        $allMovies = $this->MoviesDAO->getAll();
         if (!empty($moviesWithGenres)) {
             require_once(VIEWS . '/ShowFilteredMovies.php');
         } else {
@@ -118,8 +107,6 @@ private $MovieController;
                 echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');";
                 echo "window.location= ROOT.'/home.php'; </script> ";
             }
-            // var_dump($showtimes);
-            // var_dump($dateToSearch);
      
     }
 
@@ -153,9 +140,6 @@ private $MovieController;
             echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');";
             echo "window.location= ROOT.'/home.php'; </script> ";
         }
-
-        // var_dump($showtimes);
-        // var_dump($dateToSearch);
 
     }
 }

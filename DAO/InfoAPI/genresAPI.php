@@ -2,9 +2,11 @@
 
 namespace DAO\InfoAPI;
 
+
+
 class genresAPI implements IgenresAPI
 {
-
+    
 
     static function getGenres()
     {
@@ -20,12 +22,33 @@ class genresAPI implements IgenresAPI
        
         $AllGenres = genresAPI::getGenres();
         for ($i = 0; $i < count($AllGenres); $i++) {
-
+            
             if ($AllGenres[$i]->name == $genre) {
+
                 return $AllGenres[$i]->id;
                 break;
             }
         }
         return $results;
+    }
+
+    static function getGenresById($ids){
+
+        $AllGenres = genresAPI::getGenres();
+        $genres = array();
+
+        for ($i=0; $i < count($AllGenres); $i++) { 
+            
+            for ($j=0; $j < count($ids); $j++) { 
+                
+                if($AllGenres[$i]->id == $ids[$j]){
+    
+                    array_push($genres, $AllGenres[$i]->name);
+                }
+            }
+
+        }
+        var_dump($genres);
+        return $genres;
     }
 }
