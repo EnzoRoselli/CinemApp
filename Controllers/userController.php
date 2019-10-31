@@ -4,15 +4,18 @@ namespace Controllers;
 use DAO\UsersDAO as UsersDAO;
 use Model\User as User;
 use PHPMailer\PHPMailer\Exception;
+use Controllers\HomeController as HomeController;
 
 
 class UserController
 {
     private $usersDAO;
+    private $homeController;
 
     public function __construct()
     {
         $this->usersDAO = new UsersDAO();
+        $this->homeController = new HomeController();
     }
 
     public function createUser() /// DEBIERA SER LLAMADO POR LA VISTA DE SIGNUP
@@ -51,19 +54,26 @@ class UserController
          
         if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
             $UserLogging = new User($_POST['LoginEmail'], $_POST['LoginPassword']);
-            echo ($_POST['LoginEmail']);
+
             try{
 
              $LoginComprobation = $this->usersDAO->correctCredentials($UserLogging);
+
+             //echo json_encode($LoginComprobation);//var_dump($LoginComprobation);
+ 
+             $logName = $LoginComprobation[0]['lastname'] .' '. $LoginComprobation[0]['firstname'];  
+             //echo $logName ; 
+            // echo $logName3;
              if(!$LoginComprobation){
                  $LoginErrors=array();
                  array_push($LoginErrors,LOGIN_FAILURE);
                  $this->showLoginSignup($LoginErrors);
              }
-             else{
-              
-                 $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
-                 HomeController::showMain();
+             else
+             {            
+                 //$logName =   
+                 $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'] .' '. $LoginComprobation[0]['firstname']; //$LoginComprobation[0]['lastname'];
+                 $this->homeController->showHome();
              }
             }catch(Exception $e) {
                 echo "asd";   /* catchear bien esta excepcin PONER ADVICE Y AVISAR*/ 
@@ -71,11 +81,28 @@ class UserController
         }
     }
 
+    public function logoutAction(){
+         
+        if(isset($_SESSION){
+            unset($_SESSION);
+            $this->homeController->showHome();
+        /*
+        if(isset($_SESSION['loggedUser'])){
+        //unset($_SESSION['facebook_access_token']);
+        unset($_SESSION['loggedUser']);
+        var_dump( $_SESSION);
+        $this->homeController->showHome();*/
+        }
+        else{
+            echo 'NO HAY USUARIO LOGGEADO';
+        }
+    }
+    
 
 
     public function showHome($message = array()){
         echo $message;
-        HomeController::showMain();
+        $this->homeController->showHome();
         /*
         if ($_GET['delete']) {
             require_once(VIEWS . "/home.php"."?delete=1");
