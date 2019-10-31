@@ -56,6 +56,7 @@ include('nav.php');
 									</button>
 								<?php } else {
 											?>
+<<<<<<< HEAD
 									<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 										<i class="fas fa-toggle-off"></i>
 									</button>
@@ -71,6 +72,21 @@ include('nav.php');
 
 							</td>
 						</tr>
+=======
+											<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<i class="fas fa-toggle-off"></i>
+										</button>
+										<?php 
+										}
+										?>		
+										<!-- DELETE CINE -->
+											<button id="submitForm" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<i class="fas fa-trash"></i>
+										</button>
+									</form>
+								</td>
+							</tr>
+>>>>>>> parent of d37f01d... Merge branch 'master' of https://github.com/EnzoRoselli/CinemApp
 				<?php
 					}
 				} ?>
@@ -100,9 +116,15 @@ include('nav.php');
 
 				<div class="form-group">
 					<label>Nombre</label>
+<<<<<<< HEAD
 					<input type="text" class="form-control" name=<?php echo CINE_NAME ?> required value=<?php if (isset($cineUpdate)) {
 																											echo $cineUpdate->getName();
 																										} ?>>
+=======
+					<input type="text" class="form-control" name=<?php echo CINE_NAME ?> value=<?php if (isset($cineUpdate)) {
+																									echo $cineUpdate->getName();
+																								} ?>>
+>>>>>>> parent of d37f01d... Merge branch 'master' of https://github.com/EnzoRoselli/CinemApp
 				</div>
 
 				<div class="form-group">
@@ -114,16 +136,28 @@ include('nav.php');
 
 				<div class="form-group">
 					<label>Capacidad</label>
+<<<<<<< HEAD
 					<input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> min="1" required value=<?php if (isset($cineUpdate)) {
 																															echo (int) $cineUpdate->getCapacity();
 																														} ?>>
+=======
+					<input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> value=<?php if (isset($cineUpdate)) {
+																											echo (int) $cineUpdate->getCapacity();
+																										} ?>>
+>>>>>>> parent of d37f01d... Merge branch 'master' of https://github.com/EnzoRoselli/CinemApp
 				</div>
 
 				<div class="form-group">
 					<label>Valor de Entrada</label>
+<<<<<<< HEAD
 					<input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE ?> min="1" required value=<?php if (isset($cineUpdate)) {
 																																echo (int) $cineUpdate->getTicketValue();
 																															} ?>>
+=======
+					<input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE ?> value=<?php if (isset($cineUpdate)) {
+																											echo (int) $cineUpdate->getTicketValue();
+																										} ?>>
+>>>>>>> parent of d37f01d... Merge branch 'master' of https://github.com/EnzoRoselli/CinemApp
 				</div>
 			</div>
 			<div class="modal-footer">
