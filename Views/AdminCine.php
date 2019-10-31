@@ -38,44 +38,28 @@ include('nav.php');
 								<td><?php echo $cine->getCapacity(); ?></td>
 								<td><?php echo $cine->getTicketValue(); ?></td>
 								<td>
-									<form id="form-cine" action="<?php echo  FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>" method="GET">
 
-										<!-- UPDATE CINE -->
-										<button name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+									<a href="<?php echo  FRONT_ROOT . "/Cine/apretarBotonUpdate?update=" .  $cine->getId()?>" name="update" class="btn btn-light">
 											<i class="fas fa-edit"></i>
-										</button>
-								
-									
+									</a>
 
-										<?php if($cine->getActive()){
-											?>
-										<button name="desactivate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+									<?php if($cine->getActive()){?>
+										<a href="<?php echo  FRONT_ROOT . "/Cine/ShowCinemaMenu?desactivate=" .  $cine->getId()?>"  name="desactivate" class="btn btn-light">
 											<i class="fas fa-toggle-on"></i>
-										</button>
-										<?php }else{
-											?>
-											<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light" >
+										</a>
+										<?php }else{ ?>
+										<a href="<?php echo  FRONT_ROOT . "/Cine/ShowCinemaMenu?activate=" .  $cine->getId()?>" name="activate"  class="btn btn-light" >
 											<i class="fas fa-toggle-off"></i>
-										</button>
-										
-										<?php 
-										}
-										?>		
-										<!-- DELETE CINE -->
-											<button onclick="return checkDelete()" id="" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+										</a>
+									<?php } ?>	
+
+									<a href="<?php echo  FRONT_ROOT . "/Cine/ShowCinemaMenu?delete=" .  $cine->getId()?>" onclick="return checkDelete()" name="delete" class="btn btn-light">
 											<i class="fas fa-trash"></i>
-										</button>
-										<script language="JavaScript" type="text/javascript">
-										function checkDelete(){
-											return confirm('Are you sure?');
-										}
-										</script>
-									</form>
+									</a>
+							
 								</td>
 							</tr>
-				<?php
-					}
-				}?>
+				<?php } }?>
 			</tbody>
 		</table>
 	</div>
