@@ -1,0 +1,83 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.filters-body {
+    background-color: #171717;
+}
+
+.filters-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    top: 70px;
+    padding: 0px 10px;
+}
+
+.genres-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.genres-list {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #252525;
+    border-radius: 10px;
+}
+
+.genres-list li {
+    margin: 15px 15px;
+}
+
+.item-genre {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+.item-genre * {
+    padding: 0px 10px;
+}
+
+.dates-container {
+    position: relative;
+    margin-top: 20px;
+}
+
+.day-filter {
+    display: flex;
+    background-color: #252525;
+    height: 80px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.day-filter input{
+    height: 50px;
+    margin: auto 15px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+
+#filter-btn {
+    margin: auto;
+}
+
+#filter-header {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+#filter-day {
+    width: 25%;
+    margin-left: 10px;
+    margin-top: 15px;
+    border-radius: 7px;
+    outline: none;
+}
