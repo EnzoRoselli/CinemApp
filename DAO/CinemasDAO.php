@@ -5,11 +5,10 @@ use DAO\CinemasDAO;
 
 namespace DAO;
 
-use DAO\IRepository as IRepository;
 use Model\Cine as Cine;
 //Fijarse de no mostrar toodos los cines, sino los activos, o agregar un filtro de si quiere ver los activos nomas
 
-class CinemasDAO implements IRepository
+class CinemasDAO
 {
 
     private $cineList  = array();

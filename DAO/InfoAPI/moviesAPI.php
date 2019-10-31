@@ -2,6 +2,8 @@
 
 namespace DAO\InfoAPI;
 
+use Model\Genre as Genre;
+
 class moviesAPI implements ImoviesAPI
 {
 
@@ -49,5 +51,38 @@ class moviesAPI implements ImoviesAPI
             }
         }
         return $MoviesWithTheIds;
+    }
+
+    static function getGenresFromMovie(array $genres, $movie)
+    {
+        $IDgenres = array();
+
+        for ($i = 0; $i < count($genres); $i++) {
+
+            $genre = $genres[$i]->getName();
+
+            $pos = genresAPI::getIDGenre($genre);
+            
+            array_push($IDgenres, $pos);
+        }
+
+        $genresIdList = array();
+        $movieGenreIds = $movie->genre_ids;
+
+        for ($i = 0; $i < count($IDgenres); $i++) {
+
+            for ($j=0; $j < count($movieGenreIds); $j++) { 
+                
+                if($movieGenreIds[$j] == $IDgenres[$i]){
+
+                    array_push($genresIdList, $IDgenres[$i]);
+                }
+
+            }
+        }
+
+        $APIgenresFromMovie = genresAPI::getGenresById($genresIdList);
+
+        return $APIgenresFromMovie;
     }
 }
