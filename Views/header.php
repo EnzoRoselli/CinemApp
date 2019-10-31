@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/GridStyle.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/filters.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/login.css">
-    <script src='js/SearchMovie.js'></script>
+    <!-- <script src='js/SearchMovie.js'></script> -->
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- SweetAlert2 -->

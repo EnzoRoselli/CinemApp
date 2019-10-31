@@ -66,12 +66,15 @@ class UsersDAO
 
     public function getAll()
     {
-        try {
+    
             $this->userList = array();
             $query = "SELECT * FROM" . ' ' . $this->tableName;
+
+        try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
-            foreach ($resultSet as $row) {
+        
+            /*foreach ($resultSet as $row) {
                 
                 $user = new User($row['email'], $row['password']);
                 $user->setUsername($row['username']);
@@ -80,7 +83,12 @@ class UsersDAO
                 $user->setDni($row['dni']);
                 array_push($this->userList, $user);
             }
-            return $this->userList;
+            return $this->userList;*/
+
+            if(!empty($resultSet))
+                return $this->mapear($resultSet);
+            else
+                return false;
             
         } catch (\Throwable $th) {
             throw $th;
@@ -169,6 +177,26 @@ class UsersDAO
             throw $th;
         }
     }
+
+
+    /**
+		* Transforma el listado de usuario en
+		* objetos de la clase Usuario
+		*
+		* @param  Array $usersArray Listado de personas a transformar
+		*/
+		protected function mapear($usersArray) {
+			$usersArray = is_array($usersArray) ? $usersArray : [];
+			$resp = array_map(function($row){
+                $user = new User($row['email'], $row['password']);
+                $user->setUsername($row['username']);
+                $user->setName($row['name']);
+                $user->setLastName($row['lastname']);
+                $user->setDni($row['dni']);
+                return $user;
+			}, $usersArray);
+               return count($resp) > 1 ? $resp : $resp['0'];
+		}
 }
 
 ?>

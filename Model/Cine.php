@@ -42,9 +42,5 @@ class Cine
             return false;
         }
     }
-    public function testValuesValidation()
-    {
-        if (!empty($this->name) && !empty($this->address)&& !empty($this->capacity) && $this->capacity>0 && !empty($this->ticketValue) && $this->ticketValue>0){return true;}
-        else{return false;}
-    }
+
 }

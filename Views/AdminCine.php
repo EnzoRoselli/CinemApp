@@ -29,53 +29,67 @@ include('nav.php');
 				if (!empty($cines)) {
 					foreach ($cines as $cine) {
 
-							?>
-							<tr>
+						?>
+						<tr>
 
-								<td><?php echo $cine->getId(); ?></td>
-								<td><?php echo $cine->getName(); ?></td>
-								<td><?php echo $cine->getAddress(); ?></td>
-								<td><?php echo $cine->getCapacity(); ?></td>
-								<td><?php echo $cine->getTicketValue(); ?></td>
-								<td>
-									<form id="form-cine" action="<?php echo  FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>" method="GET">
+							<td><?php echo $cine->getId(); ?></td>
+							<td><?php echo $cine->getName(); ?></td>
+							<td><?php echo $cine->getAddress(); ?></td>
+							<td><?php echo $cine->getCapacity(); ?></td>
+							<td><?php echo $cine->getTicketValue(); ?></td>
+							<td>
 
-										<!-- UPDATE CINE -->
-										<button name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+
+								<!-- UPDATE CINE -->
+								<!-- <button id="btn-update-cine" name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-edit"></i>
-										</button>
-								
-									
+										</button> -->
 
-										<?php if($cine->getActive()){
+								<button id="btn-abrir-popup" data-url="<?php echo  FRONT_ROOT . "/Cine/executeAction" ?>" data-id="<?php echo $cine->getId() ?>" data-action="update" name="update" class="btn btn-light btn-aaa">
+									<i class="fas fa-edit"></i>
+								</button>
+
+								<?php if ($cine->getActive()) {
 											?>
-										<button name="desactivate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
-											<i class="fas fa-toggle-on"></i>
-										</button>
-										<?php }else{
+									<button name="desactivate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+										<i class="fas fa-toggle-on"></i>
+									</button>
+								<?php } else {
 											?>
-											<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light" >
+<<<<<<< HEAD
+									<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+										<i class="fas fa-toggle-off"></i>
+									</button>
+
+								<?php
+										}
+										?>
+								<!-- DELETE CINE -->
+
+								<button data-url="<?php echo  FRONT_ROOT . "/Cine/executeAction" ?>" data-id="<?php echo $cine->getId() ?>" data-action="delete" name="delete" class="btn btn-light btn-aaa">
+									<i class="fas fa-trash"></i>
+								</button>
+
+							</td>
+						</tr>
+=======
+											<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-toggle-off"></i>
 										</button>
-										
 										<?php 
 										}
 										?>		
 										<!-- DELETE CINE -->
-											<button onclick="return checkDelete()" id="" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+											<button id="submitForm" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-trash"></i>
 										</button>
-										<script language="JavaScript" type="text/javascript">
-										function checkDelete(){
-											return confirm('Are you sure?');
-										}
-										</script>
 									</form>
 								</td>
 							</tr>
+>>>>>>> parent of d37f01d... Merge branch 'master' of https://github.com/EnzoRoselli/CinemApp
 				<?php
 					}
-				}?>
+				} ?>
 			</tbody>
 		</table>
 	</div>
@@ -96,15 +110,21 @@ include('nav.php');
 		<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
 			<div class="contenedor-inputs">
 				<input type="hidden" name=<?php echo CINE_ID ?> value=<?php if (isset($cineUpdate)) {
-				
+
 																			echo $cineUpdate->getId();
 																		} ?>>
 
 				<div class="form-group">
 					<label>Nombre</label>
+<<<<<<< HEAD
 					<input type="text" class="form-control" name=<?php echo CINE_NAME ?> required value=<?php if (isset($cineUpdate)) {
+																											echo $cineUpdate->getName();
+																										} ?>>
+=======
+					<input type="text" class="form-control" name=<?php echo CINE_NAME ?> value=<?php if (isset($cineUpdate)) {
 																									echo $cineUpdate->getName();
 																								} ?>>
+>>>>>>> parent of d37f01d... Merge branch 'master' of https://github.com/EnzoRoselli/CinemApp
 				</div>
 
 				<div class="form-group">
@@ -116,16 +136,28 @@ include('nav.php');
 
 				<div class="form-group">
 					<label>Capacidad</label>
+<<<<<<< HEAD
 					<input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> min="1" required value=<?php if (isset($cineUpdate)) {
+																															echo (int) $cineUpdate->getCapacity();
+																														} ?>>
+=======
+					<input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> value=<?php if (isset($cineUpdate)) {
 																											echo (int) $cineUpdate->getCapacity();
 																										} ?>>
+>>>>>>> parent of d37f01d... Merge branch 'master' of https://github.com/EnzoRoselli/CinemApp
 				</div>
 
 				<div class="form-group">
 					<label>Valor de Entrada</label>
+<<<<<<< HEAD
 					<input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE ?> min="1" required value=<?php if (isset($cineUpdate)) {
+																																echo (int) $cineUpdate->getTicketValue();
+																															} ?>>
+=======
+					<input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE ?> value=<?php if (isset($cineUpdate)) {
 																											echo (int) $cineUpdate->getTicketValue();
 																										} ?>>
+>>>>>>> parent of d37f01d... Merge branch 'master' of https://github.com/EnzoRoselli/CinemApp
 				</div>
 			</div>
 			<div class="modal-footer">

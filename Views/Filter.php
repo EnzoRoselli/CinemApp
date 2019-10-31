@@ -23,7 +23,7 @@ include('nav.php');
         <div class="dates-container">
             <p id="filter-header">Filtrar por día de función</p>
             <div class="day-filter">
-                <input type="date" name="date" min="<?php echo date('Y-m-d'); ?>">
+                <input type="date" name="date">
             </div>
         </div>
         <button type="submit" class="btn-dark-md" id="filter-btn">Filtrar</button>
