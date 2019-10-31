@@ -47,9 +47,8 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
     <?php
     if (isset($_SESSION['loggedUser'])) { ?>
       <div class="">
-        <li><a href=<?php echo FRONT_ROOT . '/user/logoutAction' ?>>Log out</a></li>
-        
-        <p><?php echo 'Logged as ' .substr(strtoupper($_SESSION['loggedUser']), 0, 20); ?></p>
+        <p><?php echo substr(strtoupper($_SESSION['loggedUser']), 0, 8); ?></p>
+        <a href=<?php echo FRONT_ROOT . '/user/showHome/delete=1' ?>>Log out</a>
       </div>
       </form>
     <?php
