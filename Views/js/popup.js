@@ -25,9 +25,9 @@ btnCerrarPopup.addEventListener('click', function(e){
 	popup.classList.remove('active');
 });
 
-btnCancelarPopup.addEventListener('click', function(e){
-	console.log('tui');
-	e.preventDefault();
-	overlay.classList.remove('active');
-	popup.classList.remove('active');
-});
+// btnCancelarPopup.addEventListener('click', function(e){
+// 	console.log('tui');
+// 	e.preventDefault();
+// 	overlay.classList.remove('active');
+// 	popup.classList.remove('active');
+// });

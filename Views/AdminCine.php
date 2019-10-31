@@ -29,53 +29,51 @@ include('nav.php');
 				if (!empty($cines)) {
 					foreach ($cines as $cine) {
 
-							?>
-							<tr>
+						?>
+						<tr>
 
-								<td><?php echo $cine->getId(); ?></td>
-								<td><?php echo $cine->getName(); ?></td>
-								<td><?php echo $cine->getAddress(); ?></td>
-								<td><?php echo $cine->getCapacity(); ?></td>
-								<td><?php echo $cine->getTicketValue(); ?></td>
-								<td>
-									<form id="form-cine" action="<?php echo  FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>" method="GET">
+							<td><?php echo $cine->getId(); ?></td>
+							<td><?php echo $cine->getName(); ?></td>
+							<td><?php echo $cine->getAddress(); ?></td>
+							<td><?php echo $cine->getCapacity(); ?></td>
+							<td><?php echo $cine->getTicketValue(); ?></td>
+							<td>
 
-										<!-- UPDATE CINE -->
-										<button name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+
+								<!-- UPDATE CINE -->
+								<!-- <button id="btn-update-cine" name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
 											<i class="fas fa-edit"></i>
-										</button>
-								
-									
+										</button> -->
 
-										<?php if($cine->getActive()){
+								<button id="btn-abrir-popup" data-url="<?php echo  FRONT_ROOT . "/Cine/executeAction" ?>" data-id="<?php echo $cine->getId() ?>" data-action="update" name="update" class="btn btn-light btn-aaa">
+									<i class="fas fa-edit"></i>
+								</button>
+
+								<?php if ($cine->getActive()) {
 											?>
-										<button name="desactivate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
-											<i class="fas fa-toggle-on"></i>
-										</button>
-										<?php }else{
+									<button name="desactivate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+										<i class="fas fa-toggle-on"></i>
+									</button>
+								<?php } else {
 											?>
-											<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light" >
-											<i class="fas fa-toggle-off"></i>
-										</button>
-										
-										<?php 
+									<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+										<i class="fas fa-toggle-off"></i>
+									</button>
+
+								<?php
 										}
-										?>		
-										<!-- DELETE CINE -->
-											<button onclick="return checkDelete()" id="" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
-											<i class="fas fa-trash"></i>
-										</button>
-										<script language="JavaScript" type="text/javascript">
-										function checkDelete(){
-											return confirm('Are you sure?');
-										}
-										</script>
-									</form>
-								</td>
-							</tr>
+										?>
+								<!-- DELETE CINE -->
+
+								<button data-url="<?php echo  FRONT_ROOT . "/Cine/executeAction" ?>" data-id="<?php echo $cine->getId() ?>" data-action="delete" name="delete" class="btn btn-light btn-aaa">
+									<i class="fas fa-trash"></i>
+								</button>
+
+							</td>
+						</tr>
 				<?php
 					}
-				}?>
+				} ?>
 			</tbody>
 		</table>
 	</div>
@@ -96,15 +94,15 @@ include('nav.php');
 		<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
 			<div class="contenedor-inputs">
 				<input type="hidden" name=<?php echo CINE_ID ?> value=<?php if (isset($cineUpdate)) {
-				
+
 																			echo $cineUpdate->getId();
 																		} ?>>
 
 				<div class="form-group">
 					<label>Nombre</label>
 					<input type="text" class="form-control" name=<?php echo CINE_NAME ?> required value=<?php if (isset($cineUpdate)) {
-																									echo $cineUpdate->getName();
-																								} ?>>
+																											echo $cineUpdate->getName();
+																										} ?>>
 				</div>
 
 				<div class="form-group">
@@ -117,15 +115,15 @@ include('nav.php');
 				<div class="form-group">
 					<label>Capacidad</label>
 					<input type="number" class="form-control" name=<?php echo CINE_CAPACITY ?> min="1" required value=<?php if (isset($cineUpdate)) {
-																											echo (int) $cineUpdate->getCapacity();
-																										} ?>>
+																															echo (int) $cineUpdate->getCapacity();
+																														} ?>>
 				</div>
 
 				<div class="form-group">
 					<label>Valor de Entrada</label>
 					<input type="number" class="form-control" name=<?php echo CINE_TICKETVALUE ?> min="1" required value=<?php if (isset($cineUpdate)) {
-																											echo (int) $cineUpdate->getTicketValue();
-																										} ?>>
+																																echo (int) $cineUpdate->getTicketValue();
+																															} ?>>
 				</div>
 			</div>
 			<div class="modal-footer">
