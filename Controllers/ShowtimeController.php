@@ -48,8 +48,8 @@ class ShowtimeController
     {
         try {
             $cinemasList = $this->cinemasDAO->getAll();
-            $moviesList = $this->moviesDAO->getAll();
-            $languagesList = $this->languagesDAO->getAll();
+           //$moviesList = $this->moviesDAO->getAll();
+            //$languagesList = $this->languagesDAO->getAll();
             $showtimes = $this->showtimeDao->getAll();
         } catch (\Throwable $th) {
             $advice = ShowtimeController::showMessage("DB");

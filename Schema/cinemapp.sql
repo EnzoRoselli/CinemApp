@@ -92,9 +92,12 @@ insert into cinemas (cinema_name, address, capacity, ticket_value, active) value
                                                                                  ,('Diagonal', 'Diagonal Pueyrredón', '250', '200', true);
 
 insert into languages(name_language) values ('English'), ('Spanish'), ('French'), ('Italian'), ('Russian');
+insert into showtimes(id_language, id_movie,id_cinema,view_date,hour,subtitles,active,ticketAvaliable) values(5, 3, 2, '2019-11-02', '11:50', false, true, 400);
+
+select now();
 
 select * from movies;
 
-select * from cinemas where id=2;
+select * from cinemas;
 
 /*drop database cinemapp;*/
