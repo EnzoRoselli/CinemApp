@@ -13,7 +13,7 @@ include('nav.php');
                 <?php foreach ($genres as $genre) {
                     ?>
                     <li class="item-genre">
-                        <input value=<?php echo $genre->getName(); ?> id=<?php echo $genre->getName(); ?> name="genres[]" type='checkbox' />
+                        <input value=<?php echo $genre->getId(); ?> id=<?php echo $genre->getName(); ?> name="genres[]" type='checkbox' />
                         <label for=<?php echo $genre->getName(); ?>> <?php echo $genre->getName(); ?> </label>
                     </li>
                 <?php } ?>

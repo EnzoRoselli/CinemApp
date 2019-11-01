@@ -30,7 +30,7 @@ constraint pk_genres PRIMARY KEY (id),
 CONSTRAINT unq_genres UNIQUE (genre_name));
 
 
-CREATE TABLE IF NOT EXISTS genres_by_movies (
+CREATE TABLE IF NOT EXISTS genres_by_movies(
 id_movie int,
 id_genre int, 
 constraint pk_genres_by_movies_id_movie_id_genre PRIMARY KEY (id_movie, id_genre),
