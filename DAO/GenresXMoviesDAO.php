@@ -41,7 +41,6 @@ class GenresXMoviesDAO
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
-
             if (!empty($resultSet)) {
                 return true;
             } else {

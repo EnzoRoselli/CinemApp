@@ -36,4 +36,8 @@
   .content-table tbody tr:last-of-type {
     border-bottom: 2px solid #FF416C;
   }
+
+  .content-table a{
+    text-decoration: none;
+  }
   

@@ -7,7 +7,9 @@ include('nav.php');
 <body class="admin-body">
 	<div class="admin-header">
 		<h1>Listado de cines</h1>
-		<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
+		<form action="<?php echo  FRONT_ROOT . "/Cine/createCinema " ?>" method="POST">
+			<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
+		</form>
 	</div>
 
 	<div class="admin-table">
@@ -38,44 +40,30 @@ include('nav.php');
 								<td><?php echo $cine->getCapacity(); ?></td>
 								<td><?php echo $cine->getTicketValue(); ?></td>
 								<td>
-									<form id="form-cine" action="<?php echo  FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>" method="GET">
-
-										<!-- UPDATE CINE -->
-										<button name="update" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+									<!-- ----------------------- EDIT ----------------------- -->
+									<a href="<?php echo  FRONT_ROOT . "/Cine/getCinemaToUpdate?update=" .  $cine->getId()?>" name="update" class="btn btn-light">
 											<i class="fas fa-edit"></i>
-										</button>
-								
-									
+									</a>
 
-										<?php if($cine->getActive()){
-											?>
-										<button name="desactivate" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+									<!-- ----------------------- ACTIVATE ----------------------- -->
+									<?php if($cine->getActive()){?>
+										<a href="<?php echo  FRONT_ROOT . "/Cine/desactivate?desactivate=" .  $cine->getId()?>"  name="desactivate" class="btn btn-light">
 											<i class="fas fa-toggle-on"></i>
-										</button>
-										<?php }else{
-											?>
-											<button name="activate" value="<?php echo $cine->getId() ?>" class="btn btn-light" >
+										</a>
+										<?php }else{ ?>
+									<!-- ----------------------- DESACTIVATE ----------------------- -->
+										<a href="<?php echo  FRONT_ROOT . "/Cine/activate?activate=" .  $cine->getId()?>" name="activate"  class="btn btn-light" >
 											<i class="fas fa-toggle-off"></i>
-										</button>
-										
-										<?php 
-										}
-										?>		
-										<!-- DELETE CINE -->
-											<button onclick="return checkDelete()" id="" name="delete" value="<?php echo $cine->getId() ?>" class="btn btn-light">
+										</a>
+									<?php } ?>	
+									<!-- ----------------------- DELETE ----------------------- -->
+									<a href="<?php echo  FRONT_ROOT . "/Cine/delete?delete=" .  $cine->getId()?>" onclick="return checkDelete()" name="delete" class="btn btn-light">
 											<i class="fas fa-trash"></i>
-										</button>
-										<script language="JavaScript" type="text/javascript">
-										function checkDelete(){
-											return confirm('Are you sure?');
-										}
-										</script>
-									</form>
+									</a>
+							
 								</td>
 							</tr>
-				<?php
-					}
-				}?>
+				<?php } }?>
 			</tbody>
 		</table>
 	</div>
@@ -87,17 +75,15 @@ include('nav.php');
 
 <div class="overlay" id="overlay">
 	<div class="popup" id="popup">
-		<!-- <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a> -->
-		<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+		
+		<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 
 		<h3>Registrar/Modificar cine</h3>
 
 
 		<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
 			<div class="contenedor-inputs">
-				<input type="hidden" name=<?php echo CINE_ID ?> value=<?php if (isset($cineUpdate)) {
-				
-																			echo $cineUpdate->getId();
+				<input type="hidden" name=<?php echo CINE_ID ?> value=<?php if (isset($cineUpdate)) {echo $cineUpdate->getId();
 																		} ?>>
 
 				<div class="form-group">
@@ -130,7 +116,7 @@ include('nav.php');
 			</div>
 			<div class="modal-footer">
 
-				<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemaMenu" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+				<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 
 				<button type="submit" class="btn btn-med btn-light">Aceptar</button>
 
