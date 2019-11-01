@@ -4,10 +4,10 @@ namespace Controllers;
 
 use DAO\InfoAPI\moviesAPI as moviesAPI;
 use DAO\InfoAPI\genresAPI as genresAPI;
-use DAO\CinemasDAO as CinemasDAO;
 use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\GenresDAO as GenresDAO;
+use DAO\GenresXMoviesDAO as GenresXMoviesDAO;
 use Controllers\MovieController as MovieController;
 use Model\Genre;
 use Model\Movie;
@@ -19,18 +19,15 @@ class FiltersController
     private $MoviesDAO;
     private $genreDAO;
     private $MoviesAPI;
-private $genresAPI;
-private $MovieController;
+    private $MovieController;
+    private $genresXmoviesDAO;
 
     public function __construct()
     {
-        $this->allMovies = moviesAPI::getMoviesFromApi();
-        $this->genresAPI=genresAPI::getGenres();
         $this->showtimeDao = new ShowtimeDAO();
         $this->genreDAO = new GenresDAO();
         $this->MoviesDAO = new MoviesDAO();
-        $this->MovieController=new MovieController();
-        $this->MovieController->sendToDataBase();
+        $this->genresXmoviesDAO = new GenresXMoviesDAO();
     }
 
     public function FilteredMovies()
@@ -53,14 +50,7 @@ private $MovieController;
 
     public function showFilters()
     {
-        foreach ($this->genresAPI as $genreItem) {
-            $genre=new Genre();
-            $genre->setId($genreItem->id);
-            $genre->setName($genreItem->name);
-            if (!$this->genreDAO->exists($genre)) {
-                $this->genreDAO->add($genre);
-            }
-        }
+
         $genres = $this->genreDAO->getAll();
         require_once(VIEWS  . '/Filter.php');
     }
@@ -91,6 +81,7 @@ private $MovieController;
     {
         $Genres = $_GET['genres'];
         $moviesWithGenres = moviesAPI::getMovieForGenres($Genres, $this->allMovies);
+        $allMovies = $this->MoviesDAO->getAll();
         if (!empty($moviesWithGenres)) {
             require_once(VIEWS . '/ShowFilteredMovies.php');
         } else {
@@ -118,16 +109,17 @@ private $MovieController;
                 echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');";
                 echo "window.location= ROOT.'/home.php'; </script> ";
             }
-            // var_dump($showtimes);
-            // var_dump($dateToSearch);
      
     }
 
 
     public function searchByGenresAndDate()
     {
-        $Genres = $_GET['genres'];
-        $moviesWithGenres = moviesAPI::getMovieForGenres($Genres, $this->allMovies);
+        $genresIds = $_GET['genres'];
+        // $moviesWithGenres = moviesAPI::getMovieForGenres($Genres, $this->allMovies);
+        
+        $moviesWithGenres = $this->genresXmoviesDAO->getMoviesByGenresIds($genresIds);
+        // var_dump($moviesWithGenres);
         if (!empty($moviesWithGenres)) {
             require_once(VIEWS . '/ShowFilteredMovies.php');
         } else {
@@ -153,9 +145,6 @@ private $MovieController;
             echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');";
             echo "window.location= ROOT.'/home.php'; </script> ";
         }
-
-        // var_dump($showtimes);
-        // var_dump($dateToSearch);
 
     }
 }
