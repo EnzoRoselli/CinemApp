@@ -1,6 +1,6 @@
 <?php 
 include('header.php');
-    // include('nav.php');
+include('nav.php');
 ?>
     <div class="container">
     <?php
@@ -13,10 +13,10 @@ include('header.php');
         <div class="block">
             <button class="card-image">
                 <a href="">
-                <img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $moviesWithGenres[$i]->poster_path; ?> class="image">
+                <img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $moviesWithGenres[$i]->getPosterPath(); ?> class="image">
                 </a>
                 <div class="overview">
-                    <h2><?php echo $moviesWithGenres[$i]->original_title;?></h2>
+                    <h2><?php echo $moviesWithGenres[$i]->getTitle();?></h2>
                     <p><?php /*echo $moviesWithGenres[$i]->release_date;*/?></p>
                 </div>
             </button>

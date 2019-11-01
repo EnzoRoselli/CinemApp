@@ -35,6 +35,7 @@ class GenresDAO
             $parameters["genre_name"] = $genre->getName();
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
+            
             if (!empty($resultSet)) {
                 return true;
             } else {

@@ -2,7 +2,10 @@
 
 namespace DAO\InfoAPI;
 
-class moviesAPI implements ImoviesAPI
+use Model\Genre as Genre;
+use DAO\InfoAPI\genresAPI as genresAPI;
+
+class moviesAPI
 {
 
     static function getMoviesFromApi()
@@ -31,23 +34,57 @@ class moviesAPI implements ImoviesAPI
         return $GenresDetails->genres;
     }
 
-    static function getMovieForGenres(array $genresName, $movies)
+    // static function getMovieForGenres(array $genresName, $movies)
+    // {
+    //     $IDgenres = array();
+
+    //     for ($i = 0; $i < count($genresName); $i++) {
+    //         $genre = $genresName[$i];
+    //         $pos = genresAPI::getIDGenre($genre);
+    //         array_push($IDgenres, $pos);
+    //     }
+
+    //     $MoviesWithTheIds = array();
+
+    //     for ($i = 0; $i < count($movies); $i++) {
+    //         if (!array_diff($IDgenres, $movies[$i]->genre_ids)) {
+    //             array_push($MoviesWithTheIds, $movies[$i]);
+    //         }
+    //     }
+    //     return $MoviesWithTheIds;
+    // }
+
+    static function getGenresFromMovie(array $genresDAO, $movie, array $genresAPI)
     {
         $IDgenres = array();
 
-        for ($i = 0; $i < count($genresName); $i++) {
-            $genre = $genresName[$i];
-            $pos = genresAPI::getIDGenre($genre);
+        for ($i = 0; $i < count($genresDAO); $i++) {
+
+            $genre = $genresDAO[$i]->getName();
+
+            $pos = genresAPI::getIDGenre($genre, $genresAPI);
+            
             array_push($IDgenres, $pos);
         }
 
-        $MoviesWithTheIds = array();
+        $genresIdList = array();
+        $movieGenreIds = $movie->genre_ids;
+        //  var_dump($movieGenreIds);
 
-        for ($i = 0; $i < count($movies); $i++) {
-            if (!array_diff($IDgenres, $movies[$i]->genre_ids)) {
-                array_push($MoviesWithTheIds, $movies[$i]);
+        for ($i = 0; $i < count($IDgenres); $i++) {
+
+            for ($j=0; $j < count($movieGenreIds); $j++) { 
+                
+                if($movieGenreIds[$j] == $IDgenres[$i]){
+
+                    array_push($genresIdList, $IDgenres[$i]);
+                }
+
             }
         }
-        return $MoviesWithTheIds;
+
+        $APIgenresFromMovie = genresAPI::getGenresById($genresIdList, $genresAPI);
+
+        return $APIgenresFromMovie;
     }
 }
