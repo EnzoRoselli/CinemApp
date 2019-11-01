@@ -87,4 +87,5 @@ class moviesAPI
 
         return $APIgenresFromMovie;
     }
+
 }

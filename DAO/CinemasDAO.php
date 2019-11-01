@@ -146,7 +146,6 @@ class CinemasDAO
             $parameters["ticket_value"] = $cine->getTicketValue();
             $parameters["id"] = $cine->getId();
 
-
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $th) {

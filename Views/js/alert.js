@@ -3,6 +3,10 @@
 //   });
 
   
+function checkDelete(){
+    return confirm('Are you sure?');
+}
+
 $(document).on('click', '#success', function(e) {
     swal(
         'Success',
