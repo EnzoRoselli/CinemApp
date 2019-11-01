@@ -95,8 +95,6 @@
 
                 }
 
-                
-
                 for ($j=0; $j < count($movies); $j++) { 
                     
                     if($this->moviesAPI[$i]->original_title == $movies[$j]->getTitle()){

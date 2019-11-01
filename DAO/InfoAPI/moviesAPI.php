@@ -34,26 +34,6 @@ class moviesAPI
         return $GenresDetails->genres;
     }
 
-    // static function getMovieForGenres(array $genresName, $movies)
-    // {
-    //     $IDgenres = array();
-
-    //     for ($i = 0; $i < count($genresName); $i++) {
-    //         $genre = $genresName[$i];
-    //         $pos = genresAPI::getIDGenre($genre);
-    //         array_push($IDgenres, $pos);
-    //     }
-
-    //     $MoviesWithTheIds = array();
-
-    //     for ($i = 0; $i < count($movies); $i++) {
-    //         if (!array_diff($IDgenres, $movies[$i]->genre_ids)) {
-    //             array_push($MoviesWithTheIds, $movies[$i]);
-    //         }
-    //     }
-    //     return $MoviesWithTheIds;
-    // }
-
     static function getGenresFromMovie(array $genresDAO, $movie, array $genresAPI)
     {
         $IDgenres = array();
