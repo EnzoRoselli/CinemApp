@@ -56,7 +56,7 @@ class GenresXMoviesDAO
         try {
             $this->genreXmovieList = array();
 
-            $query = "SELECT * FROM" . ' ' . $this->tableName;
+            $query = "SELECT * FROM" . ' ' . $this->tableName . " " . "order by id_movie asc";
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
@@ -83,43 +83,35 @@ class GenresXMoviesDAO
         $moviesDAO = new MoviesDAO();
         $auxList = array();
         $moviesList = array();
-        
         $allMovies = $moviesDAO->getAll();
-
-         var_dump($this->genreXmovieList);
-        // var_dump($allMovies);
 
         for ($i=0; $i < count($this->genreXmovieList); $i++) { 
 
-            $check = 0;
-
             for ($j=0; $j < count($genreIds); $j++) { 
-                
-                if($this->genreXmovieList[$i]->getGenreId() == $genreIds[$j]){
-                    $check+=1;
-                    
-                }
 
-                if($check == count($genreIds)){
-                    // var_dump("aaa");
+                if($this->genreXmovieList[$i]->getGenreId() == $genreIds[$j]){
+
                     array_push($auxList, $this->genreXmovieList[$i]);
                 }
-
                 
             }
         }
-        
-        // var_dump(count($genreIds));
-        var_dump($auxList);
-
 
         for ($i=0; $i < count($allMovies); $i++) { 
             
+            $counter=0;
+
             for ($j=0; $j < count($auxList); $j++) { 
                 
-                if($allMovies[$i]->getId() == $auxList[$j]->getId()){
+                if($allMovies[$i]->getId() == $auxList[$j]->getMovieId()){
 
+                    $counter++;
+                }
+                
+                if($counter == count($genreIds)){    
+                    
                     array_push($moviesList, $allMovies[$i]);
+                    break;
                 }
             }
         }

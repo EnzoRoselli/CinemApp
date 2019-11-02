@@ -50,6 +50,7 @@
         public function sendToDataBase(){
           $this->getFromAPI();
             foreach($this->movieList as $movie){
+                
                 try{
                    if(!$this->moviesDAO->exists($movie)){
                         $this->moviesDAO->add($movie);
@@ -79,8 +80,9 @@
             $movies = $this->moviesDAO->getAll();
             $genresFromMovie = array();
             
-            for ($i=0; $i < count($movies); $i++) {
- 
+            for ($i=0; $i < count($this->moviesAPI); $i++) {
+                $genresFromMovie = array();
+
                 $APIgenresFromMovie = moviesAPI::getGenresFromMovie($genres, $this->moviesAPI[$i], $this->genresAPI);
 
                 for ($j=0; $j < count($APIgenresFromMovie); $j++) { 
@@ -100,7 +102,6 @@
                     if($this->moviesAPI[$i]->original_title == $movies[$j]->getTitle()){
     
                         $movieId = $movies[$j]->getId();
-                        
                         break;
                     }
                 }
@@ -110,7 +111,6 @@
                     $genre_x_movie = new GenreXMovie();
                     $genre_x_movie->setMovieId($movieId);
                     $genre_x_movie->setGenreId($genresFromMovie[$j]->getId());
-                    
                     
                     if (!$this->genresXmoviesDAO->exists($genre_x_movie)) {
                          $this->genresXmoviesDAO->add($genre_x_movie);

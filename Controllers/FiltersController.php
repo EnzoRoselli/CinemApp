@@ -115,35 +115,45 @@ class FiltersController
 
     public function searchByGenresAndDate()
     {
-        $genresIds = $_GET['genres'];
-        // $moviesWithGenres = moviesAPI::getMovieForGenres($Genres, $this->allMovies);
-        
-        $moviesWithGenres = $this->genresXmoviesDAO->getMoviesByGenresIds($genresIds);
-        // var_dump($moviesWithGenres);
-        if (!empty($moviesWithGenres)) {
-            require_once(VIEWS . '/ShowFilteredMovies.php');
-        } else {
-            echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');";
-            echo "window.location= ROOT.'/home.php'; </script> ";
-        }
+        if(isset($_GET['genres']) || isset($_GET['date'])){
 
-        $dateToSearch = $_GET['date'];
-        $showtimes = $this->showtimeDao->getAll();
-        $showtimesByDate = array();
+            if(isset($_GET['genres'])){
 
-        foreach ($showtimes as $showtime) {
-
-            if ($showtime->getDate() == $dateToSearch && $showtime->getActive() == true) {
-
-                array_push($showtimesByDate, $showtime);
+                $genresIds = $_GET['genres'];
+                // $moviesWithGenres = moviesAPI::getMovieForGenres($Genres, $this->allMovies);
+                
+                $moviesWithGenres = $this->genresXmoviesDAO->getMoviesByGenresIds($genresIds);
+                // var_dump($moviesWithGenres);
+                if (!empty($moviesWithGenres)) {
+                    require_once(VIEWS . '/ShowFilteredMovies.php');
+                } else {
+                    echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');";
+                    echo "window.location= ROOT.'/home.php'; </script> ";
+                }
             }
-        }
 
-        if (!empty($showtimesByDate)) {
-            require_once(VIEWS . '/ShowFilteredMovies.php');
-        } else {
-            echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');";
-            echo "window.location= ROOT.'/home.php'; </script> ";
+            if(isset($_GET['date'])){
+
+                $dateToSearch = $_GET['date'];
+                $showtimes = $this->showtimeDao->getAll();
+                $showtimesByDate = array();
+        
+                foreach ($showtimes as $showtime) {
+        
+                    if ($showtime->getDate() == $dateToSearch && $showtime->getActive() == true) {
+        
+                        array_push($showtimesByDate, $showtime);
+                    }
+                }
+        
+                if (!empty($showtimesByDate)) {
+                    require_once(VIEWS . '/ShowFilteredMovies.php');
+                } else {
+                    echo "<script> alert('No se encuentran peliculas que contegan los generos ingresados!');";
+                    echo "window.location= ROOT.'/home.php'; </script> ";
+                }
+            }
+
         }
 
     }
