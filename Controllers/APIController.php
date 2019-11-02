@@ -9,7 +9,7 @@
     use Model\Genre;
     use Model\GenreXMovie as GenreXMovie;
 
-        class MovieController{
+        class APIController{
             
         private $moviesDAO;
         private $movieList;

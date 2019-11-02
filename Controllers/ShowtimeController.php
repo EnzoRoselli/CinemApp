@@ -7,7 +7,7 @@ use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\CinemasDAO as CinemasDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\LanguagesDAO as LanguagesDAO;
-use Controllers\MovieController as MovieController;
+use Controllers\APIController as APIController;
 use DateInterval;
 
 //VALIDAR QUE LOS DATOS DE LA FUNCIONN YA NO ESTEN CARGADOS, OSEA A LA MISMA HORA, MISMO CINE
@@ -19,7 +19,7 @@ class ShowtimeController
     private $cinemasDAO;
     private $moviesDAO;
     private $languagesDAO;
-    private $MovieController;
+    private $APIController;
 
 
     public function __construct()
@@ -28,8 +28,8 @@ class ShowtimeController
         $this->cinemasDAO = new CinemasDAO();
         $this->moviesDAO = new MoviesDAO();
         $this->languagesDAO = new LanguagesDAO();
-        $this->MovieController= new MovieController();
-        $this->MovieController->sendToDataBase();
+        $this->APIController= new APIController();
+        $this->APIController->sendToDataBase();
     }
 
     public function determinateUpdateCreate()

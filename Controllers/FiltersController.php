@@ -8,18 +8,14 @@ use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\GenresDAO as GenresDAO;
 use DAO\GenresXMoviesDAO as GenresXMoviesDAO;
-use Controllers\MovieController as MovieController;
-use Model\Genre;
+
 use Model\Movie;
 
 class FiltersController
 {
-    private $genresList;
     private $showtimeDao;
     private $MoviesDAO;
     private $genreDAO;
-    private $MoviesAPI;
-    private $MovieController;
     private $genresXmoviesDAO;
 
     public function __construct()
