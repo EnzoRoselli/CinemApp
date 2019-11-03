@@ -46,7 +46,7 @@ include('nav.php');
 								<td><?php echo $showtime->getCinema()->getName(); ?></td>
 								<td><?php echo $showtime->getTicketAvaliable() . '/' . $showtime->getCinema()->getCapacity(); ?></td>
 								<td>
-									<form action="<?php echo  FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>">
+									<form action="<?php echo  FRONT_ROOT . "/Showtime/DeterminateUpdateCreate" ?>" method="POST">
 
 										
 										

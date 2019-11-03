@@ -34,13 +34,17 @@ class ShowtimeController
 
     public function determinateUpdateCreate()
     {
+        echo "asdadsd";
+
         if ($_POST) {
             if ($_POST[SHOWTIME_ID] != "") {
-
                 $this->update();
-            } else if ($_POST[SHOWTIME_ID] == "") {
+                $this->showShowtimeMenu();
 
+            } else if ($_POST[SHOWTIME_ID] == "") {
                 $this->create();
+                $this->showShowtimeMenu();
+
             }
         }
     }
@@ -53,7 +57,7 @@ class ShowtimeController
             $showtimes = $this->showtimeDao->getAll();
         } catch (\Throwable $th) {
             var_dump($th);
-          //  $advice = ShowtimeController::showMessage("DB");
+          // // $advice = ShowtimeController::showMessage("DB");
         } finally {
             require_once(VIEWS . "/AdminShowtimes.php");
         }
@@ -139,10 +143,10 @@ class ShowtimeController
         try {
             if (!empty($this->showtimeDao->searchById($_GET['id']))) {
                 $this->showtimeDao->delete($_GET['id']);
-                $advice = ShowtimeController::showMessage(5);
+               // $advice = ShowtimeController::showMessage(5);
             }
         } catch (\Throwable $th) {
-            $advice = ShowtimeController::showMessage("DB");
+           // $advice = ShowtimeController::showMessage("DB");
         }
     }
     public function update()
@@ -150,12 +154,12 @@ class ShowtimeController
         try {
             if (!empty($this->showtimeDao->searchById($_GET['id']))) {
                 $this->showtimeDao->modify($_GET['id']);
-                $advice = ShowtimeController::showMessage(2);
+               // $advice = ShowtimeController::showMessage(2);
             } else {
-                $advice = ShowtimeController::showMessage(3);
+               // $advice = ShowtimeController::showMessage(3);
             }
         } catch (\Throwable $th) {
-            $advice = ShowtimeController::showMessage("DB");
+           // $advice = ShowtimeController::showMessage("DB");
         }
     }
 
@@ -164,12 +168,12 @@ class ShowtimeController
         try {
             if (!empty($this->showtimeDao->searchById($id))) {
                 $this->showtimeDao->activate($id);
-                $advice = ShowtimeController::showMessage("activado");
+               // $advice = ShowtimeController::showMessage("activado");
             } else {
-                $advice = ShowtimeController::showMessage(3);
+               // $advice = ShowtimeController::showMessage(3);
             }
         } catch (\Throwable $th) {
-            $advice = ShowtimeController::showMessage("DB");
+           // $advice = ShowtimeController::showMessage("DB");
         }
     }
 
@@ -178,12 +182,12 @@ class ShowtimeController
         try {
             if (!empty($this->showtimeDao->searchById($id))) {
                 $this->showtimeDao->desactivate($id);
-                $advice = ShowtimeController::showMessage("desactivado");
+               // $advice = ShowtimeController::showMessage("desactivado");
             } else {
-                $advice = ShowtimeController::showMessage(3);
+               // $advice = ShowtimeController::showMessage(3);
             }
         } catch (\Throwable $th) {
-            $advice = ShowtimeController::showMessage("DB");
+           // $advice = ShowtimeController::showMessage("DB");
         }
     }
 }
