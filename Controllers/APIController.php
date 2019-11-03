@@ -112,9 +112,16 @@
                     $genre_x_movie->setMovieId($movieId);
                     $genre_x_movie->setGenreId($genresFromMovie[$j]->getId());
                     
-                    if (!$this->genresXmoviesDAO->exists($genre_x_movie)) {
-                         $this->genresXmoviesDAO->add($genre_x_movie);
-                    }
+                    try{
+                        if (!$this->genresXmoviesDAO->exists($genre_x_movie)) {
+                            $this->genresXmoviesDAO->add($genre_x_movie);
+                       }
+                        
+                     }catch(Exception $e){
+                         //mostrar error
+                         echo 'error';
+                     }
+                    
                 }
                     
             }

@@ -49,7 +49,6 @@ class moviesAPI
 
         $genresIdList = array();
         $movieGenreIds = $movie->genre_ids;
-        //  var_dump($movieGenreIds);
 
         for ($i = 0; $i < count($IDgenres); $i++) {
 
