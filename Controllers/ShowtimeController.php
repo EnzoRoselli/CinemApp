@@ -52,7 +52,8 @@ class ShowtimeController
             $languagesList = $this->languagesDAO->getAll();
             $showtimes = $this->showtimeDao->getAll();
         } catch (\Throwable $th) {
-            $advice = ShowtimeController::showMessage("DB");
+            var_dump($th);
+          //  $advice = ShowtimeController::showMessage("DB");
         } finally {
             require_once(VIEWS . "/AdminShowtimes.php");
         }

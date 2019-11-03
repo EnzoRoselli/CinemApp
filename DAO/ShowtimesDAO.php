@@ -193,7 +193,13 @@ class ShowtimesDAO {
                 }else{
                     $Showtime->setActive(false);
                 }
-                $Showtime->setTicketAvaliable($row['ticketAvaliable']);
+                if ($row['ticketAvaliable'] > $cinema->getCapacity()) {
+                    $Showtime->setTicketAvaliable($cinema->getCapacity());
+                    $this->modify($Showtime);
+                }else {
+                    $Showtime->setTicketAvaliable($row['ticketAvaliable']);
+                }
+                
                 
                 array_push($this->showtimesList, $Showtime);
                 
@@ -242,6 +248,7 @@ class ShowtimesDAO {
             $parameters["subtitles"] = $showtime->isSubtitle();
             $parameters["active"] = $showtime->getActive();
             $parameters["ticketAvaliable"] = $showtime->getTicketAvaliable();
+            $parameters["id"] = $showtime->getShowtimeId();
 
 
             $this->connection = Connection::GetInstance();
