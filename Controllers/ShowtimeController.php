@@ -113,7 +113,6 @@ class ShowtimeController
         $showtimes = $this->showtimeDao->getAll();
 
         foreach ($showtimes as $showtime) {
-
             $fechaMin = date_create($showtime->getDate());
             $tiempo = explode(":", $showtime->getHour());
             date_time_set($fechaMin, $tiempo[0], $tiempo[1]);
