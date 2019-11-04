@@ -8,7 +8,6 @@
     use Model\Movie as Movie;
     use Model\Genre;
     use Model\GenreXMovie as GenreXMovie;
-    use Controllers\HomeController as HomeController;
 
         class APIController{
             
@@ -50,22 +49,12 @@
 
         public function sendToDataBase(){
           $this->getFromAPI();
-          $newInfo=false;
             foreach($this->movieList as $movie){
                 
                 try{
                    if(!$this->moviesDAO->exists($movie)){
                         $this->moviesDAO->add($movie);
-                        $newInfo=true;
                    }
-                   if ($newInfo==true) {
-                    echo '<script type="text/javascript">
-                    alert("Se ha cargado nueva información de la API");
-                </script>';
-                   }
-                   $HomeController = new HomeController();
-                   $HomeController->showHome();
-
                    
                 }catch(Exception $e){
                     //mostrar error
