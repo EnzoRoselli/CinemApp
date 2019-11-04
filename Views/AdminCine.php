@@ -47,7 +47,7 @@ include('nav.php');
 
 								<!-- ----------------------- ACTIVATE ----------------------- -->
 								<?php if ($cine->getActive()) { ?>
-									<a href="<?php echo  FRONT_ROOT . "/Cine/desactivate?desactivate=" .  $cine->getId() ?>"  name="desactivate" class="btn btn-light">
+									<a href="<?php echo  FRONT_ROOT . "/Cine/desactivate?desactivate=" .  $cine->getId() ?>" onclick="return checkDelete()" name="desactivate" class="btn btn-light">
 										<i class="fas fa-toggle-on"></i>
 									</a>
 								<?php } else { ?>

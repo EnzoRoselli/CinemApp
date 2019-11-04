@@ -158,62 +158,58 @@ class ShowtimesDAO {
         }
     }
 
-
-    public function getAllActives()
+    public function getAll()
     {
         
         try {
             
-            $showtimesList = array();
+            $this->showtimesList = array();
             $query = "SELECT * FROM" . ' ' . $this->tableName;
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
-
                 $Showtime = new Showtime();
+                $Showtime->setId($row['id']);
+                
                 $id_cinema=$row['id_cinema'];
                 $cinema=$this->CinemasDAO->searchById($id_cinema);
                 $Showtime->setCinema($cinema);
-                //SI ESTA INACTIVO, QUE NO CONTINUE EL LOOP Y PASE A A LA SIGUIENTE ITERACION
-                if ($Showtime->getCinema()->getActive()===false) {continue;}
-                else {
-                      $Showtime->setId($row['id']);                      
-                    $id_language=$row['id_language'];
-                    $language=$this->LanguageDAO->searchById($id_language);
-                    $Showtime->setLanguage($language);
-                    
-                    $id_movie=$row['id_movie'];
-                    $movie=$this->MoviesDAO->searchById($id_movie);
-                    $Showtime->setMovie($movie);
-    
-                    $Showtime->setDate($row['view_date']);
-                    $Showtime->setHour($row['hour']);
-    
-         
-                    $Showtime->setSubtitle($row['subtitles']);
-                    if($row['active'] == 1){
-                        $Showtime->setActive(true);
-                    }else{
-                        $Showtime->setActive(false);
-                    }
-                    if ($row['ticketAvaliable'] > $cinema->getCapacity()) {
-                        $Showtime->setTicketAvaliable($cinema->getCapacity());
-                        $this->modify($Showtime);
-                    }else {
-                        $Showtime->setTicketAvaliable($row['ticketAvaliable']);
-                    }
-                   array_push($showtimesList, $Showtime);
-                }                    
-                  
+                
+                $id_language=$row['id_language'];
+                $language=$this->LanguageDAO->searchById($id_language);
+                $Showtime->setLanguage($language);
+                
+                $id_movie=$row['id_movie'];
+                $movie=$this->MoviesDAO->searchById($id_movie);
+                $Showtime->setMovie($movie);
+
+                $Showtime->setDate($row['view_date']);
+                $Showtime->setHour($row['hour']);
+
+     
+                $Showtime->setSubtitle($row['subtitles']);
+                if($row['active'] == 1){
+                    $Showtime->setActive(true);
+                }else{
+                    $Showtime->setActive(false);
                 }
-                         
-            return $showtimesList;
+                if ($row['ticketAvaliable'] > $cinema->getCapacity()) {
+                    $Showtime->setTicketAvaliable($cinema->getCapacity());
+                    $this->modify($Showtime);
+                }else {
+                    $Showtime->setTicketAvaliable($row['ticketAvaliable']);
+                }
+                
+                
+                array_push($this->showtimesList, $Showtime);
+                
+            }
+            return $this->showtimesList;
         } catch (\Throwable $th) {
+
             throw $th;
         }
     }
-
-
     public function getShowtimesMovieOfAday(Showtime $showtime)
     {
         try {
