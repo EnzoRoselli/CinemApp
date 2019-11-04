@@ -141,7 +141,12 @@ class FiltersController
     }
 
     public function showFilteredMovies($moviesByGenres = "", $showtimesByDate = ""){
-        
+        if ($moviesByGenres==null && $showtimesByDate==null) {
+            echo '<script type="text/javascript">
+            alert("No se han encontrado resultados");     
+        </script>';
+        $this->showFilters();
+        }
         require_once(VIEWS . '/ShowFilteredMovies.php');
     }
 
