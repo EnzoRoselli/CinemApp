@@ -3,7 +3,7 @@ include('header.php');
 include('nav.php');
 
 ?>
-<!-- DEBERIAMOS MOSTRAR TODAS LAS FUNCIONES ACTIVAS, NO UN GETALL -->
+
 <body class="admin-body">
 	<div class="admin-header">
 		<h1>Listado de showtimes</h1>
@@ -46,25 +46,20 @@ include('nav.php');
 								<td><?php echo $showtime->getCinema()->getName(); ?></td>
 								<td><?php echo $showtime->getTicketAvaliable() . '/' . $showtime->getCinema()->getCapacity(); ?></td>
 								<td>
-									<form action="<?php echo  FRONT_ROOT . "/Showtime/DeterminateUpdateCreate" ?>" method="POST">
-
-										
-										
-
+									
 										<?php if($showtime->getCinema()->getActive()){
 											?>
-										<button name="desactivate" value="<?php echo $showtime->getShowtimeId() ?>" class="btn btn-light">
+										<a href=<?php echo  FRONT_ROOT . "/Showtime/desactivate?desactivate=" .  $showtime->getShowtimeId() ?> name="desactivate" class="btn btn-light">
 											<i class="fas fa-toggle-on"></i>
-										</button>
+										</a>
 										<?php }else{
 											?>
-											<button name="activate" value="<?php echo $showtime->getShowtimeId() ?>" class="btn btn-light">
+											<a href="<?php echo  FRONT_ROOT . "/Showtime/activate?activate=" .  $showtime->getShowtimeId() ?>" name="activate" class="btn btn-light">
 											<i class="fas fa-toggle-off"></i>
-										</button>
+										</a>
 										<?php 
 										}
 										?>
-									</form>
 								</td>
 							</tr>
 				<?php
@@ -118,7 +113,7 @@ include('nav.php');
 
 					<div class="form-group">
 						<label>Subtitle</label>
-						<input type="checkbox" name="subtitle" class="form-control">
+						<input type="checkbox" name="subtitle" class="form-control" value="">
 					</div>
 				</div>
 					

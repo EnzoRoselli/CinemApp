@@ -4,8 +4,14 @@
 
   
 function checkDelete(){
-    return confirm('Are you sure?');
+    return confirm('¿Está seguro?');
 }
+
+function success() {
+//     echo '<script type="text/javascript">
+//     alert("La operación se ha realizado con éxito");
+// </script>'; 
+  }
 
 $(document).on('click', '#success', function(e) {
     swal(

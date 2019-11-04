@@ -28,48 +28,34 @@ class ShowtimeController
         $this->cinemasDAO = new CinemasDAO();
         $this->moviesDAO = new MoviesDAO();
         $this->languagesDAO = new LanguagesDAO();
-        $this->APIController= new APIController();
+        $this->APIController = new APIController();
         $this->APIController->sendToDataBase();
     }
 
-    public function determinateUpdateCreate()
-    {
-        echo "asdadsd";
-
-        if ($_POST) {
-            if ($_POST[SHOWTIME_ID] != "") {
-                $this->update();
-                $this->showShowtimeMenu();
-
-            } else if ($_POST[SHOWTIME_ID] == "") {
-                $this->create();
-                $this->showShowtimeMenu();
-
-            }
-        }
-    }
+    // 
     public function showShowtimeMenu()
     {
         try {
             $cinemasList = $this->cinemasDAO->getAll();
-           $moviesList = $this->moviesDAO->getAll();
+            $moviesList = $this->moviesDAO->getAll();
             $languagesList = $this->languagesDAO->getAll();
             $showtimes = $this->showtimeDao->getAll();
         } catch (\Throwable $th) {
             var_dump($th);
-          // // $advice = ShowtimeController::showMessage("DB");
+            // // $advice = ShowtimeController::showMessage("DB");
         } finally {
             require_once(VIEWS . "/AdminShowtimes.php");
         }
     }
 
-    public function create()
+    public function create($idCinema, $idMovie, $nameLanguage, $date, $hour)
     {
 
-        $cinema = $this->cinemasDAO->searchById($_POST['idCinema']);
-        $movie = $this->moviesDAO->searchById($_POST['idMovie']);
-        $language = $this->languagesDAO->searchByName($_POST['nameLanguage']);
+        $cinema = $this->cinemasDAO->searchById($idCinema);
+        $movie = $this->moviesDAO->searchById($idMovie);
+        $language = $this->languagesDAO->searchByName($nameLanguage);
         $subtitled = null;
+        $message=0;
 
         if (isset($_POST['subtitle']) && $_POST['subtitle'] != "") {
             $subtitled = 1;
@@ -77,27 +63,34 @@ class ShowtimeController
             $subtitled = 0;
         }
 
-        $showtime = new Showtime($movie, $cinema, $_POST['date'], $_POST['hour'], $language, $subtitled);
+        $showtime = new Showtime($movie, $cinema, $date, $hour, $language, $subtitled);
         $showtime->setActive(true);
         $showtime->setTicketAvaliable($cinema->getCapacity());
 
         try {
             if ($this->validateShowtimeDate($showtime) && !$this->isMovieInOtherCinema($showtime)) {
                 $this->showtimeDao->add($showtime);
-
-            }else {
-                
+            } else {
+                $message = 1;
             }
         } catch (\Throwable $th) {
-
             var_dump($th);
         } finally {
-
+            if($message==0){
+                echo '<script type="text/javascript">
+                    alert("Función creada con éxito");
+                </script>';
+            }else{
+                echo '<script type="text/javascript">
+                    alert("El cine ingresado o el horario son erróneos");
+                </script>';
+            }
+            
             $this->showShowtimeMenu();
         }
     }
 
- 
+
 
 
     public function isMovieInOtherCinema(Showtime $showtime)
@@ -143,10 +136,10 @@ class ShowtimeController
         try {
             if (!empty($this->showtimeDao->searchById($_GET['id']))) {
                 $this->showtimeDao->delete($_GET['id']);
-               // $advice = ShowtimeController::showMessage(5);
+                // $advice = ShowtimeController::showMessage(5);
             }
         } catch (\Throwable $th) {
-           // $advice = ShowtimeController::showMessage("DB");
+            // $advice = ShowtimeController::showMessage("DB");
         }
     }
     public function update()
@@ -154,40 +147,49 @@ class ShowtimeController
         try {
             if (!empty($this->showtimeDao->searchById($_GET['id']))) {
                 $this->showtimeDao->modify($_GET['id']);
-               // $advice = ShowtimeController::showMessage(2);
+                // $advice = ShowtimeController::showMessage(2);
             } else {
-               // $advice = ShowtimeController::showMessage(3);
+                // $advice = ShowtimeController::showMessage(3);
             }
         } catch (\Throwable $th) {
-           // $advice = ShowtimeController::showMessage("DB");
+            // $advice = ShowtimeController::showMessage("DB");
         }
     }
 
-    public function activate($id)
+    public function activate()
     {
+        $id = $_GET['activate'];
         try {
-            if (!empty($this->showtimeDao->searchById($id))) {
                 $this->showtimeDao->activate($id);
-               // $advice = ShowtimeController::showMessage("activado");
-            } else {
-               // $advice = ShowtimeController::showMessage(3);
-            }
-        } catch (\Throwable $th) {
-           // $advice = ShowtimeController::showMessage("DB");
+        }catch (\Throwable $th) {
+            // $advice = ShowtimeController::showMessage("DB");
         }
+        $this->showShowtimeMenu();
     }
 
     public function desactivate($id)
     {
+        $id = $_GET['desactivate'];
         try {
-            if (!empty($this->showtimeDao->searchById($id))) {
                 $this->showtimeDao->desactivate($id);
-               // $advice = ShowtimeController::showMessage("desactivado");
-            } else {
-               // $advice = ShowtimeController::showMessage(3);
-            }
-        } catch (\Throwable $th) {
-           // $advice = ShowtimeController::showMessage("DB");
+        }catch (\Throwable $th) {
+            // $advice = ShowtimeController::showMessage("DB");
         }
+        $this->showShowtimeMenu();
     }
+
+
+   // public function determinateUpdateCreate()
+    // {
+
+    //     if ($_POST) {
+    //         if ($_POST[SHOWTIME_ID] != "") {
+    //             $this->update();
+    //             $this->showShowtimeMenu();
+    //         } else if ($_POST[SHOWTIME_ID] == "") {
+    //             $this->create();
+    //             $this->showShowtimeMenu();
+    //         }
+    //     }
+    // }
 }

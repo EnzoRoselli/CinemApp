@@ -81,7 +81,7 @@ class CineController
 
                 $cinemaPreModification = $this->CineDao->searchById($id);
                 //Para comparar el nombre y dirección del cine antes de la modificación
-                
+
                 if (
                     $cinemaPreModification->getName() == $cinemaToModify->getName()
                     && $cinemaPreModification->getAddress() == $cinemaToModify->getAddress()
@@ -89,13 +89,11 @@ class CineController
                     //SI LOS NOMBRES SON IGUALES, QUIERE DECIR QUE CAMBIA LA CAPACIDAD O TICKET.
                     $this->CineDao->modify($cinemaToModify);
                     array_push($advices, MODIFIED);
-
-
                 } else {
                     //CORROBORAMOS QUE EL NUEVO NOMBRE / ADDRESS NO LO CONTENGA OTRO CINE
                     if ($this->CineDao->exists($cinemaToModify)) {
                         array_push($advices, SIN_MODIFICACION);
-                    } else {                       
+                    } else {
                         $this->CineDao->modify($cinemaToModify);
                         array_push($advices, MODIFIED);
                     }
@@ -119,6 +117,7 @@ class CineController
         $id = $_GET['delete'];
         try {
             $this->CineDao->delete($id);
+            
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -141,6 +140,9 @@ class CineController
         $id = $_GET['desactivate'];
         try {
             $this->CineDao->desactivate($id);
+            echo '<script type="text/javascript">
+                 alert("La operación se ha realizado con éxito");
+            </script>'; 
         } catch (\Throwable $th) {
             throw $th;
         }
