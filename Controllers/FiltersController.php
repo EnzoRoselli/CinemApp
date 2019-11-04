@@ -2,13 +2,10 @@
 
 namespace Controllers;
 
-use DAO\InfoAPI\moviesAPI as moviesAPI;
-use DAO\InfoAPI\genresAPI as genresAPI;
 use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\GenresDAO as GenresDAO;
 use DAO\GenresXMoviesDAO as GenresXMoviesDAO;
-
 use Model\Movie;
 
 class FiltersController
@@ -39,7 +36,10 @@ class FiltersController
 
         if (isset($_GET['genres']) && !empty($_GET['date'])) {
 
-            $this->showFilteredMovies();
+            $moviesByGenres = $this->searchByGenres($_GET['genres']);
+            $allShowtimesDate = $this->moviesToShowtimesDate($moviesByGenres);
+            $showtimesByDate = $this->searchByDate($allShowtimesDate);
+            $this->showFilteredMovies(null, $showtimesByDate);
         } else if (isset($_GET['genres']) && empty($_GET['date'])) {
 
             try {
@@ -113,6 +113,31 @@ class FiltersController
         }
             
         return $showtimesByDate;
+    }
+
+    public function moviesToShowtimesDate($moviesByGenres){
+
+        try {
+
+            $showtimes = $this->showtimeDao->getAll();
+            $showtimesDate = array();
+
+            foreach ($showtimes as $showtime) {
+
+                foreach ($moviesByGenres as  $movie) {
+                    
+                    if ($showtime->getMovie()->getTitle() == $movie->getTitle() && $showtime->getActive() == true) {
+                        array_push($showtimesDate, $showtime->getDate());
+                    }
+                }
+            }
+
+
+        } catch (\Throwable $th) {
+            array_push($advices, DB_ERROR);
+        }
+
+        return $showtimesDate;
     }
 
     public function showFilteredMovies($moviesByGenres = "", $showtimesByDate = ""){
