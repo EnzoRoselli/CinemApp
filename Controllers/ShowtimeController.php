@@ -50,7 +50,6 @@ class ShowtimeController
 
     public function create($idCinema, $idMovie, $nameLanguage, $date, $hour)
     {
-
         $cinema = $this->cinemasDAO->searchById($idCinema);
         $movie = $this->moviesDAO->searchById($idMovie);
         $language = $this->languagesDAO->searchByName($nameLanguage);
@@ -85,9 +84,9 @@ class ShowtimeController
                     alert("El cine ingresado o el horario son erróneos");
                 </script>';
             }
-            
             $this->showShowtimeMenu();
         }
+        
     }
 
 
@@ -178,18 +177,4 @@ class ShowtimeController
         $this->showShowtimeMenu();
     }
 
-
-   // public function determinateUpdateCreate()
-    // {
-
-    //     if ($_POST) {
-    //         if ($_POST[SHOWTIME_ID] != "") {
-    //             $this->update();
-    //             $this->showShowtimeMenu();
-    //         } else if ($_POST[SHOWTIME_ID] == "") {
-    //             $this->create();
-    //             $this->showShowtimeMenu();
-    //         }
-    //     }
-    // }
 }
