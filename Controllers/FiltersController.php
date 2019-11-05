@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Controllers\HomeController as HomeController;
 use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\GenresDAO as GenresDAO;
@@ -10,6 +11,7 @@ use Model\Movie;
 
 class FiltersController
 {
+    private $homeController;
     private $showtimeDao;
     private $MoviesDAO;
     private $genreDAO;
@@ -17,6 +19,7 @@ class FiltersController
 
     public function __construct()
     {
+        $this->homeController = new HomeController();
         $this->showtimeDao = new ShowtimeDAO();
         $this->genreDAO = new GenresDAO();
         $this->MoviesDAO = new MoviesDAO();
@@ -45,7 +48,7 @@ class FiltersController
 
                 if(!empty($showtimesFixed)){
 
-                    $this->showFilteredMovies(null, $showtimesFixed);
+                    $this->showFilteredMovies(null, null, $showtimesFixed);
                 }else{
                     $message = 1;
                 }
@@ -56,7 +59,7 @@ class FiltersController
                     
                     if(!empty($moviesByGenres)){
 
-                        $this->showFilteredMovies($moviesByGenres, null);
+                        $this->showFilteredMovies(null, $moviesByGenres, null);
                     }else{
                         $message = 1;
                     }
@@ -70,7 +73,7 @@ class FiltersController
 
                     if(!empty($showtimesFixed)){
 
-                        $this->showFilteredMovies(null, $showtimesFixed);
+                        $this->showFilteredMovies(null, null, $showtimesFixed);
                     }else{
                         $message = 1;
                     }
@@ -93,6 +96,7 @@ class FiltersController
     public function searchMovieByName()
     {
         $advices = array(); //Futuramente se guardaran los msj de errores
+        $message = 0;
         $title = $_GET['title'];
         $movie = new Movie();
         $movie->setTitle($title);
@@ -101,12 +105,24 @@ class FiltersController
             if ($comprobationMovie) {
                 array_push($advices, ADDED);
             } else {
-                array_push($advices, NOT_FOUND);                
+                array_push($advices, NOT_FOUND);
+                $message = 1;
             }
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
         } finally {
-            require_once(VIEWS . '/ShowMovieByName.php');
+
+            if($message == 1){
+                
+                echo '<script type="text/javascript">
+                        alert("Ninguna pelicula encaja con el nombre ingresado");
+                    </script>';
+    
+                $this->homeController->Index();
+            }else{
+                
+                $this->showFilteredMovies($comprobationMovie, null, null);
+            }
         }
     }
 
@@ -210,7 +226,7 @@ class FiltersController
         return $showtimesFixed;
     }
 
-    public function showFilteredMovies($moviesByGenres = "", $showtimesByDate = "", $showtimesByDateAndGenres = ""){
+    public function showFilteredMovies($movieByName = "", $moviesByGenres = "", $showtimesByDate = ""){
         
         require_once(VIEWS . '/ShowFilteredMovies.php');
     }

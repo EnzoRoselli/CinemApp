@@ -5,18 +5,18 @@ include('nav.php');
 
 <?php
 
-if (!empty($comprobationMovie)) {
+if (!empty($movieByName)) {
 
     ?>
     <div class="container">
         <div class="block">
             <button class="card-image">
                 <a href="">
-                    <img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $comprobationMovie->getPosterPath(); ?> class="image">
+                    <img src=<?php echo "http://image.tmdb.org/t/p/w185/" . $movieByName->getPosterPath(); ?> class="image">
                 </a>
                 <div class="overview">
-                    <h2><?php echo $comprobationMovie->getTitle(); ?></h2>
-                    <p><?php echo $comprobationMovie->getReleaseDate(); ?></p>
+                    <h2><?php echo $movieByName->getTitle(); ?></h2>
+                    <p><?php echo $movieByName->getReleaseDate(); ?></p>
                 </div>
             </button>
         </div>
