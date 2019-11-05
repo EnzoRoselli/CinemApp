@@ -89,9 +89,6 @@ class ShowtimeController
         
     }
 
-
-
-
     public function isMovieInOtherCinema(Showtime $showtime)
     {
         $comprobationIdCinema = $this->showtimeDao->getShowtimesMovieOfAday($showtime);

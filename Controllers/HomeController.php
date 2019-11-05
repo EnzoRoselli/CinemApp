@@ -28,9 +28,11 @@
         }
 
         public function showHome()
-        {       
-            require_once(VIEWS.'/lastArrival.php');
-            $moviesList = $this->moviesDAO->getAll();
+        {   
+            $moviesList = $this->moviesDAO->getAll();    
+            //require_once(VIEWS.'/lastArrival.php');
+            require_once(VIEWS.'/Slider.php');
+            
             require_once(VIEWS."/MovieGrid.php");
         }
 

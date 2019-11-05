@@ -8,10 +8,10 @@
 /* BACKGROUND IMAGE */
 
 .bg-image {
-    position: relative;
+    position: absolute;
     background: url('https://culto.latercera.com/wp-content/uploads/2019/09/WhatsApp-Image-2019-09-07-at-17.59.48.jpeg');
-    height: 90vh;
-    width: 99vw;
+    height: 95vh;
+    width: 98.5vw;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
