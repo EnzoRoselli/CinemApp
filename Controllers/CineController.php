@@ -129,6 +129,9 @@ class CineController
         $id = $_GET['activate'];
         try {
             $this->CineDao->activate($id);
+            echo '<script type="text/javascript">
+            alert("La operación se ha realizado con éxito");
+       </script>'; 
         } catch (\Throwable $th) {
             throw $th;
         }
