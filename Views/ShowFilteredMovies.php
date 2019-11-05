@@ -67,6 +67,10 @@ if (!empty($comprobationMovie)) {
                             <div class="overview">
                                 <h2><?php echo $showtimesByDate[$i]->getMovie()->getTitle(); ?></h2>
                                 <p><?php echo $showtimesByDate[$i]->getCinema()->getName(); ?></p>
+                                <h3>Horarios</h3>
+                                <p><?php foreach ($showtimesByDate[$i]->getHour() as $value) {
+                                    echo $value . "<br>";
+                                }  ?></p>
                             </div>
                         </button>
                     </div>
