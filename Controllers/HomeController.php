@@ -2,13 +2,16 @@
     namespace Controllers;
 
     use DAO\MoviesDAO as MoviesDAO;
+    use DAO\GenresDAO as GenresDAO;
 
     class HomeController
     {
         private $moviesDAO;
+        private $genresDAO;
 
         public function __construct()
         {
+            $this->genresDAO = new GenresDAO();
             $this->moviesDAO = new MoviesDAO();
         }
 
@@ -29,6 +32,7 @@
 
         public function showHome()
         {   
+            
             $moviesList = $this->moviesDAO->getAll();    
             //require_once(VIEWS.'/lastArrival.php');
             require_once(VIEWS.'/Slider.php');

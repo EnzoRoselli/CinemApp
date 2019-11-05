@@ -2,6 +2,7 @@
     <div class="container">
         <?php
         foreach($moviesList as $movie){
+           $genres=$this->genresDAO->getGenresByMovieId($movie->getId());
             ?>
             <div class="block">
                 <button class="card-image">
@@ -14,7 +15,7 @@
                 </button>
                 <div class="overlay-card">
                     <div class="overlay-card-background"></div>
-                    <p>Drama</p>
+                    <p><?php echo $genres[0]; ?></p>
                     <button>View Details</button>
                 </div>
             </div>

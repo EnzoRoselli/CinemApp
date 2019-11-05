@@ -64,4 +64,22 @@ class GenresDAO
             throw $th;
         }
     }
+
+    public function getGenresByMovieId($movieId)
+    {
+        $genreList = array();
+        try {      
+        $query ="select genres.genre_name from ".$this->tableName." "."
+        inner join genres_by_movies on genres_by_movies.id_genre=genres.id and genres_by_movies.id_movie=:movieId;";
+        $parameters["movieId"] = $movieId;
+        $this->connection = Connection::GetInstance();
+        $resultSet = $this->connection->Execute($query,$parameters);
+        foreach ($resultSet as $genreName) {
+           array_push($genreList,$genreName['genre_name']);
+        } 
+        return $genreList;
+    } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

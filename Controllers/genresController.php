@@ -19,18 +19,22 @@ class GenresController
         require_once(VIEWS.'/Filter.php');
     }
 
-    public function sendToDataBase(){
+  /*  public function sendToDataBase(){
         $genresList = json_decode(json_encode($this->genres), true);
         foreach($genresList as $key){
             $genre = new Genre();
             $genre->setName($key['name']);
             $this->genreDAO->add($genre);
         }
-    }
-
+    }*/
+/*
     public function getGenreList(){
        // $this->genreList = genresAPI::getGenres();
          return $this->genres;
+    }*/
+    public function getGenresByMovieId($MovieId)
+    {
+       $genresName=$this->genreDAO->getGenresByMovieId($MovieId);
     }
     
 }
