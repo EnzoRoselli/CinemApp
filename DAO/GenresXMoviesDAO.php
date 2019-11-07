@@ -79,31 +79,18 @@ class GenresXMoviesDAO
 
     public function getMoviesByGenresIds($genreIds){
 
-        $this->getAll();
         $moviesDAO = new MoviesDAO();
-        $auxList = array();
-        $moviesList = array();
         $allMovies = $moviesDAO->getAll();
-
-        for ($i=0; $i < count($this->genreXmovieList); $i++) { 
-
-            for ($j=0; $j < count($genreIds); $j++) { 
-
-                if($this->genreXmovieList[$i]->getGenreId() == $genreIds[$j]){
-
-                    array_push($auxList, $this->genreXmovieList[$i]);
-                }
-                
-            }
-        }
+        $moviesList = array();
+        $genreXmovieList = $this->getGenresXMoviesByGenresIds($genreIds);
 
         for ($i=0; $i < count($allMovies); $i++) { 
             
             $counter=0;
 
-            for ($j=0; $j < count($auxList); $j++) { 
+            for ($j=0; $j < count($genreXmovieList); $j++) { 
                 
-                if($allMovies[$i]->getId() == $auxList[$j]->getMovieId()){
+                if($allMovies[$i]->getId() == $genreXmovieList[$j]->getMovieId()){
 
                     $counter++;
                 }
@@ -116,7 +103,36 @@ class GenresXMoviesDAO
             }
         }
 
-
         return $moviesList;
     }
+
+    public function getGenresXMoviesByGenresIds($genreIds){
+
+        $this->genreXmovieList = array();
+
+        foreach ($genreIds as $genreId) {
+            
+            $query = "SELECT * FROM" . ' ' . $this->tableName . " " . "WHERE id_genre = :id_genre";
+
+            $parameters["id_genre"] = $genreId;
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+
+                $genre_x_movie = new GenreXMovie();
+
+                $genre_x_movie->setMovieId($row['id_movie']);
+                $genre_x_movie->setGenreId($row['id_genre']);
+
+                array_push($this->genreXmovieList, $genre_x_movie);
+            }
+        }
+
+        return $this->genreXmovieList;
+    }
+
+    
+
 }
