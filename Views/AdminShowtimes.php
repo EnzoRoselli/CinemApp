@@ -47,7 +47,7 @@ include('nav.php');
 								<td><?php echo $showtime->getTicketAvaliable() . '/' . $showtime->getCinema()->getCapacity(); ?></td>
 								<td>
 									
-										<?php if($showtime->getCinema()->getActive()){
+										<?php if($showtime->getCinema()->getActive() && $showtime->getActive()){
 											?>
 										<a href=<?php echo  FRONT_ROOT . "/Showtime/desactivate?desactivate=" .  $showtime->getShowtimeId() ?> name="desactivate" class="btn btn-light">
 											<i class="fas fa-toggle-on"></i>

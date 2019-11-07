@@ -3,16 +3,19 @@
 
     use DAO\MoviesDAO as MoviesDAO;
     use DAO\GenresDAO as GenresDAO;
+    use Controllers\ShowtimeController as ShowtimeController;
 
     class HomeController
     {
         private $moviesDAO;
         private $genresDAO;
+        private $ShowtimeController;
 
         public function __construct()
         {
             $this->genresDAO = new GenresDAO();
             $this->moviesDAO = new MoviesDAO();
+            $this->ShowtimeController=new ShowtimeController();
         }
 
         public function Index($message = "")
@@ -32,7 +35,8 @@
 
         public function showHome()
         {   
-            
+           
+            $this->ShowtimeController->updateShowtimes();
             $moviesList = $this->moviesDAO->getAll();    
             //require_once(VIEWS.'/lastArrival.php');
             require_once(VIEWS.'/Slider.php');

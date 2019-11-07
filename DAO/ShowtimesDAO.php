@@ -146,9 +146,9 @@ class ShowtimesDAO {
     public function desactivate($id)
     {
         try{
-            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
+            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:desactive WHERE id=:id";
             $parameters["id"] = $id;
-            $parameters["active"] = 0;
+            $parameters["desactive"] = 0;
           
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
@@ -193,7 +193,7 @@ class ShowtimesDAO {
                 }else{
                     $Showtime->setActive(false);
                 }
-                if ($row['ticketAvaliable'] > $cinema->getCapacity()) {
+                if ($row['ticketAvaliable'] > $cinema->getCapacity() && $row['active']==1) {
                     $Showtime->setTicketAvaliable($cinema->getCapacity());
                     $this->modify($Showtime);
                 }else {
@@ -257,5 +257,7 @@ class ShowtimesDAO {
             throw $th;
         }
     }
+
+    
 
 }

@@ -32,6 +32,27 @@ class ShowtimeController
         $this->APIController->sendToDataBase();
     }
 
+    public function updateShowtimes()
+    {
+        $showtimes = $this->showtimeDao->getAll();
+        foreach ($showtimes as $item) {
+       
+                $date = date_create($item->getDate());
+                $time = explode(":", $item->getHour());
+                date_time_set($date, $time[0], $time[1]);
+
+            $actualDate=date_create(date("Y-m-d"));
+            $actualTime = explode(":", date("h:i"));
+            date_time_set($actualDate, $actualTime[0], $actualTime[1]);
+
+                if ($date < $actualDate) {
+          
+                    $this->showtimeDao->desactivate($item->getShowtimeId());
+                 }
+            
+        }
+    }
+
     // 
     public function showShowtimeMenu()
     {
@@ -54,7 +75,7 @@ class ShowtimeController
         $movie = $this->moviesDAO->searchById($idMovie);
         $language = $this->languagesDAO->searchByName($nameLanguage);
         $subtitled = null;
-        $message=0;
+        $message = 0;
 
         if (isset($_POST['subtitle']) && $_POST['subtitle'] != "") {
             $subtitled = 1;
@@ -75,18 +96,17 @@ class ShowtimeController
         } catch (\Throwable $th) {
             var_dump($th);
         } finally {
-            if($message==0){
+            if ($message == 0) {
                 echo '<script type="text/javascript">
                     alert("Función creada con éxito");
                 </script>';
-            }else{
+            } else {
                 echo '<script type="text/javascript">
                     alert("El cine ingresado o el horario son erróneos");
                 </script>';
             }
             $this->showShowtimeMenu();
         }
-        
     }
 
     public function isMovieInOtherCinema(Showtime $showtime)
@@ -156,8 +176,8 @@ class ShowtimeController
     {
         $id = $_GET['activate'];
         try {
-                $this->showtimeDao->activate($id);
-        }catch (\Throwable $th) {
+            $this->showtimeDao->activate($id);
+        } catch (\Throwable $th) {
             // $advice = ShowtimeController::showMessage("DB");
         }
         $this->showShowtimeMenu();
@@ -167,11 +187,10 @@ class ShowtimeController
     {
         $id = $_GET['desactivate'];
         try {
-                $this->showtimeDao->desactivate($id);
-        }catch (\Throwable $th) {
+            $this->showtimeDao->desactivate($id);
+        } catch (\Throwable $th) {
             // $advice = ShowtimeController::showMessage("DB");
         }
         $this->showShowtimeMenu();
     }
-
 }
