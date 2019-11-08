@@ -54,16 +54,16 @@ CONSTRAINT pk_language PRIMARY KEY(id),
 CONSTRAINT unq_name_language UNIQUE(name_language));
 
 CREATE TABLE IF NOT EXISTS theaters(
-    id int AUTO_INCREMENT,
-    theater_number int unq,
-    id_cinema int unq,
-    active boolean,
-    ticket_value float,
-    capacity int,
-    CONSTRAINT pk_theater PRIMARY KEY(id),
-    CONSTRAINT unq_theater_number UNIQUE (theater_number),
-    CONSTRAINT unq_id_cinema UNIQUE (id_cinema),
-    CONSTRAINT fk_id_cinema_theaters FOREIGN KEY (id_cinema) REFERENCES cinemas(id) ON DELETE CASCADE);
+id int AUTO_INCREMENT,
+theater_number int unq,
+id_cinema int unq,
+active boolean,
+ticket_value float,
+capacity int,
+CONSTRAINT pk_theater PRIMARY KEY(id),
+CONSTRAINT unq_theater_number UNIQUE (theater_number),
+CONSTRAINT unq_id_cinema UNIQUE (id_cinema),
+CONSTRAINT fk_id_cinema_theaters FOREIGN KEY (id_cinema) REFERENCES cinemas(id) ON DELETE CASCADE);
 
 CREATE TABLE IF NOT EXISTS showtimes(
 id int AUTO_INCREMENT,

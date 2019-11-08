@@ -10,22 +10,22 @@ class TheatersDAO
 
     private $cineList  = array();
     private $connection;
-    private $tableName = "cinemas";
+    private $tableName = "theaters";
 
-    public function add(Cine $cine)
+    public function add(Theater $theater)
     {        
         try {
 
             $query = "INSERT INTO " . " " . $this->tableName . " " .
-                " (cinema_name, address, capacity,ticket_value, active) VALUES
-                                 (:name,:address,:capacity,:ticket_value, :active);";
+                " (theater_number, id_cinema, active,ticket_value, capacity) VALUES
+                                 (:theater_number,:id_cinema,:active,:ticket_value, :capacity);";
 
 
-            $parameters["name"] = $cine->getName();
-            $parameters["address"] = $cine->getAddress();
-            $parameters["capacity"] = $cine->getCapacity();
-            $parameters["ticket_value"] = $cine->getTicketValue();
-            $parameters["active"] = $cine->getActive();
+            $parameters["theater_number"] = $theater->getNumber();
+            $parameters["id_cinema"] = $theater->getCinema();
+            $parameters["active"] = $theater->getActive();
+            $parameters["ticket_value"] = $theater->getTicketValue();
+            $parameters["capacity"] = $theater->getCapacity();
 
 
             $this->connection = Connection::GetInstance();
@@ -35,15 +35,15 @@ class TheatersDAO
         }    
     }
 
-    public function exists(Cine $cine)
+    public function exists(Theater $theater)
     {
        
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE cinema_name=:cineName and address=:cineAddress";
+            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id_cinema=:id_cinema and theater_number=:theater_number";
 
-            $parameters["cineName"] = $cine->getName();
-            $parameters["cineAddress"] = $cine->getAddress();
+            $parameters["id_cinema"] = $theater->getName();
+            $parameters["theater_number"] = $theater->getAddress();
            
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
@@ -70,6 +70,7 @@ class TheatersDAO
         }
         
     }
+
     public function activate($id)
     {        
         try {
@@ -84,6 +85,7 @@ class TheatersDAO
         }
         
     }
+
     public function desactivate($id)
     {
         try{
@@ -150,10 +152,6 @@ class TheatersDAO
         }
     }
 
-
-
-
-
     public function getAll()
     {
 
@@ -183,6 +181,9 @@ class TheatersDAO
             throw $th;
         }
     }
+
+
+
 }
 
 ?>
