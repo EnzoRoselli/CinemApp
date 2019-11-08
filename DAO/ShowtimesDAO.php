@@ -158,13 +158,16 @@ class ShowtimesDAO {
         }
     }
 
+
+   
+
     public function getAll()
     {
         
         try {
             
             $this->showtimesList = array();
-            $query = "SELECT * FROM" . ' ' . $this->tableName;
+            $query = "SELECT * FROM" . ' ' . $this->tableName . " "." ORDER BY(view_date)" ;
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
@@ -200,16 +203,17 @@ class ShowtimesDAO {
                     $Showtime->setTicketAvaliable($row['ticketAvaliable']);
                 }
                 
-                
-                array_push($this->showtimesList, $Showtime);
-                
+                array_push($this->showtimesList, $Showtime);                
             }
+   
             return $this->showtimesList;
         } catch (\Throwable $th) {
 
             throw $th;
         }
     }
+
+   
     public function getShowtimesMovieOfAday(Showtime $showtime)
     {
         try {
