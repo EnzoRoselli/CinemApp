@@ -149,14 +149,13 @@ class CinemasDAO
 
 
 
-
-
+  
     public function getAll()
     {
 
         try {
             $this->cineList = array();
-            $query = "SELECT * FROM" . ' ' . $this->tableName;
+            $query = "SELECT * FROM" . ' ' . $this->tableName." "." ORDER BY ";
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {

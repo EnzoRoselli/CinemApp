@@ -3,6 +3,7 @@
 namespace DAO;
 
 use Model\Theater as Theater;
+use DAO\CinemasDAO as  CinemasDAO;
 //Fijarse de no mostrar toodos los cines, sino los activos, o agregar un filtro de si quiere ver los activos nomas
 
 class TheatersDAO
@@ -11,6 +12,11 @@ class TheatersDAO
     private $cineList  = array();
     private $connection;
     private $tableName = "theaters";
+    private $cinemasDAO;
+
+    public function __construct() {
+        $this->cinemasDAO = new cinemasDAO();
+    }
 
     public function add(Theater $theater)
     {        
@@ -150,6 +156,40 @@ class TheatersDAO
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function getSortedTheatersByCineId($CineId)
+    {
+        try {
+            
+        $TheaterList=array();
+        $query ="SELECT * FROM ".$this->tableName." ". "
+        INNER JOIN cinemas ON ". $this->tableName.".id_cinema =cinemas.:cinema_id 
+        ORDER BY (".$this->tableName.".theater_number) DESC";
+        $parameters["cinema_id "] = $CineId;
+        $this->connection = Connection::GetInstance();
+       $resultSet=$this->connection->Execute($query, $parameters);
+       
+       foreach ($resultSet as $item) {
+        $Theater=new Theater();
+        $Theater->setId($item['id']);
+        $Theater->setNumber($item['theater_number']);
+
+        $cinema=$this->cinemasDAO->searchById($item['id_cinema']);
+        $Theater->setCinema($cinema);
+
+        $Theater->setActive($item['active']);
+        $Theater->setTicketValue($item['ticket_value']);
+        $Theater->setCapacity($item['capacity']);
+
+        array_push($TheaterList,$Theater);
+       }
+       return $TheaterList;
+    } catch (\Throwable $th) {
+        throw $th;
+    }
+
+
     }
 
     public function getAll()
