@@ -78,7 +78,6 @@ class CineController
 
         if ($this->checkNotEmptyParameters($cinemaToModify)) { //Si los campos son correctos
             try {
-
                 $cinemaPreModification = $this->CineDao->searchById($id);
                 //Para comparar el nombre y dirección del cine antes de la modificación
 
@@ -86,9 +85,7 @@ class CineController
                     $cinemaPreModification->getName() == $cinemaToModify->getName()
                     && $cinemaPreModification->getAddress() == $cinemaToModify->getAddress()
                 ) {
-                    //SI LOS NOMBRES SON IGUALES, QUIERE DECIR QUE CAMBIA LA CAPACIDAD O TICKET.
-                    $this->CineDao->modify($cinemaToModify);
-                    array_push($advices, MODIFIED);
+                    array_push($advices, SIN_MODIFICACION);
                 } else {
                     //CORROBORAMOS QUE EL NUEVO NOMBRE / ADDRESS NO LO CONTENGA OTRO CINE
                     if ($this->CineDao->exists($cinemaToModify)) {

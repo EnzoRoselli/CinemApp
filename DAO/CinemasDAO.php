@@ -20,14 +20,12 @@ class CinemasDAO
         try {
 
             $query = "INSERT INTO " . " " . $this->tableName . " " .
-                " (cinema_name, address, capacity,ticket_value, active) VALUES
-                                 (:name,:address,:capacity,:ticket_value, :active);";
+                " (cinema_name, address, active) VALUES
+                                 (:name,:address,:active);";
 
 
             $parameters["name"] = $cine->getName();
             $parameters["address"] = $cine->getAddress();
-            $parameters["capacity"] = $cine->getCapacity();
-            $parameters["ticket_value"] = $cine->getTicketValue();
             $parameters["active"] = $cine->getActive();
 
 
@@ -119,8 +117,6 @@ class CinemasDAO
                 $cinema->setID($resultSet[0]["id"]);
                 $cinema->setName($resultSet[0]["cinema_name"]);
                 $cinema->setAddress($resultSet[0]["address"]);
-                $cinema->setCapacity($resultSet[0]["capacity"]);
-                $cinema->setTicketValue($resultSet[0]["ticket_value"]);
                 $cinema->setActive($resultSet[0]["active"]);
                 
                 return $cinema;
@@ -138,12 +134,10 @@ class CinemasDAO
 
         try {
             
-            $query = "UPDATE " . " " . $this->tableName . " " . "SET cinema_name=:name, address=:address, capacity=:capacity, ticket_value=:ticket_value WHERE id=:id";
+            $query = "UPDATE " . " " . $this->tableName . " " . "SET cinema_name=:name, address=:address WHERE id=:id";
 
             $parameters["name"] = $cine->getName();
             $parameters["address"] = $cine->getAddress();
-            $parameters["capacity"] = $cine->getCapacity();
-            $parameters["ticket_value"] = $cine->getTicketValue();
             $parameters["id"] = $cine->getId();
 
             $this->connection = Connection::GetInstance();
@@ -171,8 +165,6 @@ class CinemasDAO
                 $cine->setId($row['id']);
                 $cine->setName($row['cinema_name']);
                 $cine->setAddress($row['address']);
-                $cine->setCapacity($row['capacity']);
-                $cine->setTicketValue($row['ticket_value']);
                 if($row['active'] == 1){
                     $cine->setActive(true);
                 }else{
