@@ -38,17 +38,17 @@ class CineController
     {
 
         if ($id != "") {
-            $this->update($id, $name, $address, $capacity, $ticketValue);
+            $this->update($id, $name, $address);
         } else if ($id == "") {
-            $this->create($name, $address, $capacity, $ticketValue);
+            $this->create($name, $address);
         }
     }
 
-    public function create($name, $address, $capacity, $ticketValue)
+    public function create($name, $address)
     {
 
         $advices = array();
-        $cine = new Cine($name, $address, $capacity, $ticketValue);
+        $cine = new Cine($name, $address);
         $cine->setActive(true);
 
         if ($this->checkNotEmptyParameters($cine)) {
@@ -69,9 +69,9 @@ class CineController
         $this->showCinemasOnTable();
     }
 
-    public function update($id, $name, $address, $capacity, $ticketValue)
+    public function update($id, $name, $address)
     {
-        $cinemaToModify = new Cine($name, $address, $capacity, $ticketValue);
+        $cinemaToModify = new Cine($name, $address);
         $cinemaToModify->setId($id);
         $advices = array();
 
@@ -154,7 +154,7 @@ class CineController
 
     public function checkNotEmptyParameters($cine)
     {
-        if (!empty($cine->getName()) && !empty($cine->getAddress()) && !empty($cine->getCapacity()) && $cine->getCapacity() > 0 && !empty($cine->getTicketValue()) && $cine->getTicketValue() > 0) {
+        if (!empty($cine->getName()) && !empty($cine->getAddress())) {
             return true;
         } else {
             return false;

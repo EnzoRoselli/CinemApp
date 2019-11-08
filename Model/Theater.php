@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Theather  
+class Theater  
 {
     private $id;
     private $number;
