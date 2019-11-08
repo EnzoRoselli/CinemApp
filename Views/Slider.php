@@ -23,7 +23,7 @@
             <button href="#" class="adelante" onclick="avanzaSlide(1)">&#10095;</button>
         </div>
         <div class="barras">
-            <span class="barra active" onclick="posicionSlide(1)"></span>
+            <span class="barra active-bar" onclick="posicionSlide(1)"></span>
             <span class="barra" onclick="posicionSlide(2)"></span>
             <span class="barra" onclick="posicionSlide(3)"></span>
         </div>

@@ -39,7 +39,7 @@
             $this->ShowtimeController->updateShowtimes();
             $moviesList = $this->moviesDAO->getAll();    
             //require_once(VIEWS.'/lastArrival.php');
-            require_once(VIEWS.'/Slider.php');
+            //require_once(VIEWS.'/Slider.php');
             
             require_once(VIEWS."/MovieGrid.php");
         }

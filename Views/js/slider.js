@@ -26,10 +26,10 @@ function muestraSlides(n){
         slides[i].style.display = 'none';
     }
     for(i = 0; i < barras.length; i++){
-        barras[i].className = barras[i].className.replace(" active", "");
+        barras[i].className = barras[i].className.replace(" active-bar", "");
     }
 
     slides[indice-1].style.display = 'block';
-    barras[indice-1].className += ' active';
+    barras[indice-1].className += ' active-bar';
 
 }
