@@ -34,7 +34,7 @@ class CineController
         echo "<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})</script>";
     }
 
-    public function determinateUpdateCreate($id, $name, $address, $capacity, $ticketValue)
+    public function determinateUpdateCreate($id, $name, $address)
     {
 
         if ($id != "") {
