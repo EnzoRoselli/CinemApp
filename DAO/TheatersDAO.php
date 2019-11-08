@@ -48,8 +48,8 @@ class TheatersDAO
 
             $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id_cinema=:id_cinema and theater_number=:theater_number";
 
-            $parameters["id_cinema"] = $theater->getName();
-            $parameters["theater_number"] = $theater->getAddress();
+            $parameters["id_cinema"] = $theater->getCinema()->getId();
+            $parameters["theater_number"] = $theater->getNumber();
            
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
@@ -169,7 +169,7 @@ class TheatersDAO
         $parameters["cinema_id "] = $CineId;
         $this->connection = Connection::GetInstance();
        $resultSet=$this->connection->Execute($query, $parameters);
-       
+
        foreach ($resultSet as $item) {
         $Theater=new Theater();
         $Theater->setId($item['id']);

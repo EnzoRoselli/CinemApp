@@ -39,10 +39,10 @@ class ShowtimeController
         $showtimes = $this->showtimeDao->getAll();
         foreach ($showtimes as $item) {
        
-                $date = $this->formatDate($item);
-
+            $date = $this->formatDate($item);
             $actualDate=date_create(date("Y-m-d"));
             $actualTime = explode(":", date("h:i"));
+            
             date_time_set($actualDate, $actualTime[0], $actualTime[1]);
 
                 if ($date < $actualDate) {
