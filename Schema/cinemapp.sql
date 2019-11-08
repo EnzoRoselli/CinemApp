@@ -6,8 +6,6 @@ CREATE TABLE IF NOT EXISTS cinemas(
 id int AUTO_INCREMENT,
 cinema_name varchar(50),
 address varchar(50),
-capacity int,
-ticket_value float,
 active boolean,
 CONSTRAINT pk_cinemas PRIMARY KEY (id));
 
@@ -55,20 +53,32 @@ name_language varchar(18),
 CONSTRAINT pk_language PRIMARY KEY(id),
 CONSTRAINT unq_name_language UNIQUE(name_language));
 
+CREATE TABLE IF NOT EXISTS theaters(
+    id int AUTO_INCREMENT,
+    theater_number int unq,
+    id_cinema int unq,
+    active boolean,
+    ticket_value float,
+    capacity int,
+    CONSTRAINT pk_theater PRIMARY KEY(id),
+    CONSTRAINT unq_theater_number UNIQUE (theater_number),
+    CONSTRAINT unq_id_cinema UNIQUE (id_cinema),
+    CONSTRAINT fk_id_cinema_theaters FOREIGN KEY (id_cinema) REFERENCES cinemas(id) ON DELETE CASCADE);
+
 CREATE TABLE IF NOT EXISTS showtimes(
 id int AUTO_INCREMENT,
 id_language int,
 id_movie int,
-id_cinema int,
+id_theater int,
 view_date date,
 hour time,
 subtitles boolean,
 active boolean,
 ticketAvaliable int,
-CONSTRAINT pk_showtimes PRIMARY KEY (id, id_cinema),
+CONSTRAINT pk_showtimes PRIMARY KEY (id, id_theater),
 constraint fk_id_language_showtimes FOREIGN KEY (id_language) REFERENCES languages(id),
 CONSTRAINT fk_id_movie_showtimes FOREIGN KEY (id_movie) REFERENCES movies(id) ON DELETE CASCADE,
-CONSTRAINT fk_id_cinema_showtimes FOREIGN KEY (id_cinema) REFERENCES cinemas(id) ON DELETE CASCADE);
+CONSTRAINT fk_id_theater_showtimes FOREIGN KEY (id_theater) REFERENCES theaters(id) ON DELETE CASCADE);
 
 CREATE TABLE IF NOT EXISTS tickets(
 id int AUTO_INCREMENT,
