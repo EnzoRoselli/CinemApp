@@ -55,8 +55,8 @@ CONSTRAINT unq_name_language UNIQUE(name_language));
 
 CREATE TABLE IF NOT EXISTS theaters(
 id int AUTO_INCREMENT,
-theater_number int unq,
-id_cinema int unq,
+theater_number int,
+id_cinema int,
 active boolean,
 ticket_value float,
 capacity int,

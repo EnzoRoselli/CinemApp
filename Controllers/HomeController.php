@@ -25,19 +25,21 @@
             $this->showHome();
             require_once(VIEWS."/footer.php");
         }
-        
-        public function showGrid()
-        {
-            $moviesList = $this->moviesDAO->getAll();
-            
-            require_once(VIEWS."/MovieGrid.php");
-        }
 
         public function showHome()
         {   
            
             $this->ShowtimeController->updateShowtimes();
-            $moviesList = $this->moviesDAO->getAll();    
+            $moviesList = $this->moviesDAO->getAll();  
+            $principalGenresByMovie = array();
+
+            foreach ($moviesList as $movie) {
+                
+                $genres = $this->genresDAO->getGenresByMovieId($movie->getId());
+
+                array_push($principalGenresByMovie, $genres[0]);
+            }
+            
             //require_once(VIEWS.'/lastArrival.php');
             //require_once(VIEWS.'/Slider.php');
             
