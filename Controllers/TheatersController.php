@@ -58,10 +58,36 @@ class TheatersController
                 </script>';
             } else {
                 echo '<script type="text/javascript">
-                    alert("El cine ingresado o el horario son erróneos");
+                    alert("La sala con ese número ya se encuentra");
                 </script>';
             }
-            $this->showTheaterMenu();
+            $this->showSortedTheatersMenu($Theater->getCinema()->getId());
+        }
+    }
+
+    public function modify($id,$number,$cinema_id,$active,$ticketValue,$capacity)
+    {
+        $cinema=$this->cinemasDAO->searchById($cinema_id);
+        $Theater=new Theater($number,$cinema,$active,$ticketValue,$capacity);
+        $Theater->setId($id);
+        if ($this->checkNotEmptyParameters($Theater)) {
+            try {
+                if ($this->TheatersDAO->exists($Theater) && $Theater->getActive()) {
+                    $this->TheatersDAO->modify($Theater);
+                } 
+            } catch (\Throwable $th) {
+                var_dump($th);
+            }
+           
+        }
+    }
+
+    public function checkNotEmptyParameters($Theater)
+    {
+        if (!empty($Theater->getNumber()) && !empty($Theater->getCinema()) && !empty($Theater->getActive()) && !empty($Theater->getTicketValue()) && $Theater->getTicketValue()>0 && !empty($Theater->getCapacity()) && $Theater->getCapacity()>0 ) {
+            return true;
+        } else {
+            return false;
         }
     }
 

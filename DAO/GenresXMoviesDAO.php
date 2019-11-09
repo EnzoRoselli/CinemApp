@@ -95,8 +95,7 @@ class GenresXMoviesDAO
                     $counter++;
                 }
                 
-                if($counter == count($genreIds)){    
-                    
+                if($counter == count($genreIds)){                   
                     array_push($moviesList, $allMovies[$i]);
                     break;
                 }
