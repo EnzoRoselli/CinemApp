@@ -55,13 +55,13 @@ CONSTRAINT unq_name_language UNIQUE(name_language));
 
 CREATE TABLE IF NOT EXISTS theaters(
 id int AUTO_INCREMENT,
-theater_number int,
+theater_name varchar(45),
 id_cinema int,
 active boolean,
 ticket_value float,
 capacity int,
 CONSTRAINT pk_theater PRIMARY KEY(id),
-CONSTRAINT unq_theater_number_id_cinema UNIQUE (theater_number,id_cinema),
+CONSTRAINT unq_theater_name_id_cinema UNIQUE (theater_name,id_cinema),
 CONSTRAINT fk_id_cinema_theaters FOREIGN KEY (id_cinema) REFERENCES cinemas(id) ON DELETE CASCADE);
 
 CREATE TABLE IF NOT EXISTS showtimes(
@@ -101,13 +101,13 @@ insert into cinemas (cinema_name, address, active) values ('Aldrey', 'Vieja Term
                                                                                  ,('Diagonal', 'Diagonal Pueyrredón', true);
 
 insert into languages(name_language) values ('English'), ('Spanish'), ('French'), ('Italian'), ('Russian');
-insert into theaters(theater_number, id_cinema, active, ticket_value, capacity) values(1, 1, true, 200, 300)
-																									,(2, 1, true, 350, 200)
-                                                                                                    ,(3, 2, true, 200, 400)
-                                                                                                    ,(4, 3, true, 400, 200)
-                                                                                                    ,(5, 4, true, 500, 150);
-insert into showtimes(id_language, id_movie,id_theater,view_date,hour,subtitles,active,ticketAvaliable) values(5, 3, 1, '2019-11-02', '11:50', false, true, 400);
-
+/*insert into theaters(theater_name, id_cinema, active, ticket_value, capacity) values('sala1', 1, true, 200, 300)
+																									,('sala2', 1, true, 350, 200)
+                                                                                                    ,('sala tu vieja', 2, true, 200, 400)
+                                                                                                    ,('salas', 3, true, 400, 200)
+                                                                                                    ,('sala5', 4, true, 500, 150);*/
+/*insert into showtimes(id_language, id_movie,id_theater,view_date,hour,subtitles,active,ticketAvaliable) values(5, 3, 1, '2019-11-02', '11:50', false, true, 400);*/
+/*
 select now();
 
 select * from movies;
@@ -116,4 +116,7 @@ select * from cinemas;
 
 select * from theaters;
 
+select * from theaters as t
+inner join cinemas as c on t.id_cinema = c.id
+*/
 /*drop database cinemapp;*/

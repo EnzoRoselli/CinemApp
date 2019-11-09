@@ -6,7 +6,7 @@ class Showtime{
 
     private $showtimeId;
     private $movie;
-    private $cinema;
+    private $theater;
     private $date;
     private $hour;
     private $ticketAvaliable;
@@ -14,10 +14,10 @@ class Showtime{
     private $subtitle;
     private $active;
 
-    public function __construct($movie= "",$cinema="",$date= "",$hour= "",$language= "",$subtitle= "")
+    public function __construct($movie= "",$theater="",$date= "",$hour= "",$language= "",$subtitle= "")
     {
         $this->movie = $movie;
-        $this->cinema = $cinema;
+        $this->theater = $theater;
         $this->date = $date;
         $this->hour = $hour;
         $this->language=$language;
@@ -27,7 +27,7 @@ class Showtime{
     }
 
     public function getShowtimeId(){return $this->showtimeId;}
-    public function getCinema(){return $this->cinema;}
+    public function getTheater(){return $this->theater;}
     public function getMovie(){return $this->movie;}
     public function getDate(){return $this->date;}
     public function getHour(){return $this->hour;}
@@ -37,7 +37,7 @@ class Showtime{
     public function getTicketAvaliable(){return (int)$this->ticketAvaliable;}
 
     public function setId($showtimeId){$this->showtimeId=$showtimeId;}
-    public function setCinema($cinema){$this->cinema=$cinema;}
+    public function setTheater($theater){$this->theater=$theater;}
     public function setMovie($movie){$this->movie=$movie;}
     public function setDate($date){$this->date=$date;}
     public function setHour($hour){$this->hour=$hour;}

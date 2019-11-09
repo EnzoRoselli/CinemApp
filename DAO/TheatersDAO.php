@@ -18,20 +18,17 @@ class TheatersDAO
 
     public function add(Theater $theater)
     {        
-        try {
-
             $query = "INSERT INTO " . " " . $this->tableName . " " .
-                " (theater_number, id_cinema, active,ticket_value, capacity) VALUES
-                                 (:theater_number,:id_cinema,:active,:ticket_value, :capacity);";
+                " (theater_name, id_cinema, active,ticket_value, capacity) VALUES
+                                 (:theater_name,:id_cinema,:active,:ticket_value, :capacity);";
 
-
-            $parameters["theater_number"] = $theater->getNumber();
+            $parameters["theater_name"] = $theater->getName();
             $parameters["id_cinema"] = $theater->getCinema()->getId();
             $parameters["active"] = $theater->getActive();
             $parameters["ticket_value"] = $theater->getTicketValue();
             $parameters["capacity"] = $theater->getCapacity();
 
-
+        try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $ex) {

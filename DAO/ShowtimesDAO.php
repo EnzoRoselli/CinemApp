@@ -5,7 +5,8 @@ namespace DAO;
 use Model\Showtime as Showtime;
 use DAO\CinemasDAO as CinemasDAO;
 use DAO\LanguagesDAO as LanguagesDAO;
- use DAO\MoviesDAO as MoviesDAO;
+use DAO\MoviesDAO as MoviesDAO;
+use DAO\TheatersDAO as TheatersDAO;
 
 class ShowtimesDAO {
 
@@ -17,12 +18,13 @@ class ShowtimesDAO {
         $this->LanguageDAO=new LanguagesDAO();
         $this->CinemasDAO=new CinemasDAO();
         $this->MoviesDAO=new MoviesDAO();
+        $this->TheatersDAO=new TheatersDAO();
     }
  
 
     public function add(Showtime $showtime)
     {
-        try {
+        
 
             $query = "INSERT INTO " . " " . $this->tableName . " " .
             " (id_movie, id_cinema,id_language,ticketAvaliable, view_date,hour,subtitles,active) VALUES
@@ -36,7 +38,7 @@ class ShowtimesDAO {
             $parameters["hour"] = $showtime->getHour();
             $parameters["subtitles"] = $showtime->isSubtitle();
             $parameters["id_language"] = $showtime->getLanguage()->getId();
-
+            try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             } catch (\Throwable $ex) {
@@ -173,10 +175,10 @@ class ShowtimesDAO {
             foreach ($resultSet as $row) {
                 $Showtime = new Showtime();
                 $Showtime->setId($row['id']);
-                
-                $id_cinema=$row['id_cinema'];
-                $cinema=$this->CinemasDAO->searchById($id_cinema);
-                $Showtime->setCinema($cinema);
+            
+                $idTheater=$row['id_theater'];
+                $theater=$this->TheatersDAO->searchById($idTheater);
+                $Showtime->setTheater($theater);
                 
                 $id_language=$row['id_language'];
                 $language=$this->LanguageDAO->searchById($id_language);
@@ -196,7 +198,7 @@ class ShowtimesDAO {
                 }else{
                     $Showtime->setActive(false);
                 }
-                if ($row['ticketAvaliable'] > $cinema->getCapacity() && $row['active']==1) {
+                if (row['ticketAvaliable'] > $theater->getCapacity() && $row['active']==1) {
                     $Showtime->setTicketAvaliable($cinema->getCapacity());
                     $this->modify($Showtime);
                 }else {

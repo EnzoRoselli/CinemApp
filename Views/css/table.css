@@ -22,9 +22,14 @@
 
   .content-table th,
   .content-table td {
-    padding: 12px 15px;
+    padding: 12px 0px;
   }
   
+/* #fila{
+  background-color: rebeccapurple;
+  width: 100px;
+} */
+
   .content-table tbody tr {
     border-bottom: 1px solid #dddddd;
   }

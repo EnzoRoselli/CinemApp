@@ -6,6 +6,7 @@ use DAO\CinemasDAO;
 namespace DAO;
 
 use Model\Cine as Cine;
+use Model\Theater as Theater;
 //Fijarse de no mostrar toodos los cines, sino los activos, o agregar un filtro de si quiere ver los activos nomas
 
 class CinemasDAO
@@ -17,7 +18,7 @@ class CinemasDAO
 
     public function add(Cine $cine)
     {        
-        try {
+        
 
             $query = "INSERT INTO " . " " . $this->tableName . " " .
                 " (cinema_name, address, active) VALUES
@@ -28,7 +29,7 @@ class CinemasDAO
             $parameters["address"] = $cine->getAddress();
             $parameters["active"] = $cine->getActive();
 
-
+        try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $ex) {
@@ -147,15 +148,14 @@ class CinemasDAO
         }
     }
 
-
-
-  
     public function getAll()
     {
 
         try {
             $this->cineList = array();
-            $query = "SELECT * FROM" . ' ' . $this->tableName." "." ORDER BY ";
+            
+            $query = "SELECT * FROM" . ' ' . $this->tableName;
+            
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
@@ -170,6 +170,23 @@ class CinemasDAO
                     $cine->setActive(false);
                 }
                 
+                $queryTheaters = "SELECT * FROM theaters
+                INNER JOIN " . $this->tableName . " on theaters.id_cinema = " . $row['id'];
+                
+                $resultSetTheaters = $this->connection->Execute($queryTheaters);
+                echo '<pre>';
+                var_dump($resultSetTheaters);
+                foreach($resultSetTheaters as $key){
+                    $theater = new Theater();
+                    $theater->setId($key['id']);
+                    $theater->setName($key['theater_name']);
+                    $theater->setCinema($cine);
+                    $theater->setActive($key['active']);
+                    $theater->setTicketValue($key['ticket_value']);
+                    $theater->setCapacity($key['capacity']);
+                    $cine->addTheater($theater);
+                }
+                
                 array_push($this->cineList, $cine);
             }
             return $this->cineList;
@@ -177,4 +194,5 @@ class CinemasDAO
             throw $th;
         }
     }
+
 }

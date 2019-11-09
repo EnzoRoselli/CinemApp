@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\Cine as Cine;
+use Model\Theater as Theater;
 use DAO\CinemasDAO as daoCine;
 
 
@@ -20,13 +21,13 @@ class CineController
 
         $cineUpdate = $this->CineDao->searchById($_GET['update']);
         $this->openPopUp();
-        $this->showCinemasOnTable($cineUpdate);
+        $this->showCinemasOnTable($cineUpdate, null);
     }
 
     public function createCinema()
     {
         $this->openPopUp();
-        $this->showCinemasOnTable(null);
+        $this->showCinemasOnTable(null, null);
     }
 
     public function openPopUp()
@@ -69,13 +70,24 @@ class CineController
         $this->showCinemasOnTable();
     }
 
+    public function getCinemaToaddTheater(){
+        $cinema = $this->CineDao->searchById($_GET['addTheater']);
+        $this->openPopUp();
+        $this->showCinemasOnTable(null, $cinema);
+    }
+
+    public function addTheater($idCinema, $name, $capacity, $ticketValue){
+        $cinema = $this->CineDao->searchById($idCinema);
+        $theater = new Theater($name, $cinema, true, $ticketValue, $capacity);
+        
+    }
+
     public function update($id, $name, $address)
     {
         $cinemaToModify = new Cine($name, $address);
         $cinemaToModify->setId($id);
         $advices = array();
-
-
+        
         if ($this->checkNotEmptyParameters($cinemaToModify)) { //Si los campos son correctos
             try {
                 $cinemaPreModification = $this->CineDao->searchById($id);
@@ -163,7 +175,7 @@ class CineController
         @param cineUpdate: en caso de que se quiera abrir el pop-up para modificar 
                            llena los campos para su modificación
     */
-    public function showCinemasOnTable($cineUpdate = "")
+    public function showCinemasOnTable($cineUpdate = "", $createTheater = "")
     {
         $cines = $this->CineDao->getAll();
         require_once(VIEWS  . '/AdminCine.php');

@@ -53,6 +53,7 @@
     bottom: 99%;
     margin-left: 2px;
     z-index: 50;
+    align-items: center;
 }
 
 .overlay-card-background{
@@ -88,9 +89,9 @@
     transform: translateY(-500%);
     opacity: 0;
     font-size: 2.1rem;
-    width: 0;
+    /* width: 0; */
     transition: all 0.2s ease 0s;
-    padding-left: 60px;
+    /* padding-left: 60px; */
 }
 
 
