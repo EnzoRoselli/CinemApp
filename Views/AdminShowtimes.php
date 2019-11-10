@@ -22,6 +22,7 @@ include('nav.php');
 					<th>Language</th>	
 					<th>Subtitle</th>
 					<th>Cinema</th>
+					<th>Theater</th>
 					<th>Tickets</th>
 					<th>Action</th>
 				</tr>
@@ -43,11 +44,12 @@ include('nav.php');
 								}else {
 									echo "No";
 								}  ?></td>
-								<td><?php echo $showtime->getCinema()->getName(); ?></td>
+								<td><?php echo $showtime->getTheather()->getCinema()->getName(); ?></td>
+								<td><?php echo $showtime->getTheather()->getName(); ?></td>
 								<td><?php echo $showtime->getTicketAvaliable() . '/' . $showtime->getCinema()->getCapacity(); ?></td>
 								<td>
 									
-										<?php if($showtime->getCinema()->getActive() && $showtime->getActive()){
+										<?php if($showtime->getTheather()->getActive() && $showtime->getActive()){
 											?>
 										<a href=<?php echo  FRONT_ROOT . "/Showtime/desactivate?desactivate=" .  $showtime->getShowtimeId() ?> name="desactivate" class="btn btn-light">
 											<i class="fas fa-toggle-on"></i>

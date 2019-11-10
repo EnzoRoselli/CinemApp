@@ -9,6 +9,7 @@ use DAO\GenresDAO as GenresDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\LanguagesDAO as LanguagesDAO;
 use Controllers\APIController as APIController;
+use DAO\TheatersDAO as TheatersDAO;
 use DateInterval;
 
 //VALIDAR QUE LOS DATOS DE LA FUNCIONN YA NO ESTEN CARGADOS, OSEA A LA MISMA HORA, MISMO CINE
@@ -22,6 +23,7 @@ class ShowtimeController
     private $genresDAO;
     private $languagesDAO;
     private $APIController;
+    private $theatersDAO;
 
 
     public function __construct()
@@ -31,6 +33,7 @@ class ShowtimeController
         $this->moviesDAO = new MoviesDAO();
         $this->genresDAO = new GenresDAO();
         $this->languagesDAO = new LanguagesDAO();
+        $this->theatersDAO = new TheatersDAO();
         $this->APIController = new APIController();
         $this->APIController->sendToDataBase();
     }
@@ -60,7 +63,8 @@ class ShowtimeController
     public function showShowtimeMenu()
     {
         try {
-            $cinemasList = $this->cinemasDAO->getAll();
+            //$cinemasList = $this->cinemasDAO->getAll();
+            $theatersList = $this->theatersDAO->getAll();//EL TD DEL CINE LO TOMAS POR EL GETname del cine de la sala Y AGREGAR OTRO TD CON NOMBRE SALA
             $moviesList = $this->moviesDAO->getAll();
             $languagesList = $this->languagesDAO->getAll();
             $showtimes = $this->showtimeDao->getAll();
@@ -72,9 +76,14 @@ class ShowtimeController
         }
     }
 
-    public function create($idCinema, $idMovie, $nameLanguage)
+    public function create($idCinema/*, $idMovie, $nameLanguage*/)
     {
         $cinema = $this->cinemasDAO->searchById($idCinema);
+        //ABRIS EL POP UP PARA SELECCIONAR UN CINE
+        //FUNCION
+
+        //////////////YA EL POP UP DE TODOS LOS DATOS
+        $theater=$this->theatersDAO->searchById($idtheater);
         $movie = $this->moviesDAO->searchById($idMovie);
         $language = $this->languagesDAO->searchByName($nameLanguage);
         $subtitled = null;
@@ -86,9 +95,9 @@ class ShowtimeController
             $subtitled = 0;
         }
 
-        $showtime = new Showtime($movie, $cinema, $_POST['date'], $_POST['hour'], $language, $subtitled);
+        $showtime = new Showtime($movie, $theater, $_POST['date'], $_POST['hour'], $language, $subtitled);
         $showtime->setActive(true);
-        $showtime->setTicketAvaliable(/*$cinema->getCapacity()*/10);
+        $showtime->setTicketAvaliable($theater->getCapacity());
 
         try {
             if ($this->validateShowtimeDate($showtime) && !$this->isMovieInOtherCinema($showtime)) {
@@ -114,9 +123,9 @@ class ShowtimeController
 
     public function isMovieInOtherCinema(Showtime $showtime)
     {
-        $comprobationIdCinema = $this->showtimeDao->getShowtimesMovieOfAday($showtime);
+        $comprobationIdTheater = $this->showtimeDao->getShowtimesMovieOfAday($showtime);
         if (!empty($comprobationIdCinema)) {
-            if ($showtime->getCinema()->getId() == $comprobationIdCinema) {
+            if ($showtime->getTheater()->getId() == $comprobationIdTheater) {
                 return false;
             } else {
                 return true;
@@ -145,7 +154,7 @@ class ShowtimeController
             $fechaMax = $this->formatDate($showtime);
             $fechaMax->add(new DateInterval('PT' . $showtime->getMovie()->getDuration() . 'M'));
 
-            if ($newShowtimeDate > $fechaMin && $newShowtimeDate < $fechaMax && $newShowtime->getCinema()->getName() == $showtime->getCinema()->getName()) {
+            if ($newShowtimeDate > $fechaMin && $newShowtimeDate < $fechaMax && $newShowtime->getTheater()->getName() == $showtime->getTheater()->getName()) {
                 return false;
             }
         }
