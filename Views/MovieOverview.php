@@ -3,7 +3,7 @@ include('header.php');
 include('nav.php');
 ?>
 <div class="back-to-list">
-    <a href="" id="back-to-list"><i class="fas fa-chevron-left"></i>Back to List</a>
+    <a href=<?= FRONT_ROOT . "/Showtime/showShowtimesListUser" ?> id="back-to-list"><i class="fas fa-chevron-left"></i>Back to List</a>
 
 </div>
 
@@ -37,7 +37,7 @@ include('nav.php');
                     </div>
                 </div>
                 <div class="showtime-main-buttons">
-                    <a href="" class="showtime-main-buttons-buy">BUY</a>
+                    <a href="<?=FRONT_ROOT . "/Showtime/showBuy" ?>" class="showtime-main-buttons-buy">BUY</a>
                 </div>
             </div>
             <div class="shotime-main-row">
@@ -55,7 +55,7 @@ include('nav.php');
                     </div>
                 </div>
                 <div class="showtime-main-buttons">
-                    <a href="" class="showtime-main-buttons-buy">BUY</a>
+                    <a href=<?= FRONT_ROOT . "/Showtime/showBuy"?> class="showtime-main-buttons-buy">BUY</a>
                 </div>
             </div>
             <div class="shotime-main-row">

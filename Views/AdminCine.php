@@ -97,7 +97,7 @@ include('nav.php');
 
 					<div class="form-group">
 						<label>Nombre</label>
-						<input type="text" class="form-control" name="name" required value=<?php if (isset($cineUpdate)) {
+						<input  class="tuvi" type="text" class="form-control" name="name" required value=<?php if (isset($cineUpdate)) {
 																													echo $cineUpdate->getName();
 																												} ?>>
 					</div>

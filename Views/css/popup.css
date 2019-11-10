@@ -101,6 +101,11 @@
     transition: .1s ease all;
   }
   
+.form-group label{
+  font-size: 1.2rem;
+}
+
+
   .popup form .btn-submit:hover {
     background: rgba(94,125,227, .9);
   }

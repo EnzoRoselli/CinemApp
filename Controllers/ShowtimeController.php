@@ -219,4 +219,10 @@ class ShowtimeController
         $movie = $this->moviesDAO->searchById($_GET['movie']);
         require_once(VIEWS . "/MovieOverview.php");
     }
+
+    public function showBuy(){
+        
+        
+        require_once(VIEWS . "/Buy.php");
+    }
 }
