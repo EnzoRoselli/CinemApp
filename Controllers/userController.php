@@ -51,14 +51,14 @@ class UserController
          
         if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
             $UserLogging = new User($_POST['LoginEmail'], $_POST['LoginPassword']);
-            echo ($_POST['LoginEmail']);
+
             try{
 
-             $LoginComprobation = $this->usersDAO->correctCredentials($UserLogging);
-             if(!$LoginComprobation){
-                 $LoginErrors=array();
-                 array_push($LoginErrors,LOGIN_FAILURE);
-                 $this->showLoginSignup($LoginErrors);
+                $LoginComprobation = $this->usersDAO->correctCredentials($UserLogging);
+                if(!$LoginComprobation){
+                    $LoginErrors=array();
+                    array_push($LoginErrors,LOGIN_FAILURE);
+                    $this->showLoginSignup($LoginErrors);
              }
              else{
               
@@ -71,19 +71,28 @@ class UserController
         }
     }
 
-
-
-    public function showHome($message = array()){
-        echo $message;
+    public function logoutAction(){
+        session_destroy();
+        session_start();
         HomeController::showMain();
-        /*
-        if ($_GET['delete']) {
-            require_once(VIEWS . "/home.php"."?delete=1");
-        }else {
-            HomeController::Index();
-        }*/
-       
     }
+
+
+    /*public function showHome($message = array()){
+  
+        //HomeController::showMain();
+        if ($message == '1') {
+
+            //session_destroy();
+            $_SESSION['delete'] = 1;
+            echo 'Sesion destruida con exito';
+            <var></var>
+            
+        }else {
+            HomeController::showMain();
+        }
+       
+    }*/
 
     public function showLoginSignup($message = array()){
         require_once(VIEWS . '/loginSignup.php');

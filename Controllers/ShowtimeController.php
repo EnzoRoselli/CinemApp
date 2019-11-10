@@ -192,7 +192,7 @@ class ShowtimeController
         $this->showShowtimeMenu();
     }
 
-    public function desactivate($id)
+    public function desactivate()
     {
         $id = $_GET['desactivate'];
         try {
