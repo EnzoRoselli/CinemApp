@@ -22,6 +22,7 @@ class TheaterController
         try{
             $this->TheatersDAO->add($theater);
         }catch (\Throwable $th){
+            //Poner aviso de que la sala no se puede agregar porque el nombre estaria duplicado
             var_dump($th);
         }finally{
             $this->showCinemasOnTable();
