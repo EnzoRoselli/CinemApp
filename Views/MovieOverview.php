@@ -2,15 +2,20 @@
 include('header.php');
 include('nav.php');
 ?>
+<div class="back-to-list">
+    <a href="" id="back-to-list"><i class="fas fa-chevron-left"></i>Back to List</a>
+
+</div>
 
 <div class="movie-overwiew-container">
+
     <div class="overview-right-panel">
         <img src=<?= "http://image.tmdb.org/t/p/original/" . $movie->getPosterPath(); ?> class="overview-right-panel-image">
     </div>
     <div class="overview-left-panel">
-        
-        <div class="movie-overview-details">   
-        <h2 class="overview-movie-title"><?= $movie->getTitle() ?></h2> 
+
+        <div class="movie-overview-details">
+            <h2 class="overview-movie-title"><?= $movie->getTitle() ?></h2>
             <p><?= $movie->getDuration() . " min." ?></p>
         </div>
         <div class="overview-text">

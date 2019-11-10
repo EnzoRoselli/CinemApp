@@ -177,13 +177,13 @@
 
 .showtime-data:hover::-webkit-scrollbar-thumb
 {
-    width: 10px;
+    width: 9px;
 	border-radius: 8px;
     background-color: rgb(253, 51, 16);
 }
 .showtime-data:hover::-webkit-scrollbar
 {
-    width: 12px;
+    width: 9px;
 	border-radius: 8px;
     background-color: rgb(253, 51, 16);
 }
