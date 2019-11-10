@@ -20,7 +20,7 @@ class moviesAPI
     static function searchMovieByTitle($movieArray, $title)
     {
         for ($i = 0; $i < count($movieArray); $i++) {
-            if (strcasecmp($movieArray[$i]->original_title, $title) == 0) {
+            if (strcasecmp($movieArray[$i]->title, $title) == 0) {
                 return $movieArray[$i];
             }
         }

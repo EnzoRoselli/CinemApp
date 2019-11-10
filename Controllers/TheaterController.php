@@ -20,7 +20,11 @@ class TheaterController
         $cinema = $this->CinemasDAO->searchById($idCinema);
         $theater = new Theater($name, $cinema, true, $ticketValue, $capacity);
         try{
-            $this->TheatersDAO->add($theater);
+            if (!empty($this->checkNotEmptyParameters($theater)) && !$this->TheatersDAO->exists($theater)) {
+                $this->TheatersDAO->add($theater);
+            } else {
+                //Intenta crear una sala con un nombre que ya otra sala contiene
+            }
         }catch (\Throwable $th){
             //Poner aviso de que la sala no se puede agregar porque el nombre estaria duplicado
             var_dump($th);
@@ -37,7 +41,7 @@ class TheaterController
 
     public function checkNotEmptyParameters($Theater)
     {
-        if (!empty($Theater->getNumber()) && !empty($Theater->getCinema()) && !empty($Theater->getActive()) && !empty($Theater->getTicketValue()) && $Theater->getTicketValue()>0 && !empty($Theater->getCapacity()) && $Theater->getCapacity()>0 ) {
+        if (!empty($Theater->getName()) && !empty($Theater->getCinema()) && !empty($Theater->getActive()) && !empty($Theater->getTicketValue()) && $Theater->getTicketValue()>0 && !empty($Theater->getCapacity()) && $Theater->getCapacity()>0 ) {
             return true;
         } else {
             return false;

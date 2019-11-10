@@ -41,10 +41,10 @@ class TheatersDAO
        
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id_cinema=:id_cinema and theater_number=:theater_number";
+            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id_cinema=:id_cinema and theater_name=:theater_name";
 
             $parameters["id_cinema"] = $theater->getCinema()->getId();
-            $parameters["theater_number"] = $theater->getNumber();
+            $parameters["theater_name"] = $theater->getName();
            
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
@@ -117,7 +117,7 @@ class TheatersDAO
             if ($resultSet!=null) {
                 $theater=new Theater();
                 $theater->setId($resultSet[0]["id"]);
-                $theater->setNumber($resultSet[0]["cinema_name"]);
+                $theater->setName($resultSet[0]["cinema_name"]);
 
                 $cinema=$this->cinemasDAO->searchById($resultSet[0]['id_cinema']);
                 $theater->setCinema($cinema);
@@ -142,11 +142,11 @@ class TheatersDAO
 
         try {
             
-            $query = "UPDATE " . " " . $this->tableName . " " . "SET theater_number=:theater_number,
+            $query = "UPDATE " . " " . $this->tableName . " " . "SET theater_name=:theater_name,
             id_cinema=:id_cinema, active=:active, ticket_value=:ticket_value, capacity=:capacity WHERE id=:id";
             
             $parameters["id"] = $theater->getId();
-            $parameters["theater_number"] = $theater->getNumber();
+            $parameters["theater_name"] = $theater->getName();
             $parameters["id_cinema"] = $theater->getCinema()->getId();
             $parameters["active"] = $theater->getActive();
             $parameters["ticket_value"] = $theater->getTicketValue();
@@ -167,7 +167,7 @@ class TheatersDAO
 
             $query ="SELECT * FROM ".$this->tableName." ". "
             INNER JOIN cinemas ON ". $this->tableName.".id_cinema =cinemas.:cinema_id 
-            ORDER BY (".$this->tableName.".theater_number) DESC";
+            ORDER BY (".$this->tableName.".theater_name) DESC";
 
             $parameters["cinema_id "] = $CineId;
             
@@ -177,7 +177,7 @@ class TheatersDAO
             foreach ($resultSet as $row) {
                 $theater = new Theater();
                 $theater->setId($row['id']);
-                $theater->setNumber($row['theater_number']);
+                $theater->setName($row['theater_name']);
 
                 $cinema = $this->cinemasDAO->searchById($row['id_cinema']);
                 $theater->setCinema($cinema);
@@ -212,7 +212,7 @@ class TheatersDAO
 
                 $theater = new Theater();
                 $theater->setId($row['id']);
-                $theater->setName($row['theater_number']);
+                $theater->setName($row['theater_name']);
                 $theater->setCinema($row['id_cinema']);
 
                 if($row['active'] == 1){

@@ -39,7 +39,7 @@ class APIController
 
         foreach ($this->moviesAPI as $key) {
             $movie = new Movie(
-                $key->original_title,
+                $key->title,
                 120,
                 $key->original_language,
                 $key->overview,
@@ -110,7 +110,7 @@ class APIController
 
             for ($j = 0; $j < count($movies); $j++) {
 
-                if ($this->moviesAPI[$i]->original_title == $movies[$j]->getTitle()) {
+                if ($this->moviesAPI[$i]->title == $movies[$j]->getTitle()) {
 
                     $movieId = $movies[$j]->getId();
                     break;
