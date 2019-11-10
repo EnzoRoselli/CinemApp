@@ -44,12 +44,12 @@ include('nav.php');
 								}else {
 									echo "No";
 								}  ?></td>
-								<td><?php echo $showtime->getTheather()->getCinema()->getName(); ?></td>
-								<td><?php echo $showtime->getTheather()->getName(); ?></td>
-								<td><?php echo $showtime->getTicketAvaliable() . '/' . $showtime->getCinema()->getCapacity(); ?></td>
+								<td><?php echo $showtime->getTheater()->getCinema()->getName(); ?></td>
+								<td><?php echo $showtime->getTheater()->getName(); ?></td>
+								<td><?php echo $showtime->getTicketAvaliable() . '/' . $showtime->getTheater()->getCapacity(); ?></td>
 								<td>
 									
-										<?php if($showtime->getTheather()->getActive() && $showtime->getActive()){
+										<?php if($showtime->getTheater()->getActive() && $showtime->getActive()){
 											?>
 										<a href=<?php echo  FRONT_ROOT . "/Showtime/desactivate?desactivate=" .  $showtime->getShowtimeId() ?> name="desactivate" class="btn btn-light">
 											<i class="fas fa-toggle-on"></i>

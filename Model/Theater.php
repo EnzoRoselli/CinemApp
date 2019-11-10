@@ -27,7 +27,7 @@ class Theater
     public function getTicketValue(){return $this->ticketValue;}
     public function getCapacity(){return $this->capacity;}
 
-    public function setId($movieId){$this->movieId=$movieId;}
+    public function setId($Id){$this->id=$Id;}
     public function setName($name){$this->name=$name;}
     public function setCinema($cinema){$this->cinema=$cinema;}
     public function setActive($active){$this->active=$active;}

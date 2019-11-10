@@ -251,7 +251,9 @@ class ShowtimesDAO {
                     $Showtime->setActive(false);
                 }
                 if ($row['ticketAvaliable'] > $theater->getCapacity() && $row['active']==1) {
+
                     $Showtime->setTicketAvaliable($theater->getCapacity());
+                  
                     $this->modify($Showtime);
                 }else {
                     $Showtime->setTicketAvaliable($row['ticketAvaliable']);

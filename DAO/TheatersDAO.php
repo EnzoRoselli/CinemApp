@@ -41,7 +41,7 @@ class TheatersDAO
        
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id_cinema=:id_cinema and theater_name=:theater_name";
+            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE theater.id_cinema=:id_cinema and theater_name=:theater_name";
 
             $parameters["id_cinema"] = $theater->getCinema()->getId();
             $parameters["theater_name"] = $theater->getName();
@@ -113,20 +113,16 @@ class TheatersDAO
             $this->connection = Connection::GetInstance();
          
             $resultSet = $this->connection->Execute($query,$parameters);
-
             if ($resultSet!=null) {
                 $theater=new Theater();
                 $theater->setId($resultSet[0]["id"]);
-                $theater->setName($resultSet[0]["cinema_name"]);
-
+                $theater->setName($resultSet[0]["theater_name"]);
                 $cinema=$this->cinemasDAO->searchById($resultSet[0]['id_cinema']);
                 $theater->setCinema($cinema);
-
-
                 $theater->setActive($resultSet[0]["active"]);
                 $theater->setTicketValue($resultSet[0]["ticket_value"]);
                 $theater->setCapacity($resultSet[0]["capacity"]);
-                
+            
                 return $theater;
             }else {
                 return null;
@@ -213,7 +209,9 @@ class TheatersDAO
                 $theater = new Theater();
                 $theater->setId($row['id']);
                 $theater->setName($row['theater_name']);
-                $theater->setCinema($row['id_cinema']);
+
+                $cinema = $this->cinemasDAO->searchById($row['id_cinema']);
+                $theater->setCinema($cinema);
 
                 if($row['active'] == 1){
                     $theater->setActive(true);
