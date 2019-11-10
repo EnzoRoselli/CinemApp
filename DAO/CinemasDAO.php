@@ -172,9 +172,9 @@ class CinemasDAO
                 
                 $queryTheaters = "SELECT * FROM theaters
                 INNER JOIN " . $this->tableName . " on theaters.id_cinema = ".$row['id'] . " group by(theaters.id)";
-                echo $queryTheaters;
+
                 $resultSetTheaters = $this->connection->Execute($queryTheaters);
-                var_dump($resultSetTheaters);
+
                 foreach($resultSetTheaters as $key){
                     $theater = new Theater();
                     $theater->setId($key['id']);
