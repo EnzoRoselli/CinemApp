@@ -49,8 +49,9 @@
         public static function showMain($message = "")
         {
             // Proceso
+            $homeController = new HomeController();
             require_once(VIEWS."/header.php");
-            $this->showHome();
+            $homeController->showHome();
             require_once(VIEWS."/footer.php");
         }
         
