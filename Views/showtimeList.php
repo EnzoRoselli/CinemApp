@@ -20,7 +20,7 @@ include('nav.php');
 
                         <div class="movie-data-details">
                             <div class="movie-details-content">
-                                <p class="title-highlight"><?= $moviesList[$i]->getTitle(); ?></p>
+                                <p class="title-highlight"><?=$moviesList[$i]->getTitle()?></p>
                                 <p><?= $moviesList[$i]->getReleaseDate(); ?></p>
                                 <p><?= $moviesList[$i]->getDuration() . " min." ?></p>
                                 <p><?= $genresByMovie[$i]; ?></p>
@@ -32,7 +32,7 @@ include('nav.php');
                                 </div>
                                 <div class="movie-content-actions-item">
                                     <p>Tickets</p>
-                                    <a href=""><i class="fas fa-ticket-alt"></i></a>
+                                    <a href="<?php echo  FRONT_ROOT . "/Showtime/showOverview?movie=" .  $moviesList[$i]->getId() ?>"><i class="fas fa-ticket-alt"></i></a>
                                 </div>
                             </div>
                         </div>

@@ -199,7 +199,7 @@ class ShowtimeController
         $this->showShowtimeMenu();
     }
 
-    public function showAllShowtimes()
+    public function showShowtimesListUser()
     {
         $moviesList = $this->moviesDAO->getAll();
         $genresByMovie = array();
@@ -212,5 +212,11 @@ class ShowtimeController
         }
 
         require_once(VIEWS . "/showtimeList.php");
+    }
+
+    public function showOverview(){
+        
+        $movie = $this->moviesDAO->searchById($_GET['movie']);
+        require_once(VIEWS . "/MovieOverview.php");
     }
 }

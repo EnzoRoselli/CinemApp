@@ -44,7 +44,7 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
     <li><a href=<?php echo  FRONT_ROOT . "/API/sendToDataBase" ?>>API</a></li>
     <li><a href=<?php echo  FRONT_ROOT . "/Showtime/showShowtimeMenu" ?>>Showtimes</a></li>
     <li><a href=<?php echo  FRONT_ROOT . "/Filters/showFilters" ?>>Browse</a></li>
-    <li><a href=<?php echo  FRONT_ROOT . "/Showtime/showAllShowtimes" ?>>Ver</a></li>
+    <li><a href=<?php echo  FRONT_ROOT . "/Showtime/showShowtimesListUser" ?>>Ver</a></li>
     <?php
     if (isset($_SESSION['loggedUser'])) { ?>
       <div class="">

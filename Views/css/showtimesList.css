@@ -6,6 +6,8 @@
     margin: 0 auto;
 }
 
+/* TABLE HEADER */
+
 .header-titles{
     width: 90%;
     height: 7%;
@@ -17,6 +19,8 @@
     border-bottom: 1px solid #FD3410;
     margin: 0 auto;
 }
+
+/* LIST CONTAINER*/
 
 .showtimes-list{
     height: 500px;
@@ -55,6 +59,103 @@
     overflow-y: scroll;
 }
 
+/* MOVIE DATA: IMAGE AND DETAILS */
+
+.movie-data{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 90%;
+}
+
+.movie-data-image{
+    width: 130px;
+    height: 200px;
+    border-radius: 5px;
+    margin-left: 15px;
+    transition: all 0.2s ease 0s;  
+}
+.movie-data-image:hover{
+    cursor: pointer;
+    filter: saturate(120%);
+    width: 140px;
+    height: 205px;
+}
+
+/* MOVIE DETAILS */
+
+.movie-data-details{
+    width: 65%;
+    height: 100%;
+    margin-left: 15px;
+    
+}
+
+.movie-details-content{
+    width: 100%;
+    height: 60%;
+    color: #000000;
+    font-size: 1.2rem;
+    line-height: 2rem;
+}
+
+.title-highlight{
+    color: #fd3410;
+    font-size: 1.7rem;
+}
+
+
+/* MOVIE BUTTONS */
+
+.movie-content-actions{
+    width: 60%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-top: 1px solid #FD3410;
+    margin: 15px auto;
+    padding-bottom: 10px;
+}
+
+.movie-content-actions-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 25px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.movie-content-actions-item p{
+    font-size: 1.3rem;
+}
+.movie-content-actions-item a{
+    color: #000000;
+    transition: all 0.2s ease 0s;   
+}
+
+/* MOVIE BUTTONS HOVER */
+.movie-content-actions-item a:hover{
+    color: #FD3410;
+}
+
+
+/* SHOWTIME DATES LEFT SCROLLABLE CONTENT */
+.showtime-data-items{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #FD3410;
+    padding: 10px 0;
+    margin: 5px 0;
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+
+/* SCROLL BAR */
 .showtime-data::-webkit-scrollbar-track
 {
 	border-radius: 8px;
@@ -88,75 +189,5 @@
 }
 
 
-.showtime-data-items{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid #FD3410;
-    padding: 10px 0;
-    margin: 5px 0;
-    font-size: 1rem;
-    margin: 10px 0;
-}
 
-.movie-data{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 90%;
-}
 
-.movie-data-image{
-    width: 130px;
-    height: 200px;
-    border-radius: 5px;
-    margin-left: 15px;
-}
-
-.movie-data-details{
-    width: 65%;
-    height: 100%;
-    margin-left: 15px;
-    
-}
-
-.movie-details-content{
-    width: 100%;
-    height: 60%;
-    color: #000000;
-    font-size: 1.2rem;
-    line-height: 2rem;
-}
-
-.title-highlight{
-    color: #fd3410;
-    font-size: 1.7rem;
-}
-
-.movie-content-actions{
-    width: 60%;
-    height: 40%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    border-top: 1px solid #FD3410;
-    margin: 15px auto;
-    padding-bottom: 10px;
-}
-
-.movie-content-actions-item{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 25px;
-    color: #000000;
-    text-decoration: none;
-}
-
-.movie-content-actions-item p{
-    font-size: 1.5rem;
-}
-.movie-content-actions-item a{
-    color: #000000;
-}
