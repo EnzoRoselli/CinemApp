@@ -3,7 +3,6 @@ namespace DAO;
 
 
 use Model\Showtime as Showtime;
-use DAO\CinemasDAO as CinemasDAO;
 use DAO\LanguagesDAO as LanguagesDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\TheatersDAO as TheatersDAO;
@@ -16,7 +15,6 @@ class ShowtimesDAO {
 
     public function __construct() {
         $this->LanguageDAO=new LanguagesDAO();
-        $this->CinemasDAO=new CinemasDAO();
         $this->MoviesDAO=new MoviesDAO();
         $this->TheatersDAO=new TheatersDAO();
     }
@@ -30,7 +28,7 @@ class ShowtimesDAO {
             " (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) VALUES
             (:id_movie,:id_theater,:id_language,:ticketAvaliable,:view_date,:hour,:subtitles,:active);";
             
-            $parameters["id_theater"] = $showtime->getCinema()->getId();
+            $parameters["id_theater"] = $showtime->getTheater()->getId();
             $parameters["id_movie"] = $showtime->getMovie()->getId();
             $parameters["ticketAvaliable"] = (int)$showtime->getTicketAvaliable();
             $parameters["active"] = $showtime->getActive();
@@ -54,7 +52,7 @@ class ShowtimesDAO {
             $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id_movie = :id_movie AND id_theater = :id_theater AND view_date = :view_date AND hour = :hour";
 
             $parameters["id_movie"] = $showtimes->getMovie()->getMovieId();
-            $parameters["id_theater"] = $showtimes->getCinema()->getId();
+            $parameters["id_theater"] = $showtimes->getTheater()->getId();
             $parameters["view_date"] = $showtimes->getDate();
             $parameters["hour"] = $showtimes->getHour();
 
@@ -85,9 +83,9 @@ class ShowtimesDAO {
                 $showtime=new Showtime();
                 $showtime->setShowtimeId($resultSet[0]["id"]);
 
-                $id_cinema=$resultSet[0]['id_theater'];
-                $cinema=$this->CinemasDAO->searchById($id_cinema);
-                $showtime->setCinema($cinema);
+                $id_theater=$resultSet[0]['id_theater'];
+                $Theater=$this->TheatersDAO->searchById($id_theater);
+                $showtime->setTheater($Theater);
 
                 $id_language=$resultSet[0]['id_language'];
                 $language=$this->LanguageDAO->searchById($id_language);
@@ -199,7 +197,7 @@ class ShowtimesDAO {
                     $Showtime->setActive(false);
                 }
                 if (row['ticketAvaliable'] > $theater->getCapacity() && $row['active']==1) {
-                    $Showtime->setTicketAvaliable($cinema->getCapacity());
+                    $Showtime->setTicketAvaliable($theater->getCapacity());
                     $this->modify($Showtime);
                 }else {
                     $Showtime->setTicketAvaliable($row['ticketAvaliable']);
@@ -226,8 +224,8 @@ class ShowtimesDAO {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
             if (!empty($resultSet)) {                  
-                    $id_cinema=$resultSet[0]['id_theater'];
-                    return $id_cinema;
+                    $id_theater=$resultSet[0]['id_theater'];
+                    return $id_theater;
                 
             }else {
                     return null;
@@ -244,11 +242,11 @@ class ShowtimesDAO {
 
         try {
             
-            $query = "UPDATE " . " " . $this->tableName . " " . "SET id_language=:id_language, id_movie=:id_movie, id_cinema=:id_cinema, view_date=:view_date, hour=:hour, subtitles=:subtitles, active=:active, ticketAvaliable=:ticketAvaliable WHERE id=:id";
+            $query = "UPDATE " . " " . $this->tableName . " " . "SET id_language=:id_language, id_movie=:id_movie, id_theater=:id_theater, view_date=:view_date, hour=:hour, subtitles=:subtitles, active=:active, ticketAvaliable=:ticketAvaliable WHERE id=:id";
 
             $parameters["id_language"] = $showtime->getLanguage()->getId();
             $parameters["id_movie"] = $showtime->getMovie()->getId();
-            $parameters["id_cinema"] = $showtime->getCinema()->getId();
+            $parameters["id_theater"] = $showtime->getTheater()->getId();
             $parameters["view_date"] = $showtime->getDate();
             $parameters["hour"] = $showtime->getHour();
             $parameters["subtitles"] = $showtime->isSubtitle();
