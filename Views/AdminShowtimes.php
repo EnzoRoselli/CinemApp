@@ -5,9 +5,19 @@ include('nav.php');
 ?>
 
 <body class="admin-body">
-	<div class="admin-header">
+<div class="admin-header">
 		<h1>Listado de showtimes</h1>
-		<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
+		<div class="select-cinema-showtime">
+			<form action=<?= FRONT_ROOT . "/Showtime/getCinema"?> method="GET">
+			<label>Cinema</label>
+			<select name="idCinema" class="form-control">
+				<?php foreach ($cinemasList as $cine) { ?>
+					<option value=<?= $cine->getId() ?>><?= $cine->getName() ?></option>
+				<?php } ?>
+			</select>
+			<button id="sbtn-abrir-popup" type="submit" name="idCsinema" class="btn-small"><i class="fas fa-plus"></i></button>
+			</form>
+		</div>
 	</div>
 
 	<div class="admin-table">
