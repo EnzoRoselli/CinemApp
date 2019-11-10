@@ -72,7 +72,7 @@ class MoviesDAO
         try {
 
             $this->moviesList = array();
-            $query = "SELECT * FROM" . ' ' . $this->tableName;
+            $query = "SELECT * FROM" . ' ' . $this->tableName." ". "order by (release_date) desc";
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
