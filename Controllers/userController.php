@@ -32,10 +32,15 @@ class UserController
                 if($NewUserComprobation===false)
                 {
 
-                   $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */              
+
+                   $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */ 
+
                 }
                 else 
-                {                 
+                {    
+                    echo '<script type="text/javascript">
+                    alert("Los datos que intenta ingresar corresponden a un usuario existente en nuestra base de datos");
+               </script>';             
                     $this->showLoginSignup($NewUserComprobation);           
                 }
             }
@@ -73,6 +78,9 @@ class UserController
 
     public function logoutAction(){
         session_destroy();
+        echo '<script type="text/javascript">
+        alert("La sesion se ha cerrado con éxito");
+   </script>';
         session_start();
         HomeController::showMain();
     }
@@ -101,6 +109,9 @@ class UserController
     public function addConfirmation($user){
 
         $this->usersDAO->add($user); 
+        echo '<script type="text/javascript">
+        alert("Usuario creado exitosamente, por favor inicie sesion con sus credenciales");
+   </script>';
         $this->showLoginSignup(SIGNUP_SUCCESS);
     }
 
