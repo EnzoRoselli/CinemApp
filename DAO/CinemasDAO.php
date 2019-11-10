@@ -174,8 +174,7 @@ class CinemasDAO
                 INNER JOIN " . $this->tableName . " on theaters.id_cinema = " . $row['id'];
                 
                 $resultSetTheaters = $this->connection->Execute($queryTheaters);
-                echo '<pre>';
-                var_dump($resultSetTheaters);
+
                 foreach($resultSetTheaters as $key){
                     $theater = new Theater();
                     $theater->setId($key['id']);

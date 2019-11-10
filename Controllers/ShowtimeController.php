@@ -5,6 +5,7 @@ namespace Controllers;
 use Model\Showtime as Showtime;
 use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\CinemasDAO as CinemasDAO;
+use DAO\GenresDAO as GenresDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\LanguagesDAO as LanguagesDAO;
 use Controllers\APIController as APIController;
@@ -18,6 +19,7 @@ class ShowtimeController
     private $showtimeDao;
     private $cinemasDAO;
     private $moviesDAO;
+    private $genresDAO;
     private $languagesDAO;
     private $APIController;
 
@@ -27,29 +29,29 @@ class ShowtimeController
         $this->showtimeDao = new ShowtimeDAO();
         $this->cinemasDAO = new CinemasDAO();
         $this->moviesDAO = new MoviesDAO();
+        $this->genresDAO = new GenresDAO();
         $this->languagesDAO = new LanguagesDAO();
         $this->APIController = new APIController();
         $this->APIController->sendToDataBase();
     }
 
-  
+
 
     public function updateShowtimes()
     {
         $showtimes = $this->showtimeDao->getAll();
         foreach ($showtimes as $item) {
-       
+
             $date = $this->formatDate($item);
-            $actualDate=date_create(date("Y-m-d"));
+            $actualDate = date_create(date("Y-m-d"));
             $actualTime = explode(":", date("h:i"));
-            
+
             date_time_set($actualDate, $actualTime[0], $actualTime[1]);
 
-                if ($date < $actualDate) {
-          
-                    $this->showtimeDao->desactivate($item->getShowtimeId());
-                 }
-            
+            if ($date < $actualDate) {
+
+                $this->showtimeDao->desactivate($item->getShowtimeId());
+            }
         }
     }
 
@@ -58,11 +60,10 @@ class ShowtimeController
     public function showShowtimeMenu()
     {
         try {
-          //  $cinemasList = $this->cinemasDAO->getAll();
+            $cinemasList = $this->cinemasDAO->getAll();
             $moviesList = $this->moviesDAO->getAll();
             $languagesList = $this->languagesDAO->getAll();
             $showtimes = $this->showtimeDao->getAll();
-       
         } catch (\Throwable $th) {
             var_dump($th);
             // // $advice = ShowtimeController::showMessage("DB");
@@ -85,9 +86,9 @@ class ShowtimeController
             $subtitled = 0;
         }
 
-        $showtime = new Showtime($movie, $cinema,$_POST['date'], $_POST['hour'], $language, $subtitled);
+        $showtime = new Showtime($movie, $cinema, $_POST['date'], $_POST['hour'], $language, $subtitled);
         $showtime->setActive(true);
-        $showtime->setTicketAvaliable($cinema->getCapacity());  
+        $showtime->setTicketAvaliable(/*$cinema->getCapacity()*/10);
 
         try {
             if ($this->validateShowtimeDate($showtime) && !$this->isMovieInOtherCinema($showtime)) {
@@ -124,7 +125,7 @@ class ShowtimeController
     }
     public function formatDate($showtime)
     {
-    
+
         $date = date_create($showtime->getDate());
         $time = explode(":", $showtime->getHour());
         date_time_set($date, $time[0], $time[1]);
@@ -196,5 +197,20 @@ class ShowtimeController
             // $advice = ShowtimeController::showMessage("DB");
         }
         $this->showShowtimeMenu();
+    }
+
+    public function showAllShowtimes()
+    {
+        $moviesList = $this->moviesDAO->getAll();
+        $genresByMovie = array();
+
+        foreach ($moviesList as $movie) {
+
+            $genres = $this->genresDAO->getGenresByMovieId($movie->getId());
+
+            array_push($genresByMovie, $genres[0]);
+        }
+
+        require_once(VIEWS . "/showtimeList.php");
     }
 }

@@ -31,13 +31,13 @@
            
             $this->ShowtimeController->updateShowtimes();
             $moviesList = $this->moviesDAO->getAll();  
-            $principalGenresByMovie = array();
+            $genresByMovie = array();
 
             foreach ($moviesList as $movie) {
                 
                 $genres = $this->genresDAO->getGenresByMovieId($movie->getId());
 
-                array_push($principalGenresByMovie, $genres[0]);
+                array_push($genresByMovie, $genres[0]);
             }
             
             //require_once(VIEWS.'/lastArrival.php');

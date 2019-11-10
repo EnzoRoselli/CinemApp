@@ -27,10 +27,10 @@ class ShowtimesDAO {
         
 
             $query = "INSERT INTO " . " " . $this->tableName . " " .
-            " (id_movie, id_cinema,id_language,ticketAvaliable, view_date,hour,subtitles,active) VALUES
-            (:id_movie,:id_cinema,:id_language,:ticketAvaliable,:view_date,:hour,:subtitles,:active);";
+            " (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) VALUES
+            (:id_movie,:id_theater,:id_language,:ticketAvaliable,:view_date,:hour,:subtitles,:active);";
             
-            $parameters["id_cinema"] = $showtime->getCinema()->getId();
+            $parameters["id_theater"] = $showtime->getCinema()->getId();
             $parameters["id_movie"] = $showtime->getMovie()->getId();
             $parameters["ticketAvaliable"] = (int)$showtime->getTicketAvaliable();
             $parameters["active"] = $showtime->getActive();
@@ -51,10 +51,10 @@ class ShowtimesDAO {
     {
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id_movie = :id_movie AND id_cinema = :id_cinema AND view_date = :view_date AND hour = :hour";
+            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id_movie = :id_movie AND id_theater = :id_theater AND view_date = :view_date AND hour = :hour";
 
             $parameters["id_movie"] = $showtimes->getMovie()->getMovieId();
-            $parameters["id_cinema"] = $showtimes->getCinema()->getId();
+            $parameters["id_theater"] = $showtimes->getCinema()->getId();
             $parameters["view_date"] = $showtimes->getDate();
             $parameters["hour"] = $showtimes->getHour();
 
@@ -85,7 +85,7 @@ class ShowtimesDAO {
                 $showtime=new Showtime();
                 $showtime->setShowtimeId($resultSet[0]["id"]);
 
-                $id_cinema=$resultSet[0]['id_cinema'];
+                $id_cinema=$resultSet[0]['id_theater'];
                 $cinema=$this->CinemasDAO->searchById($id_cinema);
                 $showtime->setCinema($cinema);
 
@@ -219,14 +219,14 @@ class ShowtimesDAO {
     public function getShowtimesMovieOfAday(Showtime $showtime)
     {
         try {
-            $query = "select showtimes.id_cinema from showtimes  where showtimes.view_date=:date and showtimes.id_movie=:id_movie group by showtimes.id_cinema;";
+            $query = "select showtimes.id_theater from showtimes  where showtimes.view_date=:date and showtimes.id_movie=:id_movie group by showtimes.id_theater;";
             $parameters["date"] = $showtime->getDate();
             $parameters["id_movie"]= $showtime->getMovie()->getId();
             
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
             if (!empty($resultSet)) {                  
-                    $id_cinema=$resultSet[0]['id_cinema'];
+                    $id_cinema=$resultSet[0]['id_theater'];
                     return $id_cinema;
                 
             }else {
