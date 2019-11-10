@@ -3,6 +3,7 @@ namespace DAO;
 
 
 use Model\Showtime as Showtime;
+use Model\Cine as Cine;
 use DAO\LanguagesDAO as LanguagesDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\TheatersDAO as TheatersDAO;
@@ -196,7 +197,7 @@ class ShowtimesDAO {
                 }else{
                     $Showtime->setActive(false);
                 }
-                if (row['ticketAvaliable'] > $theater->getCapacity() && $row['active']==1) {
+                if ($row['ticketAvaliable'] > $theater->getCapacity() && $row['active']==1) {
                     $Showtime->setTicketAvaliable($theater->getCapacity());
                     $this->modify($Showtime);
                 }else {
@@ -211,6 +212,56 @@ class ShowtimesDAO {
 
             throw $th;
         }
+    }
+    public function getShowtimesOfAcinema(Cine $Cinema)
+    {
+        try {
+            
+            $showtimesList=array();
+            $query ="SELECT * from ". $this->tableName." "
+            . " inner join theaters on theaters.id=showtimes.id_theater
+             inner join cinemas on theaters.id_cinema=:cinemas.id";
+
+             $parameters["cinemas.id"]= $Cinema->getId();             
+             $this->connection = Connection::GetInstance();
+             $resultSet = $this->connection->Execute($query,$parameters);
+             foreach ($resultSet as $row) {
+                $Showtime = new Showtime();
+                $Showtime->setId($row['id']);
+            
+                $idTheater=$row['id_theater'];
+                $theater=$this->TheatersDAO->searchById($idTheater);
+                $Showtime->setTheater($theater);
+                
+                $id_language=$row['id_language'];
+                $language=$this->LanguageDAO->searchById($id_language);
+                $Showtime->setLanguage($language);
+                
+                $id_movie=$row['id_movie'];
+                $movie=$this->MoviesDAO->searchById($id_movie);
+                $Showtime->setMovie($movie);
+
+                $Showtime->setDate($row['view_date']);
+                $Showtime->setHour($row['hour']);
+ 
+                $Showtime->setSubtitle($row['subtitles']);
+                if($row['active'] == 1){
+                    $Showtime->setActive(true);
+                }else{
+                    $Showtime->setActive(false);
+                }
+                if ($row['ticketAvaliable'] > $theater->getCapacity() && $row['active']==1) {
+                    $Showtime->setTicketAvaliable($theater->getCapacity());
+                    $this->modify($Showtime);
+                }else {
+                    $Showtime->setTicketAvaliable($row['ticketAvaliable']);
+                }
+                
+                array_push($showtimesList, $Showtime);             
+             }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
     }
 
    

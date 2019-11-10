@@ -123,14 +123,11 @@ class ShowtimeController
 
     public function isMovieInOtherCinema(Showtime $showtime)
     {
-        $comprobationIdTheater = $this->showtimeDao->getShowtimesMovieOfAday($showtime);
-        if (!empty($comprobationIdCinema)) {
-            if ($showtime->getTheater()->getId() == $comprobationIdTheater) {
-                return false;
-            } else {
-                return true;
-            }
+        $comprobation = $this->cinemasDAO->isAmovieInACinemaToday($showtime);
+        if (!$comprobation) {
+            return false;
         }
+        return true;
     }
     public function formatDate($showtime)
     {
@@ -144,7 +141,7 @@ class ShowtimeController
     public function validateShowtimeDate(Showtime $newShowtime)
     {
         $newShowtimeDate = $this->formatDate($newShowtime);
-        $showtimes = $this->showtimeDao->getAll();
+        $showtimes = $this->showtimeDao->getShowtimesOfAcinema($newShowtime->getTheater()->getCinema());
 
         foreach ($showtimes as $showtime) {
 
@@ -154,7 +151,7 @@ class ShowtimeController
             $fechaMax = $this->formatDate($showtime);
             $fechaMax->add(new DateInterval('PT' . $showtime->getMovie()->getDuration() . 'M'));
 
-            if ($newShowtimeDate > $fechaMin && $newShowtimeDate < $fechaMax && $newShowtime->getTheater()->getName() == $showtime->getTheater()->getName()) {
+            if ($newShowtimeDate > $fechaMin && $newShowtimeDate < $fechaMax) {
                 return false;
             }
         }
