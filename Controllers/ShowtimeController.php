@@ -58,12 +58,10 @@ class ShowtimeController
         }
     }
 
-
-
     public function showShowtimeMenu()
     {
         try {
-            //$cinemasList = $this->cinemasDAO->getAll();
+            $cinemasList = $this->cinemasDAO->getAll();
             $theatersList = $this->theatersDAO->getAll();//EL TD DEL CINE LO TOMAS POR EL GETname del cine de la sala Y AGREGAR OTRO TD CON NOMBRE SALA
             $moviesList = $this->moviesDAO->getAll();
             $languagesList = $this->languagesDAO->getAll();
@@ -230,5 +228,14 @@ class ShowtimeController
         
         
         require_once(VIEWS . "/Buy.php");
+    }
+
+    public function openPopUp()
+    {
+        echo "<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})</script>";
+    }
+
+    public function getCinema(){
+        var_dump($_GET);
     }
 }
