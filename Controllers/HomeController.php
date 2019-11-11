@@ -42,7 +42,21 @@
             
             //require_once(VIEWS.'/lastArrival.php');
             require_once(VIEWS.'/Slider.php');
-            
+            require_once(VIEWS."/Showcase.php");
+            $this->showMovieGrid();
+            //require_once(VIEWS."/MovieGrid.php");
+        }
+
+        public function showMovieGrid(){
+            $moviesList = $this->moviesDAO->getAll();  
+            $genresByMovie = array();
+
+            foreach ($moviesList as $movie) {
+                
+                $genres = $this->genresDAO->getGenresByMovieId($movie->getId());
+
+                array_push($genresByMovie, $genres[0]);
+            }
             require_once(VIEWS."/MovieGrid.php");
         }
 

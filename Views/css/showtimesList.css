@@ -77,9 +77,8 @@
 }
 .movie-data-image:hover{
     cursor: pointer;
-    filter: saturate(120%);
-    width: 140px;
-    height: 205px;
+    filter: saturate(150%);
+    
 }
 
 /* MOVIE DETAILS */

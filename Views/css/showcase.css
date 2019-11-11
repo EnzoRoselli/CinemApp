@@ -1,0 +1,38 @@
+.showcase-container{
+    background-color: #171717;
+    width: 100wv;
+    height: 90vh;
+    margin-bottom: 500px;
+    font-style: italic;
+    
+}
+
+.showcase-items-wrapper{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem;
+    top: 35%;
+    margin-left: 50px;
+}
+
+.showcase-item{
+    color: #ffffff;
+    width: 75%;
+    font-size: 1.5rem;
+    justify-items: center;
+    text-align: center;
+    
+}
+
+.showcase-item img{
+    width: 60%;
+    height: auto;
+    padding: 35px 0;
+    transition: all 0.2s ease 0s; 
+}
+
+.showcase-item img:hover{
+    width: 70%;
+    /* transform: translateY(-25%); */
+}

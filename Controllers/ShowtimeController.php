@@ -225,8 +225,7 @@ class ShowtimeController
     }
 
     public function showBuy(){
-        
-        
+    
         require_once(VIEWS . "/Buy.php");
     }
 

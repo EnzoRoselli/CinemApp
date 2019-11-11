@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/sliderStyle.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/showtimesList.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/movieOverview.css">
+    <link rel="stylesheet" href="<?php echo CSS_PATH ?>/showcase.css">
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- SweetAlert2 -->
