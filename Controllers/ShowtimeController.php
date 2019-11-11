@@ -58,7 +58,7 @@ class ShowtimeController
         }
     }
 
-    public function showShowtimeMenu()
+    public function showShowtimeMenu($cinemaTheaters=array())
     {
         try {
             $cinemasList = $this->cinemasDAO->getAll();
@@ -117,8 +117,8 @@ class ShowtimeController
 
     public function isMovieInOtherCinema(Showtime $showtime)
     {
-        $comprobation = $this->cinemasDAO->isAmovieInACinemaToday($showtime);
-        if (!$comprobation) {
+        $comprobation = $this->cinemasDAO->isAShowtimeMovieInACinemaToday($showtime);
+        if ($comprobation!=$showtime->getTheater()->getCinema()->getName()) {
             return false;
         }
         return true;
@@ -136,16 +136,15 @@ class ShowtimeController
     {
         $newShowtimeDate = $this->formatDate($newShowtime);
         $showtimes = $this->showtimeDao->getShowtimesOfAcinema($newShowtime->getTheater()->getCinema());
-
+   
         foreach ($showtimes as $showtime) {
-
             $fechaMin = $this->formatDate($showtime);
             $fechaMin->modify('-15 minutes');
 
             $fechaMax = $this->formatDate($showtime);
             $fechaMax->add(new DateInterval('PT' . $showtime->getMovie()->getDuration() . 'M'));
 
-            if ($newShowtimeDate > $fechaMin && $newShowtimeDate < $fechaMax) {
+            if ($newShowtimeDate > $fechaMin && $newShowtimeDate < $fechaMax && $showtime->getTheater()->getName() == $newShowtime->getTheater()->getName()) {
                 return false;
             }
         }
@@ -234,8 +233,17 @@ class ShowtimeController
     public function getCinema(){
         $cinema = $this->cinemasDAO->searchById($_GET['idCinema']);
         $cinemaTheaters = $cinema->getTheaters();
-    
-        $this->showShowtimeMenu();
-        $this->openPopUp();
+        
+        if (!empty($cinemaTheaters)) {
+            $this->showShowtimeMenu($cinemaTheaters);
+            $this->openPopUp();
+        }else {
+            echo '<script type="text/javascript">
+            alert("No hay salas disponibles para el cine seleccionado");
+        </script>';
+        }
+     
+       
     }
 }
+//<?php echo $theater->getName(); ?>

@@ -219,12 +219,12 @@ class ShowtimesDAO {
             
             $showtimesList=array();
             $query ="SELECT * from ". $this->tableName." "
-            . " inner join theaters on theaters.id=showtimes.id_theater
-             inner join cinemas on theaters.id_cinema=:cinemas.id";
+            . " inner join theaters on theaters.id=showtimes.id_theater 
+             inner join cinemas on theaters.id_cinema=cinemas.id 
+             where theaters.id_cinema=".$Cinema->getId();  
 
-             $parameters["cinemas.id"]= $Cinema->getId();             
              $this->connection = Connection::GetInstance();
-             $resultSet = $this->connection->Execute($query,$parameters);
+             $resultSet = $this->connection->Execute($query);
              foreach ($resultSet as $row) {
                 $Showtime = new Showtime();
                 $Showtime->setId($row['id']);
@@ -261,9 +261,12 @@ class ShowtimesDAO {
                 
                 array_push($showtimesList, $Showtime);             
              }
+             return $showtimesList;
+            
             } catch (\Throwable $th) {
                 throw $th;
             }
+            
     }
 
    

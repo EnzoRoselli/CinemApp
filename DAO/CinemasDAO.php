@@ -100,22 +100,23 @@ class CinemasDAO
         }
     }
 
-    public function isAmovieInACinemaToday(Showtime $showtime)
+    public function isAShowtimeMovieInACinemaToday(Showtime $showtime)
     {
         try {
-            $query = " select cinemas.cinema_name from " . $this->tableName . " 
+            $query = " select cinema_name from " . $this->tableName . " 
            inner join theaters on theaters.id_cinema=cinemas.id
            inner join showtimes on showtimes.id_theater=theaters.id
-           where showtimes.id_movie=:id_movie and showtimes.view_date=:view_date";
+           where showtimes.id_movie=:id_movie and showtimes.view_date=:view_date and showtimes.id_theater=:id_theater";
            
             $parameters["id_movie"] = $showtime->getMovie()->getId();
             $parameters["view_date"] = $showtime->getDate();
+            $parameters["id_theater"] = $showtime->getTheater()->getId();
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
-
+            var_dump($resultSet);
             if (!empty($resultSet)) {
-                return true;
+                return $resultSet['cinema_name'];
             }else {
                 return false;
             }
