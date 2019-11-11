@@ -98,7 +98,7 @@ include('nav.php');
 				<div class="form-group">
 					<label>Theater</label>
 					<select name="idTheater" class="form-control">
-						<?php foreach($theatersList as $theater){ ?>
+						<?php foreach($cinemaTheaters as $theater){ ?>
 							<option value=<?= $theater->getId() ?>><?= $theater->getName() ?></option>	
 						<?php } ?>													
 					</select>
