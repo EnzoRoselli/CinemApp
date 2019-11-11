@@ -134,3 +134,27 @@ include('nav.php');
 
     </div>
 </div>
+
+<div class="overlay" id="overlay">
+	<div class="popup" id="popup">
+		<a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+		<h3>Buy</h3>
+		<form action="<?php echo  FRONT_ROOT . "/Showtime/create" ?>" method="POST">
+			<div class="contenedor-inputs">
+				
+
+				<div class="form-group">
+					<label>Hour</label>
+					<input type="time" required class="form-control" name="hour" >
+				</div>
+
+				
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-med btn-light" ><a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup" id="cancel-button-showtime">Close</a></button>			
+				
+				<button type="submit" class="btn btn-med btn-light">Confirm</button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -28,11 +28,11 @@ include('nav.php');
                             <div class="movie-content-actions">
                                 <div class="movie-content-actions-item">
                                     <p>Overview</p>
-                                    <a href="<?php echo  FRONT_ROOT . "/Showtime/showOverview?movie=" .  $moviesList[$i]->getId() ?>"><i class="fas fa-info-circle"></i></a>
+                                    <a href="<?php echo  FRONT_ROOT . "/Showtime/showSelectShowtime?movie=" .  $moviesList[$i]->getId() ?>"><i class="fas fa-info-circle"></i></a>
                                 </div>
                                 <div class="movie-content-actions-item">
                                     <p>Tickets</p>
-                                    <a href="<?php echo  FRONT_ROOT . "/Showtime/showOverview?movie=" .  $moviesList[$i]->getId() ?>"><i class="fas fa-ticket-alt"></i></a>
+                                    <a href="<?php echo  FRONT_ROOT . "/Showtime/showSelectShowtime?movie=" .  $moviesList[$i]->getId() ?>"><i class="fas fa-ticket-alt"></i></a>
                                 </div>
                             </div>
                         </div>
