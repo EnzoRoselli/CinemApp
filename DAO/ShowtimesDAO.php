@@ -245,7 +245,8 @@ class ShowtimesDAO {
                 $Showtime->setHour($row['hour']);
  
                 $Showtime->setSubtitle($row['subtitles']);
-                if($row['active'] == 1){
+         
+                if($row['active'] == 1 && $theater->getActive()!=0){
                     $Showtime->setActive(true);
                 }else{
                     $Showtime->setActive(false);

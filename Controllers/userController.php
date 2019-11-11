@@ -31,10 +31,7 @@ class UserController
                 $NewUserComprobation= $this->usersDAO->existsUserFromSignUp($user);
                 if($NewUserComprobation===false)
                 {
-
-
-                   $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */ 
-
+                 $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */ 
                 }
                 else 
                 {    
@@ -112,7 +109,9 @@ class UserController
         echo '<script type="text/javascript">
         alert("Usuario creado exitosamente, por favor inicie sesion con sus credenciales");
    </script>';
-        $this->showLoginSignup(SIGNUP_SUCCESS);
+   $advices=array();
+   array_push($advices,SIGNUP_SUCCESS);
+        $this->showLoginSignup($advices);
     }
 
 

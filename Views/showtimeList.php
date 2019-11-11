@@ -38,31 +38,18 @@ include('nav.php');
                         </div>
                     </div>
                     <div class="showtime-data">
-                        <div class="showtime-data-items">
-                            <p>Domingo 2</p>
-                            <p>18:00</p>
-                            <p>Aldrey | Sala Atmos</p>
+                        <?php foreach ($showtimesList as $showtime) {
+                            if ($showtime->getMovie()->getTitle() == $moviesList[$i]->getTitle() && $showtime->getTheater()->getActive()==true) { ?>
+                                <div class="showtime-data-items">
+                            <p><?= $showtime->getDate(); ?></p>
+                            <p><?= $showtime->getHour(); ?></p>
+                            <p><?= $showtime->getTheater()->getCinema()->getName(); ?> | <?= $showtime->getTheater()->getName(); ?></p>
                         </div>
-                        <div class="showtime-data-items">
-                            <p>Domingo 2</p>
-                            <p>18:00</p>
-                            <p>Aldrey | Sala Atmos</p>
-                        </div>
-                        <div class="showtime-data-items">
-                            <p>Domingo 2</p>
-                            <p>18:00</p>
-                            <p>Aldrey | Sala Atmos</p>
-                        </div>
-                        <div class="showtime-data-items">
-                            <p>Domingo 2</p>
-                            <p>18:00</p>
-                            <p>Aldrey | Sala Atmos</p>
-                        </div>
-                        <div class="showtime-data-items">
-                            <p>Domingo 2</p>
-                            <p>18:00</p>
-                            <p>Aldrey | Sala Atmos</p>
-                        </div>
+                         <?php  } ?>
+                            
+                        <?php } ?>
+                        
+                       
                     </div>
                 </div>
             </div>

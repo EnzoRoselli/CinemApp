@@ -136,7 +136,7 @@ class ShowtimeController
     {
         $newShowtimeDate = $this->formatDate($newShowtime);
         $showtimes = $this->showtimeDao->getShowtimesOfAcinema($newShowtime->getTheater()->getCinema());
-   
+
         foreach ($showtimes as $showtime) {
             $fechaMin = $this->formatDate($showtime);
             $fechaMin->modify('-15 minutes');
@@ -201,6 +201,7 @@ class ShowtimeController
     public function showShowtimesListUser()
     {
         $moviesList = $this->moviesDAO->getAll();
+        $showtimesList = $this->showtimeDao->getAll();
         $genresByMovie = array();
 
         foreach ($moviesList as $movie) {

@@ -13,6 +13,7 @@ include('nav.php');
 ?>
 
 <?php if (isset($message)) {
+	var_dump($message);
 	foreach ($message as $value) {
 		echo "<p> $value </p>";
 	}

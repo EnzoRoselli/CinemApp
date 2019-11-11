@@ -119,7 +119,12 @@ class TheatersDAO
                 $theater->setName($resultSet[0]["theater_name"]);
                 $cinema=$this->cinemasDAO->searchById($resultSet[0]['id_cinema']);
                 $theater->setCinema($cinema);
-                $theater->setActive($resultSet[0]["active"]);
+                if ($cinema->getActive()) {
+                    $theater->setActive($resultSet[0]["active"]);
+                }else {
+                    $theater->setActive(false);
+                }
+               
                 $theater->setTicketValue($resultSet[0]["ticket_value"]);
                 $theater->setCapacity($resultSet[0]["capacity"]);
             
@@ -212,8 +217,9 @@ class TheatersDAO
 
                 $cinema = $this->cinemasDAO->searchById($row['id_cinema']);
                 $theater->setCinema($cinema);
+              
 
-                if($row['active'] == 1){
+                if($row['active'] == 1 && $cinema->getActive()!=0){
                     $theater->setActive(true);
                 }else{
                     $theater->setActive(false);
