@@ -118,10 +118,10 @@ class ShowtimeController
     public function isMovieInOtherCinema(Showtime $showtime)
     {
         $comprobation = $this->cinemasDAO->isAShowtimeMovieInACinemaToday($showtime);
-        if ($comprobation!=$showtime->getTheater()->getCinema()->getName()) {
-            return false;
+        if ($comprobation!=false && $comprobation!=$showtime->getTheater()->getCinema()->getName()) {
+            return true;
         }
-        return true;
+        return false;
     }
     public function formatDate($showtime)
     {

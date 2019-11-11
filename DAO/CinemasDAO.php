@@ -106,17 +106,18 @@ class CinemasDAO
             $query = " select cinema_name from " . $this->tableName . " 
            inner join theaters on theaters.id_cinema=cinemas.id
            inner join showtimes on showtimes.id_theater=theaters.id
-           where showtimes.id_movie=:id_movie and showtimes.view_date=:view_date and showtimes.id_theater=:id_theater";
+           where showtimes.id_movie=:id_movie and showtimes.view_date=:view_date";
            
             $parameters["id_movie"] = $showtime->getMovie()->getId();
             $parameters["view_date"] = $showtime->getDate();
-            $parameters["id_theater"] = $showtime->getTheater()->getId();
+
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
-            var_dump($resultSet);
+          var_dump($resultSet);
             if (!empty($resultSet)) {
-                return $resultSet['cinema_name'];
+                echo "adas";
+                return $resultSet[0]['cinema_name'];
             }else {
                 return false;
             }
