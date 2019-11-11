@@ -129,12 +129,13 @@ class CinemasDAO
 
         try {
             $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id=:id";
-
+            $queryTheater = "SELECT * FROM " . " theaters WHERE theaters.id_cinema  =:id";
             $parameters["id"] = $id;
-
+            $cinema = null;
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query, $parameters);
+            $resultSetTheater = $this->connection->Execute($queryTheater, $parameters);
 
             if ($resultSet != null) {
                 $cinema = new Cine();
@@ -142,11 +143,20 @@ class CinemasDAO
                 $cinema->setName($resultSet[0]["cinema_name"]);
                 $cinema->setAddress($resultSet[0]["address"]);
                 $cinema->setActive($resultSet[0]["active"]);
-
-                return $cinema;
-            } else {
-                return null;
             }
+
+            foreach ($resultSetTheater as $key) {
+                $theater = new Theater();
+                $theater->setId($key['id']);
+                $theater->setName($key['theater_name']);
+                $theater->setCinema($cinema);
+                $theater->setActive($key['active']);
+                $theater->setTicketValue($key['ticket_value']);
+                $theater->setCapacity($key['capacity']);
+                $cinema->addTheater($theater);
+            }
+            return $cinema;
+
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -206,6 +216,7 @@ class CinemasDAO
                     $theater->setTicketValue($key['ticket_value']);
                     $theater->setCapacity($key['capacity']);
                     $cine->addTheater($theater);
+                    
                 }
 
                 array_push($this->cineList, $cine);

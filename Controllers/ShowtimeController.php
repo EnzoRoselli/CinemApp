@@ -74,14 +74,9 @@ class ShowtimeController
         }
     }
 
-    public function create($idCinema/*, $idMovie, $nameLanguage*/)
+    public function create($idTheater, $idMovie, $nameLanguage)
     {
-        $cinema = $this->cinemasDAO->searchById($idCinema);
-        //ABRIS EL POP UP PARA SELECCIONAR UN CINE
-        //FUNCION
-
-        //////////////YA EL POP UP DE TODOS LOS DATOS
-        $theater=$this->theatersDAO->searchById($idtheater);
+        $theater=$this->theatersDAO->searchById($idTheater);
         $movie = $this->moviesDAO->searchById($idMovie);
         $language = $this->languagesDAO->searchByName($nameLanguage);
         $subtitled = null;
@@ -235,6 +230,9 @@ class ShowtimeController
     }
 
     public function getCinema(){
-        var_dump($_GET);
+        $cinema = $this->cinemasDAO->searchById($_GET['idCinema']);
+        $theatersList = $cinema->getTheaters();
+        $this->showShowtimeMenu();
+        $this->openPopUp();
     }
 }

@@ -115,8 +115,7 @@ select * from movies;
 select * from cinemas;
 
 select * from theaters;
-
-select * from theaters as t
-inner join cinemas as c on t.id_cinema = c.id
 */
+select * from theaters WHERE theater.id_cinema=:id_cinema and theater_name=:theater_name
+
 /*drop database cinemapp;*/

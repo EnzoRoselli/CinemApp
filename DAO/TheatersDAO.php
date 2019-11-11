@@ -41,7 +41,7 @@ class TheatersDAO
        
         try {
 
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE theater.id_cinema=:id_cinema and theater_name=:theater_name";
+            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE ". $this->tableName . ".id_cinema=:id_cinema and theater_name=:theater_name";
 
             $parameters["id_cinema"] = $theater->getCinema()->getId();
             $parameters["theater_name"] = $theater->getName();

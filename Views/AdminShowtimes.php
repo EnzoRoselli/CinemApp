@@ -15,7 +15,7 @@ include('nav.php');
 					<option value=<?= $cine->getId() ?>><?= $cine->getName() ?></option>
 				<?php } ?>
 			</select>
-			<button id="sbtn-abrir-popup" type="submit" name="idCsinema" class="btn-small"><i class="fas fa-plus"></i></button>
+			<button id="sbtn-abrir-popup" type="submit"class="btn-small"><i class="fas fa-plus"></i></button>
 			</form>
 		</div>
 	</div>
@@ -96,10 +96,10 @@ include('nav.php');
 			<div class="contenedor-inputs">
 
 				<div class="form-group">
-					<label>Cinema</label>
-					<select name="idCinema" class="form-control">
-						<?php foreach($cinemasList as $cine){ ?>
-							<option value=<?= $cine->getId() ?>><?= $cine->getName() ?></option>	
+					<label>Theater</label>
+					<select name="idTheater" class="form-control">
+						<?php foreach($theatersList as $theater){ ?>
+							<option value=<?= $theater->getId() ?>><?= $theater->getName() ?></option>	
 						<?php } ?>													
 					</select>
 				</div>
