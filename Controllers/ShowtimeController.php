@@ -65,8 +65,9 @@ class ShowtimeController
             $theatersList = $this->theatersDAO->getAll();//EL TD DEL CINE LO TOMAS POR EL GETname del cine de la sala Y AGREGAR OTRO TD CON NOMBRE SALA
             $moviesList = $this->moviesDAO->getAll();
             $languagesList = $this->languagesDAO->getAll();
-            $showtimes = $this->showtimeDao->getAll();
+            //$showtimes = $this->showtimeDao->getAll();
         } catch (\Throwable $th) {
+            echo '<pre>';
             var_dump($th);
             // // $advice = ShowtimeController::showMessage("DB");
         } finally {
