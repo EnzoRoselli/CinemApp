@@ -31,14 +31,13 @@ class UserController
                 $NewUserComprobation= $this->usersDAO->existsUserFromSignUp($user);
                 if($NewUserComprobation===false)
                 {
-                 $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */ 
+                   $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */ 
+
                 }
                 else 
                 {    
-                    echo '<script type="text/javascript">
-                    alert("Los datos que intenta ingresar corresponden a un usuario existente en nuestra base de datos");
-               </script>';             
-                    $this->showLoginSignup($NewUserComprobation);           
+                    $this->ShowMessage(SIGNUP_FAILURE);       
+                    $this->showLoginSignup();           
                 }
             }
             catch(\Throwable $ex) {
@@ -46,9 +45,20 @@ class UserController
                echo 'Un error ha ocurrido';
             }
         }
+        else{
+                $this->ShowMessage(INCOMPLETE_INPUTS);      
+                $this->showLoginSignup();
+        }
     }
     
-    
+
+
+    public function checkPostSet()
+    {
+        if (isset($_POST['SignupEmail'], $_POST['SignupPassword'], $_POST['SignupName'], $_POST['SignupLastName'], $_POST['SignupDNI'])){
+            return true;
+        }
+    }
     public function loginAction(){
          
         if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
@@ -68,36 +78,18 @@ class UserController
                  HomeController::showMain();
              }
             }catch(Exception $e) {
-                echo "asd";   /* catchear bien esta excepcin PONER ADVICE Y AVISAR*/ 
+                echo "Ha ocurrido un error, por favor intentelo nuevamente";   /* catchear bien esta excepcin PONER ADVICE Y AVISAR*/ 
             }
         }
     }
 
     public function logoutAction(){
         session_destroy();
-        echo '<script type="text/javascript">
-        alert("La sesion se ha cerrado con éxito");
-   </script>';
+        $this->ShowMessage(LOGOUT_SUCCESS);
         session_start();
         HomeController::showMain();
     }
 
-
-    /*public function showHome($message = array()){
-  
-        //HomeController::showMain();
-        if ($message == '1') {
-
-            //session_destroy();
-            $_SESSION['delete'] = 1;
-            echo 'Sesion destruida con exito';
-            <var></var>
-            
-        }else {
-            HomeController::showMain();
-        }
-       
-    }*/
 
     public function showLoginSignup($message = array()){
         require_once(VIEWS . '/loginSignup.php');
@@ -106,12 +98,8 @@ class UserController
     public function addConfirmation($user){
 
         $this->usersDAO->add($user); 
-        echo '<script type="text/javascript">
-        alert("Usuario creado exitosamente, por favor inicie sesion con sus credenciales");
-   </script>';
-   $advices=array();
-   array_push($advices,SIGNUP_SUCCESS);
-        $this->showLoginSignup($advices);
+        $this->ShowMessage(SIGNUP_SUCCESS);
+        $this->showLoginSignup();
     }
 
 
@@ -120,6 +108,13 @@ class UserController
             return true;
         else
             return false;
+    }
+
+    public function ShowMessage($message)
+    {
+        echo '<script type="text/javascript">
+        alert('. $message .');
+        </script>';   
     }
 }
 ?>

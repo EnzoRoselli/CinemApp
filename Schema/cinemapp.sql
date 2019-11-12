@@ -118,4 +118,4 @@ select * from theaters;
 */
 select * from theaters WHERE theater.id_cinema=:id_cinema and theater_name=:theater_name
 
-/*drop database cinemapp;*/
+drop table users;
