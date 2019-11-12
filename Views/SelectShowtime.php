@@ -23,112 +23,29 @@ include('nav.php');
         </div>
         <div class="showtime-main">
             <div class="shotime-main-row">
+            
+            <?php foreach ($movieShowtimes as $showtime) {
+                            if ($showtime->getMovie()->getTitle() && $showtime->getTheater()->getActive()==true) { ?>
+            
                 <div class="showtime-details-content">
                     <div class="showtime-details-content-left">
-                        <p>Day: 02/10/2019</p>
-                        <p>Hour: 18-00</p>
-                        <p>Language: Russian</p>
-                        <p>Subtitles: No</p>
+                        <p>Day: <?= $showtime->getDate();?></p>
+                        <p>Hour: <?= $showtime->getHour();?></p>
+                        <p>Language: <?= $showtime->getLanguage()->getName();?></p>
+                        <p>Subtitles: <?= $showtime->isSubtitle();?></p>
                     </div>
                     <div class="showtime-details-content-right">
-                        <p>Cinema: Aldrey</p>
-                        <p>Theater: Atmos</p>
-                        <p>Address: Sarmiento 2685</p>
+                        <p>Cinema: <?= $showtime->getTheater()->getCinema()->getName();?></p>
+                        <p>Theater: <?= $showtime->getTheater()->getName();?></p>
+                        <p>Address: <?= $showtime->getTheater()->getCinema()->getAddress();?></p>
                     </div>
                 </div>
                 <div class="showtime-main-buttons">
                     <a href="<?=FRONT_ROOT . "/Showtime/showBuy" ?>" class="showtime-main-buttons-buy">BUY</a>
                 </div>
-            </div>
-            <div class="shotime-main-row">
-                <div class="showtime-details-content">
-                    <div class="showtime-details-content-left">
-                        <p>Day: 02/10/2019</p>
-                        <p>Hour: 18-00</p>
-                        <p>Language: Russian</p>
-                        <p>Subtitles: No</p>
-                    </div>
-                    <div class="showtime-details-content-right">
-                        <p>Cinema: Aldrey</p>
-                        <p>Theater: Atmos</p>
-                        <p>Address: Sarmiento 2685</p>
-                    </div>
-                </div>
-                <div class="showtime-main-buttons">
-                    <a href=<?= FRONT_ROOT . "/Showtime/showBuy"?> class="showtime-main-buttons-buy">BUY</a>
-                </div>
-            </div>
-            <div class="shotime-main-row">
-                <div class="showtime-details-content">
-                    <div class="showtime-details-content-left">
-                        <p>Day: 02/10/2019</p>
-                        <p>Hour: 18-00</p>
-                        <p>Language: Russian</p>
-                        <p>Subtitles: No</p>
-                    </div>
-                    <div class="showtime-details-content-right">
-                        <p>Cinema: Aldrey</p>
-                        <p>Theater: Atmos</p>
-                        <p>Address: Sarmiento 2685</p>
-                    </div>
-                </div>
-                <div class="showtime-main-buttons">
-                    <a href="" class="showtime-main-buttons-buy">BUY</a>
-                </div>
-            </div>
-            <div class="shotime-main-row">
-                <div class="showtime-details-content">
-                    <div class="showtime-details-content-left">
-                        <p>Day: 02/10/2019</p>
-                        <p>Hour: 18-00</p>
-                        <p>Language: Russian</p>
-                        <p>Subtitles: No</p>
-                    </div>
-                    <div class="showtime-details-content-right">
-                        <p>Cinema: Aldrey</p>
-                        <p>Theater: Atmos</p>
-                        <p>Address: Sarmiento 2685</p>
-                    </div>
-                </div>
-                <div class="showtime-main-buttons">
-                    <a href="" class="showtime-main-buttons-buy">BUY</a>
-                </div>
-            </div>
-            <div class="shotime-main-row">
-                <div class="showtime-details-content">
-                    <div class="showtime-details-content-left">
-                        <p>Day: 02/10/2019</p>
-                        <p>Hour: 18-00</p>
-                        <p>Language: Russian</p>
-                        <p>Subtitles: No</p>
-                    </div>
-                    <div class="showtime-details-content-right">
-                        <p>Cinema: Aldrey</p>
-                        <p>Theater: Atmos</p>
-                        <p>Address: Sarmiento 2685</p>
-                    </div>
-                </div>
-                <div class="showtime-main-buttons">
-                    <a href="" class="showtime-main-buttons-buy">BUY</a>
-                </div>
-            </div>
-            <div class="shotime-main-row">
-                <div class="showtime-details-content">
-                    <div class="showtime-details-content-left">
-                        <p>Day: 02/10/2019</p>
-                        <p>Hour: 18-00</p>
-                        <p>Language: Russian</p>
-                        <p>Subtitles: No</p>
-                    </div>
-                    <div class="showtime-details-content-right">
-                        <p>Cinema: Aldrey</p>
-                        <p>Theater: Atmos</p>
-                        <p>Address: Sarmiento 2685</p>
-                    </div>
-                </div>
-                <div class="showtime-main-buttons">
-                    <a href="" class="showtime-main-buttons-buy">BUY</a>
-                </div>
+           
+            <?php  } } ?>                     
+            
             </div>
         </div>
 

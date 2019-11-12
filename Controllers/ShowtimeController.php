@@ -215,8 +215,9 @@ class ShowtimeController
     }
 
     public function showSelectShowtime(){
-        
+       
         $movie = $this->moviesDAO->searchById($_GET['movie']);
+        $movieShowtimes=$this->showtimeDao->getMovieShowtimes($movie);
         require_once(VIEWS . "/SelectShowtime.php");
     }
 
