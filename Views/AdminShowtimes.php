@@ -89,7 +89,7 @@ include('nav.php');
 		
 		<a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 
-		<h3>Agregar showtime</h3>
+		<h3><?= "Create a Showtime in " . $cinemaTheaters[0]->getCinema()->getName()?></h3>
 
 
 		<form action="<?php echo  FRONT_ROOT . "/Showtime/create" ?>" method="POST">
