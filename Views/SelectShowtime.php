@@ -41,7 +41,7 @@ include('nav.php');
                     </div>
                 </div>
                 <div class="showtime-main-buttons">
-                    <a href="<?=FRONT_ROOT . "/Showtime/showBuy" ?>" class="showtime-main-buttons-buy">BUY</a>
+                    <a href="<?=FRONT_ROOT . "/Showtime/showBuy?movie=". $showtime->getMovie()->getId() ?>" class="showtime-main-buttons-buy">BUY</a>
                 </div>
            
             <?php  } } ?>                     
@@ -54,21 +54,22 @@ include('nav.php');
 
 <div class="overlay" id="overlay">
 	<div class="popup" id="popup">
-		<a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+		<a href="<?= FRONT_ROOT . "/Showtime/showSelectShowtime?movie=".$showtime->getMovie()->getId() ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 		<h3>Buy</h3>
-		<form action="<?php echo  FRONT_ROOT . "/Showtime/create" ?>" method="POST">
+		<form action="<?=  FRONT_ROOT . "/Showtime/create" ?>" method="POST">
 			<div class="contenedor-inputs">
 				
-
-				<div class="form-group">
-					<label>Hour</label>
-					<input type="time" required class="form-control" name="hour" >
-				</div>
-
-				
+                <p>Day: <?= $showtime->getDate();?></p>
+                <p>Hour: <?= $showtime->getHour();?></p>
+                <p>Cinema: <?= $showtime->getTheater()->getCinema()->getName();?></p>
+                <p>Theater: <?= $showtime->getTheater()->getName();?></p>
+                <p>Ticket Value: <?= $showtime->getTheater()->getTicketValue();?></p>
+                <label>Amount</label>
+                <input type="number">
+                <p>Total: </p>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-med btn-light" ><a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup" id="cancel-button-showtime">Close</a></button>			
+            <a href="<?= FRONT_ROOT . "/Showtime/showSelectShowtime?movie=".$showtime->getMovie()->getId() ?>" class="btn-cerrar-popup">Close</a>	
 				
 				<button type="submit" class="btn btn-med btn-light">Confirm</button>
 			</div>

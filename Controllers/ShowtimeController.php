@@ -215,16 +215,16 @@ class ShowtimeController
     }
 
     public function showSelectShowtime(){
-       
         $movie = $this->moviesDAO->searchById($_GET['movie']);
         $movieShowtimes=$this->showtimeDao->getMovieShowtimes($movie);
         require_once(VIEWS . "/SelectShowtime.php");
     }
 
     public function showBuy(){
-        
-            $this->openPopUp();
-       // require_once(VIEWS . "/Buy.php");
+        $this->openPopUp();
+        $movie = $this->moviesDAO->searchById($_GET['movie']);
+        $movieShowtimes=$this->showtimeDao->getMovieShowtimes($movie);
+        require_once(VIEWS . "/SelectShowtime.php");
     }
 
     public function openPopUp()
