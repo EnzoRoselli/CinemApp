@@ -243,7 +243,10 @@ class ShowtimeController
             echo '<script type="text/javascript">
             alert("No hay salas disponibles para el cine seleccionado");
         </script>';
+        $this->showShowtimeMenu();
+        
         }
+
      
        
     }
