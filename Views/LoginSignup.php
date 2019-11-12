@@ -33,9 +33,9 @@ include('nav.php');
 
 				</div>
 				<span>or use your email for registration</span>
-				<input class="input-login" name="SignupName" type="text" placeholder="Nombre" />
-				<input class="input-login" name="SignupLastName" type="text" placeholder="Apellido" />
-				<input class="input-login" name="SignupDNI" type="text" placeholder="D.N.I" />
+				<input class="input-login" name="SignupName" type="text"  placeholder="Nombre" pattern="[A-Za-z]{2,}" title="Solo se permiten letras">
+				<input class="input-login" name="SignupLastName" type="text" placeholder="Apellido" pattern="[A-Za-z]{2,}" title="Solo se permiten letras">
+				<input class="input-login" name="SignupDNI" type="text" placeholder="D.N.I" pattern="[0-9]{8,}" title="Solo se permiten numero, sin espacios ni guiones">
 				<input class="input-login" name="SignupEmail" type="email" placeholder="Email" />
 				<input class="input-login" name="SignupPassword" type="SignupPassword" placeholder="Contraseña" />
 				<button class="login-btn">Sign Up</button>
