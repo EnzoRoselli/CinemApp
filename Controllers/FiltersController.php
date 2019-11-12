@@ -37,6 +37,17 @@ class FiltersController
     public function FilterMovies()
     {
         $message = 0;
+        $advices = array();
+
+        $moviesList = $this->MoviesDAO->getAll();  
+        $genresByMovie = array();
+
+        foreach ($moviesList as $movie) {
+            
+            $genres = $this->genreDAO->getGenresByMovieId($movie->getId());
+
+            array_push($genresByMovie, $genres[0]);
+        }
 
         try{
 
@@ -59,7 +70,7 @@ class FiltersController
                     
                     if(!empty($moviesByGenres)){
 
-                        $this->showFilteredMovies(null, $moviesByGenres, null);
+                        $this->showFilteredMovies(null, $moviesByGenres, null, $genresByMovie);
                     }else{
                         $message = 1;
                     }
@@ -128,6 +139,7 @@ class FiltersController
 
     public function searchByGenres($genresIds)
     {
+        $advices = array();
         try {
             $moviesByGenres = $this->genresXmoviesDAO->getMoviesByGenresIds($genresIds);
         } catch (\Throwable $th) {
@@ -139,6 +151,7 @@ class FiltersController
 
     public function searchByDate($dateToSearch)
     {   
+        $advices = array();
         try {
 
             $showtimes = $this->showtimeDao->getAll();
@@ -160,6 +173,7 @@ class FiltersController
 
     public function moviesByGenresToShowtimes($moviesByGenres, $dateToSearch){
 
+        $advices = array();
         try {
 
             $Allshowtimes = $this->showtimeDao->getAll();
@@ -226,7 +240,7 @@ class FiltersController
         return $showtimesFixed;
     }
 
-    public function showFilteredMovies($movieByName = "", $moviesByGenres = "", $showtimesByDate = ""){
+    public function showFilteredMovies($movieByName = "", $moviesByGenres = "", $showtimesByDate = "", $genresByMovie = ""){
         
         require_once(VIEWS . '/ShowFilteredMovies.php');
     }

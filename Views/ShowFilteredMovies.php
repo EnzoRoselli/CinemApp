@@ -43,6 +43,14 @@ if (!empty($movieByName)) {
                         <h2><?php echo $moviesByGenres[$i]->getTitle(); ?></h2>
                         <p><?php /*echo $moviesWithGenres[$i]->release_date;*/ ?></p>
                     </div>
+
+                    <div class="overlay-card">
+                    <div class="overlay-card-background"></div>
+                    <p><?=$genresByMovie[$i]; ?></p>
+                    <div class="movie-card-details">
+                        <a href="">View Details</a> 
+                    </div>
+                </div>
                 </button>
 
             </div>
@@ -66,7 +74,7 @@ if (!empty($movieByName)) {
                             </a>
                             <div class="overview">
                                 <h2><?php echo $showtimesByDate[$i]->getMovie()->getTitle(); ?></h2>
-                                <p><?php echo $showtimesByDate[$i]->getCinema()->getName(); ?></p>
+                                <p><?php echo $showtimesByDate[$i]->getTheater()->getCinema()->getName(); ?></p>
                                 <h3>Horarios</h3>
                                 <p><?php foreach ($showtimesByDate[$i]->getHour() as $value) {
                                     echo $value . "<br>";
