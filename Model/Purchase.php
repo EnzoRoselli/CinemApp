@@ -9,16 +9,18 @@ class Purchase{
     private $hour;
     private $ticketAmount;
     private $total;
+    private $grossValue; //valor bruto
     private $discount;
     private $id;
  
 
-    public function __construct($date="", $hour="",$ticketAmount="",$total="",$discount=""){
+    public function __construct($date="", $hour="",$ticketAmount="",$total="",$discount="", $grossValue=""){
         $this->date=$date;
         $this->hour=$hour;
         $this->ticketAmount=$ticketAmount;
         $this->total=$total;
         $this->$discount=$discount;
+        $this->$grossValue=$grossValue;
         
     }
 
@@ -28,12 +30,14 @@ class Purchase{
     public function getTicketAmount(){return $this->ticketAmount;}
     public function getTotal(){return $this->total;}
     public function getDiscount(){return $this->discount;}
+    public function getGrossValue(){return $this->grossValue;}
 
     public function setDate($date){$this->date=$date;}
     public function setHour($hour){$this->hour=$hour;}
     public function setTicketAmount($ticketAmount){$this->ticketAmount=$ticketAmount;}
     public function setTotal($total){$this->total=$total;}
     public function setDiscount($discount){$this->discount=$discount;}
+    public function setGrossValue($grossValue){$this->grossValue=$grossValue;}
 }
 
 
