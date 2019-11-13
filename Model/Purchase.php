@@ -10,14 +10,14 @@ class Purchase{
     private $total;
     private $descount;
     private $id;
-    private static $counter = 0;
+ 
 
-    public function __construct($date,$ticketAmount,$total,$descount){
+    public function __construct($date="",$ticketAmount="",$total="",$descount=""){
         $this->date=$date;
         $this->ticketAmount=$ticketAmount;
         $this->total=$total;
         $this->descount=$descount;
-        $this->id=Purchase::$counter++;
+       
     }
 
     public function getId(){return $this->id;}

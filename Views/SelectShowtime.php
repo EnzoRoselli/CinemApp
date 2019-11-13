@@ -25,7 +25,7 @@ include('nav.php');
             <div class="shotime-main-row">
             
             <?php foreach ($movieShowtimes as $showtime) {
-                            if ($showtime->getMovie()->getTitle() && $showtime->getTheater()->getActive()==true) { ?>
+                            if ($showtime->getMovie()->getTitle()==$movie->getTitle() && $showtime->getTheater()->getActive()==true && $showtime->getTicketAvaliable()>0) { ?>
             
                 <div class="showtime-details-content">
                     <div class="showtime-details-content-left">
@@ -56,16 +56,17 @@ include('nav.php');
 	<div class="popup" id="popup">
 		<a href="<?= FRONT_ROOT . "/Showtime/showSelectShowtime?movie=".$showtime->getMovie()->getId() ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 		<h3>Buy</h3>
-		<form action="<?=  FRONT_ROOT . "/Showtime/create" ?>" method="POST">
+		<form action="<?=  FRONT_ROOT . "/Purchase/createPurchase" ?>" method="POST">
 			<div class="contenedor-inputs">
-				
+				<?php $_POST['showtime']=$showtime; ?>
                 <p>Day: <?= $showtime->getDate();?></p>
                 <p>Hour: <?= $showtime->getHour();?></p>
                 <p>Cinema: <?= $showtime->getTheater()->getCinema()->getName();?></p>
                 <p>Theater: <?= $showtime->getTheater()->getName();?></p>
                 <p>Ticket Value: <?= $showtime->getTheater()->getTicketValue();?></p>
+                <p>Remaining Tickets: <?= $showtime->getTicketAvaliable();?></p>
                 <label>Amount</label>
-                <input type="number">
+                <input name="Amount" type="number" max="<?=$showtime->getTicketAvaliable();?>" min="1">
                 <p>Total: </p>
 			</div>
 			<div class="modal-footer">

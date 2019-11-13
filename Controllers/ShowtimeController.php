@@ -250,5 +250,7 @@ class ShowtimeController
      
        
     }
+
+   
 }
 //<?php echo $theater->getName(); ?>
