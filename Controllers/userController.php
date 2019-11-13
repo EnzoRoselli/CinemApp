@@ -76,7 +76,7 @@ class UserController
 
     public function logoutAction(){
         session_destroy();
-        $this->ShowMessage(LOGOUT_SUCCESS); /**ESTO HAY QUE CAMBIARLO PARA QUE EL MENSAJE SALGA EN LAS VIEWS */
+        //$this->ShowMessage(LOGOUT_SUCCESS); /**ESTO HAY QUE CAMBIARLO PARA QUE EL MENSAJE SALGA EN LAS VIEWS */
         session_start();
         HomeController::showMain();
     }

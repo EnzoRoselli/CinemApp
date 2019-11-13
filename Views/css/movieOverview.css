@@ -33,7 +33,7 @@
 
 .showtime-main{
     text-align: center; 
-    margin-bottom: 50px;
+    margin-bottom: 50px;    
     
 }
 
@@ -90,7 +90,7 @@
 
 .showtime-main-buttons-buy:hover{   
     background-color: #fc2802;
-}rgb(255, 38, 0)
+}
 
 
 .overview-left-panel::-webkit-scrollbar-track
