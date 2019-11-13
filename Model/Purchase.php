@@ -9,7 +9,7 @@ class Purchase{
     private $hour;
     private $ticketAmount;
     private $total;
-    private $descount;
+    private $discount;
     private $id;
  
 
