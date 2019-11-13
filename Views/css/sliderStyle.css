@@ -8,6 +8,7 @@
     height:90vh;    
     overflow: hidden;
     /* margin: 0 auto;  */
+    
 }
 
 /* .miSlider{
@@ -28,9 +29,12 @@
 .miSlider p{
     position: absolute;
     color: #ffffff;
-    font-size: 2rem;
+    font-size: 2.5rem;
     z-index: 550;
-    top: 75vh;
+    top: 80vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 0px 4px 3px rgb(0, 0, 0);
 }
 
 .direcciones{
