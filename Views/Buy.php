@@ -31,6 +31,17 @@ include('nav.php');
                 <input type="hidden" name="showtime-id" value=<?= $showtime->getShowtimeId() ?>>
                 
             </div>
+            <div class="select-card">
+                <p>Choose your credit card</p>
+                <div class="select-card-item">
+                <select name="" id="">
+                    <option value="">2546512365</option>
+                    <option value="">254645646635</option>
+                </select>
+                <button>Add</button>
+                </div>
+                
+            </div>
             <div class="buy-actions">
                 <a href=<?= FRONT_ROOT . "/Showtime/showSelectShowtime?movie=" . $showtime->getMovie()->getId() ?>>Atras</a>
                 <button type="submit">Confirm</button>
