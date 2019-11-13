@@ -13,8 +13,9 @@ class Purchase{
     private $discount;
     private $id;
     private $user;
+    private $credirCardNumber;
 
-    public function __construct($date="", $hour="",$ticketAmount="",$total="",$discount="", $grossValue="", $user=""){
+    public function __construct($date="", $hour="",$ticketAmount="",$total="",$discount="", $grossValue="", $user="", $credirCardNumber=""){
         $this->date=$date;
         $this->hour=$hour;
         $this->ticketAmount=$ticketAmount;
@@ -22,6 +23,7 @@ class Purchase{
         $this->$discount=$discount;
         $this->$grossValue=$grossValue;
         $this->$user=$user;
+        $this->$credirCardNumber=$credirCardNumber;
         
     }
 
@@ -33,6 +35,7 @@ class Purchase{
     public function getDiscount(){return $this->discount;}
     public function getGrossValue(){return $this->grossValue;}
     public function getUser(){return $this->user;}
+    public function getCredirCardNumber(){return $this->credirCardNumber;}
 
     public function setDate($date){$this->date=$date;}
     public function setHour($hour){$this->hour=$hour;}
@@ -41,6 +44,7 @@ class Purchase{
     public function setDiscount($discount){$this->discount=$discount;}
     public function setGrossValue($grossValue){$this->grossValue=$grossValue;}
     public function setUser($user){$this->user=$user;}
+    public function setCredirCardNumber($credirCardNumber){$this->credirCardNumber=$credirCardNumber;}
 }
 
 
