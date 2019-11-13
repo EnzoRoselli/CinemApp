@@ -12,14 +12,18 @@ include('nav.php');
 
 ?>
 
-<?php if (isset($message)) {
-	var_dump($message);
-	foreach ($message as $value) {
-		echo "<p> $value </p>";
-	}
+<?php if (!empty($message)) {
+
+echo '<script type="text/javascript">
+alert('. $message .');
+</script>';  
+
+}
+else {
+	# code...
 } ?>
 
-<body class="tuvieja">
+<body class="">
 	<div class="login-body">
 
 	
@@ -48,8 +52,8 @@ include('nav.php');
 					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> FIJARSE EL LOIGIN DE FB -->
 				</div>
 				<span>or use your account</span>
-				<input class="input-login" name="LoginEmail" type="text" placeholder="Email" />
-				<input class="input-login" name="LoginPassword" type="password" placeholder="Password" />
+				<input class="input-login" name="LoginEmail" type="text" placeholder="Email" required/>
+				<input class="input-login" name="LoginPassword" type="password" placeholder="Contraseña" required/>
 				<a class="login-a" href="ForgotPassword.html">Forgot your password?</a>
 				<button class="login-btn">Log In</button>
 			</form>

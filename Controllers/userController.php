@@ -15,86 +15,68 @@ class UserController
         $this->usersDAO = new UsersDAO();
     }
 
+
     public function createUser() /// DEBIERA SER LLAMADO POR LA VISTA DE SIGNUP
     {
-        $email = filter_var($_POST['SignupEmail'],FILTER_SANITIZE_EMAIL);
-        $password = $_POST['SignupPassword'];
-        
-        $user = new User($email, $password);
-        $user->setName($_POST["SignupName"]);
-        $user->setLastName($_POST["SignupLastName"]);
-        $user->setDni($_POST["SignupDNI"]);
-     
-        if ($this->checkNotNullParameters($user)) { 
-            if($this->validateEmail($email)){                      
-            try
-            {               
-                $NewUserComprobation= $this->usersDAO->existsUserFromSignUp($user);
-                if($NewUserComprobation===false)
-                {
-                   $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */ 
+        $user = $this->setParameters();
 
+        if ($this->checkNotNullParameters($user)){ 
+
+            if($this->validateEmail($user->getEmail())){                      
+                try
+                {               
+                    $NewUserComprobation= $this->usersDAO->existsUserFromSignUp($user);
+                    if($NewUserComprobation===false)
+                    {
+                    $this->addConfirmation($user); /** una vez que comprueba que los datos son validos redirecciona a la pantalla de log in */ 
+
+                    }
+                    else{          
+                        $this->showLoginSignup(SIGNUP_FAILURE);           
+                    }
                 }
-                else 
-                {    
-                    $this->ShowMessage(SIGNUP_FAILURE);       
-                    $this->showLoginSignup();           
+                catch(\Throwable $ex) {
+                    var_dump($ex);
+                echo 'Un error ha ocurrido';
                 }
             }
-            catch(\Throwable $ex) {
-                var_dump($ex);
-               echo 'Un error ha ocurrido';
+            else{
+                $this->showLoginSignup(EMAIL_DOMAIN_ERROR);
             }
-        }else 
-        {
-            echo 'dominio invalidoooo';
         }
-            # code...
-        
-        }
-        else{
-                $this->ShowMessage(INCOMPLETE_INPUTS);      
-                $this->showLoginSignup();
+        else{     
+            $this->showLoginSignup(INCOMPLETE_INPUTS);
         }
     }
     
 
 
-  /*  public function checkPostSet()
-    {
-        if (isset($_POST['SignupEmail'], $_POST['SignupPassword'], $_POST['SignupName'], $_POST['SignupLastName'], $_POST['SignupDNI'])){
-            return true;
-        }
-    }*/
 
 
     public function loginAction(){
-         
-        if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
+        if (!empty($_POST['LoginEmail']) && !empty( $_POST['LoginPassword'])) {
             $UserLogging = new User($_POST['LoginEmail'], $_POST['LoginPassword']);
-
             try{
-
                 $LoginComprobation = $this->usersDAO->correctCredentials($UserLogging);
-                if(!$LoginComprobation){
-                    $LoginErrors=array();
-                    array_push($LoginErrors,LOGIN_FAILURE);
-                    $this->showLoginSignup($LoginErrors);
-             }
-             else{
-              
-                 $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
-                 HomeController::showMain();
-             }
+                if(!$LoginComprobation){                    /**ES FALSE CUANDO NO EXISTE EN BASE DE DATOS */
+                    $this->showLoginSignup(WRONG_CREDENTIALS);
+                }
+                else{              
+                    $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
+                    HomeController::showMain();                                    /**HABRIA QUE MOSTRAR MENSAJE DE EXITO EN LA VISTA */
+                }
             }catch(Exception $e) {
                 echo "Ha ocurrido un error, por favor intentelo nuevamente";   /* catchear bien esta excepcin PONER ADVICE Y AVISAR*/ 
             }
+        }
+        else {          
+            $this->showLoginSignup(INCOMPLETE_INPUTS);
         }
     }
 
     public function logoutAction(){
         session_destroy();
-        $this->ShowMessage(LOGOUT_SUCCESS);
+        $this->ShowMessage(LOGOUT_SUCCESS); /**ESTO HAY QUE CAMBIARLO PARA QUE EL MENSAJE SALGA EN LAS VIEWS */
         session_start();
         HomeController::showMain();
     }
@@ -104,38 +86,64 @@ class UserController
         require_once(VIEWS . '/loginSignup.php');
     }
 
+
+
     public function addConfirmation($user){
 
         $this->usersDAO->add($user); 
-        $this->ShowMessage(SIGNUP_SUCCESS);
-        $this->showLoginSignup();
+        $this->showLoginSignup(SIGNUP_SUCCESS);
     }
 
 
-    private function checkNotNullParameters($user){
-        if ($user->getName() != null && $user->getLastName() != null && $user->getDni() != null && $user->getEmail() != null && $user->getPassword() != null){
-            $this->checkInputFormat($user);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    /*CHEQUEA que los nombres no contengan numeros y que los DNI sean solo numeros, sin espacios*/
-    public function checkInputFormat($user)
+    
+    public function setParameters() /**SI LOS INDEX ESTAN SETEADOS CREA UN USUARIO, SINO DEVUELVE FALSE */
     {
-        if($this->checkNameFormat($user->getName()) && $this->checkNameFormat($user->getLastName()) && ctype_digit($user->getDni()) )
-            return true;
+        if (isset($_POST['SignupEmail'], $_POST['SignupPassword'], $_POST['SignupName'], $_POST['SignupLastName'], $_POST['SignupDNI'])){
+            
+            $email = filter_var($_POST['SignupEmail'],FILTER_SANITIZE_EMAIL);
+            $password = $_POST['SignupPassword'];            
+            $user = new User($email, $password);
+            $user->setName($_POST["SignupName"]);
+            $user->setLastName($_POST["SignupLastName"]);
+            $user->setDni($_POST["SignupDNI"]);
+            return $user;
+        }
         else {
             return false;
         }
     }
 
-    /* CHEQUEA QUE EL ARRAY PASADO CONTENGA SOLO LETRAS */
-    public function checkNameFormat($name)
+
+
+
+
+    private function checkNotNullParameters($user){ /**user es false si no estan todos los parametros post, luego chequea que esten bien setteados los valores del user */
+        if($user){
+            if ($user->getName() != null && $user->getLastName() != null && $user->getDni() != null && $user->getEmail() != null && $user->getPassword() != null){
+                $this->checkInputFormat($user);
+                return true;
+            }
+            else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+ 
+    public function checkInputFormat($user)    /*CHEQUEA que los nombres no contengan numeros y que los DNI sean solo numeros, sin espacios*/
+    {
+        if($this->checkNameFormat($user->getName()) && $this->checkNameFormat($user->getLastName()) && ctype_digit($user->getDni())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    
+    public function checkNameFormat($name) /* CHEQUEA QUE EL ARRAY PASADO CONTENGA SOLO LETRAS */
     {   
-        $name = domain_input($_POST["name"]);
         if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
             return true;
         }
@@ -144,9 +152,9 @@ class UserController
         }
     }
 
-    /* CHEQUEA QUE EL DOMINIO DEL EMAIL PASADO SE ENCUENTRE ENTRE LOS CONSIDERADOS VALIDOS */
+ 
     
-    function validateEmail($email){
+    function validateEmail($email){    /* CHEQUEA QUE EL DOMINIO DEL EMAIL PASADO SE ENCUENTRE ENTRE LOS CONSIDERADOS VALIDOS */
  
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
         $splittedEmail = explode("@",$email);
