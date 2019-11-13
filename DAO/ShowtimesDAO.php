@@ -173,8 +173,8 @@ class ShowtimesDAO {
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
                 $Showtime = new Showtime();
-                $Showtime->setId($row['id']);
-            
+                $Showtime->setShowtimeId($row['id']);
+                
                 $idTheater=$row['id_theater'];
                 $theater=$this->TheatersDAO->searchById($idTheater);
                 $Showtime->setTheater($theater);
@@ -225,10 +225,11 @@ class ShowtimesDAO {
             $parameters["id_movie"] = $movie->getId();
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
+
             foreach ($resultSet as $row) {
                 $Showtime = new Showtime();
-                $Showtime->setId($row['id']);
-            
+                $Showtime->setShowtimeId($row[0]);
+                
                 $idTheater=$row['id_theater'];
                 $theater=$this->TheatersDAO->searchById($idTheater);
                 $Showtime->setTheater($theater);
@@ -282,7 +283,7 @@ class ShowtimesDAO {
              $resultSet = $this->connection->Execute($query);
              foreach ($resultSet as $row) {
                 $Showtime = new Showtime();
-                $Showtime->setId($row['id']);
+                $Showtime->setShowtimeId($row['id']);
             
                 $idTheater=$row['id_theater'];
                 $theater=$this->TheatersDAO->searchById($idTheater);

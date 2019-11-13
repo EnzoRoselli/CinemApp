@@ -43,7 +43,6 @@ email varchar(30),
 firstname varchar(30),
 lastname varchar(30),
 dni varchar(9),
-role varchar(20),
 constraint pk_users PRIMARY KEY (id),
 CONSTRAINT unq_email UNIQUE (email),
 CONSTRAINT unq_dni UNIQUE (dni));
@@ -75,7 +74,7 @@ hour time,
 subtitles boolean,
 active boolean,
 ticketAvaliable int,
-CONSTRAINT pk_showtimes PRIMARY KEY (id),
+CONSTRAINT pk_showtimes PRIMARY KEY (id, id_theater),
 constraint fk_id_language_showtimes FOREIGN KEY (id_language) REFERENCES languages(id),
 CONSTRAINT fk_id_movie_showtimes FOREIGN KEY (id_movie) REFERENCES movies(id) ON DELETE CASCADE,
 CONSTRAINT fk_id_theater_showtimes FOREIGN KEY (id_theater) REFERENCES theaters(id) ON DELETE CASCADE);
@@ -102,11 +101,11 @@ insert into cinemas (cinema_name, address, active) values ('Aldrey', 'Vieja Term
                                                                                  ,('Diagonal', 'Diagonal Pueyrredón', true);
 
 insert into languages(name_language) values ('English'), ('Spanish'), ('French'), ('Italian'), ('Russian');
-/*insert into theaters(theater_name, id_cinema, active, ticket_value, capacity) values('sala1', 1, true, 200, 300)
+insert into theaters(theater_name, id_cinema, active, ticket_value, capacity) values('sala1', 1, true, 200, 300)
 																									,('sala2', 1, true, 350, 200)
                                                                                                     ,('sala tu vieja', 2, true, 200, 400)
                                                                                                     ,('salas', 3, true, 400, 200)
-                                                                                                    ,('sala5', 4, true, 500, 150);*/
+                                                                                                    ,('sala5', 4, true, 500, 150);
 /*insert into showtimes(id_language, id_movie,id_theater,view_date,hour,subtitles,active,ticketAvaliable) values(5, 3, 1, '2019-11-02', '11:50', false, true, 400);*/
 /*
 select now();
@@ -117,6 +116,17 @@ select * from cinemas;
 
 select * from theaters;
 */
-select * from theaters WHERE theater.id_cinema=:id_cinema and theater_name=:theater_name
+select * from theaters WHERE theaters.id_cinema=1;
 
-drop table users;
+/*drop database cinemapp;*/
+
+INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
+VALUES (5,2,5,100,'2019-11-20','10:00',0,1);
+INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
+VALUES (5,2,5,100,'2019-11-20','14:00',0,1);
+INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
+VALUES (5,2,5,100,'2019-11-20','18:00',0,1);
+INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
+VALUES (5,2,5,100,'2019-11-20','22:00',0,1);
+INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
+VALUES (5,2,5,100,'2019-11-20','01:00',0,1);

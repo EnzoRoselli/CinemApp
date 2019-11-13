@@ -3,16 +3,26 @@
 namespace Controllers;
 use Model\Purchase as Purchase;
 use Model\Showtime as Showtime;
+use DAO\ShowtimesDAO as ShowtimeDAO;
 
 class PurchaseController  
 {
-    
+    private $showtimeDao;
 
-    public function create()
+    public function __construct()
     {
-        $showtime=$_POST['showtime'];
-        $Amount=$_POST['Amount'];
-        $purchase=new Purchase(date("Y-m-d H:i:s"),$Amount);
+        $this->showtimeDao = new ShowtimeDAO();
+    }
+
+    public function create($amount, $totalPrice, $showtimeId)
+    {
+        $showtime = $this->showtimeDao->searchById($showtimeId);
+        var_dump($showtime->getTheater()->getTicketValue() * $amount);
+        if( $totalPrice == ($showtime->getTheater()->getTicketValue() * $amount)){
+            $purchase = 
+        }else{
+            
+        }
 
     }
 }

@@ -36,7 +36,7 @@ class Showtime{
     public function isSubtitle(){return $this->subtitle;}   
     public function getTicketAvaliable(){return (int)$this->ticketAvaliable;}
 
-    public function setId($showtimeId){$this->showtimeId=$showtimeId;}
+    public function setShowtimeId($showtimeId){$this->showtimeId=$showtimeId;}
     public function setTheater($theater){$this->theater=$theater;}
     public function setMovie($movie){$this->movie=$movie;}
     public function setDate($date){$this->date=$date;}

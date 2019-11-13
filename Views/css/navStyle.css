@@ -1,5 +1,4 @@
-
-
+@import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
 /* container */
 
 .navbar{
@@ -28,7 +27,12 @@
     width: 50%;
     margin-left:5%;
     cursor: pointer;
-    font-size: 1.8rem;
+    font-size: 1.9rem;
+    
+}
+
+.home-btn p{
+    font-family: 'Courgette', cursive;
 }
 
 .home-ref{

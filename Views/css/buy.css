@@ -1,0 +1,60 @@
+.buy-container{
+    width: 50vw;
+    height: 94vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    /* background-color: aqua; */
+    line-height: 2.5rem;
+    font-size: 1.3rem;
+}
+
+.showtime-details-container{
+    width: 100%;
+    height: 30%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+    line-height: 2.5rem;
+    font-size: 1.3rem;
+    justify-items: center;
+    /* background-color: red; */
+}
+
+.showtime-buy-details{
+    
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+    line-height: 2.5rem;
+    font-size: 1.3rem;
+    
+    
+}
+
+.buy-form{
+    width: 100%;
+    /* background-color: rebeccapurple; */
+    justify-content: center;
+    text-align: center;
+    
+}
+.active-dto-advice{
+    transition: all 0.2s ease 0s;   
+    display: block;
+}
+#buy-ticket-value{
+    display: none;
+}
+
+#dto-advice{
+    position: relative;
+    width: 500px;
+    text-align: center;
+    font-size: 1rem;
+    display: none;
+    transition: all 0.2s ease 0s;   
+}

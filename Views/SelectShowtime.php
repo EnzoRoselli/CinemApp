@@ -41,7 +41,7 @@ include('nav.php');
                     </div>
                 </div>
                 <div class="showtime-main-buttons">
-                    <a href="<?=FRONT_ROOT . "/Showtime/showBuy?movie=". $showtime->getMovie()->getId() ?>" class="showtime-main-buttons-buy">BUY</a>
+                    <a href="<?=FRONT_ROOT . "/Showtime/showBuy?showtime=". $showtime->getShowtimeId() ?>" class="showtime-main-buttons-buy">BUY</a>
                 </div>
            
             <?php  } } ?>                     
@@ -52,28 +52,3 @@ include('nav.php');
     </div>
 </div>
 
-<div class="overlay" id="overlay">
-	<div class="popup" id="popup">
-		<a href="<?= FRONT_ROOT . "/Showtime/showSelectShowtime?movie=".$showtime->getMovie()->getId() ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
-		<h3>Buy</h3>
-		<form action="<?=  FRONT_ROOT . "/Purchase/createPurchase" ?>" method="POST">
-			<div class="contenedor-inputs">
-				<?php $_POST['showtime']=$showtime; ?>
-                <p>Day: <?= $showtime->getDate();?></p>
-                <p>Hour: <?= $showtime->getHour();?></p>
-                <p>Cinema: <?= $showtime->getTheater()->getCinema()->getName();?></p>
-                <p>Theater: <?= $showtime->getTheater()->getName();?></p>
-                <p>Ticket Value: <?= $showtime->getTheater()->getTicketValue();?></p>
-                <p>Remaining Tickets: <?= $showtime->getTicketAvaliable();?></p>
-                <label>Amount</label>
-                <input name="Amount" type="number" max="<?=$showtime->getTicketAvaliable();?>" min="1">
-                <p>Total: </p>
-			</div>
-			<div class="modal-footer">
-            <a href="<?= FRONT_ROOT . "/Showtime/showSelectShowtime?movie=".$showtime->getMovie()->getId() ?>" class="btn-cerrar-popup">Close</a>	
-				
-				<button type="submit" class="btn btn-med btn-light">Confirm</button>
-			</div>
-		</form>
-	</div>
-</div>
