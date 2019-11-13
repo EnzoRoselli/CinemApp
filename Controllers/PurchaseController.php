@@ -17,8 +17,8 @@ class PurchaseController
     public function create($amount, $totalPrice, $showtimeId)
     {
         $showtime = $this->showtimeDao->searchById($showtimeId);
-        var_dump($showtime->getTheater()->getTicketValue() * $amount);
-        if( $totalPrice == ($showtime->getTheater()->getTicketValue() * $amount)){
+       //tomar total, y el amount, una vez hecha corroboracion de si existe la showtime, etc, hacer un for count del amount, y crear ticjets POST haber creado la purhcase
+        if( $totalPrice == ){
             $purchase = 
         }else{
             

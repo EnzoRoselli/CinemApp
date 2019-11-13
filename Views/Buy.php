@@ -35,6 +35,7 @@ include('nav.php');
                 <p>Choose your credit card</p>
                 <div class="select-card-item">
                 <select name="" id="">
+                    <option value="" selected >Select a credit card</option>
                     <option value="">2546512365</option>
                     <option value="">254645646635</option>
                 </select>
