@@ -42,7 +42,7 @@ password varchar(12),
 email varchar(30),
 firstname varchar(30),
 lastname varchar(30),
-dni varchar(9),
+dni int,
 constraint pk_users PRIMARY KEY (id),
 CONSTRAINT unq_email UNIQUE (email),
 CONSTRAINT unq_dni UNIQUE (dni));
@@ -81,9 +81,10 @@ CONSTRAINT fk_id_theater_showtimes FOREIGN KEY (id_theater) REFERENCES theaters(
 
 CREATE TABLE IF NOT EXISTS credit_cards(
 cc_number varchar(16),
-owner_name varchar(50),
+id_user int,
 cc_company varchar(50),
-CONSTRAINT pk_credit_cards PRIMARY KEY (cc_number));
+CONSTRAINT pk_credit_cards PRIMARY KEY (cc_number),
+CONSTRAINT fk_id_user_cc FOREIGN KEY (id_user) REFERENCES users(id));
 
 CREATE TABLE IF NOT EXISTS purchases(
 id int AUTO_INCREMENT,
@@ -94,10 +95,12 @@ grossValue int,
 discount int,
 total int,
 id_user int,
+number_cc varchar(16),
 CONSTRAINT pk_ticket PRIMARY KEY (id),
-CONSTRAINT fk_id_user_purchase FOREIGN KEY(id_user) REFERENCES users (id)
+CONSTRAINT fk_id_user_purchase FOREIGN KEY(id_user) REFERENCES users (id),
+CONSTRAINT fk_id_cc_purchase FOREIGN KEY(number_cc) REFERENCES credit_cards (cc_number));
 
-;)
+
 
 CREATE TABLE IF NOT EXISTS tickets(
 id int AUTO_INCREMENT,
@@ -114,11 +117,11 @@ insert into cinemas (cinema_name, address, active) values ('Aldrey', 'Vieja Term
                                                                                  ,('Diagonal', 'Diagonal Pueyrredón', true);
 
 insert into languages(name_language) values ('English'), ('Spanish'), ('French'), ('Italian'), ('Russian');
-insert into theaters(theater_name, id_cinema, active, ticket_value, capacity) values('sala1', 1, true, 200, 300)
-																									,('sala2', 1, true, 350, 200)
-                                                                                                    ,('sala tu vieja', 2, true, 200, 400)
-                                                                                                    ,('salas', 3, true, 400, 200)
-                                                                                                    ,('sala5', 4, true, 500, 150);
+insert into theaters(theater_name, id_cinema, active, ticket_value, capacity) values('sala 1', 1, true, 200, 300)
+																									,('sala 2', 1, true, 350, 200)
+                                                                                                    ,('sala Atmos', 2, true, 200, 400)
+                                                                                                    ,('sala 1 ', 3, true, 400, 200)
+                                                                                                    ,('sala 2', 4, true, 500, 150);
 /*insert into showtimes(id_language, id_movie,id_theater,view_date,hour,subtitles,active,ticketAvaliable) values(5, 3, 1, '2019-11-02', '11:50', false, true, 400);*/
 /*
 select now();
@@ -129,7 +132,7 @@ select * from cinemas;
 
 select * from theaters;
 */
-select * from theaters WHERE theaters.id_cinema=1;
+/*select * from theaters WHERE theaters.id_cinema=1;*/
 
 /*drop database cinemapp;*/
 
