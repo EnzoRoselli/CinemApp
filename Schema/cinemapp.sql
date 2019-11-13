@@ -74,25 +74,38 @@ hour time,
 subtitles boolean,
 active boolean,
 ticketAvaliable int,
-CONSTRAINT pk_showtimes PRIMARY KEY (id, id_theater),
+CONSTRAINT pk_showtimes PRIMARY KEY (id),
 constraint fk_id_language_showtimes FOREIGN KEY (id_language) REFERENCES languages(id),
 CONSTRAINT fk_id_movie_showtimes FOREIGN KEY (id_movie) REFERENCES movies(id) ON DELETE CASCADE,
 CONSTRAINT fk_id_theater_showtimes FOREIGN KEY (id_theater) REFERENCES theaters(id) ON DELETE CASCADE);
-
-CREATE TABLE IF NOT EXISTS tickets(
-id int AUTO_INCREMENT,
-qr int,
-id_showtime int,
-id_user int,
-CONSTRAINT pk_ticket PRIMARY KEY (id),
-CONSTRAINT fk_id_showtimes_tickets FOREIGN KEY (id_showtime) REFERENCES showtimes(id) ON DELETE RESTRICT,
-CONSTRAINT fk_id_user_tickets FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE RESTRICT);
 
 CREATE TABLE IF NOT EXISTS credit_cards(
 cc_number varchar(16),
 owner_name varchar(50),
 cc_company varchar(50),
 CONSTRAINT pk_credit_cards PRIMARY KEY (cc_number));
+
+CREATE TABLE IF NOT EXISTS purchases(
+id int AUTO_INCREMENT,
+purchase_date date,
+hour time,
+ticketAmount int,
+grossValue int,
+discount int,
+total int,
+id_user int,
+CONSTRAINT pk_ticket PRIMARY KEY (id),
+CONSTRAINT fk_id_user_purchase FOREIGN KEY(id_user) REFERENCES users (id)
+
+;)
+
+CREATE TABLE IF NOT EXISTS tickets(
+id int AUTO_INCREMENT,
+id_showtime int,
+id_purchase int,
+CONSTRAINT pk_ticket PRIMARY KEY(id),
+CONSTRAINT fk_id_showtime FOREIGN KEY (id_showtime) REFERENCES showtimes(id) ON DELETE RESTRICT,
+CONSTRAINT fk_purchase FOREIGN KEY (id_purchase) REFERENCES purchases(id)ON DELETE RESTRICT);
 
 
 insert into cinemas (cinema_name, address, active) values ('Aldrey', 'Vieja Terminal', true)
