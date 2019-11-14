@@ -49,6 +49,7 @@ class MoviesDAO
 
             $resultSet = $this->connection->Execute($query,$parameters);
 
+
             if (!empty($resultSet) ) {
                 $movie = new Movie();
                 $movie->setId($resultSet[0]['id']);

@@ -4,6 +4,23 @@ include('nav.php');
 ?>
 
 <div class="showtimes-list-container">
+    <form action="<?= FRONT_ROOT . '/Filters/FilterMovies'?>" method="GET">
+    
+        <p>Search:</p>
+        <input name="title" type="text" class="search-input" placeholder="Type to search" />
+        <p>Genre:</p>
+        <select name="genre" id="">
+        <option type="text" value="" selected>Select Genre</option>
+            <?php foreach ($genresList as $genre) { ?>
+            <option  value="<?= $genre->getId(); ?>"><?= $genre->getName(); ?></option>
+            <?php } ?>
+        </select>
+        <p>Date:</p>
+        <div class="day-filter">
+            <input type="date" name="date" min="<?= date('Y-m-d'); ?>">
+        </div>
+        <button type="submit">Aceptar</button>
+    </form>
     <div class="header-titles">
         <p class="title-highlight">Movie</p>
         <p>Day</p>

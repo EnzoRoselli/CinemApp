@@ -77,41 +77,12 @@ class GenresXMoviesDAO
         }
     }
 
-    public function getMoviesByGenresIds($genreIds){
+    public function getMoviesByGenreId($genreId){
 
-        $moviesDAO = new MoviesDAO();
-        $allMovies = $moviesDAO->getAll();
-        $moviesList = array();
-        $genreXmovieList = $this->getGenresXMoviesByGenresIds($genreIds);
+        $moviesIdByGenre = array();
 
-        for ($i=0; $i < count($allMovies); $i++) { 
-            
-            $counter=0;
+            $query = "SELECT *  FROM movies m INNER JOIN genres_by_movies x ON m.id = x.id_movie WHERE x.id_genre = :id_genre";
 
-            for ($j=0; $j < count($genreXmovieList); $j++) { 
-                
-                if($allMovies[$i]->getId() == $genreXmovieList[$j]->getMovieId()){
-
-                    $counter++;
-                }
-                
-                if($counter == count($genreIds)){                   
-                    array_push($moviesList, $allMovies[$i]);
-                    break;
-                }
-            }
-        }
-
-        return $moviesList;
-    }
-
-    public function getGenresXMoviesByGenresIds($genreIds){
-
-        $this->genreXmovieList = array();
-
-        foreach ($genreIds as $genreId) {
-            
-            $query = "SELECT * FROM" . ' ' . $this->tableName . " " . "WHERE id_genre = :id_genre";
 
             $parameters["id_genre"] = $genreId;
 
@@ -120,16 +91,24 @@ class GenresXMoviesDAO
 
             foreach ($resultSet as $row) {
 
-                $genre_x_movie = new GenreXMovie();
-
-                $genre_x_movie->setMovieId($row['id_movie']);
-                $genre_x_movie->setGenreId($row['id_genre']);
-
-                array_push($this->genreXmovieList, $genre_x_movie);
+                $movie = new Movie();
+                $movie->setId($row['id']);
+                $movie->setTitle($row['title']);
+                $movie->setOriginalLanguage($row['original_language']);
+                $movie->setDuration($row['duration']);
+                $movie->setOverview($row['overview']);
+                $movie->setReleaseDate($row['release_date']);
+                $movie->setPosterPath($row['poster_path']);
+                if($row['adult'] == 1){
+                    $movie->setAdult(true);
+                }else{
+                    $movie->setAdult(false);
+                }
+                array_push($moviesIdByGenre, $movie);
             }
-        }
-
-        return $this->genreXmovieList;
+        
+            
+        return $moviesIdByGenre;
     }
 
     

@@ -16,6 +16,7 @@ class FiltersController
     private $MoviesDAO;
     private $genreDAO;
     private $genresXmoviesDAO;
+    private $showtimeController;
 
     public function __construct()
     {
@@ -24,14 +25,7 @@ class FiltersController
         $this->genreDAO = new GenresDAO();
         $this->MoviesDAO = new MoviesDAO();
         $this->genresXmoviesDAO = new GenresXMoviesDAO();
-    }
-
-    
-    public function showFilters()
-    {
-
-        $genres = $this->genreDAO->getAll();
-        require_once(VIEWS  . '/Filter.php');
+        $this->showtimeController = new ShowtimeController();
     }
 
     public function FilterMovies()
@@ -39,114 +33,90 @@ class FiltersController
         $message = 0;
         $advices = array();
 
-        $moviesList = $this->MoviesDAO->getAll();  
-        $genresByMovie = array();
-
-        foreach ($moviesList as $movie) {
-            
-            $genres = $this->genreDAO->getGenresByMovieId($movie->getId());
-
-            array_push($genresByMovie, $genres[0]);
-        }
-
         try{
+            if(!empty($_GET['title'])){
+                
+                $movieByTitleList = array();
 
-            if (isset($_GET['genres']) && !empty($_GET['date'])) {
+                $movieByTitle = $this->searchMovieByTitle($_GET['title']);
 
-                $moviesByGenres = $this->searchByGenres($_GET['genres']);
-                $showtimesByDateAndGenres = $this->moviesByGenresToShowtimes($moviesByGenres, $_GET['date']);
-                $showtimesFixed = $this->arrangeAsShowtimesAreShown($showtimesByDateAndGenres);
+                array_push($movieByTitleList, $movieByTitle);
 
-                if(!empty($showtimesFixed)){
+                if(!empty($movieByTitleList)){
 
-                    $this->showFilteredMovies(null, null, $showtimesFixed);
+                    $this->showtimeController->showShowtimesListUser($movieByTitleList);
                 }else{
                     $message = 1;
                 }
 
-            } else if (isset($_GET['genres']) && empty($_GET['date'])) {
-    
-                    $moviesByGenres = $this->searchByGenres($_GET['genres']);
-                    
-                    if(!empty($moviesByGenres)){
 
-                        $this->showFilteredMovies(null, $moviesByGenres, null, $genresByMovie);
-                    }else{
-                        $message = 1;
-                    }
+            }else if (isset($_GET['genre']) && empty($_GET['date'])) {
+
+                $moviesByGenre = $this->searchByGenre($_GET['genre']);
+                $showtimesByMovies = $this->moviesByGenresToShowtimes($moviesByGenre);
+                
+                if(!empty($showtimesByMovies)){
+                    
+                    $this->showtimeController->showShowtimesListUser($showtimesByMovies);
+                    
+                }else{
+                    
+                    $message = 1;
+                }
                     
                 
-            } else if (isset($_GET['date']) && !isset($_GET['genres'])) { 
+            } else if (isset($_GET['date']) && !isset($_GET['genre'])) { 
     
+                $showtimesByDate = $this->searchByDate($_GET['date']);
 
-                    $showtimesByDate = $this->searchByDate($_GET['date']);
-                    $showtimesFixed = $this->arrangeAsShowtimesAreShown($showtimesByDate);
+                if(!empty($showtimesByDate)){
 
-                    if(!empty($showtimesFixed)){
-
-                        $this->showFilteredMovies(null, null, $showtimesFixed);
-                    }else{
-                        $message = 1;
-                    }
-                
+                    $this->showtimeController->showShowtimesListUser($showtimesByDate);
+                }else{
+                    $message = 1;
+                }
+            
             }
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
         }finally{
             if($message == 1){
 
-                echo '<script type="text/javascript">
-                        alert("Ninguna pelicula encaja con los filtros ingresados");
-                    </script>';
+                array_push($advices, NOT_FOUND);
     
-                $this->showFilters();
+                $this->showtimeController->showShowtimesListUser();
             }
         }
     }
 
-    public function searchMovieByName()
+    public function searchMovieByTitle($title)
     {
-        $advices = array(); //Futuramente se guardaran los msj de errores
-        $message = 0;
-        $title = $_GET['title'];
+        $advices = array();
+
         $movie = new Movie();
         $movie->setTitle($title);
+
         try {
-            $comprobationMovie = $this->MoviesDAO->exists($movie);
-            if ($comprobationMovie) {
-                array_push($advices, ADDED);
-            } else {
-                array_push($advices, NOT_FOUND);
-                $message = 1;
-            }
+            $movieByTitle = $this->MoviesDAO->exists($movie);
+
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
-        } finally {
+        } 
 
-            if($message == 1){
-                
-                echo '<script type="text/javascript">
-                        alert("Ninguna pelicula encaja con el nombre ingresado");
-                    </script>';
-    
-                $this->homeController->Index();
-            }else{
-                
-                $this->showFilteredMovies($comprobationMovie, null, null);
-            }
-        }
+        return $movieByTitle;
     }
 
-    public function searchByGenres($genresIds)
+    public function searchByGenre($genreId)
     {
         $advices = array();
         try {
-            $moviesByGenres = $this->genresXmoviesDAO->getMoviesByGenresIds($genresIds);
+            $moviesByGenre = $this->genresXmoviesDAO->getMoviesByGenreId($genreId);
         } catch (\Throwable $th) {
+            var_dump($th);
             array_push($advices, DB_ERROR);
         }
 
-        return $moviesByGenres;
+        return $moviesByGenre;
     }
 
     public function searchByDate($dateToSearch)
@@ -155,12 +125,12 @@ class FiltersController
         try {
 
             $showtimes = $this->showtimeDao->getAll();
-            $showtimesByDate = array();
+            $moviesByDate = array();
 
             foreach ($showtimes as $showtime) {
 
                 if ($showtime->getDate() == $dateToSearch && $showtime->getActive() == true) {
-                    array_push($showtimesByDate, $showtime);
+                    array_push($moviesByDate, $showtime->getMovie());
                 }
             }
 
@@ -168,32 +138,24 @@ class FiltersController
             array_push($advices, DB_ERROR);
         }
             
-        return $showtimesByDate;
+        return $moviesByDate;
     }
 
-    public function moviesByGenresToShowtimes($moviesByGenres, $dateToSearch){
+    public function moviesByGenresToShowtimes($moviesByGenres){
 
         $advices = array();
         try {
 
             $Allshowtimes = $this->showtimeDao->getAll();
             $showtimesByGenres = array();
-            $showtimesByDateAndGenres = array();
 
             foreach ($Allshowtimes as $showtime) {
 
                 foreach ($moviesByGenres as  $movie) {
                     
                     if ($showtime->getMovie()->getTitle() == $movie->getTitle() && $showtime->getActive() == true) {
-                        array_push($showtimesByGenres, $showtime);
+                        array_push($showtimesByGenres, $showtime->getMovie());
                     }
-                }
-            }
-            
-            foreach ($showtimesByGenres as $value) {
-                
-                if ($value->getDate() == $dateToSearch) {
-                    array_push($showtimesByDateAndGenres, $value);
                 }
             }
 
@@ -201,48 +163,7 @@ class FiltersController
             array_push($advices, DB_ERROR);
         }
 
-        return $showtimesByDateAndGenres;
-    }
-
-    public function arrangeAsShowtimesAreShown($showtimes){
-
-        $showtimesFixed = array();
-        
-        for ($i=0; $i < count($showtimes); $i++) {
-            
-            $hours = array();
-            $check = false;
-
-            for ($j=0; $j < count($showtimes); $j++) { 
-                
-                if($showtimes[$i]->getMovie()->getTitle() == $showtimes[$j]->getMovie()->getTitle()){
-                    
-                    array_push($hours, $showtimes[$j]->getHour());
-                }
-            }
-
-            foreach ($showtimesFixed as $value) {
-                
-                if($value->getMovie()->getTitle() == $showtimes[$i]->getMovie()->getTitle()){
-                    
-                    $check = true;
-                }
-
-            }
-
-            if(!$check){
-
-                $showtimes[$i]->setHour($hours);
-                array_push($showtimesFixed, $showtimes[$i]); 
-            }
-        }
-
-        return $showtimesFixed;
-    }
-
-    public function showFilteredMovies($movieByName = "", $moviesByGenres = "", $showtimesByDate = "", $genresByMovie = ""){
-        
-        require_once(VIEWS . '/ShowFilteredMovies.php');
+        return $showtimesByGenres;
     }
 
 }
