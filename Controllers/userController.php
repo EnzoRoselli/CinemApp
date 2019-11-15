@@ -63,6 +63,7 @@ class UserController
                 }
                 else{              
                     $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
+                    $_SESSION['idUserLogged'] = $LoginComprobation[0]['id'];
                     HomeController::showMain();                                    /**HABRIA QUE MOSTRAR MENSAJE DE EXITO EN LA VISTA */
                 }
             }catch(Exception $e) {

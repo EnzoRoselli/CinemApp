@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS purchases(
 id int AUTO_INCREMENT,
 purchase_date date,
 hour time,
-ticketAmount int,
+ticketsAmount int,
 total int,
 id_user int,
 number_cc varchar(16),

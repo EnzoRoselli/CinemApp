@@ -19,9 +19,7 @@ alert('. $message .');
 </script>';  
 
 }
-else {
-	# code...
-} ?>
+ ?>
 
 <body class="">
 	<div class="login-body">

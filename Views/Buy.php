@@ -25,7 +25,7 @@ include('nav.php');
                 <label id="buy-ticket-value"><?= $showtime->getTheater()->getTicketValue(); ?></label>
                 <label>Amount:</label>
                 <input type="number" id="buy-amount" name="amount" min="1">
-                <button type="button" id="ok-btn-amount">ok</button>
+                <button type="button" id="ok-btn-amount">Calculate Total</button>
                 <label>Total: $</label>
                 <input id="total-price" readonly name="totalPrice"></input>
                 <input type="hidden" name="showtime-id" value=<?= $showtime->getShowtimeId() ?>>
@@ -36,8 +36,8 @@ include('nav.php');
                 <div class="select-card-item">
                 <select name="" id="">
                     <option value="" selected >Select a credit card</option>
-                    <option value="">2546512365</option>
-                    <option value="">254645646635</option>
+                    <option name="creditCardId" value="">2546512365</option>
+                   
                 </select>
                 <button>Add</button>
                 </div>

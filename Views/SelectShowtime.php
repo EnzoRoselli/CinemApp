@@ -41,7 +41,7 @@ include('nav.php');
                     </div>
                 </div>
                 <div class="showtime-main-buttons">
-                    <a href="<?=FRONT_ROOT . "/Showtime/showBuy?showtime=". $showtime->getShowtimeId() ?>" class="showtime-main-buttons-buy">BUY</a>
+                    <a href="<?=FRONT_ROOT . "/Showtime/showBuy/". $showtime->getShowtimeId() ?>" class="showtime-main-buttons-buy">BUY</a>
                 </div>
            
             <?php  } } ?>                     
