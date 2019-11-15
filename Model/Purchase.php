@@ -4,12 +4,11 @@ namespace Model;
 
 
 class Purchase{
-
+    private $id;
     private $date;
     private $hour;
     private $ticketAmount;
-    private $total;
-    private $id;
+    private $total; 
     private $user;
     private $creditCard;
 
@@ -30,6 +29,7 @@ class Purchase{
     public function getUser(){return $this->user;}
     public function getcreditCard(){return $this->creditCard;}
 
+    public function setId($id){$this->id=$id;}
     public function setDate($date){$this->date=$date;}
     public function setHour($hour){$this->hour=$hour;}
     public function setTicketAmount($ticketAmount){$this->ticketAmount=$ticketAmount;}

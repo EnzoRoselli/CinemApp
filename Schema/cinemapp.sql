@@ -93,7 +93,7 @@ hour time,
 ticketsAmount int,
 total int,
 id_user int,
-id_cc varchar(16),
+id_cc int,
 CONSTRAINT pk_ticket PRIMARY KEY (id),
 CONSTRAINT fk_id_user_purchase FOREIGN KEY(id_user) REFERENCES users (id),
 CONSTRAINT fk_id_cc_purchase FOREIGN KEY(id_cc) REFERENCES credit_cards (id));

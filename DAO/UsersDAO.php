@@ -51,7 +51,7 @@ class UsersDAO
         try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
-
+           
             if (!empty($resultSet)) {
                 $user = new User();
                 $user->setId($resultSet[0]['id']);

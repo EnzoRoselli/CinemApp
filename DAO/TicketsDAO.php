@@ -3,7 +3,7 @@
 namespace DAO;
 
 use Model\Ticket as Ticket;
-
+use DAO\UsersDAO as usersDAO;
 //FALTA LA IMPLEMENTACION DEL QR
 class TicketsDAO  
 {
@@ -12,8 +12,9 @@ class TicketsDAO
     public function add(Ticket $ticket)
     {
         $query = "INSERT INTO ". $this->tableName." "."(id_showtime,id_purchase) VALUES(:id_showtime,:id_purchase)";
-        $parameters["id_showtime"] = $ticket->getShowtime()->getId();
+        $parameters["id_showtime"] = $ticket->getShowtime()->getShowtimeId();
         $parameters["id_purchase"] = $ticket->getPurchase()->getId();
+        
  
         try {
             $this->connection = Connection::GetInstance();
