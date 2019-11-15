@@ -8,6 +8,7 @@ use DAO\CinemasDAO as CinemasDAO;
 use DAO\GenresDAO as GenresDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\LanguagesDAO as LanguagesDAO;
+use DAO\CreditCardsDAO as CreditCardsDAO;
 use Controllers\APIController as APIController;
 use DAO\TheatersDAO as TheatersDAO;
 use DateInterval;
@@ -24,11 +25,13 @@ class ShowtimeController
     private $languagesDAO;
     private $APIController;
     private $theatersDAO;
+    private $creditCardsDAO;
 
 
     public function __construct()
     {
         $this->showtimeDao = new ShowtimeDAO();
+        $this->creditCardsDAO= new CreditCardsDAO();
         $this->cinemasDAO = new CinemasDAO();
         $this->moviesDAO = new MoviesDAO();
         $this->genresDAO = new GenresDAO();
@@ -232,6 +235,7 @@ class ShowtimeController
         $movie = $this->moviesDAO->searchById($_GET['movie']);
         $movieShowtimes=$this->showtimeDao->getMovieShowtimes($movie);
         require_once(VIEWS . "/SelectShowtime.php");*/
+        $CreditCardsList=$this->creditCardsDAO->getCCbyUser($_SESSION['idUserLogged']);
         $showtime = $this->showtimeDao->searchById($showtimeId);
         require_once(VIEWS . "/Buy.php");
     }

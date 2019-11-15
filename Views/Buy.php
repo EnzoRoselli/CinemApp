@@ -36,7 +36,10 @@ include('nav.php');
                 <div class="select-card-item">
                 <select name="" id="">
                     <option value="" selected >Select a credit card</option>
-                    <option name="creditCardId" value="">2546512365</option>
+                    <?php foreach ($CreditCardsList as $cc) { ?>
+                        <option name="creditCardId" value=<?= $cc->getId() ?>><?php echo cc->getNumber() ?></option>
+                    <?php } ?>
+                    
                    
                 </select>
                 <button>Add</button>

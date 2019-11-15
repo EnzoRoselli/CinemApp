@@ -80,10 +80,10 @@ CONSTRAINT fk_id_movie_showtimes FOREIGN KEY (id_movie) REFERENCES movies(id) ON
 CONSTRAINT fk_id_theater_showtimes FOREIGN KEY (id_theater) REFERENCES theaters(id) ON DELETE CASCADE);
 
 CREATE TABLE IF NOT EXISTS credit_cards(
+id int AUTO_INCREMENT,
 cc_number varchar(16),
 id_user int,
-cc_company varchar(50),
-CONSTRAINT pk_credit_cards PRIMARY KEY (cc_number),
+CONSTRAINT pk_credit_cards PRIMARY KEY (id),
 CONSTRAINT fk_id_user_cc FOREIGN KEY (id_user) REFERENCES users(id));
 
 CREATE TABLE IF NOT EXISTS purchases(
@@ -93,10 +93,10 @@ hour time,
 ticketsAmount int,
 total int,
 id_user int,
-number_cc varchar(16),
+id_cc varchar(16),
 CONSTRAINT pk_ticket PRIMARY KEY (id),
 CONSTRAINT fk_id_user_purchase FOREIGN KEY(id_user) REFERENCES users (id),
-CONSTRAINT fk_id_cc_purchase FOREIGN KEY(number_cc) REFERENCES credit_cards (cc_number));
+CONSTRAINT fk_id_cc_purchase FOREIGN KEY(id_cc) REFERENCES credit_cards (id));
 
 
 

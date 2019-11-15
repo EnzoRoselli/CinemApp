@@ -11,10 +11,10 @@ class Ticket{
     private $purchase;
 
 
-    public function __construct($ticketId="",$qr_code="",$purchase=""){
-        $this->ticketId=$ticketId;
+    public function __construct($qr_code="",$purchase="",$showtime=""){
         $this->qr_code=$qr_code;
         $this->purchase=$purchase;
+        $this->showtime=$showtime;
     }
 
     public function getId(){ return $this->id;}
