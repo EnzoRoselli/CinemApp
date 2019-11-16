@@ -51,6 +51,8 @@ class PurchaseController
                 $purchase->setUser($user);
                 $purchase->setcreditCard($creditCard);
                 $this->purchasesDAO->add($purchase);
+                $showtime->setTicketAvaliable($showtime->getTicketAvaliable()-$amount);
+                $this->showtimeDao->modify($showtime);
                 $purchase=$this->purchasesDAO->searchByPurchase($purchase);
                 for ($i = 0; $i < $amount; $i++) {
                     //ASIGNAR QR
@@ -58,12 +60,12 @@ class PurchaseController
                     $this->ticketsDAO->add($ticket);
                 }        
             }  
-    $this->showtimeController->showShowtimesListUser();
+    
         }else{
             
             //mensaje error;
         } 
-       
+        $this->showtimeController->showShowtimesListUser();
 
 
     }

@@ -4,15 +4,18 @@ namespace Controllers;
 use DAO\UsersDAO as UsersDAO;
 use Model\User as User;
 use PHPMailer\PHPMailer\Exception;
+use Controllers\ShowtimeController as ShowtimeController;
 
 
 class UserController
 {
     private $usersDAO;
+    private $ShowtimeController;
 
     public function __construct()
     {
         $this->usersDAO = new UsersDAO();
+        $this->ShowtimeController = new ShowtimeController();
     }
 
 
@@ -54,6 +57,7 @@ class UserController
 
 
     public function loginAction(){
+   
         if (!empty($_POST['LoginEmail']) && !empty( $_POST['LoginPassword'])) {
             $UserLogging = new User($_POST['LoginEmail'], $_POST['LoginPassword']);
             try{
@@ -64,7 +68,12 @@ class UserController
                 else{              
                     $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
                     $_SESSION['idUserLogged'] = $LoginComprobation[0]['id'];
-                    HomeController::showMain();                                    /**HABRIA QUE MOSTRAR MENSAJE DE EXITO EN LA VISTA */
+                    if (!empty($_SESSION['showtimeBuying'])) {
+                        $this->ShowtimeController->showBuy($_SESSION['showtimeBuying']);
+                    }else {
+                        HomeController::showMain();  
+                    }
+                                                      /**HABRIA QUE MOSTRAR MENSAJE DE EXITO EN LA VISTA */
                 }
             }catch(Exception $e) {
                 echo "Ha ocurrido un error, por favor intentelo nuevamente";   /* catchear bien esta excepcin PONER ADVICE Y AVISAR*/ 

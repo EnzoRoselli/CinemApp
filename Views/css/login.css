@@ -12,8 +12,8 @@
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
 	width: 800px;
-	left: 300px;
-	top: 70px;
+	left: 30%;
+	top: -100px;
 }
 
  .login-body h1{

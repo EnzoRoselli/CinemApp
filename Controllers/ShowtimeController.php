@@ -237,9 +237,12 @@ class ShowtimeController
         $movieShowtimes=$this->showtimeDao->getMovieShowtimes($movie);
         require_once(VIEWS . "/SelectShowtime.php");*/
         if (empty($_SESSION['idUserLogged'])) {
+            $_SESSION['showtimeBuying']=$showtimeId;
             require_once(VIEWS . "/LoginSignup.php");
         }else {
-            
+            if (!empty($_SESSION['showtimeBuying'])) {
+                unset($_SESSION['showtimeBuying']);
+            }
             $CreditCardsList=$this->creditCardsDAO->getCCbyUser($_SESSION['idUserLogged']);
             $showtime = $this->showtimeDao->searchById($showtimeId);
             require_once(VIEWS . "/Buy.php");

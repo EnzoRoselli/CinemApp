@@ -24,8 +24,6 @@ alert('. $message .');
 <body class="">
 	<div class="login-body">
 
-	
-	<h1>CinemApp</h1>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
 			<form class="login-form" action=<?php echo FRONT_ROOT . "/User/createUser" ?> method="POST" class="login-form">
