@@ -204,6 +204,7 @@ class ShowtimeController
         $showtimesList = $this->showtimeDao->getAll();
         $genresByMovie = array();
         $genresList = $this->genresDAO->getAll();
+        
 
         if(!empty($filteredMovies)){
 

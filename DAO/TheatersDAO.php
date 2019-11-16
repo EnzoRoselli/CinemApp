@@ -72,12 +72,16 @@ class TheatersDAO
         
     }
 
-    public function activate($id)
+    public function activate($cineId)
     {        
         try {
-            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
-            $parameters["id"] = $id;
+            $query = "UPDATE theaters t, cinemas c
+                        SET t.active = :active
+                        WHERE c.id = t.id_cinema AND c.id = :id";
+
+            $parameters["id"] = $cineId;
             $parameters["active"] = 1;
+
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             return true;
@@ -87,13 +91,16 @@ class TheatersDAO
         
     }
 
-    public function desactivate($id)
+    public function desactivate($cineId)
     {
         try{
-            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
-            $parameters["id"] = $id;
+            $query = "UPDATE theaters t, cinemas c
+                        SET t.active = :active
+                        WHERE c.id = t.id_cinema AND c.id = :id";
+
+            $parameters["id"] = $cineId;
             $parameters["active"] = 0;
-          
+
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             return true;

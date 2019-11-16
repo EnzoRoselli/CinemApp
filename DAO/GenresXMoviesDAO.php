@@ -79,9 +79,16 @@ class GenresXMoviesDAO
 
     public function getMoviesByGenreId($genreId){
 
-        $moviesIdByGenre = array();
+        try {
+            
+            $moviesIdByGenre = array();
 
-            $query = "SELECT *  FROM movies m INNER JOIN genres_by_movies x ON m.id = x.id_movie WHERE x.id_genre = :id_genre";
+            $query = "SELECT m.*  FROM movies m 
+            INNER JOIN genres_by_movies x ON m.id = x.id_movie 
+            INNER JOIN showtimes s ON m.id = s.id_movie AND s.active = true
+            INNER JOIN theaters t ON s.id_theater = t.id AND t.active = true
+            WHERE x.id_genre = :id_genre
+            GROUP BY m.id";
 
 
             $parameters["id_genre"] = $genreId;
@@ -89,8 +96,11 @@ class GenresXMoviesDAO
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            foreach ($resultSet as $row) {
+            // var_dump($resultSet);
+            // var_dump($resultSet);
 
+            foreach ($resultSet as $row) {
+                
                 $movie = new Movie();
                 $movie->setId($row['id']);
                 $movie->setTitle($row['title']);
@@ -99,16 +109,15 @@ class GenresXMoviesDAO
                 $movie->setOverview($row['overview']);
                 $movie->setReleaseDate($row['release_date']);
                 $movie->setPosterPath($row['poster_path']);
-                if($row['adult'] == 1){
-                    $movie->setAdult(true);
-                }else{
-                    $movie->setAdult(false);
-                }
+
                 array_push($moviesIdByGenre, $movie);
             }
-        
-            
-        return $moviesIdByGenre;
+               
+           return $moviesIdByGenre;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
     }
 
     

@@ -5,6 +5,7 @@ namespace Controllers;
 use Model\Cine as Cine;
 use Model\Theater as Theater;
 use DAO\CinemasDAO as daoCine;
+use DAO\TheatersDAO as theaterDAO;
 
 
 class CineController
@@ -14,6 +15,8 @@ class CineController
     public function __construct()
     {
         $this->CineDao = new daoCine();
+        $this->theaterDao = new theaterDAO();
+
     }
 
     public function getCinemaToUpdate()
@@ -138,6 +141,7 @@ class CineController
         $id = $_GET['activate'];
         try {
             $this->CineDao->activate($id);
+            $this->theaterDao->activate($id);
             echo '<script type="text/javascript">
             alert("La operación se ha realizado con éxito");
        </script>'; 
@@ -152,6 +156,7 @@ class CineController
         $id = $_GET['desactivate'];
         try {
             $this->CineDao->desactivate($id);
+            $this->theaterDao->desactivate($id);
             echo '<script type="text/javascript">
                  alert("La operación se ha realizado con éxito");
             </script>'; 

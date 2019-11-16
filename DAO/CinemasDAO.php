@@ -8,6 +8,7 @@ namespace DAO;
 use Model\Cine as Cine;
 use Model\Showtime as Showtime;
 use Model\Theater as Theater;
+
 //Fijarse de no mostrar toodos los cines, sino los activos, o agregar un filtro de si quiere ver los activos nomas
 
 class CinemasDAO

@@ -160,8 +160,6 @@ class ShowtimesDAO {
     }
 
 
-   
-
     public function getAll()
     {
         
@@ -221,48 +219,58 @@ class ShowtimesDAO {
         try {
             
             $this->showtimesList = array();
-            $query = "SELECT * FROM" . ' ' . $this->tableName . " inner join movies on movies.id=showtimes.id_movie where showtimes.id_movie=:id_movie ORDER BY(view_date)" ;
+            $query = "SELECT * FROM showtimes 
+            inner join movies 
+            on movies.id = showtimes.id_movie 
+            where showtimes.id_movie = :id_movie ORDER BY(view_date)" ;
+            
             $parameters["id_movie"] = $movie->getId();
+
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
 
-            foreach ($resultSet as $row) {
-                $Showtime = new Showtime();
-                $Showtime->setShowtimeId($row[0]);
-                
-                $idTheater=$row['id_theater'];
-                $theater=$this->TheatersDAO->searchById($idTheater);
-                $Showtime->setTheater($theater);
-                
-                $id_language=$row['id_language'];
-                $language=$this->LanguageDAO->searchById($id_language);
-                $Showtime->setLanguage($language);
-                
-                $id_movie=$row['id_movie'];
-                $movie=$this->MoviesDAO->searchById($id_movie);
-                $Showtime->setMovie($movie);
+            if(isset($resultSet)){
 
-                $Showtime->setDate($row['view_date']);
-                $Showtime->setHour($row['hour']);
-
-     
-                $Showtime->setSubtitle($row['subtitles']);
-                if($row['active'] == 1 && $theater->getActive()!=0){
-                    $Showtime->setActive(true);
-                }else{
-                    $Showtime->setActive(false);
+                foreach ($resultSet as $row) {
+                    $Showtime = new Showtime();
+                    $Showtime->setShowtimeId($row[0]);
+                    
+                    $idTheater=$row['id_theater'];
+                    $theater=$this->TheatersDAO->searchById($idTheater);
+                    $Showtime->setTheater($theater);
+                    
+                    $id_language=$row['id_language'];
+                    $language=$this->LanguageDAO->searchById($id_language);
+                    $Showtime->setLanguage($language);
+                    
+                    $id_movie=$row['id_movie'];
+                    $movie=$this->MoviesDAO->searchById($id_movie);
+                    $Showtime->setMovie($movie);
+    
+                    $Showtime->setDate($row['view_date']);
+                    $Showtime->setHour($row['hour']);
+         
+                    $Showtime->setSubtitle($row['subtitles']);
+                    if($row['active'] == 1 && $theater->getActive()!=0){
+                        $Showtime->setActive(true);
+                    }else{
+                        $Showtime->setActive(false);
+                    }
+                    if ($row['ticketAvaliable'] > $theater->getCapacity() && $row['active']==1) {
+                        $Showtime->setTicketAvaliable($theater->getCapacity());
+                        $this->modify($Showtime);
+                    }else {
+                        $Showtime->setTicketAvaliable($row['ticketAvaliable']);
+                    }
+                    
+                    array_push($this->showtimesList, $Showtime);                
                 }
-                if ($row['ticketAvaliable'] > $theater->getCapacity() && $row['active']==1) {
-                    $Showtime->setTicketAvaliable($theater->getCapacity());
-                    $this->modify($Showtime);
-                }else {
-                    $Showtime->setTicketAvaliable($row['ticketAvaliable']);
-                }
-                
-                array_push($this->showtimesList, $Showtime);                
+       
+                return $this->showtimesList;
+            }else{
+                return null;
             }
-   
-            return $this->showtimesList;
+
         } catch (\Throwable $th) {
 
             throw $th;
@@ -375,6 +383,5 @@ class ShowtimesDAO {
         }
     }
 
-    
 
 }
