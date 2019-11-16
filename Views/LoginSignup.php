@@ -35,8 +35,8 @@ alert('. $message .');
 
 				</div>
 				<span>or use your email for registration</span>
-				<input class="input-login" name="SignupName" type="text"  placeholder="Nombre" pattern="[A-Za-z]{2,}" title="Solo se permiten letras" required>
-				<input class="input-login" name="SignupLastName" type="text" placeholder="Apellido" pattern="[A-Za-z]{2,}" title="Solo se permiten letras" required>
+				<input class="input-login" name="SignupName" type="text"  placeholder="Nombre" pattern="[A-Za-z]{2,}" title="Debe contener más de 2 letras" required>
+				<input class="input-login" name="SignupLastName" type="text" placeholder="Apellido" pattern="[A-Za-z]{2,}" title="Debe contener más de 2 letras" required>
 				<input class="input-login" name="SignupDNI" type="text" placeholder="D.N.I" pattern="[0-9]{8,}" title="Solo se permiten numeros(minimo 8), sin espacios ni guiones" required>
 				<input class="input-login" name="SignupEmail" type="email" placeholder="Email" required/>
 				<input class="input-login" name="SignupPassword" type="SignupPassword" placeholder="Contraseña" required/>
@@ -50,7 +50,7 @@ alert('. $message .');
 					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> FIJARSE EL LOIGIN DE FB -->
 				</div>
 				<span>or use your account</span>
-				<input class="input-login" name="LoginEmail" type="text" placeholder="Email" required/>
+				<input class="input-login" name="LoginEmail" type="text" value="<?php if(!empty($_POST['LoginEmail'])){ echo $_POST['LoginEmail']; } ?>" placeholder="Email" required/>
 				<input class="input-login" name="LoginPassword" type="password" placeholder="Contraseña" required/>
 				<a class="login-a" href="ForgotPassword.html">Forgot your password?</a>
 				<button class="login-btn">Log In</button>

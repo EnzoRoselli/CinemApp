@@ -27,16 +27,19 @@ include('nav.php');
                 <input type="number" id="buy-amount" name="amount" min="1">
                 <button type="button" id="ok-btn-amount">Calculate Total</button>
                 <label>Total: $</label>
-                <input id="total-price" readonly name="totalPrice"></input>
-                <input type="hidden" name="showtime-id" value=<?= $showtime->getShowtimeId() ?>>
+                <input id="total-price" readonly name="totalPrice" name="totalPrice"></input>
+                <input type="hidden" name="showtimeid" value=<?= $showtime->getShowtimeId() ?>>
                 
             </div>
             <div class="select-card">
                 <p>Choose your credit card</p>
                 <div class="select-card-item">
-                <select name="" id="">
-                    <option value="" selected >Select a credit card</option>
-                    <option name="creditCardId" value="">2546512365</option>
+                <select name="creditCardId" >
+                    <option value=""  selected >Select a credit card</option>
+                    <?php foreach ($CreditCardsList as $cc) { ?>
+                        <option  value=<?= $cc->getId() ?>><?php echo $cc->getNumber() ?></option>
+                    <?php } ?>
+                    
                    
                 </select>
                 <button>Add</button>
