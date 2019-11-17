@@ -134,8 +134,42 @@ select * from theaters;
 
 /*drop database cinemapp;*/
 
+select * from users;
+
+insert into users(password, email, firstname, lastname, dni) values('admin', 'admin@gmail.com', 'admin', 'admin', 99999999);
+
+select * from purchases;
+
+select * from theaters;
+
+select * from showtimes;
+
 select * from credit_cards;
 
+select * from tickets;
+
+insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 750, 1, 3);
+insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 1750, 1, 3);
+insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 988, 1, 3);
+
+insert into tickets(id_showtime, id_purchase) values (2,1);
+insert into tickets(id_showtime, id_purchase) values (2,2);
+insert into tickets(id_showtime, id_purchase) values (3,3);
+
+            SELECT a.cinema_name, a.address, SUM(a.total) AS 'totalTickets', SUM(a.ticketsAmount) AS 'totalSales' FROM(
+                    SELECT c.id, c.cinema_name, c.address, p.ticketsAmount, p.total
+                    FROM cinemas c
+                    INNER JOIN theaters th
+                    ON  th.id_cinema = c.id
+                    INNER JOIN showtimes s
+                    ON s.id_theater = th.id
+                    INNER JOIN tickets t
+                    ON t.id_showtime = s.id
+                    INNER JOIN purchases p
+                    ON t.id_purchase = p.id AND (p.purchase_date BETWEEN '2019-01-01' AND '2019-12-12')
+                    GROUP BY t.id_showtime, t.id_purchase) a
+                  WHERE a.id = 2      
+			
 INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
 VALUES (5,2,5,100,'2019-11-20','10:00',0,1);
 INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 

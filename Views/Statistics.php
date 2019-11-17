@@ -24,17 +24,17 @@ include('nav.php');
 			</thead>
 			<tbody>
 				<?php
-				// foreach
+				foreach($statsCinemas[0] as $cinema=>$value){
 						?>
 						<tr>
 
-							<td><?php //echo $cine->getId(); ?></td>
-							
-							<td><?php //echo $cine->getCapacity(); ?></td>
-							
+							<td><?= $value->getName(); ?></td>
+							<td><?= $value->getAddress(); ?></td>
+							<td><?= $value->getTotalTickets(); ?></td>
+							<td><?= $value->getTotalSales(); ?></td>
 						</tr>
 				<?php 
-				 ?>
+				} ?>
 			</tbody>
 		</table>
 	</div>

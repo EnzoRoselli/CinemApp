@@ -64,7 +64,7 @@ class PurchasesDAO
     public function getPurchasesByCinemaId($cinemaId, $minDate = "", $maxDate = ""){
 
         $cinemasPurchasesList = array();
-
+        
         $query = "SELECT a.cinema_name, a.address, SUM(a.total) AS 'totalTickets', SUM(a.ticketsAmount) AS 'totalSales' FROM(
                     SELECT c.id, c.cinema_name, c.address, p.ticketsAmount, p.total
                     FROM cinemas c
@@ -83,6 +83,8 @@ class PurchasesDAO
 
             $minDate = '2019-11-17';
             $maxDate = '3000-01-01';
+            $parameters['minDate'] = $minDate;
+            $parameters['maxDate'] = $maxDate;
         }
 
         $parameters['id_cinema'] = $cinemaId;
@@ -90,9 +92,9 @@ class PurchasesDAO
         try{
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
-
-            if(!empty($ResultSet)){
-
+            
+            if(!empty($resultSet)){
+                
                 foreach ($resultSet as $row) {
     
                     $cinemaPurchase = new CinemaPurchases();
@@ -104,8 +106,8 @@ class PurchasesDAO
                 
                     array_push($cinemasPurchasesList, $cinemaPurchase);             
                 }
-
                 return $cinemasPurchasesList;
+                
             }else{
                 return null;
             }
