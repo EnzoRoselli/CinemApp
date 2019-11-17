@@ -4,13 +4,12 @@ include('nav.php');
 
 ?>
 
+
 <body class="admin-body">
 	<div class="admin-header">
         <h1>Statistics</h1>
         
 	</div>
-
-	
 	
 	<div class="admin-table">
 	<form action="<?= FRONT_ROOT . '/Statistic/showStats'?>" method="POST">
@@ -49,6 +48,20 @@ include('nav.php');
 			</tbody>
 		</table>
 	</div>
+
+	<?php if (!empty($messages)) {
+	foreach ($messages as $message) ?>
+	<div class="message-container" id="message-container">
+		<div class="message-content">
+			<p><?= $message ?></p>
+			<button id="button-close">Close</button>
+		</div>
+	</div>
+	<script src="<?= JS_PATH . "/message.js" ?>"></script>
+	<script>
+		openMessage();
+	</script>
+<?php } ?>
 	
 	<div class="admin-table">
 	<h2>Movies</h2>

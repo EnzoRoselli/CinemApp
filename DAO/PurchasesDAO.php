@@ -114,6 +114,8 @@ class PurchasesDAO
         }
 
         $parameters['id_cinema'] = $cinemaId;
+        $parameters['minDate'] = $minDate;
+        $parameters['maxDate'] = $maxDate;
 
         try{
             $this->connection = Connection::GetInstance();
