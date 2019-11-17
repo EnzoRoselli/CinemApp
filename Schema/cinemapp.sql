@@ -108,6 +108,12 @@ CONSTRAINT pk_ticket PRIMARY KEY(id),
 CONSTRAINT fk_id_showtime FOREIGN KEY (id_showtime) REFERENCES showtimes(id) ON DELETE RESTRICT,
 CONSTRAINT fk_purchase FOREIGN KEY (id_purchase) REFERENCES purchases(id)ON DELETE RESTRICT);
 
+CREATE TABLE IF NOT EXISTS QRs(
+id int AUTO_INCREMENT,
+id_ticket int,
+qr_image varchar(30),
+CONSTRAINT pk_QRs PRIMARY KEY(id),
+CONSTRAINT fk_id_ticket FOREIGN KEY (id_ticket) REFERENCES tickets (id));
 
 insert into cinemas (cinema_name, address, active) values ('Aldrey', 'Vieja Terminal', true)
 																				 ,('Ambassador', 'Peatonal', true)

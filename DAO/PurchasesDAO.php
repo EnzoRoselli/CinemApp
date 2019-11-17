@@ -61,6 +61,34 @@ class PurchasesDAO
         }
     }
 
+    public function searchById($id)
+    {
+        $query="SELECT * FROM ".$this->tableName." WHERE id=:id";
+        $parameters['id'] =$id;
+         try {
+            $this->connection = Connection::GetInstance();
+            $ResultSet=$this->connection->Execute($query, $parameters);
+            if (!empty($ResultSet)) {
+                $Purchase = new Purchase();
+                $Purchase->setId($ResultSet[0]['id']);
+                $Purchase->setDate($ResultSet[0]['purchase_date']);
+                $Purchase->setHour($ResultSet[0]['hour']);
+                $Purchase->setTicketAmount($ResultSet[0]['ticketsAmount']);
+                $Purchase->setTotal($ResultSet[0]['total']);
+
+                $usersDAO=new usersDAO();
+                $user=$usersDAO->searchById($ResultSet[0]['id_user']);
+                $Purchase->setUser($user);
+
+                $CreditCardsDAO=new CreditCardsDAO();
+                $creditCard=$CreditCardsDAO->searchById($ResultSet[0]['id_cc']);
+                $Purchase->setcreditCard($creditCard);
+                return $Purchase;
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
     public function getPurchasesByCinemaId($cinemaId, $minDate = "", $maxDate = ""){
 
         $cinemasPurchasesList = array();
