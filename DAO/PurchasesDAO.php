@@ -91,8 +91,6 @@ class PurchasesDAO
     }
     public function getPurchasesByCinemaId($cinemaId, $minDate = "", $maxDate = ""){
 
-        $cinemasPurchasesList = array();
-        
         $query = "SELECT a.cinema_name, a.address, SUM(a.total) AS 'totalTickets', SUM(a.ticketsAmount) AS 'totalSales' FROM(
                     SELECT c.id, c.cinema_name, c.address, p.ticketsAmount, p.total
                     FROM cinemas c
@@ -122,20 +120,18 @@ class PurchasesDAO
             $resultSet = $this->connection->Execute($query,$parameters);
             
             if(!empty($resultSet)){
+                if(!empty($resultSet[0]['cinema_name'])){
                 
-                foreach ($resultSet as $row) {
-    
                     $cinemaPurchase = new CinemaPurchases();
         
-                    $cinemaPurchase->setName($row['cinema_name']);
-                    $cinemaPurchase->setAddress($row['address']);
-                    $cinemaPurchase->setTotalTickets($row['totalTickets']);
-                    $cinemaPurchase->setTotalSales($row['totalSales']);
-                
-                    array_push($cinemasPurchasesList, $cinemaPurchase);             
+                    $cinemaPurchase->setName($resultSet[0]['cinema_name']);
+                    $cinemaPurchase->setAddress($resultSet[0]['address']);
+                    $cinemaPurchase->setTotalTickets($resultSet[0]['totalTickets']);
+                    $cinemaPurchase->setTotalSales($resultSet[0]['totalSales']);
+
+                    return $cinemaPurchase;
                 }
-                return $cinemasPurchasesList;
-                
+
             }else{
                 return null;
             }
@@ -147,8 +143,6 @@ class PurchasesDAO
     }
 
     public function getPurchasesByMovieId($movieId, $minDate = "", $maxDate = ""){
-
-        $moviesPurchasesList = array();
 
         $query = "SELECT a.title, ifnull(SUM(a.ticketsAmount),0) AS 'totalTickets', ifnull(SUM(a.total),0) AS 'totalSales' FROM(
                     SELECT m.id, m.title, p.ticketsAmount, p.total
@@ -176,20 +170,18 @@ class PurchasesDAO
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query,$parameters);
 
-            if(!empty($ResultSet)){
+            if(!empty($resultSet)){
+                if(!empty($resultSet[0]['title'])){
 
-                foreach ($resultSet as $row) {
-    
-                    $cinemaPurchase = new MoviePurchases();
+                    $moviePurchase = new MoviePurchases();
         
-                    $cinemaPurchase->setTitle($row['title']);
-                    $cinemaPurchase->setTotalTickets($row['totalTickets']);
-                    $cinemaPurchase->setTotalSales($row['totalSales']);
-                
-                    array_push($cinemaPurchasesList, $cinemaPurchase);             
-                }
+                    $moviePurchase->setTitle($resultSet[0]['title']);
+                    $moviePurchase->setTotalTickets($resultSet[0]['totalTickets']);
+                    $moviePurchase->setTotalSales($resultSet[0]['totalSales']);
 
-                return $cinemaPurchasesList;
+                    return $moviePurchase;
+                }
+                
             }else{
                 return null;
             }
