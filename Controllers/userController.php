@@ -99,29 +99,21 @@ class UserController
             $mail->Body    = '<BODY BGCOLOR="White">
     <body>
     <div Style="align:center;">
+    <p>THIS IS THE CODE TO RESET THE PASSWORD: '. $codeToRecuperation.'</p>
     <p>
+    
     <img  src="https://lh3.googleusercontent.com/xlISFVMMAlhalr1rhAWU9fketwaeMyakXsxCqzp7KlUNFMZVokoJZVtDjHuOsy3m9Z8" alt= "IMAGE_NAME" height:100px >
     </p>
     </div>
     </br>
     <div style=" height="40" align="left">
-
     <font size="3" color="#000000" style="text-decoration:none;font-family:Lato light">
-    <div class="info" Style="align:left;">
-            
-    <p>CODE: $codeToRecuperation</p>
-
+    <div class="info" Style="align:left;">           
+ 
     <br>
-
-
-    <p>Company:   CinemApp   </p>
-
-    
+    <p>Company:   CinemApp   </p> 
     <br>
-
-       
-
-                    </div>
+   </div>
 
     </br>
     <p>-----------------------------------------------------------------------------------------------------------------</p>

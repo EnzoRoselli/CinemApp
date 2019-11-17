@@ -44,10 +44,7 @@ class Showtime{
     public function setLanguage($language){$this->language=$language;}
     public function setSubtitle($subtitle){$this->subtitle=$subtitle;} 
     public function setActive($active){$this->active = $active;}
-    public function setTicketAvaliable($ticketAvaliable){
-        if (!empty($ticketAvaliable)) {
-            $this->ticketAvaliable=(int)$ticketAvaliable;
-        }       
+    public function setTicketAvaliable($ticketAvaliable){$this->ticketAvaliable=(int)$ticketAvaliable;     
     }
 
     
