@@ -71,6 +71,19 @@ class CreditCardsDAO
         }
     }
 
+    public function delete($id)
+    {
+            $query = "DELETE" . " " . "FROM" . " " . $this->tableName . " " . " WHERE id=:id";
+            $parameters["id"] = $id;
+        try {
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+            return true;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function getCCbyUser($id_user)
     {
         $CreditCardsList=array();

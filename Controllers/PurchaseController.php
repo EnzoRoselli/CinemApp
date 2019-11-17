@@ -4,16 +4,19 @@ namespace Controllers;
 
 use Model\Purchase as Purchase;
 use Model\Showtime as Showtime;
+use Model\QR as QR;
 use Model\Ticket as Ticket;
 use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\UsersDAO as UsersDAO;
 use DAO\TicketsDAO as TicketsDAO;
 use DAO\CreditCardsDAO AS CreditCardsDAO;
 use DAO\PurchasesDAO as PurchasesDAO;
+use DAO\QRsDAO as QRsDAO;
 use Controllers\ShowtimeController as ShowtimeController;
 use Model\PHPMailer as PHPMailer;
 use Model\Exceptionn as Exceptionn;
 use Model\STMP;
+
 
 class PurchaseController
 {
@@ -23,6 +26,7 @@ class PurchaseController
     private $ticketsDAO;
     private $creditCardsDAO;
     private $purchasesDAO;
+    private $QRsDAO;
 
     public function __construct()
     {
@@ -32,6 +36,7 @@ class PurchaseController
         $this->usersDAO = new UsersDAO();
         $this->showtimeController = new ShowtimeController();
         $this->showtimeDao = new ShowtimeDAO();
+        $this->QRsDAO=new QRsDAO();
         
     }
 
@@ -54,9 +59,9 @@ class PurchaseController
                 $purchase->setUser($user);
                 $purchase->setcreditCard($creditCard);
                 $this->purchasesDAO->add($purchase);
-                $this->sendPurchaseEmail($purchase);
-            $cero=0;
-            $showtime->setTicketAvaliable(/*($showtime->getTicketAvaliable()-$amount)*/$cero);
+               
+          
+            $showtime->setTicketAvaliable(($showtime->getTicketAvaliable()-$amount));
          
                 if ($showtime->getTicketAvaliable()==0) {
                     $showtime->setActive(false);
@@ -66,12 +71,18 @@ class PurchaseController
                 $this->showtimeDao->modify($showtime);
               
                 $purchase=$this->purchasesDAO->searchByPurchase($purchase);
-
+                
                 for ($i = 0; $i < $amount; $i++) {
-                    //ASIGNAR QR
+                    
                     $ticket = new Ticket("",$purchase,$showtime);
                     $this->ticketsDAO->add($ticket);
-                }        
+                    $ticketQr=new QR();
+                    $ticketQr->setTicket($ticket);
+                    $this->QRsDAO->add($ticketQr);     
+                }   
+                   
+                $qrsToSend=$this->QRsDAO->getByPurchase($purchase);
+                $this->sendPurchaseEmail($purchase,$qrsToSend);
             }  
     
         }else{
@@ -100,7 +111,7 @@ class PurchaseController
            return false;
        }
     }
-    public function sendPurchaseEmail(Purchase $purchase)
+    public function sendPurchaseEmail(Purchase $purchase,$qrsToSend)
     {
         $user = $this->usersDAO->searchById($_SESSION['idUserLogged']);
         $mail = new PHPMailer(true);
@@ -127,14 +138,15 @@ class PurchaseController
 <div Style="align:center;">
 <p> PURCHASE INFORMATION </p>
 <pre>
-<p>'."Date: " .$purchase->getDate(). " - Hour: " .$purchase->getHour()."</p>
+<p>'."Date:". $purchase->getDate() ." - Hour: " .$purchase->getHour()."</p>
 <p>TicketsAmount: " .$purchase->getTicketAmount()."</p>
 <p>Credit Card: " . $purchase->getcreditCard()->getNumber()."</p>
-<p>TOTAL: " .$purchase->getTotal()."</p>".
-
-'</pre>
+<p>TOTAL: " .$purchase->getTotal()."</p>";
+        foreach ($qrsToSend as $item) {
+            $mail.="<img src=".$item->getFileName() ."/>";
+        }
+    $mail->body.='</pre>
 <p>
-
 </p>
 </div>
 </br>

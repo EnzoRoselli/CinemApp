@@ -19,23 +19,15 @@ class CineController
 
     }
 
-    public function getCinemaToUpdate()
+    public function getCinemaToUpdate($cineId)
     {
-
-        $cineUpdate = $this->CineDao->searchById($_GET['update']);
-        $this->openPopUp();
-        $this->showCinemasOnTable($cineUpdate, null);
+        $cineUpdate = $this->CineDao->searchById($cineId);
+        $this->showCinemasOnTable($cineUpdate, null, null, true);
     }
 
     public function createCinema()
     {
-        $this->openPopUp();
-        $this->showCinemasOnTable(null, null);
-    }
-
-    public function openPopUp()
-    {
-        echo "<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})</script>";
+        $this->showCinemasOnTable(null, null, null, true);
     }
 
     public function determinateUpdateCreate($id, $name, $address)
@@ -70,18 +62,19 @@ class CineController
             array_push($advices, CAMPOS_INVALIDOS);
         }
 
-        $this->showCinemasOnTable();
+        $this->showCinemasOnTable(null, null, $advices, null);
     }
 
-    public function getCinemaToaddTheater(){
-        $cinema = $this->CineDao->searchById($_GET['addTheater']);
-        $this->openPopUp();
-        $this->showCinemasOnTable(null, $cinema);
+    public function getCinemaToaddTheater($cineId){
+        
+        $cinema = $this->CineDao->searchById($cineId);
+        $this->showCinemasOnTable(null, $cinema, null, true);
     }
 
     public function addTheater($idCinema, $name, $capacity, $ticketValue){
-        $cinema = $this->CineDao->searchById($idCinema);
-        $theater = new Theater($name, $cinema, true, $ticketValue, $capacity);
+        
+            $cinema = $this->CineDao->searchById($idCinema);
+            $theater = new Theater($name, $cinema, true, $ticketValue, $capacity);
         
     }
 
@@ -116,54 +109,45 @@ class CineController
         } else {
             array_push($advices, CAMPOS_INVALIDOS);
         }
-        $this->showCinemasOnTable();
+        $this->showCinemasOnTable(null, null, $advices);
     }
 
-    /* public function showAdminCine($message = array())
+    public function delete($cineId)
     {
-        require_once(VIEWS  . '/AdminCine.php');
-    }*/
-
-    public function delete()
-    {
-        $id = $_GET['delete'];
+        $advices = array();
         try {
-            $this->CineDao->delete($id);
-            
+            $this->CineDao->delete($cineId);
+            array_push($advices, DELETED);
         } catch (\Throwable $th) {
-            throw $th;
+            array_push($advices, DB_ERROR);
         }
-        $this->showCinemasOnTable();
+        $this->showCinemasOnTable(null, null, $advices);
     }
 
-    public function activate()
+    public function activate($cineId)
     {
-        $id = $_GET['activate'];
+        $advices = array();
         try {
-            $this->CineDao->activate($id);
-            $this->theaterDao->activate($id);
-            echo '<script type="text/javascript">
-            alert("La operación se ha realizado con éxito");
-       </script>'; 
+            $this->CineDao->activate($cineId);
+            $this->theaterDao->activate($cineId);
+            array_push($advices, ACTIVATED);
         } catch (\Throwable $th) {
-            throw $th;
+            array_push($advices, DB_ERROR);
         }
-        $this->showCinemasOnTable();
+        $this->showCinemasOnTable(null, null, $advices);
     }
 
-    public function desactivate()
+    public function desactivate($cineId)
     {
-        $id = $_GET['desactivate'];
+        $advices = array();
         try {
-            $this->CineDao->desactivate($id);
-            $this->theaterDao->desactivate($id);
-            echo '<script type="text/javascript">
-                 alert("La operación se ha realizado con éxito");
-            </script>'; 
+            $this->CineDao->desactivate($cineId);
+            $this->theaterDao->desactivate($cineId);
+            array_push($advices, DEACTIVATED);
         } catch (\Throwable $th) {
-            throw $th;
+            array_push($advices, DB_ERROR);
         }
-        $this->showCinemasOnTable();
+        $this->showCinemasOnTable(null, null, $advices);
     }
 
     public function checkNotEmptyParameters($cine)
@@ -179,8 +163,11 @@ class CineController
     /*
         @param cineUpdate: en caso de que se quiera abrir el pop-up para modificar 
                            llena los campos para su modificación
+        @param createTheater: cine en el que se quiere agregar una sala
+        @messages: mensajes en formato de un unico a array para mostrar en un alerta
+        @openPopUp: en caso de que se quiera abrir el pop-up
     */
-    public function showCinemasOnTable($cineUpdate = "", $createTheater = "")
+    public function showCinemasOnTable($cineUpdate = "", $createTheater = "", $messages="", $openPopUp=false)
     {
         $cines = $this->CineDao->getAll();
         require_once(VIEWS  . '/AdminCine.php');
