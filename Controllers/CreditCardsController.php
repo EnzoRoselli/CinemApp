@@ -1,7 +1,8 @@
 <?php 
 namespace Controllers;
-use Model\CreditCard;
-use DAO\CreditCardsDAO;
+use Model\CreditCard as CreditCard;
+use DAO\CreditCardsDAO as CreditCardsDAO;
+use DAO\UsersDAO as UsersDAO;
 use Controllers\ShowtimeController as ShowtimeController;
 class CreditCardsController  
 {
@@ -9,20 +10,23 @@ class CreditCardsController
     private $showtimeController;
 
     public function __construct() {
-        $this->CreditCardsDAO = new CreditCardsDAO();
+        $this->creditCardsDAO = new CreditCardsDAO();
         $this->showtimeController = new ShowtimeController();
+        $this->userDAO = new UsersDAO();
     }
 
 
     public function add($cc_number)
     {    
-        
+
         $creditCard=new CreditCard($cc_number,$_SESSION['idUserLogged']);
-            if (!$this->creditCardsDAO->userContainsCC($cc_number,$_SESSION['idUserLogged'])) {
-                $this->creditCardsDAO->add($creditCard);
-            }else {
-                //Ya existe
-            }
+        $creditCard->setUser($this->userDAO->searchById($_SESSION['idUserLogged']));
+        var_dump($creditCard);
+        if (!$this->creditCardsDAO->userContainsCC($cc_number,$_SESSION['idUserLogged'])) {
+            $this->creditCardsDAO->add($creditCard);
+        }else {
+            //Ya existe
+        }
     }
 
     public function showAdd($showtimeId)
@@ -30,18 +34,3 @@ class CreditCardsController
        $this->showtimeController->showBuy($showtimeId, true);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

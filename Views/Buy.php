@@ -1,9 +1,11 @@
 <?php
 include('header.php');
 include('nav.php');
+
 ?>
 
 <div class="buy-container">
+    
     <p id="dto-advice" class="active-dto-advice">Since you're buying on Tuesday and more than one tickets, we'll give you a discount of 25%!</p>
     <div class="showtime-details-container">
         <div class="showtime-details-content-left">
