@@ -42,7 +42,7 @@ include('nav.php');
                             <option value=<?= $cc->getId() ?>><?php echo $cc->getNumber() ?></option>
                         <?php } ?>
                     </select>
-                    <a id="btn-abrir-popup" href=<?= FRONT_ROOT . "/CreditCards/showAdd/" . $showtime->getShowtimeId() ?>>Add</button>
+                    <a id="btn-abrir-popup" href=<?= FRONT_ROOT . "/CreditCards/showAdd/" . $showtime->getShowtimeId() ?>>Add</a>
                 </div>
 
             </div>
@@ -66,6 +66,7 @@ include('nav.php');
                         <label>Card Number</label>
                         <input type="number" class="form-control" name="cc_number" required>
                     </div>
+                    <input type="hidden" name="origin" value="buy">
                 </div>
                 <div class="modal-footer">
                 <a href=<?= FRONT_ROOT . "/Showtime/showBuy/" . $showtime->getShowtimeId() ?> id="btn-cerrar-popup">Cancel</a>
