@@ -14,7 +14,7 @@ class UsersDAO
 
     public function add(User $user)
     {
-        try {
+        
 
             $query = "INSERT INTO " . " " . $this->tableName . " " .
                 " (password, email, firstname, lastname, dni) VALUES
@@ -25,7 +25,8 @@ class UsersDAO
             $parameters["firstname"] = $user->getName();
             $parameters["lastname"] = $user->getLastName();
             $parameters["dni"] = $user->getDni();
-
+            var_dump($query);
+        try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $ex) {
@@ -142,11 +143,12 @@ class UsersDAO
 
     public function existsUserFromSignUp(User $user)
     {
-        try {
+        
 
             $query = "SELECT * FROM " . " " . $this->tableName . " WHERE dni=:dni or email=:email ";
             $parameters["dni"] = $user->getDni();
             $parameters["email"] = $user->getEmail();
+            try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
             //TESTEO SI EXISTE ALGUNO YA SEA CON DNI OR EMAIL, SI NINGUN REGISTRO SE RELACIONA SE CARGA

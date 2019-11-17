@@ -4,39 +4,41 @@ namespace Controllers;
 use DAO\CinemasDAO as CinemasDAO;
 use DAO\TheatersDAO as TheatersDAO;
 use Model\Theater as Theater;
+use Controllers\CineController as CineController;
 
 class TheaterController  
 {
     private $CinemasDAO;
     private $TheatersDAO;
-
+    private $cineController;
     public function __construct() {
         $this->CinemasDAO = new CinemasDAO();
         $this->TheatersDAO = new TheatersDAO();
+        $this->cineController = new CineController();
     }
 
     public function create($idCinema, $name, $capacity, $ticketValue)
     {
+        $advices = array();
         $cinema = $this->CinemasDAO->searchById($idCinema);
         $theater = new Theater($name, $cinema, true, $ticketValue, $capacity);
         try{
             if (!empty($this->checkNotEmptyParameters($theater)) && !$this->TheatersDAO->exists($theater)) {
                 $this->TheatersDAO->add($theater);
+                array_push($advices, ADDED);
             } else {
-                //Intenta crear una sala con un nombre que ya otra sala contiene
+                array_push($advices, EXISTS);
             }
         }catch (\Throwable $th){
-            //Poner aviso de que la sala no se puede agregar porque el nombre estaria duplicado
-            var_dump($th);
+            array_push($advices, DB_ERROR);
         }finally{
-            $this->showCinemasOnTable();
+            $this->cineController->showCinemasOnTable(null, null, $advices);
         }
     }
 
-    public function getCinemaToAddTheater(){
-        $cinema = $this->CinemasDAO->searchById($_GET['addTheater']);
-        $this->openPopUp();
-        $this->showCinemasOnTable(null, $cinema);
+    public function getCinemaToAddTheater($cineId){
+        $cinema = $this->CinemasDAO->searchById($cineId);
+        $this->cineController->showCinemasOnTable(null, $cinema, null, true);
     }
 
     public function checkNotEmptyParameters($Theater)
@@ -47,17 +49,7 @@ class TheaterController
             return false;
         }
     }
-    
-    public function openPopUp()
-    {
-        echo "<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})</script>";
-    }
 
-    public function showCinemasOnTable($cineUpdate = "", $createTheater = "")
-    {
-        $cines = $this->CinemasDAO->getAll();
-        require_once(VIEWS  . '/AdminCine.php');
-    }
 }
 
 

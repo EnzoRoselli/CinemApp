@@ -149,8 +149,16 @@ class UserController
                     /**ES FALSE CUANDO NO EXISTE EN BASE DE DATOS */
                     $this->showLoginSignup(WRONG_CREDENTIALS);
                 } else {
-                    $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
-                    $_SESSION['idUserLogged'] = $LoginComprobation[0]['id'];
+                    
+                    if($LoginComprobation[0]['email'] == 'admin@gmail.com'){
+                        $_SESSION['loggedAdmin'] = $LoginComprobation[0]['lastname'];
+                        $_SESSION['idUserLogged'] = $LoginComprobation[0]['id'];
+                    }else{
+                        var_dump($GLOBALS);
+                        $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
+                        $_SESSION['idUserLogged'] = $LoginComprobation[0]['id'];
+                    }
+                    
                     if (!empty($_SESSION['showtimeBuying'])) {
                         $this->ShowtimeController->showBuy($_SESSION['showtimeBuying']);
                     } else {

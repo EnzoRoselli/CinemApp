@@ -1,44 +1,46 @@
-<?php 
+<?php
 
-use Model\CreditCard;
-use DAO\CreditCardsDAO;
-class CreditCardsController  
+namespace Controllers;
+
+use Model\CreditCard as CreditCard;
+use DAO\CreditCardsDAO as CreditCardsDAO;
+use DAO\UsersDAO as UsersDAO;
+use Controllers\ShowtimeController as ShowtimeController;
+
+class CreditCardsController
 {
     private $creditCardsDAO;
-    
+    private $showtimeController;
 
-    public function __construct() {
-        $this->CreditCardsDAO = new CreditCardsDAO();
+    public function __construct()
+    {
+        $this->creditCardsDAO = new CreditCardsDAO();
+        $this->showtimeController = new ShowtimeController();
+        $this->userDAO = new UsersDAO();
     }
 
 
-    public function add()
-    {    
-        $creditCard=new CreditCard($cc_number,$_SESSION['idUserLogged']);
-            if (!$this->creditCardsDAO->userContainsCC($cc_number,$_SESSION['idUserLogged'])) {
+    public function add($showtimeId, $cc_number)
+    {
+
+        $creditCard = new CreditCard($cc_number);
+        try {
+            $creditCard->setUser($this->userDAO->searchById($_SESSION['idUserLogged']));
+
+            if (!$this->creditCardsDAO->userContainsCC($cc_number, $_SESSION['idUserLogged'])) {
                 $this->creditCardsDAO->add($creditCard);
-            }else {
+            } else {
                 //Ya existe
             }
+        } catch (\Throwable $th) {
+            echo $th;
+        }finally{
+            $this->showtimeController->showBuy($showtimeId, false);
+        }
     }
 
-    public function showAdd()
+    public function showAdd($showtimeId)
     {
-        //require_once(VIEWS. "/"); llamar al pop up para agregar una cc
+        $this->showtimeController->showBuy($showtimeId, true);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

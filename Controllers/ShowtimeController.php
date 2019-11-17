@@ -231,7 +231,7 @@ class ShowtimeController
         require_once(VIEWS . "/SelectShowtime.php");
     }
 
-    public function showBuy($showtimeId){
+    public function showBuy($showtimeId, $open=false){
         /*$this->openPopUp(); no borrar plis
         $movie = $this->moviesDAO->searchById($_GET['movie']);
         $movieShowtimes=$this->showtimeDao->getMovieShowtimes($movie);
@@ -245,6 +245,7 @@ class ShowtimeController
             }
             $CreditCardsList=$this->creditCardsDAO->getCCbyUser($_SESSION['idUserLogged']);
             $showtime = $this->showtimeDao->searchById($showtimeId);
+            $openPopUp = $open;
             require_once(VIEWS . "/Buy.php");
         }
     

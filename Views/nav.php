@@ -16,7 +16,6 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
 
     </a>
   </div>
-
   <div class="home-icon">
     <a href="<?php echo FRONT_ROOT . "/Home/Index" ?>">
       <i class="fas fa-home" id="home-icon"></i>
@@ -69,7 +68,7 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
                 <ul id="sub-menu" class="sub-menu-admin">
                   <li><a href=<?=FRONT_ROOT . "/Cine/showCinemasOnTable" ?>>Cinemas</a></li>
                   <li><a href=<?=FRONT_ROOT . "/Showtime/showShowtimeMenu" ?>>Showtimes</a></li>
-                  <li><a href="#">Sales</a></li>
+                  <li><a href=<?=FRONT_ROOT . "/Statistic/showStats" ?>>Sales</a></li>
                 </ul>
               </li>
             </ul>

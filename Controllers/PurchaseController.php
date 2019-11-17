@@ -174,4 +174,9 @@ class PurchaseController
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
     }
+
+    public function showPurchasesStatistics($cinemasPurchases = "", $moviesPurchases = ""){
+
+        require_once(VIEWS . "/PurchaseStatistics.php");
+    }
 }

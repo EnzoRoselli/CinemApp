@@ -1,15 +1,15 @@
-let indice = 1;
-muestraSlides(indice);
+let index = 1;
+muestraSlides(index);
 
 function avanzaSlide(n){
-    muestraSlides( indice+=n );
+    muestraSlides( index+=n );
 }
 
 function posicionSlide(n){
-    muestraSlides(indice=n);
+    muestraSlides(index=n);
 }
 setInterval(function tiempo(){
-    muestraSlides(indice+=1)
+    muestraSlides(index+=1)
 },4000);
 function muestraSlides(n){
     let i;
@@ -17,10 +17,10 @@ function muestraSlides(n){
     let barras = document.getElementsByClassName('barra');
 
     if(n > slides.length){
-        indice = 1;
+        index = 1;
     }
     if(n < 1){
-        indice = slides.length;
+        index = slides.length;
     }
     for(i = 0; i < slides.length; i++){
         slides[i].style.display = 'none';
@@ -28,8 +28,8 @@ function muestraSlides(n){
     for(i = 0; i < barras.length; i++){
         barras[i].className = barras[i].className.replace(" active-bar", "");
     }
-
-    slides[indice-1].style.display = 'block';
-    barras[indice-1].className += ' active-bar';
+    
+    slides[index-1].style.display = "block";
+    barras[index-1].className += ' active-bar';
 
 }

@@ -15,7 +15,7 @@ class CreditCardsDAO
         $query = "INSERT INTO ". $this->tableName." "."(cc_number,id_user) VALUES(:cc_number,:id_user)";
         $parameters["cc_number"] = $CreditCard->getNumber();
         $parameters["id_user"] = $CreditCard->getUser()->getId();
-
+        
         try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
@@ -76,6 +76,7 @@ class CreditCardsDAO
         $CreditCardsList=array();
         $query = "SELECT * FROM ". $this->tableName. " WHERE id_user=:id_user";
         $parameters["id_user"] = $id_user;
+
     try {
         $this->connection = Connection::GetInstance();
         $ResultSet= $this->connection->Execute($query, $parameters);

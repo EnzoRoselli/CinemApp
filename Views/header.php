@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/table.css">
-    <link rel="stylesheet" href="<?php echo CSS_PATH ?>/navStyle.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/mainStyle.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/popup.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/GridStyle.css">
@@ -22,6 +21,7 @@
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/buy.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/nav.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/codeConfirm.css">
+    <link rel="stylesheet" href="<?php echo CSS_PATH ?>/message.css">
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- SweetAlert2 -->
@@ -29,7 +29,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
     <script src="<?php echo JS_PATH . "/alert.js" ?>"></script> 
-    <script src="<?php echo JS_PATH . "/slider.js"?>"></script>
+    <!-- <script src="<?php echo JS_PATH . "/slider.js"?>"></script> -->
     
     
 
