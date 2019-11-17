@@ -49,21 +49,21 @@ include('nav.php');
 
 								<!-- ----------------------- ACTIVATE ----------------------- -->
 								<?php if ($cine->getActive()) { ?>
-									<a href="<?php echo  FRONT_ROOT . "/Cine/desactivate?desactivate=" .  $cine->getId() ?>" name="desactivate" class="btn btn-light">
+									<a href="<?php echo  FRONT_ROOT . "/Cine/desactivate/" .  $cine->getId() ?>" name="desactivate" class="btn btn-light">
 										<i class="fas fa-toggle-on"></i>
 									</a>
 								<?php } else { ?>
 									<!-- ----------------------- DESACTIVATE ----------------------- -->
-									<a href="<?php echo  FRONT_ROOT . "/Cine/activate?activate=" .  $cine->getId() ?>" name="activate" class="btn btn-light">
+									<a href="<?php echo  FRONT_ROOT . "/Cine/activate/" .  $cine->getId() ?>" name="activate" class="btn btn-light">
 										<i class="fas fa-toggle-off"></i>
 									</a>
 								<?php } ?>
 								<!-- ----------------------- DELETE ----------------------- -->
-								<a href="<?php echo  FRONT_ROOT . "/Cine/delete?delete=" .  $cine->getId() ?>" onclick="return checkDelete()" name="delete" class="btn btn-light">
+								<a href="<?php echo  FRONT_ROOT . "/Cine/delete/" .  $cine->getId() ?>" onclick="return checkDelete()" name="delete" class="btn btn-light">
 									<i class="fas fa-trash"></i>
 								</a>
 								<!-- ----------------------- ADD THEATER ----------------------- -->
-								<a href="<?php echo  FRONT_ROOT . "/Theater/getCinemaToAddTheater?addTheater=" .  $cine->getId() ?>" name="addTheater" class="btn btn-light">
+								<a href="<?php echo  FRONT_ROOT . "/Theater/getCinemaToAddTheater/" .  $cine->getId() ?>" name="addTheater" class="btn btn-light">
 									Add Theater
 								</a>
 
@@ -130,7 +130,7 @@ include('nav.php');
 
 					</div>
 				</form>
-			<?php } else { ?>
+			<?php } else {?>
 				<form action="<?php echo  FRONT_ROOT . "/Theater/create" ?>" method="POST">
 					<div class="contenedor-inputs">
 						<p class="pop-up-subtitle"><?= $createTheater->getName(); ?></p>

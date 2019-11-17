@@ -4,15 +4,17 @@ namespace Controllers;
 use DAO\CinemasDAO as CinemasDAO;
 use DAO\TheatersDAO as TheatersDAO;
 use Model\Theater as Theater;
+use Controllers\CineController as CineController;
 
 class TheaterController  
 {
     private $CinemasDAO;
     private $TheatersDAO;
-
+    private $cineController;
     public function __construct() {
         $this->CinemasDAO = new CinemasDAO();
         $this->TheatersDAO = new TheatersDAO();
+        $this->cineController = new CineController();
     }
 
     public function create($idCinema, $name, $capacity, $ticketValue)
@@ -30,14 +32,13 @@ class TheaterController
         }catch (\Throwable $th){
             array_push($advices, DB_ERROR);
         }finally{
-            $this->showCinemasOnTable(null, null, $advices);
+            $this->cineController->showCinemasOnTable(null, null, $advices);
         }
     }
 
-    public function getCinemaToAddTheater(){
-        $cinema = $this->CinemasDAO->searchById($_GET['addTheater']);
-        $this->openPopUp();
-        $this->showCinemasOnTable(null, $cinema);
+    public function getCinemaToAddTheater($cineId){
+        $cinema = $this->CinemasDAO->searchById($cineId);
+        $this->cineController->showCinemasOnTable(null, $cinema, null, true);
     }
 
     public function checkNotEmptyParameters($Theater)
@@ -48,17 +49,7 @@ class TheaterController
             return false;
         }
     }
-    
-    public function openPopUp()
-    {
-        echo "<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})</script>";
-    }
 
-    public function showCinemasOnTable($cineUpdate = "", $createTheater = "")
-    {
-        $cines = $this->CinemasDAO->getAll();
-        require_once(VIEWS  . '/AdminCine.php');
-    }
 }
 
 
