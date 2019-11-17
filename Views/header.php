@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/movieOverview.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/showcase.css">
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/buy.css">
+    <link rel="stylesheet" href="<?php echo CSS_PATH ?>/nav.css">
+    <link rel="stylesheet" href="<?php echo CSS_PATH ?>/codeConfirm.css">
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- SweetAlert2 -->

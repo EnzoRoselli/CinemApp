@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+nav{
+    position: fixed;
+    width: 100vw;
+    height: 8vh;
+    background: linear-gradient(#FF416C, #FF4B2B);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+.nav-links{
+    width: 30%;
+    justify-self: end;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+
+.nav-links ul{
+    position: sticky;
+    list-style: none; 
+    display: flex;
+    
+}
+
+.nav-links ul li{
+    font-size: 1rem;
+    color: #000000;
+    padding: 0 25px;
+    transition: all 0.1s ease 0s;
+    cursor: pointer;
+}
+
+.nav-user img{
+    width: 3vw;
+    height: 6vh;
+    margin-right: 10px;
+    cursor: pointer;
+    margin-right: 3vw;
+}
+
+.home-btn{
+    justify-self: start;
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-left: 2vw;
+}
+
+.home-text{
+    
+    display: flex;
+    font-family: 'Courgette', cursive;
+    transition: all 0.2s ease 0s;
+   
+}
+
+.home-text *{
+    transition: all 0.1s ease 0s;
+}
+
+.home-text:hover > p{
+   margin: 0 5px;
+   
+}
+
+.nav-user{
+    justify-self: end;
+    
+}
+
+.nav-links ul li:hover{
+    color: #ffffff;
+}
+
+.nav-user ul{
+    list-style: none;
+}
+
+.nav-user ul li{
+	position:relative;
+    float:left;
+}
+
+.nav-user ul ul
+{
+	display:none;
+	position:absolute;
+    top: 98%;
+    right: 10%;
+    width: 8vw;
+	
+}
+
+
+#sub-menu li{
+    padding: 8px 2px;
+    background-color: rgba(255, 45, 45, 0.795);
+    margin: 6px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #000000;
+    transition: all 0.2s ease 0s;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+#sub-menu li a{
+    color: #000000;
+    text-decoration: none;
+}
+
+.nav-user ul:hover  ul
+{
+    display:block;
+}
+
+#sub-menu li:hover{
+
+    background-color: rgba(255, 0, 0, 0.795);
+}
+
+#sub-menu li:hover > a{
+    color: #ffffff;
+}
+
+#home-icon, #menu-icon {
+    position: absolute;
+    display: none;
+    color: #fff;
+}
+
+.user-name-li{
+    background:none !important;
+    text-transform: uppercase;
+    font-weight: bold;
+}
