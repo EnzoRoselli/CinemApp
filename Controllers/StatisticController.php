@@ -4,6 +4,7 @@ use DAO\PurchasesDAO as PurchaseDAO;
 use DAO\CinemasDAO as CinemaDAO;
 use DAO\MoviesDAO as MoviesDAO;
 
+
 class StatisticController{
 
     private $purchaseDAO;
@@ -14,26 +15,90 @@ class StatisticController{
     {
         $this->purchaseDAO = new PurchaseDAO();
         $this->cinemaDAO = new CinemaDAO();
-        $this->movieDAO = new CinemaDAO();
+        $this->movieDAO = new MoviesDAO();
     }
 
-    public function showStats(){
+    public function showStats($minDate="", $maxDate = ""){
         $statsCinemas = array();
         $statsMovies = array();
-        $cinemasList = $this->cinemaDAO->getAll();
-        $moviesList = $this->movieDAO->getAll();
+        $advices = array();
+
+        try {
+            
+            $cinemasList = $this->cinemaDAO->getAll();
+            $moviesList = $this->movieDAO->getAll();
+    
+            if(!empty($minDate) && !empty($maxDate)){
+                
+                $statsCinemas = $this->getPurchasesByCinemaId($cinemasList, $minDate, $maxDate);
+                $statsMovies = $this->getPurchasesByMovieId($moviesList, $minDate, $maxDate);
+
+    
+                if(empty($statsCinemas) && empty($statsMovies)){
+                    
+                    array_push($advices, NOT_FOUND_FILTERS);
+                    $this->showStatics($statsCinemas, $statsMovies, $advices);
+                }else{
+                     $this->showStatics($statsCinemas, $statsMovies);
+                }
+    
+            }else if((empty($minDate) && !empty($maxDate)) || (!empty($minDate) && empty($maxDate))){
+
+                $statsCinemas = $this->getPurchasesByCinemaId($cinemasList);
+                $statsMovies = $this->getPurchasesByMovieId($moviesList);
+
+                array_push($advices, FILTERS_ERROR);
+
+                $this->showStatics($statsCinemas, $statsMovies, $advices);
+
+            }else if(empty($minDate) && empty($maxDate)){
+
+                $statsCinemas = $this->getPurchasesByCinemaId($cinemasList);
+                $statsMovies = $this->getPurchasesByMovieId($moviesList);
+
+                $this->showStatics($statsCinemas, $statsMovies);
+            }
+
+
+        } catch (\Throwable $th) {
+            array_push($advices, DB_ERROR);
+        }
+
+          
+    }
+
+    public function getPurchasesByCinemaId($cinemasList, $minDate = "", $maxDate = ""){
+
+        $statsCinemas = array();
 
         foreach($cinemasList as $cinema){
+        
+            if(($cinemaPurchases = $this->purchaseDAO->getPurchasesByCinemaId($cinema->getId(), $minDate, $maxDate)) != null){
+
+                array_push($statsCinemas, $cinemaPurchases);
+            }
             
-            array_push($statsCinemas, $this->purchaseDAO->getPurchasesByCinemaId($cinema->getId()));
         }
 
+        return $statsCinemas;
+    }
+
+    public function getPurchasesByMovieId($moviesList, $minDate = "", $maxDate = ""){
+
+        $statsMovies = array();
+
         foreach($moviesList as $movie){
-            array_push($statsMovies, $this->purchaseDAO->getPurchasesByMovieId($movie->getId()));
+        
+            if(($moviePurchases = $this->purchaseDAO->getPurchasesByMovieId($movie->getId(), $minDate, $maxDate)) != null){
+
+                array_push($statsMovies, $moviePurchases);
+            }
         }
-         echo '<pre>';
-          var_dump($statsCinemas);
-        // var_dump($statsMovies);
+
+        return $statsMovies;
+    }
+
+    public function showStatics($statsCinemas = "", $statsMovies = "", $messages = ""){
 
         require_once(VIEWS  . '/Statistics.php');
     }

@@ -43,7 +43,7 @@ include('nav.php');
 							<td><?php echo $cine->getCapacity(); ?></td>
 							<td style="padding-left: 100px;">
 								<!-- ----------------------- EDIT ----------------------- -->
-								<a href="<?php echo  FRONT_ROOT . "/Cine/getCinemaToUpdate?update=" .  $cine->getId() ?>" name="update" class="btn btn-light">
+								<a href="<?php echo  FRONT_ROOT . "/Cine/getCinemaToUpdate/" .  $cine->getId() ?>" name="update" class="btn btn-light">
 									<i class="fas fa-edit"></i>
 								</a>
 

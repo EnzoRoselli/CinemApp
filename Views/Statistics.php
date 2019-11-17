@@ -4,6 +4,7 @@ include('nav.php');
 
 ?>
 
+
 <body class="admin-body">
 	<div class="admin-header">
         <h1>Statistics</h1>
@@ -11,7 +12,16 @@ include('nav.php');
 	</div>
 	
 	<div class="admin-table">
+	<form action="<?= FRONT_ROOT . '/Statistic/showStats'?>" method="POST">
+		<p>MinDate:</p>
+			<input type="date" name="minDate">
+		<p>MaxDate:</p>
+			<input type="date" name="maxDate">
+		
+		<button type="submit">Aceptar</button>
+	</form>
 	<h2>Cinemas</h2>
+	
 		<table class="content-table">
 
 			<thead>
@@ -24,7 +34,7 @@ include('nav.php');
 			</thead>
 			<tbody>
 				<?php
-				foreach($statsCinemas[0] as $cinema=>$value){
+				foreach($statsCinemas as $value){
 						?>
 						<tr>
 
@@ -38,6 +48,20 @@ include('nav.php');
 			</tbody>
 		</table>
 	</div>
+
+	<?php if (!empty($messages)) {
+	foreach ($messages as $message) ?>
+	<div class="message-container" id="message-container">
+		<div class="message-content">
+			<p><?= $message ?></p>
+			<button id="button-close">Close</button>
+		</div>
+	</div>
+	<script src="<?= JS_PATH . "/message.js" ?>"></script>
+	<script>
+		openMessage();
+	</script>
+<?php } ?>
 	
 	<div class="admin-table">
 	<h2>Movies</h2>
@@ -46,24 +70,22 @@ include('nav.php');
 			<thead>
 				<tr>
 					<th style="width: 3%;">Name</th>
-					<th style="width: 10%;">Release Date</th>
 					<th style="width: 20%;">Tickets sold</th>
 					<th style="width: 24%;">Amount</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
-				// foreach
+				foreach($statsMovies as $value){
 						?>
 						<tr>
 
-							<td><?php //echo $cine->getId(); ?></td>
-							
-							<td><?php //echo $cine->getCapacity(); ?></td>
-							
+							<td><?= $value->getTitle(); ?></td>
+							<td><?= $value->getTotalTickets(); ?></td>
+							<td><?= $value->getTotalSales(); ?></td>
 						</tr>
 				<?php 
-				 ?>
+				} ?>
 			</tbody>
 		</table>
 	</div>

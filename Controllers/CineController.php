@@ -19,9 +19,9 @@ class CineController
 
     }
 
-    public function getCinemaToUpdate()
+    public function getCinemaToUpdate($cineId)
     {
-        $cineUpdate = $this->CineDao->searchById($_GET['update']);
+        $cineUpdate = $this->CineDao->searchById($cineId);
         $this->showCinemasOnTable($cineUpdate, null, null, true);
     }
 
@@ -65,9 +65,9 @@ class CineController
         $this->showCinemasOnTable(null, null, $advices, null);
     }
 
-    public function getCinemaToaddTheater(){
+    public function getCinemaToaddTheater($cineId){
         
-        $cinema = $this->CineDao->searchById($_GET['addTheater']);
+        $cinema = $this->CineDao->searchById($cineId);
         $this->showCinemasOnTable(null, $cinema, null, true);
     }
 
@@ -112,29 +112,24 @@ class CineController
         $this->showCinemasOnTable(null, null, $advices);
     }
 
-    /* public function showAdminCine($message = array())
-    {
-        require_once(VIEWS  . '/AdminCine.php');
-    }*/
-
     public function delete($cineId)
     {
+        $advices = array();
         try {
             $this->CineDao->delete($cineId);
-            
+            array_push($advices, DELETED);
         } catch (\Throwable $th) {
-            throw $th;
+            array_push($advices, DB_ERROR);
         }
-        $this->showCinemasOnTable();
+        $this->showCinemasOnTable(null, null, $advices);
     }
 
-    public function activate()
+    public function activate($cineId)
     {
         $advices = array();
-        $id = $_GET['activate'];
         try {
-            $this->CineDao->activate($id);
-            $this->theaterDao->activate($id);
+            $this->CineDao->activate($cineId);
+            $this->theaterDao->activate($cineId);
             array_push($advices, ACTIVATED);
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
