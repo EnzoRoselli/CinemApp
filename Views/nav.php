@@ -31,10 +31,10 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
 
 
   <?php
-  if (/*isset($_SESSION['loggedUser'])*/true) { ?>
+  if (isset($_SESSION['loggedUser'])) { ?>
     <div class="nav-links">
       <ul>
-      <li><a href="<?=FRONT_ROOT . "/Showtime/showShowtimesListUser" ?>">Screenings</a></li>
+      <li><a href="<?=FRONT_ROOT . "/Showtime/showShowtimesListUser" ?>">Showtimes</a></li>
         <li><a href="<?php echo  FRONT_ROOT . "/Cine/showCinemasOnTable" ?>">Cinemas</a></li>
         <li><a href=<?=FRONT_ROOT . "/Home/showMovieGrid" ?>>Movies</a></li>
 
@@ -47,9 +47,9 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
         <li>
           <img src=<?= IMG_PATH . "/user-icon.png" ?> alt="" id="yo">
           <ul id="sub-menu">
-            <li class="user-name-li"><?= 'tu vieja' ?></li>
+            <li class="user-name-li"><?= $_SESSION['loggedUser'] ?></li>
             <li><a href="#">Account</a></li>
-            <li><a href="#">My Screenings</a></li>
+            <li><a href="#">My Showtimes</a></li>
             <li><a href="#">Credit Cards</a></li>
             <li><a href=<?= FRONT_ROOT . '/user/logoutAction' ?>>Log-out</a>
             </li>
@@ -58,7 +58,7 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
       </ul>
     </div>
   <?php
-  } else if (/*isset($_SESSION['loggedAdmin'])*/false) { ?>
+  } else if (isset($_SESSION['loggedAdmin'])) { ?>
     <div class="nav-links">
       <ul>
         <li>
@@ -68,14 +68,14 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
                 Lists
                 <ul id="sub-menu" class="sub-menu-admin">
                   <li><a href=<?=FRONT_ROOT . "/Cine/showCinemasOnTable" ?>>Cinemas</a></li>
-                  <li><a href=<?=FRONT_ROOT . "/Showtime/showShowtimeMenu" ?>>Screenings</a></li>
+                  <li><a href=<?=FRONT_ROOT . "/Showtime/showShowtimeMenu" ?>>Showtimes</a></li>
                   <li><a href="#">Sales</a></li>
                 </ul>
               </li>
             </ul>
           </div>  
         </li>
-        <li><a href="<?=FRONT_ROOT . "/Showtime/showShowtimesListUser" ?>">Screenings</a></li>
+        <li><a href="<?=FRONT_ROOT . "/Showtime/showShowtimesListUser" ?>">Showtimes</a></li>
         <li><a href="<?php echo  FRONT_ROOT . "/Cine/showCinemasOnTable" ?>">Cinemas</a></li>
         <li><a href=<?=FRONT_ROOT . "/Home/showMovieGrid" ?>>Movies</a></li>
 
@@ -99,22 +99,15 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
     ?>
     <div class="nav-links">
       <ul>
-      <li><a href="<?=FRONT_ROOT . "/Showtime/showShowtimesListUser" ?>">Screenings</a></li>
+      <li><a href="<?=FRONT_ROOT . "/Showtime/showShowtimesListUser" ?>">Showtimes</a></li>
         <li><a href="<?php echo  FRONT_ROOT . "/Cine/showCinemasOnTable" ?>">Cinemas</a></li>
         <li><a href=<?=FRONT_ROOT . "/Home/showMovieGrid" ?>>Movies</a></li>
 
-        <li></li>
+        <li>   <a href=<?php echo FRONT_ROOT . '/user/showLoginSignup' ?>>Log-Sig</a></li>
       </ul>
 
     </div>
-    <div class="nav-user">
-      <ul>
-        <li>
-        <a href=<?php echo FRONT_ROOT . '/user/showLoginSignup' ?>>Log-Sig</a>
-          
-        </li>
-      </ul>
-    </div>
+   
     
   <?php } ?>
 </nav>

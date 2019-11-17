@@ -38,7 +38,7 @@ include('nav.php');
 							<td><?php echo $cine->getName(); ?></td>
 							<td><?php echo $cine->getAddress(); ?></td>
 							<td><?php foreach($cine->getTheaters() as $theater){
-								echo $theater->getName()."-";
+								echo $theater->getName()." - ";
 							} ?></td>
 							<td><?php echo $cine->getCapacity(); ?></td>
 							<td style="padding-left: 100px;">

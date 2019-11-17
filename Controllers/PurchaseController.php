@@ -52,8 +52,13 @@ class PurchaseController
                 $purchase->setcreditCard($creditCard);
                 $this->purchasesDAO->add($purchase);
                 $showtime->setTicketAvaliable($showtime->getTicketAvaliable()-$amount);
-                $this->showtimeDao->modify($showtime);
+                if ($showtime->getTicketAvaliable()==0) {
+                    $showtime->setActive(false);
+                    $this->showtimeDao->modify($showtime);
+                }
+               
                 $purchase=$this->purchasesDAO->searchByPurchase($purchase);
+                
                 for ($i = 0; $i < $amount; $i++) {
                     //ASIGNAR QR
                     $ticket = new Ticket("",$purchase,$showtime);
