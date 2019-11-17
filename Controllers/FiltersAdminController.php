@@ -2,14 +2,16 @@
 
 namespace Controllers;
 
+use Controllers\HomeController as HomeController;
 use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\GenresDAO as GenresDAO;
 use DAO\GenresXMoviesDAO as GenresXMoviesDAO;
 use Model\Movie;
 
-class FiltersController
+class FiltersAdminController
 {
+
     private $showtimeDao;
     private $MoviesDAO;
     private $genreDAO;
@@ -95,7 +97,7 @@ class FiltersController
         }
     }
 
-    public function searchMovieByTitle($title)
+    public function getCinemasPurchases()
     {
         $advices = array();
 
