@@ -61,7 +61,7 @@ include('nav.php');
             <h3>Complete</h3>
             <form action=<?= FRONT_ROOT . "/CreditCards/add" ?> method="POST">
                 <div class="contenedor-inputs">
-
+                    <input type="hidden" name="id" value=<?= $showtime->getShowtimeId() ?>>
                     <div class="form-group">
                         <label>Card Number</label>
                         <input type="number" class="form-control" name="cc_number" required>

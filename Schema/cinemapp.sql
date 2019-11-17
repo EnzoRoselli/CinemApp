@@ -134,6 +134,8 @@ select * from theaters;
 
 /*drop database cinemapp;*/
 
+select * from credit_cards;
+
 INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
 VALUES (5,2,5,100,'2019-11-20','10:00',0,1);
 INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
