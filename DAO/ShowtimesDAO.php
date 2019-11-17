@@ -371,7 +371,12 @@ class ShowtimesDAO {
             $parameters["view_date"] = $showtime->getDate();
             $parameters["hour"] = $showtime->getHour();
             $parameters["subtitles"] = $showtime->isSubtitle();
-            $parameters["active"] = $showtime->getActive();
+            if ($showtime->getActive()==false) {
+                $parameters["active"] = 0;
+            }else {
+                $parameters["active"] = 1;
+            }
+            
             $parameters["ticketAvaliable"] = $showtime->getTicketAvaliable();
             $parameters["id"] = $showtime->getShowtimeId();
 

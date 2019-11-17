@@ -100,6 +100,24 @@ class CreditCardsDAO
     }
 
     }
+
+    public function userContainsCC($cc_number,$id_user)
+    {
+        $query = "SELECT * FROM ".$this->tableName." WHERE id_user=:id_user and cc_number=:cc_number";
+        $parameters["id_user"] = $id_user;
+        $parameters["cc_number"] = $cc_number;
+        try {
+            $this->connection = Connection::GetInstance();
+            $ResultSet= $this->connection->Execute($query, $parameters);
+            if (!empty($ResultSet)) {
+                return true;
+            }else {
+                return false;
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }
 
 

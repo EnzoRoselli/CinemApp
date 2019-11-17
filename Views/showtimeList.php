@@ -6,8 +6,7 @@ include('nav.php');
 <div class="showtimes-list-container">
     <form action="<?= FRONT_ROOT . '/Filters/FilterMovies'?>" method="GET">
     
-        <p>Search:</p>
-        <input name="title" type="text" class="search-input" placeholder="Type to search" />
+
         <p>Genre:</p>
         <select name="genre" id="">
         <option type="text" value="" selected>Select Genre</option>

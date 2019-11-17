@@ -42,7 +42,7 @@ include('nav.php');
                     
                    
                 </select>
-                <button>Add</button>
+                <a href=<?= FRONT_ROOT . "/CreditCards/showAdd" ?>>Add</button>
                 </div>
                 
             </div>
