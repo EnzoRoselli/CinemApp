@@ -1,19 +1,22 @@
 <?php 
-
+namespace Controllers;
 use Model\CreditCard;
 use DAO\CreditCardsDAO;
+use Controllers\ShowtimeController as ShowtimeController;
 class CreditCardsController  
 {
     private $creditCardsDAO;
-    
+    private $showtimeController;
 
     public function __construct() {
         $this->CreditCardsDAO = new CreditCardsDAO();
+        $this->showtimeController = new ShowtimeController();
     }
 
 
-    public function add()
+    public function add($cc_number)
     {    
+        
         $creditCard=new CreditCard($cc_number,$_SESSION['idUserLogged']);
             if (!$this->creditCardsDAO->userContainsCC($cc_number,$_SESSION['idUserLogged'])) {
                 $this->creditCardsDAO->add($creditCard);
@@ -22,9 +25,9 @@ class CreditCardsController
             }
     }
 
-    public function showAdd()
+    public function showAdd($showtimeId)
     {
-        //require_once(VIEWS. "/"); llamar al pop up para agregar una cc
+       $this->showtimeController->showBuy($showtimeId, true);
     }
 }
 

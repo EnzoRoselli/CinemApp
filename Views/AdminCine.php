@@ -37,9 +37,9 @@ include('nav.php');
 							<td><?php echo $cine->getId(); ?></td>
 							<td><?php echo $cine->getName(); ?></td>
 							<td><?php echo $cine->getAddress(); ?></td>
-							<td><?php foreach($cine->getTheaters() as $theater){
-								echo $theater->getName()." - ";
-							} ?></td>
+							<td><?php foreach ($cine->getTheaters() as $theater) {
+											echo $theater->getName() . " - ";
+										} ?></td>
 							<td><?php echo $cine->getCapacity(); ?></td>
 							<td style="padding-left: 100px;">
 								<!-- ----------------------- EDIT ----------------------- -->
@@ -92,21 +92,21 @@ include('nav.php');
 			<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
 				<div class="contenedor-inputs">
 					<input type="hidden" name="id" value=<?php if (isset($cineUpdate)) {
-																					echo $cineUpdate->getId();
-																				} ?>>
+																	echo $cineUpdate->getId();
+																} ?>>
 
 					<div class="form-group">
 						<label>Nombre</label>
-						<input  class="tuvi" type="text" class="form-control" name="name" required value=<?php if (isset($cineUpdate)) {
-																													echo $cineUpdate->getName();
-																												} ?>>
+						<input  type="text" class="form-control" name="name" required value=<?php if (isset($cineUpdate)) {
+																												echo $cineUpdate->getName();
+																											} ?>>
 					</div>
 
 					<div class="form-group">
 						<label>Dirección</label>
 						<input type="text" class="form-control" name="address" value=<?php if (isset($cineUpdate)) {
-																												echo $cineUpdate->getAddress();
-																											} ?>>
+																								echo $cineUpdate->getAddress();
+																							} ?>>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -117,12 +117,12 @@ include('nav.php');
 
 				</div>
 			</form>
-		<?php }else{ ?>
+		<?php } else { ?>
 			<form action="<?php echo  FRONT_ROOT . "/Theater/create" ?>" method="POST">
 				<div class="contenedor-inputs">
-					<p class="pop-up-subtitle"><?=$createTheater->getName();?></p>
+					<p class="pop-up-subtitle"><?= $createTheater->getName(); ?></p>
 
-					<input type="hidden" name="cinema" value=<?=$createTheater->getId();?>>
+					<input type="hidden" name="cinema" value=<?= $createTheater->getId(); ?>>
 
 					<div class="form-group">
 						<label>Nombre</label>
@@ -136,14 +136,14 @@ include('nav.php');
 
 					<div class="form-group">
 						<label>Valor de Entrada</label>
-						<input type="number" class="form-control" name="ticketValue" min="1" required >
+						<input type="number" class="form-control" name="ticketValue" min="1" required>
 					</div>
 				</div>
 				<div class="modal-footer">
 
-				<button type="submit" class="btn btn-med btn-light">Aceptar</button>
+					<button type="submit" class="btn btn-med btn-light">Aceptar</button>
 
-				<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancelar</a>
+					<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancelar</a>
 
 				</div>
 			</form>

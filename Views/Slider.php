@@ -28,4 +28,3 @@
             <span class="barra" onclick="posicionSlide(3)"></span>
         </div>
     </div>
-    <script src="slider.js"></script>

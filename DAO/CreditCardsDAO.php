@@ -76,6 +76,7 @@ class CreditCardsDAO
         $CreditCardsList=array();
         $query = "SELECT * FROM ". $this->tableName. " WHERE id_user=:id_user";
         $parameters["id_user"] = $id_user;
+
     try {
         $this->connection = Connection::GetInstance();
         $ResultSet= $this->connection->Execute($query, $parameters);
