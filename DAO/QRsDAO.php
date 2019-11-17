@@ -2,9 +2,11 @@
 namespace DAO;
 
 use Model\Purchase AS Purchase;
-use Model\QR AS QR;
+use Model\QR_ AS QRs;
 use DAO\TicketsDAO AS TicketsDAO;
 
+require_once(QR_ROUTE.'/phpqrcode/qrlib.php');
+use QRcode AS QRcode;
 
 class QRsDAO 
 {
@@ -14,13 +16,20 @@ class QRsDAO
         $this->TicketsDAO = new TicketsDAO();
     }
 
-    public function add(QR $qr)
+    public function add(QRs $newQr)
     {
         $query = "INSERT INTO ". $this->tableName . "(id_ticket,qr_image) VALUES(:id_ticket,:qr_image) ";
         $parameters["id_ticket"] = $this->TicketsDAO->getLastTicket();
         $lastId=($this->getLastQRid()+1);
-        $fileName=$qr->getDir()."qr-".$lastId.".png";
-        $parameters["qr_image"]=$fileName;
+        $fileName=QR_IMG."qr-".$lastId.".png";
+        $file="qr-".$lastId.".png";
+        $parameters["qr_image"]=$file;
+        
+        QRcode::png($lastId, $fileName);
+   
+        //echo '<img src="'.$fileName.'"/>'; 
+       // echo '<img src="../QR/temp/qr-33.png"/>'; 
+      
         try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
@@ -37,11 +46,11 @@ class QRsDAO
         $this->connection = Connection::GetInstance();
         $ResultSet=$this->connection->Execute($query, $parameters);
         foreach ($ResultSet as $item) {
-            $qr=new QR();
+            $qr=new QRs();
             $ticket=$this->TicketsDAO->searchById($item['id_ticket']);
             $qr->setTicket($ticket);
             $qr->setFileName($item['qr_image']);
-          array_push($qr,$QRsList);
+          array_push($QRsList,$qr);
         }
         return $QRsList;
     } catch (\Throwable $ex) {
@@ -51,7 +60,7 @@ class QRsDAO
 
     public function getLastQRid()
     {
-        $query = "SELECT max(id) FROM " .  $this->tableName;
+        $query = "SELECT max(id) as id FROM " .  $this->tableName;
         try {
             $this->connection = Connection::GetInstance();
             $ResultSet=$this->connection->Execute($query);

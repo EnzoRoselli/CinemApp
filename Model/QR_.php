@@ -1,14 +1,10 @@
 <?php 
 namespace Model;
 
-
-
-require 'QR/phpqrcode/qrlib.php';
-
-class QR  
+class QR_ 
 {
     
-    private $dir;
+  
     private $size;
     private $level;
     private $frameSize;
@@ -16,20 +12,26 @@ class QR
     private $ticket;//
 
     public function __construct() {
-        $this->dir=$this->setDir();
         $this->size=10;
         $this->level='M';
         $this->frameSize=3;
- 
     }
-public function getTicket()
-{
-    return $this->ticket;
-}
-
-    public function getDir()
+    public function getSize()
     {
-        return $this->dir;
+        return $this->size;
+    }
+    public function getLevel()
+    {
+        return $this->level;
+    }
+    public function getFrameSize()
+    {
+        return $this->frameSize;
+    }
+
+    public function getTicket()
+    {
+    return $this->ticket;
     }
  
     public function getFileName()
@@ -55,13 +57,7 @@ public function getTicket()
         $this->ticket=$ticket;
     }
     
-    public function setDir()
-    {
-        $this->dir='QR/phpqrcode/temp/';
-        if (!file_exists($this->dir)) {
-           mkdir( $this->dir);
-        }
-    }
+    
 
 }
 

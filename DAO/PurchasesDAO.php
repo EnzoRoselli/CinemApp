@@ -12,6 +12,7 @@ class PurchasesDAO
 
     public function add(Purchase $purchase)
     {
+       
         $query="INSERT into ". $this->tableName." (purchase_date,hour,ticketsAmount,total,id_user,id_cc) VALUES(:purchase_date,:hour,:ticketsAmount,:total,:id_user,:id_cc)" ;
         $parameters["purchase_date"] = $purchase->getDate();
         $parameters["hour"] = $purchase->getHour();

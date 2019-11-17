@@ -154,7 +154,7 @@ class UserController
                         $_SESSION['loggedAdmin'] = $LoginComprobation[0]['lastname'];
                         $_SESSION['idUserLogged'] = $LoginComprobation[0]['id'];
                     }else{
-                        var_dump($GLOBALS);
+                     
                         $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
                         $_SESSION['idUserLogged'] = $LoginComprobation[0]['id'];
                     }
