@@ -3,7 +3,7 @@
 namespace Config\Constants;
 if (!defined('ADDED')) define('ADDED', 'Successfully added');
 if (!defined('MODIFIED')) define('MODIFIED', 'Successfully modifed');
-if (!defined('ELIMINATED')) define('ELIMINATED', 'Successfully deleted');
+if (!defined('DELETED')) define('DELETED', 'Successfully deleted');
 if (!defined('ACTIVATED')) define('ACTIVATED', 'Success in activation');
 if (!defined('DEACTIVATED')) define('DEACTIVATED', 'Success in deactivation');
 if (!defined('VERIFY')) define('VERIFY', 'Verify the data entered is correct');

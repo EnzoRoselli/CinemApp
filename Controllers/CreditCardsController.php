@@ -43,4 +43,8 @@ class CreditCardsController
     {
         $this->showtimeController->showBuy($showtimeId, true);
     }
+
+    public function showCreditCardList(){
+        require_once(VIEWS . "/CreditCardTable.php");
+    }
 }

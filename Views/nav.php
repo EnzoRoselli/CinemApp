@@ -49,7 +49,7 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
             <li class="user-name-li"><?= $_SESSION['loggedUser'] ?></li>
             <li><a href="#">Account</a></li>
             <li><a href="#">My Showtimes</a></li>
-            <li><a href="#">Credit Cards</a></li>
+            <li><a href=<?= FRONT_ROOT . "/CreditCards/showCreditCardList"?>>Credit Cards</a></li>
             <li><a href=<?= FRONT_ROOT . '/user/logoutAction' ?>>Log-out</a>
             </li>
           </ul>
