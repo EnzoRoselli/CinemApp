@@ -16,7 +16,6 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
 
     </a>
   </div>
-
   <div class="home-icon">
     <a href="<?php echo FRONT_ROOT . "/Home/Index" ?>">
       <i class="fas fa-home" id="home-icon"></i>

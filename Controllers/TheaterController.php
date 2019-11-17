@@ -17,19 +17,20 @@ class TheaterController
 
     public function create($idCinema, $name, $capacity, $ticketValue)
     {
+        $advices = array();
         $cinema = $this->CinemasDAO->searchById($idCinema);
         $theater = new Theater($name, $cinema, true, $ticketValue, $capacity);
         try{
             if (!empty($this->checkNotEmptyParameters($theater)) && !$this->TheatersDAO->exists($theater)) {
                 $this->TheatersDAO->add($theater);
+                array_push($advices, ADDED);
             } else {
-                //Intenta crear una sala con un nombre que ya otra sala contiene
+                array_push($advices, EXISTS);
             }
         }catch (\Throwable $th){
-            //Poner aviso de que la sala no se puede agregar porque el nombre estaria duplicado
-            var_dump($th);
+            array_push($advices, DB_ERROR);
         }finally{
-            $this->showCinemasOnTable();
+            $this->showCinemasOnTable(null, null, $advices);
         }
     }
 
