@@ -2,219 +2,109 @@
 
 namespace Controllers;
 
-use Controllers\HomeController as HomeController;
+use Model\CinemaPurchases;
+use Controllers\PurchaseController as PurchaseController;
+use DAO\CinemasDAO;
 use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\GenresDAO as GenresDAO;
 use DAO\GenresXMoviesDAO as GenresXMoviesDAO;
-use Model\Movie;
+use DAO\PurchasesDAO;
 
 class FiltersAdminController
 {
 
+    private $cinemaDAO;
+    private $purchaseDAO;
     private $showtimeDao;
     private $MoviesDAO;
     private $genreDAO;
     private $genresXmoviesDAO;
     private $showtimeController;
+    private $purchaseController;
 
     public function __construct()
     {
+        $this->cinemaDAO = new CinemasDAO();
+        $this->purchaseDAO = new PurchasesDAO();
         $this->showtimeDao = new ShowtimeDAO();
         $this->genreDAO = new GenresDAO();
         $this->MoviesDAO = new MoviesDAO();
         $this->genresXmoviesDAO = new GenresXMoviesDAO();
         $this->showtimeController = new ShowtimeController();
+        $this->purchaseController = new PurchaseController();
     }
 
-    public function FilterMovies()
+    public function showPurchaseStatistics()
     {
-        $message = 0;
         $advices = array();
+        $cinemasPurchases = array();
+        $moviesPurchases = array();
 
         try{
 
-            if(!empty($_GET['title'])){
-                
-                $movieByTitleList = array();
+            $cinemasPurchases = $this->getCinemasPurchases();
+            $moviesPurchases = $this->getMoviesPurchases();
 
-                $movieByTitle = $this->searchMovieByTitle($_GET['title']);
-
-                array_push($movieByTitleList, $movieByTitle);
-
-                if(!empty($movieByTitleList)){
-
-                    $this->showtimeController->showShowtimesListUser($movieByTitleList);
-                }else{
-                    $message = 1;
-                }
-
-            }else if (isset($_GET['genre']) && empty($_GET['date'])) {
-                
-                $moviesByGenre = $this->searchByGenre($_GET['genre']);
-
-                if(!empty($moviesByGenre)){
-                    
-                    $this->showtimeController->showShowtimesListUser($moviesByGenre);
-                    
-                }else{
-                    
-                    $message = 1;
-                }
-                
-            } else if (isset($_GET['date']) && empty($_GET['genre'])) { 
-
-                $moviesByDate = $this->searchByDate($_GET['date']);
-
-                if(!empty($moviesByDate)){
-
-                    $this->showtimeController->showShowtimesListUser($moviesByDate);
-                }else{
-                    $message = 1;
-                }
-            
-            }else if (isset($_GET['genre']) && !empty($_GET['date'])) {
-
-                $moviesByGenres = $this->searchByGenre($_GET['genre']);
-
-                $showtimesByDateAndGenres = $this->filterMoviesByDate($moviesByGenres, $_GET['date']);
-
-                if(!empty($showtimesByDateAndGenres)){
-                      $this->showtimeController->showShowtimesListUser($showtimesByDateAndGenres);
-                }else{
-                    $message = 1;
-                }
-            }
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
         }finally{
-            if($message == 1){
 
-                array_push($advices, NOT_FOUND);
-    
-                $this->showtimeController->showShowtimesListUser();
-            }
+            $this->showtimeController->showShowtimesListUser($cinemasPurchases, $moviesPurchases);
         }
     }
 
     public function getCinemasPurchases()
     {
         $advices = array();
-
-        $movie = new Movie();
-        $movie->setTitle($title);
+        $cinemasPurchasesList = array();
 
         try {
-            $movieByTitle = $this->MoviesDAO->exists($movie);
+            $cinemas = $this->cinemaDAO->getAll();
+
+            foreach ($cinemas as $cinema) {
+                
+                $cinemaPurchases = $this->purchaseDAO->getPurchasesByCinemaId($cinema->getId());
+
+                if(!empty($cinemaPurchases)){
+
+                    array_push($cinemasPurchasesList, $cinemaPurchases);
+                }
+
+            }
 
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
         } 
 
-        return $movieByTitle;
+        return $cinemasPurchasesList;
     }
 
-    public function searchByGenre($genreId)
+    public function getMoviesPurchases()
     {
         $advices = array();
-        try {
-            $moviesByGenre = $this->genresXmoviesDAO->getMoviesByGenreId($genreId);
-            
-            
-        } catch (\Throwable $th) {
-            var_dump($th);
-            array_push($advices, DB_ERROR);
-        }
-
-        return $moviesByGenre;
-    }
-
-    public function searchByDate($dateToSearch)
-    {   
-        $advices = array();
-        try {
-
-            $showtimes = $this->showtimeDao->getAll();
-            $moviesByDate = array();
-            
-            foreach ($showtimes as $showtime) {
-
-                if ($showtime->getDate() == $dateToSearch && $showtime->getActive() == true) {
-
-                    $reapeted = false;
-
-                    foreach ($moviesByDate as $value) {
-
-                        if($showtime->getMovie()->getTitle() == $value->getTitle()){
-
-                            $reapeted = true;
-                        }
-                    }
-
-                    if($reapeted == false){
-
-                        array_push($moviesByDate, $showtime->getMovie());
-                    }
-                }
-
-            }
-
-
-        } catch (\Throwable $th) {
-            array_push($advices, DB_ERROR);
-        }
-            
-        return $moviesByDate;
-    }
-
-    public function filterMoviesByDate($movies, $dateToSearch){
-
-        $advices = array();
+        $moviesPurchasesList = array();
 
         try {
-
-            $showtimes = $this->showtimeDao->getAll();
-            $moviesToShowtimesList = array();
-            $moviesByDate = array();
+            $movies = $this->MoviesDAO->getAll();
 
             foreach ($movies as $movie) {
                 
-                $movieToShowtime = $this->showtimeDao->getMovieShowtimes($movie);
+                $moviePurchases = $this->purchaseDAO->getPurchasesByMovieId($movie->getId());
 
-                array_push($moviesToShowtimesList, $movieToShowtime);
-            }
+                if(!empty($moviePurchases)){
 
-            foreach ($moviesToShowtimesList as $showtime) {
-                 
-                foreach ($showtime as $value) {
-                    
-                    if ($value->getDate() == $dateToSearch && $value->getActive() == true) {
-
-                        $reapeted = false;
-
-                        foreach ($moviesByDate as $movie) {
-                            
-                            if($value->getMovie()->getTitle() == $movie->getTitle()){
-
-                                $reapeted = true;
-                            }
-                        }
-
-                        if($reapeted == false){
-
-                            array_push($moviesByDate, $value->getMovie());
-                        }
-                    }
+                    array_push($moviesPurchasesList, $moviePurchases);
                 }
+
             }
 
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
-        }
-            
-        return $moviesByDate;
+        } 
+
+        return $moviesPurchasesList;
     }
 
-    
 
 }
