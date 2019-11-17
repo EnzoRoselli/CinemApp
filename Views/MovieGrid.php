@@ -1,3 +1,7 @@
+<?php
+include('header.php');
+include('nav.php');
+?>
 <div class="container">
     <?php
     for ($i=0; $i < count($moviesList); $i++) { 

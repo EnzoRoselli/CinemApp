@@ -1,53 +1,55 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
 
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-
-}
 
 nav{
     position: fixed;
     width: 100vw;
     height: 8vh;
     background: linear-gradient(#FF416C, #FF4B2B);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+    z-index: 50;
 }
 
 .nav-links{
-    width: 30%;
     justify-self: end;
-
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
 }
 
 .nav-links ul{
-    position: sticky;
+    position: relative;
+    margin-left: 30%;
     list-style: none; 
     display: flex;
     
 }
 
 .nav-links ul li{
+    margin-left: 50px;
     font-size: 1rem;
     color: #000000;
-    padding: 0 25px;
-    transition: all 0.1s ease 0s;
+    
     cursor: pointer;
+}
+
+.nav-links ul li a{
+    text-decoration: none;
+    color: #000000;
+    transition: all 0.1s ease 0s;
 }
 
 .nav-user img{
     width: 3vw;
     height: 6vh;
-    margin-right: 10px;
     cursor: pointer;
     margin-right: 3vw;
+    transition: all 0.1s ease 0s;
 }
+
 
 .home-btn{
     justify-self: start;
@@ -56,16 +58,20 @@ nav{
     margin-left: 2vw;
 }
 
+.home-btn a{
+    text-decoration: none;
+    color: #000000;
+}
+
 .home-text{
-    
     display: flex;
-    font-family: 'Courgette', cursive;
-    transition: all 0.2s ease 0s;
-   
+    
 }
 
 .home-text *{
-    transition: all 0.1s ease 0s;
+    font-family: 'Courgette', cursive;
+    transition: all 0.2s ease 0s;
+    text-decoration: none;
 }
 
 .home-text:hover > p{
@@ -78,7 +84,7 @@ nav{
     
 }
 
-.nav-links ul li:hover{
+.nav-links ul li *:hover{
     color: #ffffff;
 }
 
@@ -95,17 +101,18 @@ nav{
 {
 	display:none;
 	position:absolute;
-    top: 98%;
+    top: 95%;
     right: 10%;
     width: 8vw;
-	
+	z-index: 50;
 }
+
 
 
 #sub-menu li{
     padding: 8px 2px;
     background-color: rgba(255, 45, 45, 0.795);
-    margin: 6px 0;
+    margin: 6px 0;  
     border-radius: 5px;
     cursor: pointer;
     color: #000000;
@@ -141,7 +148,14 @@ nav{
 }
 
 .user-name-li{
-    background:none !important;
+    background: none !important;
     text-transform: uppercase;
     font-weight: bold;
+}
+
+
+.nav-user ul li .sub-menu-admin{
+    position: absolute;
+    top: 95%;
+    right: -40px;
 }
