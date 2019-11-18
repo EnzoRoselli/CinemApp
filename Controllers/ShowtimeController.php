@@ -59,7 +59,7 @@ class ShowtimeController
         }
     }
 
-    public function showShowtimeMenu($cinemaTheaters=array(), $messages="")
+    public function showShowtimeMenu($cinemaTheaters=array(), $messages="", $openPopUp=false)
     {
         $advices = array();
         try {
@@ -238,17 +238,15 @@ class ShowtimeController
         }
     
     }
-    public function getCinema(){
-        $cinema = $this->cinemasDAO->searchById($_GET['idCinema']);
+    public function getCinema($idCinema){
+        $cinema = $this->cinemasDAO->searchById($idCinema);
         $cinemaTheaters = $cinema->getTheaters();
-        
+        $advices = array();
         if (!empty($cinemaTheaters)) {
-            $this->showShowtimeMenu($cinemaTheaters);
-            $this->openPopUp();
+            $this->showShowtimeMenu($cinemaTheaters, null, true);
+           
         }else {
-            echo '<script type="text/javascript">
-            alert("No hay salas disponibles para el cine seleccionado");
-        </script>';
-        $this->showShowtimeMenu();              
+            array_push($advices, DB_ERROR);
+        $this->showShowtimeMenu(null, null, true);              
     }
 }}
