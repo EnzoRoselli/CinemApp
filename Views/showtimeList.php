@@ -5,9 +5,6 @@ include('nav.php');
 
 <div class="showtimes-list-container">
     <form action="<?= FRONT_ROOT . '/Filters/FilterMovies'?>" method="GET">
-    <p>Search:</p>
-        <input name="title" type="text" class="search-input" placeholder="Type to search" />
-
         <p>Genre:</p>
         <select name="genre" id="">
         <option type="text" value="" selected>Select Genre</option>
@@ -21,6 +18,8 @@ include('nav.php');
         </div>
         <button type="submit">Aceptar</button>
     </form>
+
+
     <div class="header-titles">
         <p class="title-highlight">Movie</p>
         <p>Day</p>
@@ -28,6 +27,21 @@ include('nav.php');
         <p>Cinema | Theater</p>
     </div>
     <div class="showtimes-list">
+        
+    <?php if (!empty($messages)) {
+	foreach ($messages as $message) ?>
+	<div class="message-container" id="message-container">
+		<div class="message-content">
+			<p><?= $message ?></p>
+			<button id="button-close">Close</button>
+		</div>
+	</div>
+	<script src="<?= JS_PATH . "/message.js" ?>"></script>
+	<script>
+		openMessage();
+	</script>
+    <?php } ?>
+    
         <?php for ($i = 0; $i < count($moviesList); $i++) {   ?>
             <div class="showtime-row">
                 <div class="showtime-row-content">

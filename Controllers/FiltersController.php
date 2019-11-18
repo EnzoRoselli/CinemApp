@@ -32,22 +32,7 @@ class FiltersController
 
         try{
 
-            if(!empty($_GET['title'])){
-                
-                $movieByTitleList = array();
-
-                $movieByTitle = $this->searchMovieByTitle($_GET['title']);
-
-                array_push($movieByTitleList, $movieByTitle);
-
-                if(!empty($movieByTitleList)){
-
-                    $this->showtimeController->showShowtimesListUser($movieByTitleList);
-                }else{
-                    $message = 1;
-                }
-
-            }else if (isset($_GET['genre']) && empty($_GET['date'])) {
+            if (isset($_GET['genre']) && empty($_GET['date'])) {
                 
                 $moviesByGenre = $this->searchByGenre($_GET['genre']);
 
@@ -90,38 +75,18 @@ class FiltersController
 
                 array_push($advices, NOT_FOUND);
     
-                $this->showtimeController->showShowtimesListUser();
+                $this->showtimeController->showShowtimesListUser(null,$advices);
             }
         }
     }
 
-    public function searchMovieByTitle($title)
-    {
-        $advices = array();
-
-        $movie = new Movie();
-        $movie->setTitle($title);
-
-        try {
-            $movieByTitle = $this->MoviesDAO->exists($movie);
-
-        } catch (\Throwable $th) {
-            array_push($advices, DB_ERROR);
-        } 
-
-        return $movieByTitle;
-    }
-
     public function searchByGenre($genreId)
     {
-        $advices = array();
         try {
             $moviesByGenre = $this->genresXmoviesDAO->getMoviesByGenreId($genreId);
-            
-            
+ 
         } catch (\Throwable $th) {
             var_dump($th);
-            array_push($advices, DB_ERROR);
         }
 
         return $moviesByGenre;
@@ -129,7 +94,7 @@ class FiltersController
 
     public function searchByDate($dateToSearch)
     {   
-        $advices = array();
+
         try {
 
             $showtimes = $this->showtimeDao->getAll();
@@ -159,7 +124,7 @@ class FiltersController
 
 
         } catch (\Throwable $th) {
-            array_push($advices, DB_ERROR);
+            var_dump($th);
         }
             
         return $moviesByDate;
@@ -167,11 +132,8 @@ class FiltersController
 
     public function filterMoviesByDate($movies, $dateToSearch){
 
-        $advices = array();
-
         try {
 
-            $showtimes = $this->showtimeDao->getAll();
             $moviesToShowtimesList = array();
             $moviesByDate = array();
 
@@ -207,7 +169,7 @@ class FiltersController
             }
 
         } catch (\Throwable $th) {
-            array_push($advices, DB_ERROR);
+            var_dump($th);
         }
             
         return $moviesByDate;

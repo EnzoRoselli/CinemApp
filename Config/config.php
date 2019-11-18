@@ -9,11 +9,11 @@ define("QR_IMG", ROOT . "/QR/temp/");
 
 
 //FRONT PATH
-//  define("FRONT_ROOT", "http://localhost/CinemApp");
+define("FRONT_ROOT", "http://localhost/CinemApp");
 
 
 // //PARA LA COMPU DE MATI 
-define("FRONT_ROOT", "http://localhost:90/CinemApp");       
+// define("FRONT_ROOT", "http://localhost:90/CinemApp");       
 
 //////////////////////////////////
 define("VIEWS_PATH", FRONT_ROOT . "/Views");
