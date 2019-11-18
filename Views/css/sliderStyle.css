@@ -101,7 +101,7 @@
 }
 
 @keyframes fade {
-     from {filter: blur(3px);}
+     from {filter: blur(2px);}
     to{filter: blur(1px);} 
 
 }

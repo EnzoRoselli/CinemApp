@@ -54,7 +54,7 @@ include('nav.php');
 
             </div>
             <div class="buy-actions">
-                <a class="buy-btn" id="buy-back-btn" href=<?= FRONT_ROOT . "/Showtime/showSelectShowtime?movie=" . $showtime->getMovie()->getId() ?>>Back</a>
+                <a class="buy-btn" id="buy-back-btn" href=<?= FRONT_ROOT . "/Showtime/showSelectShowtime/" . $showtime->getMovie()->getId() ?>>Back</a>
                 <button class="buy-btn" type="submit">Confirm</button>
             </div>
         </form>

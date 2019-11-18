@@ -25,15 +25,7 @@
     <link rel="stylesheet" href="<?php echo CSS_PATH ?>/lastArrival.css">
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-    <script src="<?php echo JS_PATH . "/alert.js" ?>"></script> 
-    <!-- <script src="<?php echo JS_PATH . "/slider.js"?>"></script> -->
-    
-    
-
+  
     <title>CinemApp</title>
   </head>
   <body>
