@@ -7,6 +7,8 @@
     if (!defined('INCOMPLETE_INPUTS')) define('INCOMPLETE_INPUTS', '"All fields needs to be filled"');
     if (!defined('LOGOUT_SUCCESS')) define('LOGOUT_SUCCESS', '"You had succesfully logged out"');
     if (!defined('EMAIL_DOMAIN_ERROR')) define('EMAIL_DOMAIN_ERROR', '"Your email domain is not valid"');
+    if (!defined('EMAIL_EXISTS')) define('EMAIL_EXISTS', '"The email entered is currently in use"');
+    if (!defined('ID_NUMBER_EXISTS')) define('ID_NUMBER_EXISTS', '"The DNI entered is currently in use"');
 
 
 ?>
