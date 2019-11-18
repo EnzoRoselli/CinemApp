@@ -11,7 +11,7 @@ okBtn.addEventListener('click', function(e){
     e.preventDefault();
     const buyAmount = document.getElementById('buy-amount');
     let discount = 0;
-    if((currentday == 2 || currentday == 3) && buyAmount.value>1){
+    if((currentday == 1 || currentday == 3) && buyAmount.value>1){
         if(currentday == 2){
             messageDto.textContent = "Since you're buying on Tuesday and more than one tickets, we'll give you a discount of 25%!";
         }else{
