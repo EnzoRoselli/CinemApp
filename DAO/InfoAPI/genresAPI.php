@@ -46,7 +46,7 @@ class genresAPI
             }
 
         }
-        
+        // var_dump($genres);
         return $genres;
     }
 }

@@ -96,6 +96,9 @@ class GenresXMoviesDAO
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
 
+            // var_dump($resultSet);
+            // var_dump($resultSet);
+
             foreach ($resultSet as $row) {
                 
                 $movie = new Movie();
