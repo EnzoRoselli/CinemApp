@@ -21,15 +21,6 @@ include('nav.php');
 
     </form>
 
-
-    <div class="header-titles">
-        <p class="title-highlight">Movie</p>
-        <p>Day</p>
-        <p>Hour</p>
-        <p>Cinema | Theater</p>
-    </div>
-    <div class="showtimes-list">
-        
     <?php if (!empty($messages)) {
 	foreach ($messages as $message) ?>
 	<div class="message-container" id="message-container">
@@ -42,7 +33,7 @@ include('nav.php');
 	<script>
 		openMessage();
 	</script>
-    <?php } ?>
+<?php } ?>
     
         <?php for ($i = 0; $i < count($moviesList); $i++) {   ?>
             <div class="showtime-row">

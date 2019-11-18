@@ -5,6 +5,7 @@
     transform: translate(-50%, -50%);
     display: none;
     transition: all 0.2s ease 0s;  
+    z-index: 60;
 }
 
 .message-content {
