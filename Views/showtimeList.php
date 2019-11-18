@@ -4,9 +4,8 @@ include('nav.php');
 ?>
 
 <div class="showtimes-list-container">
-<form action="<?= FRONT_ROOT . '/Filters/FilterMovies' ?>" method="GET">
+<form action="<?= FRONT_ROOT . '/Filters/FilterMovies' ?>" method="POST">
         <div class="showtimes-list-filters">
-            <input name="title" type="text" placeholder="Type to search" />
             <select name="genre" id="">
                 <option type="text" value="" selected>Select Genre</option>
                 <?php foreach ($genresList as $genre) { ?>
