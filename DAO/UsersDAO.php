@@ -25,7 +25,7 @@ class UsersDAO
             $parameters["firstname"] = $user->getName();
             $parameters["lastname"] = $user->getLastName();
             $parameters["dni"] = $user->getDni();
-            // var_dump($query);
+            
         try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
