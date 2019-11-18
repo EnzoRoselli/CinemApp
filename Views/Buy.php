@@ -25,7 +25,7 @@ include('nav.php');
         <form action=<?= FRONT_ROOT . "/Purchase/create" ?> method="POST">
             <div class="buy-amount-total">
                 <label id="buy-ticket-value"><?= $showtime->getTheater()->getTicketValue(); ?></label>
-                <label>Amount:</label>
+                <label>Number of Tickets:</label>
                 <input type="number" id="buy-amount" name="amount" min="1">
                 <button type="button" id="ok-btn-amount">Calculate Total</button>
                 <label>Total: $</label>
