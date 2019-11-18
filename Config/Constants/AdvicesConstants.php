@@ -5,7 +5,7 @@ if (!defined('ADDED')) define('ADDED', 'Successfully added');
 if (!defined('MODIFIED')) define('MODIFIED', 'Successfully modified');
 if (!defined('DELETED')) define('DELETED', 'Successfully deleted');
 if (!defined('ACTIVATED')) define('ACTIVATED', 'Successfully activated');
-if (!defined('DESACTIVATED')) define('DESACTIVATED', 'Successfully desactivated');
+if (!defined('DEACTIVATED')) define('DEACTIVATED', 'Successfully deactivated');
 if (!defined('VERIFY')) define('VERIFY', 'Verify the data entered is correct');
 if (!defined('EXISTS')) define('EXISTS', 'The data you are trying to enter already exists');
 if (!defined('NOT_FOUND')) define('NOT_FOUND', 'The data you are looking for has not been found');
