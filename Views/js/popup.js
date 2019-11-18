@@ -19,7 +19,6 @@ btnCerrarPopup.addEventListener('click', function(e){
 });
 
 btnCancelarPopup.addEventListener('click', function(e){
-	console.log('tui');
 	e.preventDefault();
 	overlay.classList.remove('active');
 	popup.classList.remove('active');

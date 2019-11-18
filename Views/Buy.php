@@ -5,7 +5,7 @@ include('nav.php');
 ?>
 
 <div class="buy-container">
-    
+
     <p id="dto-advice" class="active-dto-advice">Since you're buying on Tuesday and more than one tickets, we'll give you a discount of 25%!</p>
     <div class="showtime-details-container">
         <div class="showtime-details-content-left">
@@ -25,11 +25,18 @@ include('nav.php');
         <form action=<?= FRONT_ROOT . "/Purchase/create" ?> method="POST">
             <div class="buy-amount-total">
                 <label id="buy-ticket-value"><?= $showtime->getTheater()->getTicketValue(); ?></label>
-                <label>Amount:</label>
-                <input type="number" id="buy-amount" name="amount" min="1">
+                <div class="number-tickets">
+                    <label>Number of Tickets:</label>
+                    <input class="btn-input" type="number" id="buy-amount" name="amount" min="1">
+                </div>
+
                 <button type="button" id="ok-btn-amount">Calculate Total</button>
-                <label>Total: $</label>
-                <input id="total-price" readonly name="totalPrice" name="totalPrice"></input>
+                
+                <div class="total-amount">
+                    <label>Total: $</label>
+                    <input class="btn-input" id="total-price" readonly name="totalPrice" name="totalPrice"></input>
+                </div>
+
                 <input type="hidden" name="showtimeid" value=<?= $showtime->getShowtimeId() ?>>
 
             </div>
@@ -42,19 +49,24 @@ include('nav.php');
                             <option value=<?= $cc->getId() ?>><?php echo $cc->getNumber() ?></option>
                         <?php } ?>
                     </select>
-                    <a id="btn-abrir-popup" href=<?= FRONT_ROOT . "/CreditCards/showAdd/" . $showtime->getShowtimeId() ?>>Add credit card</a>
+                    <a id="btn-abrir-popup" class="buy-add-cc" href=<?= FRONT_ROOT . "/CreditCards/showAdd/" . $showtime->getShowtimeId() ?>>Add</a>
                 </div>
 
             </div>
             <div class="buy-actions">
-                <a href=<?= FRONT_ROOT . "/Showtime/showSelectShowtime?movie=" . $showtime->getMovie()->getId() ?>>Atras</a>
-                <button type="submit">Confirm</button>
+                <a class="buy-btn" id="buy-back-btn" href=<?= FRONT_ROOT . "/Showtime/showSelectShowtime?movie=" . $showtime->getMovie()->getId() ?>>Back</a>
+                <button class="buy-btn" type="submit">Confirm</button>
             </div>
         </form>
     </div>
 </div>
-<?php  if($openPopUp){ ?>
-    <script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})</script>
+<?php if ($openPopUp) { ?>
+    <script type='text/javascript'>
+        window.addEventListener('load', function() {
+            overlay.classList.add('active');
+            popup.classList.add('active');
+        })
+    </script>
     <div class="overlay" id="overlay">
         <div class="popup" id="popup">
             <a href=<?= FRONT_ROOT . "/Showtime/showBuy/" . $showtime->getShowtimeId() ?> id="btn-cerrar-popup"><i class="fas fa-times"></i></a>
@@ -69,9 +81,9 @@ include('nav.php');
                     <input type="hidden" name="origin" value="buy">
                 </div>
                 <div class="modal-footer">
-                <a href=<?= FRONT_ROOT . "/Showtime/showBuy/" . $showtime->getShowtimeId() ?> id="btn-cerrar-popup">Cancel</a>
+                    <a href=<?= FRONT_ROOT . "/Showtime/showBuy/" . $showtime->getShowtimeId() ?> id="btn-cerrar-popup">Cancel</a>
                     <button type="submit" class="btn btn-med btn-light">Confirm</button>
-                    
+
                 </div>
             </form>
         </div>
