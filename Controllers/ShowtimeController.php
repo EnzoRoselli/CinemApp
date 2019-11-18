@@ -238,22 +238,17 @@ class ShowtimeController
         }
     
     }
-    // public function getCinema(){
-    //     $cinema = $this->cinemasDAO->searchById($_GET['idCinema']);
-    //     $cinemaTheaters = $cinema->getTheaters();
+    public function getCinema(){
+        $cinema = $this->cinemasDAO->searchById($_GET['idCinema']);
+        $cinemaTheaters = $cinema->getTheaters();
         
-    //     if (!empty($cinemaTheaters)) {
-    //         $this->showShowtimeMenu($cinemaTheaters);
-    //         $this->openPopUp();
-    //     }else {
-    //         echo '<script type="text/javascript">
-    //         alert("No hay salas disponibles para el cine seleccionado");
-    //     </script>';
-    //     $this->showShowtimeMenu();
-        
-    //     }
-
-     
-       
+        if (!empty($cinemaTheaters)) {
+            $this->showShowtimeMenu($cinemaTheaters);
+            $this->openPopUp();
+        }else {
+            echo '<script type="text/javascript">
+            alert("No hay salas disponibles para el cine seleccionado");
+        </script>';
+        $this->showShowtimeMenu();              
     }
-     ?>
+}}
