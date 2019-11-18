@@ -27,7 +27,7 @@ include('nav.php');
                 <label id="buy-ticket-value"><?= $showtime->getTheater()->getTicketValue(); ?></label>
                 <div class="number-tickets">
                     <label>Number of Tickets:</label>
-                    <input class="btn-input" type="number" id="buy-amount" name="amount" min="1">
+                    <input class="btn-input" type="number" id="buy-amount" name="amount" min="1" required>
                 </div>
 
                 <button type="button" id="ok-btn-amount">Calculate Total</button>
@@ -92,4 +92,3 @@ include('nav.php');
 <script src="<?= JS_PATH . "/buy.js" ?>"></script>
 
 <!-- <script src="<?= JS_PATH . "/popUpCreditCard.js" ?>"></script> -->
-<?php include('footer.php'); ?>
