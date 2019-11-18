@@ -244,16 +244,14 @@ class ShowtimeController
         $cinema = $this->cinemasDAO->searchById($idCinema);
         $cinemaTheaters = $cinema->getTheaters();
         $advices = array();
+        
         if (!empty($cinemaTheaters)) {
             $this->showShowtimeMenu($cinemaTheaters, null, true);
 
-            // }else {
-            //     array_push($advices, DB_ERROR);
-            // $this->showShowtimeMenu(null, null, true);              
+            }else {
+                array_push($advices, DB_ERROR);
+            $this->showShowtimeMenu(null, null, true);              
         }
     }
-    public function metodoNuevo()
-    {
-        $this->showShowtimeMenu(null, null, true);
-     }
+    
 }

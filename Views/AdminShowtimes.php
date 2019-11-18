@@ -9,9 +9,17 @@ include('nav.php');
 		<h1>Listado de showtimes</h1>
 		
 		<!--<button id="btn-abrir-popup" type="submit" class="btn-small"><i class="fas fa-plus"></i></button> -->
-		<form action="<?php echo  FRONT_ROOT . "/Showtime/metodoNuevo " ?>" method="POST">
-			<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
-		</form>
+		<div class="select-cinema-showtime">
+			<form action=<?= FRONT_ROOT . "/Showtime/getCinema" ?> method="POST">
+				<label>Cinema</label>
+				<select name="idCinema" class="form-control">
+					<?php foreach ($cinemasList as $cine) { ?>
+						<option value=<?= $cine->getId() ?>><?= $cine->getName() ?></option>
+					<?php } ?>
+				</select>
+				<button id="btn-abrir-popup" type="submit" class="btn-small"><i class="fas fa-plus"></i></button>
+			</form>
+		</div>
 	</div>
 
 	<div class="admin-table">
@@ -92,7 +100,7 @@ include('nav.php');
 
 <!--CREATE SHOWTIME-->
 <?php  if ($openPopUp) { ?>
-
+	<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})</script>
 	<div class="overlay" id="overlay">
 		
 		<div class="popup" id="popup">
