@@ -24,16 +24,16 @@ class FiltersController
         $this->showtimeController = new ShowtimeController();
     }
 
-    public function FilterMovies()
+    public function FilterMovies($genre = "", $date = "")
     {
         $message = 0;
         $advices = array();
 
         try{
 
-            if (isset($_GET['genre']) && empty($_GET['date'])) {
+            if (isset($genre) && empty($date)) {
                 
-                $moviesByGenre = $this->searchByGenre($_GET['genre']);
+                $moviesByGenre = $this->searchByGenre($genre);
 
                 if(!empty($moviesByGenre)){
                     
@@ -44,9 +44,9 @@ class FiltersController
                     $message = 1;
                 }
                 
-            } else if (isset($_GET['date']) && empty($_GET['genre'])) { 
+            } else if (isset($date) && empty($genre)) { 
 
-                $moviesByDate = $this->searchByDate($_GET['date']);
+                $moviesByDate = $this->searchByDate($date);
 
                 if(!empty($moviesByDate)){
 
@@ -55,11 +55,11 @@ class FiltersController
                     $message = 1;
                 }
             
-            }else if (isset($_GET['genre']) && !empty($_GET['date'])) {
+            }else if (isset($genre) && !empty($date)) {
 
-                $moviesByGenres = $this->searchByGenre($_GET['genre']);
+                $moviesByGenres = $this->searchByGenre($genre);
 
-                $showtimesByDateAndGenres = $this->filterMoviesByDate($moviesByGenres, $_GET['date']);
+                $showtimesByDateAndGenres = $this->filterMoviesByDate($moviesByGenres, $date);
 
                 if(!empty($showtimesByDateAndGenres)){
                       $this->showtimeController->showShowtimesListUser($showtimesByDateAndGenres);

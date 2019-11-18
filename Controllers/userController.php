@@ -138,11 +138,11 @@ class UserController
     public function testRecuperation($code)
     { }
 
-    public function loginAction()
+    public function loginAction($LoginEmail = "", $LoginPassword = "")
     {
 
-        if (!empty($_POST['LoginEmail']) && !empty($_POST['LoginPassword'])) {
-            $UserLogging = new User($_POST['LoginEmail'], $_POST['LoginPassword']);
+        if (!empty($LoginEmail) && !empty($LoginPassword)) {
+            $UserLogging = new User($LoginEmail, $LoginPassword);
             try {
                 $LoginComprobation = $this->usersDAO->correctCredentials($UserLogging);
                 if (!$LoginComprobation) {

@@ -4,7 +4,7 @@ include('nav.php');
 ?>
 
 <div class="showtimes-list-container">
-    <form action="<?= FRONT_ROOT . '/Filters/FilterMovies'?>" method="GET">
+    <form action="<?= FRONT_ROOT . '/Filters/FilterMovies'?>" method="POST">
         <p>Genre:</p>
         <select name="genre" id="">
         <option type="text" value="" selected>Select Genre</option>
@@ -16,6 +16,7 @@ include('nav.php');
         <div class="day-filter">
             <input type="date" name="date" min="<?= date('Y-m-d'); ?>">
         </div>
+        <input type="submit">
     </form>
 
 
