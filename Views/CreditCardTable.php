@@ -13,6 +13,8 @@ include('nav.php');
                 <label>Card Number</label>
                 <input type="hidden" name="showtimeId" value="showtimeId">
                 <input type="number" class="form-control" name="cc_number" required>
+                <label>Security Code</label>
+                <input type="number" class="form-control" name="cc_sc"  pattern="[0-9]{,3}" required>
                 <input type="hidden" name="origin" value="list">
                 <button type="submit">Add</button>
             </form>
@@ -23,7 +25,7 @@ include('nav.php');
         <table class="content-table">
             <thead>
                 <tr>
-                    <th>Number</th>
+                    <th>Last 4 Numbers</th>
                     <th>Company</th>
                     <th>Actions</th>
                 </tr>
@@ -34,14 +36,14 @@ include('nav.php');
                     foreach ($creditCardList as $credirCard) { 
                         ?>
                         <tr>
-                            <td><?= $credirCard->getNumber() ?></td>
+                            <td><?=$credirCard->getLastFour() ?></td>
                             <td><?php 
                             switch (substr($credirCard->getNumber(), 0, 1)) {
                                 case '3':
-                                    echo "Visa";
+                                    echo "MasterCard";
                                     break;
                                 case '4':
-                                    echo "MasterCard";
+                                    echo "Visa";
                                     break;
                                 default:
                                     echo "Other";
