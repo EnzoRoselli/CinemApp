@@ -13,7 +13,7 @@
             ?>
         <div class="miSlider fade">
             <img src="<?php echo "http://image.tmdb.org/t/p/original/" . $moviesList[$i]->getPosterPath(); ?>">
-            <p><?php echo $moviesList[$i]->getTitle(); ?></p>
+            <p><?php echo $moviesList[0]->getTitle(); ?></p>
         </div>
         <?php
         }
