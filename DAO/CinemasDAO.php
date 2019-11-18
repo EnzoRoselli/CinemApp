@@ -117,7 +117,7 @@ class CinemasDAO
             $resultSet = $this->connection->Execute($query, $parameters);
   
             if (!empty($resultSet)) {
-                echo "adas";
+                
                 return $resultSet[0]['cinema_name'];
             }else {
                 return false;
