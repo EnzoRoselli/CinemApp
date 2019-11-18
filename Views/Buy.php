@@ -42,7 +42,7 @@ include('nav.php');
                             <option value=<?= $cc->getId() ?>><?php echo $cc->getNumber() ?></option>
                         <?php } ?>
                     </select>
-                    <a id="btn-abrir-popup" href=<?= FRONT_ROOT . "/CreditCards/showAdd/" . $showtime->getShowtimeId() ?>>Add</a>
+                    <a id="btn-abrir-popup" href=<?= FRONT_ROOT . "/CreditCards/showAdd/" . $showtime->getShowtimeId() ?>>Add credit card</a>
                 </div>
 
             </div>
