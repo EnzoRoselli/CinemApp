@@ -143,7 +143,7 @@ class CineController
         try {
             $this->CineDao->desactivate($cineId);
             $this->theaterDao->desactivate($cineId);
-            array_push($advices, DEACTIVATED);
+            array_push($advices, DESACTIVATED);
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
         }

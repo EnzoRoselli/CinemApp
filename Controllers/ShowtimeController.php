@@ -185,7 +185,7 @@ class ShowtimeController
         $advices = array();
         try {
             $this->showtimeDao->desactivate($showtimeId);
-            array_push($advices, DEACTIVATED);
+            array_push($advices, DESACTIVATED);
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
         }
