@@ -111,7 +111,7 @@ CONSTRAINT fk_purchase FOREIGN KEY (id_purchase) REFERENCES purchases(id)ON DELE
 CREATE TABLE IF NOT EXISTS QRs(
 id int AUTO_INCREMENT,
 id_ticket int,
-qr_image varchar(30),
+qr_image varchar(100),
 CONSTRAINT pk_QRs PRIMARY KEY(id),
 CONSTRAINT fk_id_ticket FOREIGN KEY (id_ticket) REFERENCES tickets (id));
 

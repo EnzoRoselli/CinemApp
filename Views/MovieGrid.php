@@ -3,7 +3,7 @@ include('header.php');
 include('nav.php');
 ?>
 <div class="container">
-    <?php var_dump($moviesList);
+    <?php
     for ($i=0; $i < count($moviesList); $i++) { 
         ?>
         <div class="block">
@@ -19,7 +19,7 @@ include('nav.php');
                     <div class="overlay-card-background"></div>
                     <p><?=$genresByMovie[$i]; ?></p>
                     <div class="movie-card-details">
-                        <a href="">View Details</a> 
+                        <a href="<?php echo  FRONT_ROOT . "/Showtime/showSelectShowtime?movie=" . $moviesList[$i]->getId() ?>">View Details</a> 
                     </div>
                 </div>
             </button>

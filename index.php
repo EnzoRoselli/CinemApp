@@ -10,6 +10,7 @@
 	require "Config/Constants/ShowtimeConstants.php";
 	require "Config/Constants/UserConstants.php";
 	require "Config/Constants/AdvicesConstants.php";
+	
 //	require "Controllers/ExceptionController.php" y hacer el use despues
 
 	use Config\Autoload as Autoload;

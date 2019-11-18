@@ -194,7 +194,7 @@ class ShowtimeController
 
     public function showShowtimesListUser($filteredMovies = "")
     {
-        $moviesList = $this->moviesDAO->getAll();
+        $moviesList = $this->moviesDAO->getMoviesWithShowtimes();
         $showtimesList = $this->showtimeDao->getAll();
         $genresByMovie = array();
         $genresList = $this->genresDAO->getAll();
@@ -211,13 +211,15 @@ class ShowtimeController
 
             array_push($genresByMovie, $genres[0]);
         }
-
+    
+        
         require_once(VIEWS . "/showtimeList.php");
     }
 
 
-    public function showSelectShowtime($movieId){
-        $movie = $this->moviesDAO->searchById($movieId);
+    public function showSelectShowtime(){
+        
+        $movie = $this->moviesDAO->searchById($_GET['movie']);
         $movieShowtimes=$this->showtimeDao->getMovieShowtimes($movie);
         require_once(VIEWS . "/SelectShowtime.php");
     }

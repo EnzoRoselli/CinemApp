@@ -31,15 +31,17 @@ class CreditCardsDAO
         try {
             $this->connection = Connection::GetInstance();
             $ResultSet=$this->connection->Execute($query, $parameters);
-
+           
             if (!empty($ResultSet)) {
                 $CreditCard = new CreditCard();
                 $CreditCard->setId($ResultSet[0]['id']);
                 $usersDAO=new usersDAO();
                 $user=$usersDAO->searchById($ResultSet[0]['id_user']);
+                
                 $CreditCard->setUser($user);
 
                 $CreditCard->setNumber($ResultSet[0]['cc_number']);
+                
                 return $CreditCard;
             }
         } catch (\Throwable $ex) {
@@ -49,11 +51,12 @@ class CreditCardsDAO
 
     public function searchById($Id)
     {
-        $query="SELECT * FROM ". $this->tableName." WHERE id=:id";
-        $parameters["id"] = $Id;
+        $query="SELECT * FROM ". $this->tableName." WHERE id=:Id";
+        $parameters["Id"] = $Id;
         try {
             $this->connection = Connection::GetInstance();
-           $ResultSet= $this->connection->ExecuteNonQuery($query, $parameters);
+           $ResultSet= $this->connection->Execute($query, $parameters);
+         
             if(!empty($ResultSet)){
                 $CreditCard=new CreditCard();
                 $CreditCard->setId($ResultSet[0]['id']);

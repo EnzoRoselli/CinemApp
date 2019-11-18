@@ -25,7 +25,7 @@ namespace Model;
  *
  * @author Marcus Bointon <phpmailer@synchromedia.co.uk>
  */
-class Exception extends \Exception
+class Exceptionn extends \Exception
 {
     /**
      * Prettify error message output.

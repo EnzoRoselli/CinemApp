@@ -4,7 +4,7 @@ namespace Controllers;
 
 use Model\Purchase as Purchase;
 use Model\Showtime as Showtime;
-use Model\QR as QR;
+use Model\QR_ as QR;
 use Model\Ticket as Ticket;
 use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\UsersDAO as UsersDAO;
@@ -44,7 +44,7 @@ class PurchaseController
     {
  
 
-        if ( /*$amount<20 &&*/ $amount>0 && !empty($amount) && !empty($creditCardId)  && !empty($showtimeId)) {
+        if ( $amount<20 && $amount>0 && !empty($amount) && !empty($creditCardId)  && !empty($showtimeId)) {
             //Por si tiene la PC en ingles/español
             $showtime = $this->showtimeDao->searchById($showtimeId);
             if ($this->comprobateTicketsAvaliable($showtime,$amount)){
@@ -55,6 +55,7 @@ class PurchaseController
                 }     
                 $user = $this->usersDAO->searchById($_SESSION['idUserLogged']);
                 $creditCard = $this->creditCardsDAO->userRegisteredWithCC($_SESSION['idUserLogged'],$creditCardId);
+  
                 $purchase = new Purchase(date("Y-m-d"), date("H:i:s"), $amount, $price);
                 $purchase->setUser($user);
                 $purchase->setcreditCard($creditCard);
@@ -72,6 +73,7 @@ class PurchaseController
               
                 $purchase=$this->purchasesDAO->searchByPurchase($purchase);
                 
+                
                 for ($i = 0; $i < $amount; $i++) {
                     
                     $ticket = new Ticket("",$purchase,$showtime);
@@ -82,6 +84,13 @@ class PurchaseController
                 }   
                    
                 $qrsToSend=$this->QRsDAO->getByPurchase($purchase);
+               // echo '<img src="'. $qrsToSend[0]->getFileName() .'"/>'; 
+                
+               /* $photo=$qrsToSend[0]->getFileName();
+                echo $photo;
+
+               
+                echo "<img src='../QR/temp/$photo'/>"; */
                 $this->sendPurchaseEmail($purchase,$qrsToSend);
             }  
     
@@ -133,6 +142,16 @@ class PurchaseController
    // Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'Thanks you for the purchase';
+       
+              // $mail->addAttachment("../QR/temp/$photo");         // Add attachments
+           //  $mail->addAttachment("../QR/temp/$photo", 'new.jpg');    // Optional name
+           $a=1;
+           foreach ($qrsToSend as $item) {
+            $photo=$item->getFileName();
+            $mail->AddEmbeddedImage("QR/temp/$photo", 'qr'.$a);
+            $a+=1;
+           }
+        
         $mail->Body    = '<BODY BGCOLOR="White">
 <body>
 <div Style="align:center;">
@@ -141,11 +160,8 @@ class PurchaseController
 <p>'."Date:". $purchase->getDate() ." - Hour: " .$purchase->getHour()."</p>
 <p>TicketsAmount: " .$purchase->getTicketAmount()."</p>
 <p>Credit Card: " . $purchase->getcreditCard()->getNumber()."</p>
-<p>TOTAL: " .$purchase->getTotal()."</p>";
-        foreach ($qrsToSend as $item) {
-            $mail.="<img src=".$item->getFileName() ."/>";
-        }
-    $mail->body.='</pre>
+<p>TOTAL: " .$purchase->getTotal()."</p>".'
+</pre>
 <p>
 </p>
 </div>
