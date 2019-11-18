@@ -1,0 +1,48 @@
+.cinemas-container{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 80vh;
+}
+
+.cinemas-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+}
+
+.cinema-content{
+    height: 45vh;
+    width: 20vw;
+    background-color: rgb(228, 228, 228);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 2px;
+}
+
+.cinemas-theaters{
+    margin-top: 30px;
+}
+
+.cinemas-theaters-items{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 35px;
+}
+
+.cinemas-theaters-items *{
+    margin: 0 5px;
+    
+}
+
+#cinemas-title{
+    width: 75%;
+    font-style: italic;
+    border-bottom: 1px solid #FF4B2B;
+    margin: 10px 0;
+}

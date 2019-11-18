@@ -175,3 +175,4 @@ include('nav.php');
 <?php } ?>
 <script src="<?php echo JS_PATH . "/popup.js" ?>"></script>
 </div>
+<?php include('footer.php'); ?>

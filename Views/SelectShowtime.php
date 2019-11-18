@@ -52,3 +52,4 @@ include('nav.php');
     </div>
 </div>
 
+<?php include('footer.php'); ?>
