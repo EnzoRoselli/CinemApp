@@ -8,11 +8,12 @@
   position: absolute;
   background: url("https://images.thewest.com.au/publication/C-520416/c79010c7f4068ef24c8210980e8fb2c44a9ba572-16x9-x0y285w2880h1620.jpg");
   height: 95vh;
-  width: 98.7vw;
+  width: 100vw;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 1; 
+  margin-top: 2vh
 }
 
 .headlight {
