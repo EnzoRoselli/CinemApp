@@ -29,7 +29,7 @@ class ShowtimeController
     public function __construct()
     {
         $this->showtimeDao = new ShowtimeDAO();
-        $this->creditCardsDAO= new CreditCardsDAO();
+        $this->creditCardsDAO = new CreditCardsDAO();
         $this->cinemasDAO = new CinemasDAO();
         $this->moviesDAO = new MoviesDAO();
         $this->genresDAO = new GenresDAO();
@@ -59,7 +59,7 @@ class ShowtimeController
         }
     }
 
-    public function showShowtimeMenu($cinemaTheaters=array(), $messages="", $openPopUp=false)
+    public function showShowtimeMenu($cinemaTheaters = array(), $messages = "", $openPopUp = false)
     {
         $advices = array();
         try {
@@ -78,14 +78,14 @@ class ShowtimeController
     public function create($idTheater, $idMovie, $nameLanguage, $subtitle, $date, $hour)
     {
         $advices = array();
-        $theater=$this->theatersDAO->searchById($idTheater);
+        $theater = $this->theatersDAO->searchById($idTheater);
         $movie = $this->moviesDAO->searchById($idMovie);
         $language = $this->languagesDAO->searchByName($nameLanguage);
         $subtitled = null;
 
-        if($subtitle == 'Yes'){
+        if ($subtitle == 'Yes') {
             $subtitled = 1;
-        }else{
+        } else {
             $subtitled = 0;
         }
 
@@ -110,7 +110,7 @@ class ShowtimeController
     public function isMovieInOtherCinema(Showtime $showtime)
     {
         $comprobation = $this->cinemasDAO->isAShowtimeMovieInACinemaToday($showtime);
-        if ($comprobation!=false && $comprobation!=$showtime->getTheater()->getCinema()->getName()) {
+        if ($comprobation != false && $comprobation != $showtime->getTheater()->getCinema()->getName()) {
             return true;
         }
         return false;
@@ -192,15 +192,15 @@ class ShowtimeController
         $this->showShowtimeMenu(null, $advices);
     }
 
-    public function showShowtimesListUser($filteredMovies = "", $messages="")
+    public function showShowtimesListUser($filteredMovies = "", $messages = "")
     {
         $moviesList = $this->moviesDAO->getMoviesWithShowtimes();
         $showtimesList = $this->showtimeDao->getAll();
         $genresByMovie = array();
         $genresList = $this->genresDAO->getAll();
-        
 
-        if(!empty($filteredMovies)){
+
+        if (!empty($filteredMovies)) {
 
             $moviesList = $filteredMovies;
         }
@@ -210,43 +210,50 @@ class ShowtimeController
 
             array_push($genresByMovie, $genres[0]);
         }
-    
-        
+
+
         require_once(VIEWS . "/showtimeList.php");
     }
 
 
-    public function showSelectShowtime($movieId){
-        
+    public function showSelectShowtime($movieId)
+    {
+
         $movie = $this->moviesDAO->searchById($movieId);
-        $movieShowtimes=$this->showtimeDao->getMovieShowtimes($movie);
+        $movieShowtimes = $this->showtimeDao->getMovieShowtimes($movie);
         require_once(VIEWS . "/SelectShowtime.php");
     }
 
-    public function showBuy($showtimeId, $open=false){
+    public function showBuy($showtimeId, $open = false)
+    {
         if (empty($_SESSION['idUserLogged'])) {
-            $_SESSION['showtimeBuying']=$showtimeId;
+            $_SESSION['showtimeBuying'] = $showtimeId;
             require_once(VIEWS . "/LoginSignup.php");
-        }else {
+        } else {
             if (!empty($_SESSION['showtimeBuying'])) {
                 unset($_SESSION['showtimeBuying']);
             }
-            $CreditCardsList=$this->creditCardsDAO->getCCbyUser($_SESSION['idUserLogged']);
+            $CreditCardsList = $this->creditCardsDAO->getCCbyUser($_SESSION['idUserLogged']);
             $showtime = $this->showtimeDao->searchById($showtimeId);
             $openPopUp = $open;
             require_once(VIEWS . "/Buy.php");
         }
-    
     }
-    public function getCinema($idCinema){
+    public function getCinema($idCinema)
+    {
         $cinema = $this->cinemasDAO->searchById($idCinema);
         $cinemaTheaters = $cinema->getTheaters();
         $advices = array();
         if (!empty($cinemaTheaters)) {
             $this->showShowtimeMenu($cinemaTheaters, null, true);
-           
-        }else {
-            array_push($advices, DB_ERROR);
-        $this->showShowtimeMenu(null, null, true);              
+
+            // }else {
+            //     array_push($advices, DB_ERROR);
+            // $this->showShowtimeMenu(null, null, true);              
+        }
     }
-}}
+    public function metodoNuevo()
+    {
+        $this->showShowtimeMenu(null, null, true);
+     }
+}

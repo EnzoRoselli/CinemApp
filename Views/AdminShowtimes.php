@@ -7,18 +7,11 @@ include('nav.php');
 <body class="admin-body">
 	<div class="admin-header">
 		<h1>Listado de showtimes</h1>
-		<div class="select-cinema-showtime">
-			<form action=<?= FRONT_ROOT . "/Showtime/getCinema" ?> method="POST">
-				<label>Cinema</label>
-				<select name="idCinema" class="form-control">
-					<?php foreach ($cinemasList as $cine) { ?>
-						<option value=<?= $cine->getId() ?>><?= $cine->getName() ?></option>
-					<?php } ?>
-				</select>
-				<button id="btn-abrir-popup" type="submit" class="btn-small"><i class="fas fa-plus"></i></button>
-			</form>
-		</div>
 		
+		<!--<button id="btn-abrir-popup" type="submit" class="btn-small"><i class="fas fa-plus"></i></button> -->
+		<form action="<?php echo  FRONT_ROOT . "/Showtime/metodoNuevo " ?>" method="POST">
+			<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
+		</form>
 	</div>
 
 	<div class="admin-table">
@@ -98,12 +91,14 @@ include('nav.php');
 <?php } ?>
 
 <!--CREATE SHOWTIME-->
-<?php if ($openPopUp) {?>
+<?php  if ($openPopUp) { ?>
+
 	<div class="overlay" id="overlay">
+		
 		<div class="popup" id="popup">
-
+		
 			<a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
-
+				
 			<h3><?= "Create a Showtime in " . $cinemaTheaters[0]->getCinema()->getName() ?></h3>
 
 
