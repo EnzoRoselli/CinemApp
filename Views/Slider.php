@@ -2,9 +2,9 @@
     include('header.php');
     include('nav.php');
 ?>
-<div class="slider-background">
+<!-- <div class="slider-background">
             <img class="bg-image">
-        </div>
+        </div> -->
 
 <div class="slide-contenedor">
         
