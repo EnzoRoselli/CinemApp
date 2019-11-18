@@ -36,8 +36,6 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
       <li><a href="<?=FRONT_ROOT . "/Showtime/showShowtimesListUser" ?>">Showtimes</a></li>
         <li><a href="<?php echo  FRONT_ROOT . "/Cine/showCinemasOnTable" ?>">Cinemas</a></li>
         <li><a href=<?=FRONT_ROOT . "/Home/showMovieGrid" ?>>Movies</a></li>
-
-        <li></li>
       </ul>
 
     </div>

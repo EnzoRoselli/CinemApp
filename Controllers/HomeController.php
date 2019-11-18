@@ -62,7 +62,6 @@
 
         public static function showMain($message = "")
         {
-            // Proceso
             $homeController = new HomeController();
             require_once(VIEWS."/header.php");
             $homeController->showHome();
