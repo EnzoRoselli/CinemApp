@@ -35,8 +35,6 @@ class APIController
 
     public function getFromAPI()
     {
-
-
         foreach ($this->moviesAPI as $key) {
             $movie = new Movie(
                 $key->title,
@@ -60,6 +58,7 @@ class APIController
 
     public function sendToDataBase()
     {
+        $advices = array();
         $this->getFromAPI();
         $newInfo = false;
         foreach ($this->movieList as $movie) {
@@ -71,8 +70,7 @@ class APIController
                 }
              
             } catch (Exception $e) {
-                var_dump($e);
-                echo 'error';
+                array_push($advices, DB_ERROR);
             }
         }
 
@@ -83,8 +81,7 @@ class APIController
                     $newInfo=true;
                 }
             } catch (Exception $e) {
-                //mostrar error
-                echo 'error';
+                array_push($advices, DB_ERROR);
             }
         }
 
@@ -128,19 +125,13 @@ class APIController
                         $this->genresXmoviesDAO->add($genre_x_movie);
                     }
                 } catch (Exception $e) {
-                    //mostrar error
-                    echo 'error';
+                    array_push($advices, DB_ERROR);
                 }
             }
         }
         if ($newInfo) {
-            echo '<script type="text/javascript">
-            alert("Se ha cargado nueva información de la API");
-     
-        </script>';
-        
         }
-       
+        
         
     }
 }

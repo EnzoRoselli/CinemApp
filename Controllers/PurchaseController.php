@@ -42,7 +42,7 @@ class PurchaseController
 
     public function create($amount, $totalPrice, $showtimeId, $creditCardId)
     {
- 
+        $advices = array();
 
         if ( $amount<20 && $amount>0 && !empty($amount) && !empty($creditCardId)  && !empty($showtimeId)) {
             //Por si tiene la PC en ingles/español
@@ -92,13 +92,14 @@ class PurchaseController
                
                 echo "<img src='../QR/temp/$photo'/>"; */
                 $this->sendPurchaseEmail($purchase,$qrsToSend);
+                array_push($advices, BUY_SUCCESS);
             }  
     
         }else{
             
-            //mensaje error;
+            array_push($advices, BUY_NOT_SUCCESS);
         } 
-        $this->showtimeController->showShowtimesListUser();
+        $this->showtimeController->showShowtimesListUser(null, $advices);
 
 
     }

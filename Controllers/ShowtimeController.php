@@ -182,7 +182,7 @@ class ShowtimeController
 
     public function desactivate($showtimeId)
     {
-
+        $advices = array();
         try {
             $this->showtimeDao->desactivate($showtimeId);
             array_push($advices, DEACTIVATED);
@@ -192,7 +192,7 @@ class ShowtimeController
         $this->showShowtimeMenu(null, $advices);
     }
 
-    public function showShowtimesListUser($filteredMovies = "")
+    public function showShowtimesListUser($filteredMovies = "", $messages="")
     {
         $moviesList = $this->moviesDAO->getMoviesWithShowtimes();
         $showtimesList = $this->showtimeDao->getAll();
@@ -216,9 +216,9 @@ class ShowtimeController
     }
 
 
-    public function showSelectShowtime(){
+    public function showSelectShowtime($movieId){
         
-        $movie = $this->moviesDAO->searchById($_GET['movie']);
+        $movie = $this->moviesDAO->searchById($movieId);
         $movieShowtimes=$this->showtimeDao->getMovieShowtimes($movie);
         require_once(VIEWS . "/SelectShowtime.php");
     }
@@ -238,25 +238,22 @@ class ShowtimeController
         }
     
     }
-    public function getCinema(){
-        $cinema = $this->cinemasDAO->searchById($_GET['idCinema']);
-        $cinemaTheaters = $cinema->getTheaters();
+    // public function getCinema(){
+    //     $cinema = $this->cinemasDAO->searchById($_GET['idCinema']);
+    //     $cinemaTheaters = $cinema->getTheaters();
         
-        if (!empty($cinemaTheaters)) {
-            $this->showShowtimeMenu($cinemaTheaters);
-            $this->openPopUp();
-        }else {
-            echo '<script type="text/javascript">
-            alert("No hay salas disponibles para el cine seleccionado");
-        </script>';
-        $this->showShowtimeMenu();
+    //     if (!empty($cinemaTheaters)) {
+    //         $this->showShowtimeMenu($cinemaTheaters);
+    //         $this->openPopUp();
+    //     }else {
+    //         echo '<script type="text/javascript">
+    //         alert("No hay salas disponibles para el cine seleccionado");
+    //     </script>';
+    //     $this->showShowtimeMenu();
         
-        }
+    //     }
 
      
        
     }
-
-   
-}
-//<?php echo $theater->getName(); ?>
+     ?>

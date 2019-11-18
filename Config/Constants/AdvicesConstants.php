@@ -15,7 +15,8 @@ if (!defined('DB_ERROR')) define('DB_ERROR', 'Error processing the request');
 if (!defined('CAMPOS_INVALIDOS')) define('CAMPOS_INVALIDOS', 'The fields are invalid');
 if (!defined('SIN_MODIFICACION')) define('SIN_MODIFICACION', 'The modification has not been applied');
 if (!defined('INCORRECT_SHOWTIME')) define('INCORRECT_SHOWTIME', 'Either the hour or the cinema are incorrect');
-
-
+if (!defined('BUY_SUCCESS')) define('BUY_SUCCESS', 'Your buy has been processed');
+if (!defined('BUY_NOT_SUCCESS')) define('BUY_NOT_SUCCESS', 'A problem has happen with your buy');
+if (!defined('API_INPUT_DATA')) define('API_INPUT_DATA', 'New data has came from the API');
 
 ?>
