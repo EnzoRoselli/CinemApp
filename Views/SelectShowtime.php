@@ -13,7 +13,7 @@ include('nav.php');
         <img src=<?= "http://image.tmdb.org/t/p/original/" . $movie->getPosterPath(); ?> class="overview-right-panel-image">
     </div>
     <div class="overview-left-panel">
-
+   
         <div class="movie-overview-details">
             <h2 class="overview-movie-title"><?= $movie->getTitle() ?></h2>
             <p><?= $movie->getDuration() . " min." ?></p>
