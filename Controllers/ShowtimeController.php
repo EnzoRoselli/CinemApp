@@ -13,8 +13,6 @@ use Controllers\APIController as APIController;
 use DAO\TheatersDAO as TheatersDAO;
 use DateInterval;
 
-//VALIDAR QUE LOS DATOS DE LA FUNCIONN YA NO ESTEN CARGADOS, OSEA A LA MISMA HORA, MISMO CINE
-//PONER TODOS LOS AVISOS CON CONSTANTES, Y LLAMARLAS EN ESTA CLASE
 class ShowtimeController
 {
 
@@ -61,8 +59,9 @@ class ShowtimeController
         }
     }
 
-    public function showShowtimeMenu($cinemaTheaters=array())
+    public function showShowtimeMenu($cinemaTheaters=array(), $messages="")
     {
+        $advices = array();
         try {
             $cinemasList = $this->cinemasDAO->getAll();
             $theatersList = $this->theatersDAO->getAll();
@@ -70,51 +69,41 @@ class ShowtimeController
             $languagesList = $this->languagesDAO->getAll();
             $showtimes = $this->showtimeDao->getAll();
         } catch (\Throwable $th) {
-            
-            var_dump($th);
-            // // $advice = ShowtimeController::showMessage("DB");
+            array_push($advices, DB_ERROR);
         } finally {
             require_once(VIEWS . "/AdminShowtimes.php");
         }
     }
 
-    public function create($idTheater, $idMovie, $nameLanguage)
+    public function create($idTheater, $idMovie, $nameLanguage, $subtitle, $date, $hour)
     {
+        $advices = array();
         $theater=$this->theatersDAO->searchById($idTheater);
         $movie = $this->moviesDAO->searchById($idMovie);
         $language = $this->languagesDAO->searchByName($nameLanguage);
         $subtitled = null;
-        $message = 0;
 
-        if (isset($_POST['subtitle'])) {
+        if($subtitle == 'Yes'){
             $subtitled = 1;
-        } else {
+        }else{
             $subtitled = 0;
         }
 
-        $showtime = new Showtime($movie, $theater, $_POST['date'], $_POST['hour'], $language, $subtitled);
+        $showtime = new Showtime($movie, $theater, $date, $hour, $language, $subtitled);
         $showtime->setActive(true);
         $showtime->setTicketAvaliable($theater->getCapacity());
 
         try {
             if ($this->validateShowtimeDate($showtime) && !$this->isMovieInOtherCinema($showtime)) {
                 $this->showtimeDao->add($showtime);
+                array_push($advices, ADDED);
             } else {
-                $message = 1;
+                array_push($advices, INCORRECT_SHOWTIME);
             }
         } catch (\Throwable $th) {
-            var_dump($th);
+            array_push($advices, DB_ERROR);
         } finally {
-            if ($message == 0) {
-                echo '<script type="text/javascript">
-                    alert("Función creada con éxito");
-                </script>';
-            } else {
-                echo '<script type="text/javascript">
-                    alert("El cine ingresado o el horario son erróneos");
-                </script>';
-            }
-            $this->showShowtimeMenu();
+            $this->showShowtimeMenu(null, $advices);
         }
     }
 
@@ -179,26 +168,28 @@ class ShowtimeController
         }
     }
 
-    public function activate()
+    public function activate($showtimeId)
     {
-        $id = $_GET['activate'];
+        $advices = array();
         try {
-            $this->showtimeDao->activate($id);
+            $this->showtimeDao->activate($showtimeId);
+            array_push($advices, ACTIVATED);
         } catch (\Throwable $th) {
-            // $advice = ShowtimeController::showMessage("DB");
+            array_push($advices, DB_ERROR);
         }
-        $this->showShowtimeMenu();
+        $this->showShowtimeMenu(null, $advices);
     }
 
-    public function desactivate()
+    public function desactivate($showtimeId)
     {
-        $id = $_GET['desactivate'];
+
         try {
-            $this->showtimeDao->desactivate($id);
+            $this->showtimeDao->desactivate($showtimeId);
+            array_push($advices, DEACTIVATED);
         } catch (\Throwable $th) {
-            // $advice = ShowtimeController::showMessage("DB");
+            array_push($advices, DB_ERROR);
         }
-        $this->showShowtimeMenu();
+        $this->showShowtimeMenu(null, $advices);
     }
 
     public function showShowtimesListUser($filteredMovies = "")
@@ -246,12 +237,6 @@ class ShowtimeController
         }
     
     }
-
-    public function openPopUp()
-    {
-        echo "<script type='text/javascript'>window.addEventListener('load', function() { overlay.classList.add('active'); popup.classList.add('active');})</script>";
-    }
-
     public function getCinema(){
         $cinema = $this->cinemasDAO->searchById($_GET['idCinema']);
         $cinemaTheaters = $cinema->getTheaters();

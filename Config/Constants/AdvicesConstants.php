@@ -14,6 +14,7 @@ if (!defined('FILTERS_ERROR')) define('FILTERS_ERROR', 'Wrong use of the filters
 if (!defined('DB_ERROR')) define('DB_ERROR', 'Error processing the request');
 if (!defined('CAMPOS_INVALIDOS')) define('CAMPOS_INVALIDOS', 'The fields are invalid');
 if (!defined('SIN_MODIFICACION')) define('SIN_MODIFICACION', 'The modification has not been applied');
+if (!defined('INCORRECT_SHOWTIME')) define('INCORRECT_SHOWTIME', 'Either the hour or the cinema are incorrect');
 
 
 

@@ -50,9 +50,9 @@ include('nav.php');
 								<td><?php echo $showtime->getMovie()->getTitle(); ?></td>
 								<td><?php echo $showtime->getLanguage()->getName(); ?></td>
 								<td><?php  if ($showtime->isSubtitle()) {
-									echo "Si";
+									echo 'Yes';
 								}else {
-									echo "No";
+									echo 'No';
 								}  ?></td>
 								<td><?php echo $showtime->getTheater()->getCinema()->getName(); ?></td>
 								<td><?php echo $showtime->getTheater()->getName(); ?></td>
@@ -61,12 +61,12 @@ include('nav.php');
 									
 										<?php if($showtime->getTheater()->getActive() && $showtime->getActive()){
 											?>
-										<a href=<?php echo  FRONT_ROOT . "/Showtime/desactivate?desactivate=" .  $showtime->getShowtimeId() ?> name="desactivate" class="btn btn-light">
+										<a href=<?php echo  FRONT_ROOT . "/Showtime/desactivate/" .  $showtime->getShowtimeId() ?> name="desactivate" class="btn btn-light">
 											<i class="fas fa-toggle-on"></i>
 										</a>
 										<?php }else{
 											?>
-											<a href="<?php echo  FRONT_ROOT . "/Showtime/activate?activate=" .  $showtime->getShowtimeId() ?>" name="activate" class="btn btn-light">
+											<a href="<?php echo  FRONT_ROOT . "/Showtime/activate/" .  $showtime->getShowtimeId() ?>" name="activate" class="btn btn-light">
 											<i class="fas fa-toggle-off"></i>
 										</a>
 										<?php 
@@ -81,6 +81,20 @@ include('nav.php');
 		</table>
 	</div>
 </body>
+
+<?php if (!empty($messages)) {
+	foreach ($messages as $message) ?>
+	<div class="message-container" id="message-container">
+		<div class="message-content">
+			<p><?= $message ?></p>
+			<button id="button-close">Close</button>
+		</div>
+	</div>
+	<script src="<?= JS_PATH . "/message.js" ?>"></script>
+	<script>
+		openMessage();
+	</script>
+<?php } ?>
 
 <!--CREATE SHOWTIME-->
 
@@ -125,14 +139,17 @@ include('nav.php');
 
 					<div class="form-group">
 						<label>Subtitle</label>
-						<input type="checkbox" name="subtitle" class="form-control" value="">
+						<select name="subtitle" style="width:50px">
+							<option value="No">No</option>
+							<option value="Yes">Yes</option>
+					</select>
 					</div>
 				</div>
 					
 
 				<div class="form-group">
 					<label>Date</label>
-					<input type="date" required min="<?php echo date('Y-m-d'); ?>" class="form-control" name="date">
+					<input type="date" required min="<?= date('Y-m-d'); ?>" class="form-control" name="date">
 				</div>
 
 				<div class="form-group">
