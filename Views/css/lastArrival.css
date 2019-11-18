@@ -1,0 +1,97 @@
+#last-arrival-container {
+  position: relative;
+  bottom: 76vh;
+}
+/* BACKGROUND IMAGE */
+
+.bg-image {
+  position: absolute;
+  background: url("https://images.thewest.com.au/publication/C-520416/c79010c7f4068ef24c8210980e8fb2c44a9ba572-16x9-x0y285w2880h1620.jpg");
+  height: 95vh;
+  width: 98.7vw;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+  
+}
+
+.headlight {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-left: 48px;
+  font-style: italic;
+}
+
+.headline {
+  position: relative;
+  z-index: 5;
+}
+
+.outstanding-container {
+  position: relative;
+  width: 90vw;
+  top: 15vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  justify-items: center;
+  align-items: center;
+  background-color: #3b3737a8;
+}
+
+.movie-data-arrival {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.movie-img img {
+  height: 100%;
+  width: 256px;
+  border-radius: 5px;
+  margin: 0 auto;
+  -webkit-box-shadow: 6px 7px 32px 13px rgba(0, 0, 0, 0.72);
+  -moz-box-shadow: 6px 7px 32px 13px rgba(0, 0, 0, 0.72);
+  box-shadow: 6px 7px 32px 13px rgba(0, 0, 0, 0.72);
+
+}
+
+.movie-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-buttons {
+  margin-top: 50px;
+  display: flex;
+  justify-content: left;
+  margin-left: -30px;
+}
+
+.movie-buttons a{
+  text-decoration: none;
+  margin: auto 30px;
+  padding: 10px 15px;
+}
+
+.btn-dark-md {
+  width: 200px;
+  height: 60px;
+  font-size: 1.5rem;
+  border: 3px solid rgb(255, 255, 255);
+  background: #000000;
+  color: #fff;
+  border-radius: 30px;
+  outline: none;
+  transition: all 0.2s ease 0s;
+}
+
+
+
+.btn-dark-md:hover {
+  width: 205px;
+  border: 3px solid rgb(255, 117, 93);
+}

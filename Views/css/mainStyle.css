@@ -6,81 +6,80 @@
 
 }
 
-/* BACKGROUND IMAGE */
 
-.bg-image {
+
+/* BACKGROUND IMAGE */
+/* 
+ .bg-image {
     position: absolute;
-    background: url('https://culto.latercera.com/wp-content/uploads/2019/09/WhatsApp-Image-2019-09-07-at-17.59.48.jpeg');
+    background: url('https://images.thewest.com.au/publication/C-520416/c79010c7f4068ef24c8210980e8fb2c44a9ba572-16x9-x0y285w2880h1620.jpg');
     height: 95vh;
     width: 98.5vw;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     z-index: 1;
-    filter: blur(2px) brightness(80%) saturate(300%);
     
-}
+    
+} */
 
 /* HEADLINE */
 
-.headline {
+ /* .headline {
     position: absolute;
-    display: flex;
-    flex-direction: column;
     z-index: 2;
     top: 0%;
-}
+}  */
 
 /* HEADLIGHT */
-
+/* 
 .headlight {
     position: relative;
-    top: 10vh;
     color: #fff;
     font-size: 2.5rem;
     font-weight: 400;
     margin: 30px 0;
     margin-left: 48px;
-}
+}  */
 
 /* OUTSTANDING CONTAINER */
-
+/* 
 .outstanding-container {
     background-color: rgba(0, 0, 0, 0.5);
     position: relative;
     display: flex;
+    flex-direction: row;
     height: 50vh;
     margin: 0 50px;
-    top: 10vh;
     border-radius: 5px;
 }
 
 .movie-img {
-
     margin-right: 15px;
-}
+} 
 
 .movie-img img {
-    height: 100%;
-    width: 100%;
+    height: 356px;
+    width:  256px;
     border-radius: 5px;
     -webkit-box-shadow: 6px 7px 32px 13px rgba(0, 0, 0, 0.72);
     -moz-box-shadow: 6px 7px 32px 13px rgba(0, 0, 0, 0.72);
     box-shadow: 6px 7px 32px 13px rgba(0, 0, 0, 0.72);
-}
-
+} */
+/* 
 .movie-data {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     font-size: 1.5rem;
     color: #fff;
-}
-
+} */
+/* 
 .movie-details {
     display: flex;
-}
-
+    flex-direction: column;
+} */
+/* 
 .movie-details * {
     padding: 15px 40px;
     font-size: 1.2rem;
@@ -98,10 +97,10 @@
     font-size: 1.3rem;
     text-align: justify;
     margin-right: 30px;
-}
+}  */
 
  /* BUTTONS */
-
+/* 
 .movie-buttons {
     margin-top: 50px;
     display: flex;
@@ -125,4 +124,4 @@
 .btn-dark-md:hover {
     width: 205px;
     border: 3px solid rgb(255, 117, 93);
-}
+}    */

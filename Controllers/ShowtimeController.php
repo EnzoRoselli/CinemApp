@@ -234,10 +234,6 @@ class ShowtimeController
     }
 
     public function showBuy($showtimeId, $open=false){
-        /*$this->openPopUp(); no borrar plis
-        $movie = $this->moviesDAO->searchById($_GET['movie']);
-        $movieShowtimes=$this->showtimeDao->getMovieShowtimes($movie);
-        require_once(VIEWS . "/SelectShowtime.php");*/
         if (empty($_SESSION['idUserLogged'])) {
             $_SESSION['showtimeBuying']=$showtimeId;
             require_once(VIEWS . "/LoginSignup.php");

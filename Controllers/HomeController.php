@@ -40,11 +40,11 @@
                 array_push($genresByMovie, $genres[0]);
             }
             
-            //require_once(VIEWS.'/lastArrival.php');
+            $lastMovie = $this->moviesDAO->searchById(7);
             require_once(VIEWS.'/Slider.php');
             require_once(VIEWS."/Showcase.php");
-            $this->showMovieGrid();
-            //require_once(VIEWS."/MovieGrid.php");
+            require_once(VIEWS.'/lastArrival.php');
+            require_once(VIEWS."/footer.php");
         }
 
         public function showMovieGrid(){
