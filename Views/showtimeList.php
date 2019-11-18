@@ -27,7 +27,7 @@ include('nav.php');
         <p>Cinema | Theater</p>
     </div>
     <div class="showtimes-list">
-        <?php for ($i = 0; $i < count($moviesList); $i++) { ?>
+        <?php for ($i = 0; $i < count($moviesList); $i++) {   ?>
             <div class="showtime-row">
                 <div class="showtime-row-content">
                     <div class="movie-data">
