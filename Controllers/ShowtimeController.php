@@ -204,7 +204,6 @@ class ShowtimeController
 
             $moviesList = $filteredMovies;
         }
-
         foreach ($moviesList as $movie) {
 
             $genres = $this->genresDAO->getGenresByMovieId($movie->getId());
