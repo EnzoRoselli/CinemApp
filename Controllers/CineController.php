@@ -172,4 +172,9 @@ class CineController
         $cines = $this->CineDao->getAll();
         require_once(VIEWS  . '/AdminCine.php');
     }
+
+    public function showCinemasUser(){
+        $cinemas = $this->CineDao->getAll();
+        require_once(VIEWS  . '/Cinemas.php');
+    }
 }

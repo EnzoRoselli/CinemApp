@@ -16,7 +16,6 @@ include('nav.php');
         <div class="day-filter">
             <input type="date" name="date" min="<?= date('Y-m-d'); ?>">
         </div>
-        <button type="submit">Aceptar</button>
     </form>
 
 
@@ -51,36 +50,32 @@ include('nav.php');
 
                         <div class="movie-data-details">
                             <div class="movie-details-content">
-                                <p class="title-highlight"><?=$moviesList[$i]->getTitle()?></p>
+                                <p class="title-highlight"><?= $moviesList[$i]->getTitle() ?></p>
                                 <p><?= $moviesList[$i]->getReleaseDate(); ?></p>
                                 <p><?= $moviesList[$i]->getDuration() . " min." ?></p>
                                 <p><?= $genresByMovie[$i]; ?></p>
                             </div>
                             <div class="movie-content-actions">
                                 <div class="movie-content-actions-item">
-                                    <p>Overview</p>
-                                    <a href="<?php echo  FRONT_ROOT . "/Showtime/showSelectShowtime/" .  $moviesList[$i]->getId() ?>"><i class="fas fa-info-circle"></i></a>
-                                </div>
-                                <div class="movie-content-actions-item">
                                     <p>Tickets</p>
-                                    <a href="<?php echo  FRONT_ROOT . "/Showtime/showSelectShowtime/" .  $moviesList[$i]->getId() ?>"><i class="fas fa-ticket-alt"></i></a>
+                                    <a href="<?php echo  FRONT_ROOT . "/Showtime/showSelectShowtime/" .  $moviesList[$i]->getId() ?>"><i class="fas fa-ticket-alt fa-2x"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="showtime-data">
                         <?php foreach ($showtimesList as $showtime) {
-                            if ($showtime->getMovie()->getTitle() == $moviesList[$i]->getTitle() && $showtime->getTheater()->getActive()==true && $showtime->getActive() == true) { ?>
+                                if ($showtime->getMovie()->getTitle() == $moviesList[$i]->getTitle() && $showtime->getTheater()->getActive() == true && $showtime->getActive() == true) { ?>
                                 <div class="showtime-data-items">
-                            <p><?= $showtime->getDate(); ?></p>
-                            <p><?= $showtime->getHour(); ?></p>
-                            <p><?= $showtime->getTheater()->getCinema()->getName(); ?> | <?= $showtime->getTheater()->getName(); ?></p>
-                        </div>
-                         <?php  } ?>
-                            
+                                    <p><?= $showtime->getDate(); ?></p>
+                                    <p><?= $showtime->getHour(); ?></p>
+                                    <p><?= $showtime->getTheater()->getCinema()->getName(); ?> | <?= $showtime->getTheater()->getName(); ?></p>
+                                </div>
+                            <?php  } ?>
+
                         <?php } ?>
-                        
-                       
+
+
                     </div>
                 </div>
             </div>

@@ -132,7 +132,8 @@
 }
 .movie-content-actions-item a{
     color: #000000;
-    transition: all 0.2s ease 0s;   
+    transition: all 0.2s ease 0s;
+       
 }
 
 /* MOVIE BUTTONS HOVER */
@@ -188,5 +189,34 @@
 }
 
 
+/* FILTERS */
 
+.showtimes-list-filters{
+    width: 95%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 50% 20% 15% 10%; 
+    align-items: center;
+}
+.showtimes-list-filters input{
+    height: 50px;
+    border: none;
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0 5px;
+    margin: 0 15px;
+    outline: none;
+}
+.showtimes-list-filters select{
+    border: none;
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin: 0 10px ;
+    outline: none;
+}
 
+#search-filters{
+    padding: 5px 0;
+}

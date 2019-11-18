@@ -90,3 +90,4 @@ include('nav.php');
 		</table>
 	</div>
 </body>
+<?php include('footer.php'); ?>

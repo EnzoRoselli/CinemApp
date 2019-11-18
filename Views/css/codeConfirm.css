@@ -10,9 +10,9 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     left: 50%;
     top: 50%;
-transform: translate(-50%, -50%);
-border-radius: 5px;
-color: #ffffff;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    color: #ffffff;
 }
 
 .msg-content{

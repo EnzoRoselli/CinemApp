@@ -2,7 +2,7 @@
 .footer-container{
     position: relative;
     height: 45vh;
-    bottom: 48.5vh;
+    margin-top: 55vh;
     background-color:#171717;
     color: #ffffff;
     display: flex;

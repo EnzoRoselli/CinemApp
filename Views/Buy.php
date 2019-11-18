@@ -92,3 +92,4 @@ include('nav.php');
 <script src="<?= JS_PATH . "/buy.js" ?>"></script>
 
 <!-- <script src="<?= JS_PATH . "/popUpCreditCard.js" ?>"></script> -->
+<?php include('footer.php'); ?>
