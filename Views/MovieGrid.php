@@ -3,7 +3,7 @@ include('header.php');
 include('nav.php');
 ?>
 <div class="container">
-    <?php var_dump($moviesList);
+    <?php
     for ($i=0; $i < count($moviesList); $i++) { 
         ?>
         <div class="block">
