@@ -6,7 +6,6 @@ use DAO\ShowtimesDAO as ShowtimeDAO;
 use DAO\MoviesDAO as MoviesDAO;
 use DAO\GenresDAO as GenresDAO;
 use DAO\GenresXMoviesDAO as GenresXMoviesDAO;
-use Model\Movie;
 
 class FiltersController
 {
