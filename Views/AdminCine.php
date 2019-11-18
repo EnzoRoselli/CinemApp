@@ -169,4 +169,3 @@ include('nav.php');
 
 </div>
 
-<?php include('footer.php'); ?>
