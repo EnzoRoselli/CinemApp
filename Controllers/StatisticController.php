@@ -37,8 +37,6 @@ class StatisticController{
                 if(empty($statsCinemas) && empty($statsMovies)){
                     
                     array_push($advices, NOT_FOUND_FILTERS);
-                    $statsCinemas = $this->getPurchasesByCinemaId($cinemasList);
-                    $statsMovies = $this->getPurchasesByMovieId($moviesList);
                     $this->showStatics($statsCinemas, $statsMovies, $advices);
                 }else{
                      $this->showStatics($statsCinemas, $statsMovies);

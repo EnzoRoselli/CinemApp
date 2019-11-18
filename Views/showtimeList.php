@@ -4,30 +4,23 @@ include('nav.php');
 ?>
 
 <div class="showtimes-list-container">
-    <form action="<?= FRONT_ROOT . '/Filters/FilterMovies'?>" method="POST">
-        <p>Genre:</p>
-        <select name="genre" id="">
-        <option type="text" value="" selected>Select Genre</option>
-            <?php foreach ($genresList as $genre) { ?>
-            <option  value="<?= $genre->getId(); ?>"><?= $genre->getName(); ?></option>
-            <?php } ?>
-        </select>
-        <p>Date:</p>
-        <div class="day-filter">
-            <input type="date" name="date" min="<?= date('Y-m-d'); ?>">
+<form action="<?= FRONT_ROOT . '/Filters/FilterMovies' ?>" method="GET">
+        <div class="showtimes-list-filters">
+            <input name="title" type="text" placeholder="Type to search" />
+            <select name="genre" id="">
+                <option type="text" value="" selected>Select Genre</option>
+                <?php foreach ($genresList as $genre) { ?>
+                    <option value="<?= $genre->getId(); ?>"><?= $genre->getName(); ?></option>
+                <?php } ?>
+            </select>
+  
+                <input type="date" name="date" min="<?= date('Y-m-d'); ?>">
+      
+            <button type="submit" class="buy-btn" id="search-filters">Search</button>
         </div>
-        <input type="submit">
+
     </form>
 
-
-    <div class="header-titles">
-        <p class="title-highlight">Movie</p>
-        <p>Day</p>
-        <p>Hour</p>
-        <p>Cinema | Theater</p>
-    </div>
-    <div class="showtimes-list">
-        
     <?php if (!empty($messages)) {
 	foreach ($messages as $message) ?>
 	<div class="message-container" id="message-container">
@@ -40,7 +33,7 @@ include('nav.php');
 	<script>
 		openMessage();
 	</script>
-    <?php } ?>
+<?php } ?>
     
         <?php for ($i = 0; $i < count($moviesList); $i++) {   ?>
             <div class="showtime-row">
