@@ -194,6 +194,59 @@ class PurchasesDAO
         }
     }
 
+    public function getPurchasesByUserId($userId){
+
+        $userPurchasesList = array();
+
+        $query = "SELECT m.title, c.cinema_name, th.theater_name, s.view_date, s.hour, p.ticketsAmount, p.total
+                    FROM users u
+                    INNER JOIN purchases p
+                    ON u.id = p.id_user
+                    INNER JOIN tickets t
+                    ON t.id_purchase = p.id
+                    INNER JOIN showtimes s
+                    ON t.id_showtime = s.id
+                    INNER JOIN movies m
+                    ON s.id_movie = m.id
+                    INNER JOIN theaters th
+                    ON s.id_theater = th.id
+                    INNER JOIN cinemas c
+                    ON th.id_cinema = c.id
+                    WHERE u.id = :userId
+                    GROUP BY t.id_showtime, t.id_purchase";
+
+        $parameters['userId'] = $userId;
+
+        try{
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query,$parameters);
+
+            if(!empty($resultSet)){
+
+                foreach ($resultSet as $row) {
+
+                    $userPurchase["title"] = $row['title'];
+                    $userPurchase["cinema_name"] = $row['cinema_name'];
+                    $userPurchase["theater_name"] = $row['theater_name'];
+                    $userPurchase["view_date"] = $row['view_date'];
+                    $userPurchase["hour"] = $row['hour'];
+                    $userPurchase["ticketsAmount"] = $row['ticketsAmount'];
+                    $userPurchase["total"] = $row['total'];
+
+                    array_push($userPurchasesList, $userPurchase); 
+                }
+
+                return $userPurchasesList;
+
+            }else{
+                return null;
+            }
+        
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
 
 
 }
