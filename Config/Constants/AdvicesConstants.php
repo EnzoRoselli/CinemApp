@@ -15,7 +15,7 @@ if (!defined('DB_ERROR')) define('DB_ERROR', 'Error processing the request');
 if (!defined('CAMPOS_INVALIDOS')) define('CAMPOS_INVALIDOS', 'The fields are invalid');
 if (!defined('SIN_MODIFICACION')) define('SIN_MODIFICACION', 'The modification has not been applied');
 if (!defined('INCORRECT_SHOWTIME')) define('INCORRECT_SHOWTIME', 'Either the hour or the cinema are incorrect');
-if (!defined('BUY_SUCCESS')) define('BUY_SUCCESS', 'Your purchase has been processed');
+if (!defined('BUY_SUCCESS')) define('BUY_SUCCESS', 'Your purchase has been processed, check your email ');
 if (!defined('BUY_NOT_SUCCESS')) define('BUY_NOT_SUCCESS', 'A problem has happened with your purchase');
 if (!defined('API_INPUT_DATA')) define('API_INPUT_DATA', 'New data has been dowloaded from the API');
 if (!defined('CC_NUMBER_ERROR')) define('CC_NUMBER_ERROR', 'The number must have 16 characters');

@@ -140,17 +140,17 @@ class PurchaseController
        
               // $mail->addAttachment("../QR/temp/$photo");         // Add attachments
            //  $mail->addAttachment("../QR/temp/$photo", 'new.jpg');    // Optional name
-           $a=1;
+       
            foreach ($qrsToSend as $item) {
             $photo=$item->getFileName();
-            $mail->AddEmbeddedImage("QR/temp/$photo", 'qr'.$a);
-            $a+=1;
+           $mail->AddEmbeddedImage("QR/temp/$photo","qr");
+   
            }
         
         $mail->Body    = '<BODY BGCOLOR="White">
 <body>
 <div Style="align:center;">
-<p> PURCHASE INFORMATION </p>
+<p> PURCHASE INFORMATION  </p>
 <pre>
 <p>'."Date:". $purchase->getDate() ." - Hour: " .$purchase->getHour()."</p>
 <p>TicketsAmount: " .$purchase->getTicketAmount()."</p>

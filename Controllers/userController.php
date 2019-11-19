@@ -202,6 +202,9 @@ class UserController
     public function setParameters()
     /**SI LOS INDEX ESTAN SETEADOS CREA UN USUARIO, SINO DEVUELVE FALSE */
     {
+        if ($_POST['SignupDNI']>2147483647 || $_POST['SignupDNI']<-2147483648) {
+            return false; 
+        }else {  
         if (isset($_POST['SignupEmail'], $_POST['SignupPassword'], $_POST['SignupName'], $_POST['SignupLastName'], $_POST['SignupDNI'])) {
 
             $email = filter_var($_POST['SignupEmail'], FILTER_SANITIZE_EMAIL);
@@ -210,10 +213,12 @@ class UserController
             $user->setName($_POST["SignupName"]);
             $user->setLastName($_POST["SignupLastName"]);
             $user->setDni($_POST["SignupDNI"]);
+           
             return $user;
         } else {
             return false;
         }
+    }
     }
 
 
