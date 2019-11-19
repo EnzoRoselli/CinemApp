@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS credit_cards(
 id int AUTO_INCREMENT,
 cc_number varchar(16),
 id_user int,
+sec_code varchar(3),
 CONSTRAINT pk_credit_cards PRIMARY KEY (id),
 CONSTRAINT fk_id_user_cc FOREIGN KEY (id_user) REFERENCES users(id));
 

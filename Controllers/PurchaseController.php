@@ -40,7 +40,7 @@ class PurchaseController
         
     }
 
-    public function create($amount, $totalPrice, $showtimeId, $creditCardId)
+    public function create($amount, $totalPrice , $showtimeId, $creditCardId)
     {
         $advices = array();
 
@@ -84,13 +84,7 @@ class PurchaseController
                 }   
                    
                 $qrsToSend=$this->QRsDAO->getByPurchase($purchase);
-               // echo '<img src="'. $qrsToSend[0]->getFileName() .'"/>'; 
-                
-               /* $photo=$qrsToSend[0]->getFileName();
-                echo $photo;
 
-               
-                echo "<img src='../QR/temp/$photo'/>"; */
                 $this->sendPurchaseEmail($purchase,$qrsToSend);
                 array_push($advices, BUY_SUCCESS);
             }  

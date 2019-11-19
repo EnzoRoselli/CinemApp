@@ -45,6 +45,7 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
           <img src=<?= IMG_PATH . "/user-icon.png" ?> alt="" id="yo">
           <ul id="sub-menu">
             <li class="user-name-li"><?= $_SESSION['loggedUser'] ?></li>
+            <li><a href="#">My Showtimes</a></li>
             <li><a href=<?= FRONT_ROOT . "/CreditCards/showCreditCardList"?>>Credit Cards</a></li>
             <li><a href=<?= FRONT_ROOT . '/user/logoutAction' ?>>Log-out</a>
             </li>

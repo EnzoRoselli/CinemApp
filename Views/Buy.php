@@ -77,6 +77,8 @@ include('nav.php');
                     <div class="form-group">
                         <label>Card Number</label>
                         <input type="number" class="form-control" name="cc_number" required>
+                        <label>Security Code</label>
+                        <input type="number" class="form-control" name="sec_code" required>
                     </div>
                     <input type="hidden" name="origin" value="buy">
                 </div>

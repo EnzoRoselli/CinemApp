@@ -12,9 +12,10 @@ class CreditCardsDAO
 
     public function add(CreditCard $CreditCard)
     {
-        $query = "INSERT INTO ". $this->tableName." "."(cc_number,id_user) VALUES(:cc_number,:id_user)";
+        $query = "INSERT INTO ". $this->tableName." "."(cc_number,id_user,sec_code) VALUES(:cc_number,:id_user,:sec_code)";
         $parameters["cc_number"] = $CreditCard->getNumber();
         $parameters["id_user"] = $CreditCard->getUser()->getId();
+        $parameters["sec_code"] = $CreditCard->getSecurity_code();
         
         try {
             $this->connection = Connection::GetInstance();
@@ -41,6 +42,7 @@ class CreditCardsDAO
                 $CreditCard->setUser($user);
 
                 $CreditCard->setNumber($ResultSet[0]['cc_number']);
+                $CreditCard->setSecurity_code($ResultSet[0]['sec_code']);
                 
                 return $CreditCard;
             }
@@ -61,6 +63,7 @@ class CreditCardsDAO
                 $CreditCard=new CreditCard();
                 $CreditCard->setId($ResultSet[0]['id']);
                 $CreditCard->setNumber($ResultSet[0]['cc_number']);
+                $CreditCard->setSecurity_code($ResultSet[0]['sec_code']);
 
                 $usersDAO=new usersDAO();
                 $user=$usersDAO->searchById($ResultSet[0]['id_user']);
@@ -106,6 +109,8 @@ class CreditCardsDAO
                 $usersDAO=new usersDAO();
                 $user=$usersDAO->searchById($item['id_user']);
                 $CreditCard->setUser($user);
+
+                $CreditCard->setSecurity_code($item['sec_code']);
               
                 array_push($CreditCardsList,$CreditCard);
             }

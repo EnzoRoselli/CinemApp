@@ -92,7 +92,7 @@ class PurchasesDAO
     }
     public function getPurchasesByCinemaId($cinemaId, $minDate = "", $maxDate = ""){
 
-        $query = "SELECT a.cinema_name, a.address, SUM(a.total) AS 'totalTickets', SUM(a.ticketsAmount) AS 'totalSales' FROM(
+        $query = "SELECT a.cinema_name, a.address, ifnull(SUM(a.ticketsAmount),0) AS 'totalTickets', ifnull(SUM(a.total),0) AS 'totalSales' FROM(
                     SELECT c.id, c.cinema_name, c.address, p.ticketsAmount, p.total
                     FROM cinemas c
                     INNER JOIN theaters th

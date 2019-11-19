@@ -37,9 +37,9 @@ class StatisticController{
                 if(empty($statsCinemas) && empty($statsMovies)){
                     
                     array_push($advices, NOT_FOUND_FILTERS);
-                    $this->showStatics($statsCinemas, $statsMovies, $advices);
+                    $this->showStatistics($statsCinemas, $statsMovies, $advices);
                 }else{
-                     $this->showStatics($statsCinemas, $statsMovies);
+                     $this->showStatistics($statsCinemas, $statsMovies);
                 }
     
             }else if((empty($minDate) && !empty($maxDate)) || (!empty($minDate) && empty($maxDate))){
@@ -49,14 +49,14 @@ class StatisticController{
 
                 array_push($advices, FILTERS_ERROR);
 
-                $this->showStatics($statsCinemas, $statsMovies, $advices);
+                $this->showStatistics($statsCinemas, $statsMovies, $advices);
 
             }else if(empty($minDate) && empty($maxDate)){
 
                 $statsCinemas = $this->getPurchasesByCinemaId($cinemasList);
                 $statsMovies = $this->getPurchasesByMovieId($moviesList);
 
-                $this->showStatics($statsCinemas, $statsMovies);
+                $this->showStatistics($statsCinemas, $statsMovies);
             }
 
 
@@ -98,7 +98,7 @@ class StatisticController{
         return $statsMovies;
     }
 
-    public function showStatics($statsCinemas = "", $statsMovies = "", $messages = ""){
+    public function showStatistics($statsCinemas = "", $statsMovies = "", $messages = ""){
 
         require_once(VIEWS  . '/Statistics.php');
     }

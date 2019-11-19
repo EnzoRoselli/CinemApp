@@ -18,5 +18,7 @@ if (!defined('INCORRECT_SHOWTIME')) define('INCORRECT_SHOWTIME', 'Either the hou
 if (!defined('BUY_SUCCESS')) define('BUY_SUCCESS', 'Your purchase has been processed');
 if (!defined('BUY_NOT_SUCCESS')) define('BUY_NOT_SUCCESS', 'A problem has happened with your purchase');
 if (!defined('API_INPUT_DATA')) define('API_INPUT_DATA', 'New data has been dowloaded from the API');
+if (!defined('CC_NUMBER_ERROR')) define('CC_NUMBER_ERROR', 'The number must have 16 characters');
+if (!defined('SEC_CODE_ERROR')) define('SEC_CODE_ERROR', 'The number must have 3 characters');
 
 ?>

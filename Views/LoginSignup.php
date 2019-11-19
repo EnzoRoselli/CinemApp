@@ -37,7 +37,7 @@ alert('. $message .');
 				<input class="input-login" name="SignupLastName" type="text" placeholder="Apellido" pattern="[A-Za-z]{2,}" title="Debe contener más de 2 letras" required>
 				<input class="input-login" name="SignupDNI" type="text" placeholder="D.N.I" pattern="[0-9]{8,}" title="Solo se permiten numeros(minimo 8), sin espacios ni guiones" required>
 				<input class="input-login" name="SignupEmail" type="email" placeholder="Email" required/>
-				<input class="input-login" name="SignupPassword" type="SignupPassword" placeholder="Contraseña" required/>
+				<input class="input-login" name="SignupPassword" type="password" placeholder="Contraseña" required/>
 				<button class="login-btn">Sign Up</button>
 			</form>
 		</div>

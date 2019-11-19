@@ -12,9 +12,10 @@ class CreditCard{
 
 
 
-    public function __construct($number="",$user=null){
+    public function __construct($number = "",$user = null, $security_code = ""){
         $this->number=$number;
         $this->user=$user;
+        $this->security_code=$security_code;
     }
 
     public function getId(){ return $this->id;}

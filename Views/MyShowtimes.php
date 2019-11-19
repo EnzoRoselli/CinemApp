@@ -41,7 +41,7 @@ include('nav.php');
 							<td><?= $value->getName(); ?></td>
 							<td><?= $value->getAddress(); ?></td>
 							<td><?= $value->getTotalTickets(); ?></td>
-							<td>$<?= $value->getTotalSales(); ?></td>
+							<td><?= $value->getTotalSales(); ?></td>
 						</tr>
 				<?php 
 				} ?>
@@ -82,7 +82,7 @@ include('nav.php');
 
 							<td><?= $value->getTitle(); ?></td>
 							<td><?= $value->getTotalTickets(); ?></td>
-							<td>$<?= $value->getTotalSales(); ?></td>
+							<td><?= $value->getTotalSales(); ?></td>
 						</tr>
 				<?php 
 				} ?>
