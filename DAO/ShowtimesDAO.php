@@ -202,7 +202,7 @@ class ShowtimesDAO {
                     $Showtime->setTicketAvaliable($row['ticketAvaliable']);
                 }
                 
-                array_push($this->showtimesList, $Showtime);                
+                array_push($this->showtimesList, $Showtime);               
             }
    
             return $this->showtimesList;
