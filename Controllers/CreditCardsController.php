@@ -19,7 +19,9 @@ class CreditCardsController
         $this->userDAO = new UsersDAO();
     }
 
-
+    /*
+    @param shotimeId: to return to the view with it's showtime
+    */
     public function add($showtimeId="", $cc_number = "", $sec_code = "", $origin)
     {
         $advices = array();
@@ -32,7 +34,7 @@ class CreditCardsController
                 try {
                    
                     $creditCard->setUser($this->userDAO->searchById($_SESSION['idUserLogged']));
-                 //   var_dump($creditCard);
+
                     if (!$this->creditCardsDAO->userContainsCC($cc_number, $_SESSION['idUserLogged'])) {
                       
                         $this->creditCardsDAO->add($creditCard);
@@ -41,7 +43,6 @@ class CreditCardsController
                         array_push($advices, EXISTS);
                     }
                 } catch (\Throwable $th) {
-               // var_dump($th);
                     array_push($advices, DB_ERROR);
                 }finally{
                     if($origin == 'buy'){

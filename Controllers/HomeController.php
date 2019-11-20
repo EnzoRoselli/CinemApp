@@ -20,7 +20,6 @@
 
         public function Index($message = "")
         {
-            // Proceso
             require_once(VIEWS."/header.php");
             $this->showHome();
             require_once(VIEWS."/footer.php");

@@ -85,7 +85,7 @@ class FiltersController
             $moviesByGenre = $this->genresXmoviesDAO->getMoviesByGenreId($genreId);
  
         } catch (\Throwable $th) {
-            var_dump($th);
+            array_push($advices, DB_ERROR);
         }
 
         return $moviesByGenre;
@@ -123,7 +123,7 @@ class FiltersController
 
 
         } catch (\Throwable $th) {
-            var_dump($th);
+            array_push($advices, DB_ERROR);
         }
             
         return $moviesByDate;
@@ -168,7 +168,7 @@ class FiltersController
             }
 
         } catch (\Throwable $th) {
-            var_dump($th);
+            array_push($advices, DB_ERROR);
         }
             
         return $moviesByDate;

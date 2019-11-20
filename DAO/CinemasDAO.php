@@ -9,8 +9,6 @@ use Model\Cine as Cine;
 use Model\Showtime as Showtime;
 use Model\Theater as Theater;
 
-//Fijarse de no mostrar toodos los cines, sino los activos, o agregar un filtro de si quiere ver los activos nomas
-
 class CinemasDAO
 {
 
@@ -42,12 +40,12 @@ class CinemasDAO
     public function exists(Cine $cine)
     {
 
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE cinema_name=:cineName and address=:cineAddress";
+
+        $parameters["cineName"] = $cine->getName();
+        $parameters["cineAddress"] = $cine->getAddress();
         try {
-
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE cinema_name=:cineName and address=:cineAddress";
-
-            $parameters["cineName"] = $cine->getName();
-            $parameters["cineAddress"] = $cine->getAddress();
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
@@ -63,9 +61,10 @@ class CinemasDAO
 
     public function delete($id)
     {
+
+        $query = "DELETE" . " " . "FROM" . " " . $this->tableName . " " . " WHERE id=:id";
+        $parameters["id"] = $id;
         try {
-            $query = "DELETE" . " " . "FROM" . " " . $this->tableName . " " . " WHERE id=:id";
-            $parameters["id"] = $id;
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             return true;
@@ -75,10 +74,11 @@ class CinemasDAO
     }
     public function activate($id)
     {
+
+        $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
+        $parameters["id"] = $id;
+        $parameters["active"] = 1;
         try {
-            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
-            $parameters["id"] = $id;
-            $parameters["active"] = 1;
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             return true;
@@ -88,11 +88,11 @@ class CinemasDAO
     }
     public function desactivate($id)
     {
-        try {
-            $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
-            $parameters["id"] = $id;
-            $parameters["active"] = 0;
 
+        $query = "UPDATE" . " " . $this->tableName . " " . " SET active=:active WHERE id=:id";
+        $parameters["id"] = $id;
+        $parameters["active"] = 0;
+        try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             return true;
@@ -103,23 +103,23 @@ class CinemasDAO
 
     public function isAShowtimeMovieInACinemaToday(Showtime $showtime)
     {
-        try {
-            $query = " select cinema_name from " . $this->tableName . " 
+
+        $query = " select cinema_name from " . $this->tableName . " 
            inner join theaters on theaters.id_cinema=cinemas.id
            inner join showtimes on showtimes.id_theater=theaters.id
            where showtimes.id_movie=:id_movie and showtimes.view_date=:view_date";
-           
-            $parameters["id_movie"] = $showtime->getMovie()->getId();
-            $parameters["view_date"] = $showtime->getDate();
 
+        $parameters["id_movie"] = $showtime->getMovie()->getId();
+        $parameters["view_date"] = $showtime->getDate();
 
+        try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
-  
+
             if (!empty($resultSet)) {
-                
+
                 return $resultSet[0]['cinema_name'];
-            }else {
+            } else {
                 return false;
             }
         } catch (\Throwable $th) {
@@ -130,11 +130,12 @@ class CinemasDAO
     public function searchById($id)
     {
 
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id=:id";
+        $queryTheater = "SELECT * FROM " . " theaters WHERE theaters.id_cinema  =:id";
+        $parameters["id"] = $id;
+        $cinema = null;
         try {
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id=:id";
-            $queryTheater = "SELECT * FROM " . " theaters WHERE theaters.id_cinema  =:id";
-            $parameters["id"] = $id;
-            $cinema = null;
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query, $parameters);
@@ -159,7 +160,6 @@ class CinemasDAO
                 $cinema->addTheater($theater);
             }
             return $cinema;
-
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -168,14 +168,14 @@ class CinemasDAO
     public function modify($cine)
     {
 
+
+
+        $query = "UPDATE " . " " . $this->tableName . " " . "SET cinema_name=:name, address=:address WHERE id=:id";
+
+        $parameters["name"] = $cine->getName();
+        $parameters["address"] = $cine->getAddress();
+        $parameters["id"] = $cine->getId();
         try {
-
-            $query = "UPDATE " . " " . $this->tableName . " " . "SET cinema_name=:name, address=:address WHERE id=:id";
-
-            $parameters["name"] = $cine->getName();
-            $parameters["address"] = $cine->getAddress();
-            $parameters["id"] = $cine->getId();
-
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $th) {
@@ -186,11 +186,11 @@ class CinemasDAO
     public function getAll()
     {
 
+
+        $this->cineList = array();
+
+        $query = "SELECT * FROM" . ' ' . $this->tableName;
         try {
-            $this->cineList = array();
-
-            $query = "SELECT * FROM" . ' ' . $this->tableName;
-
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
@@ -219,7 +219,6 @@ class CinemasDAO
                     $theater->setTicketValue($key['ticket_value']);
                     $theater->setCapacity($key['capacity']);
                     $cine->addTheater($theater);
-                    
                 }
 
                 array_push($this->cineList, $cine);

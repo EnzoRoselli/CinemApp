@@ -148,7 +148,7 @@ class MailsController
         $mail->send();
         
     } catch (Exceptionn $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        array_push($advices, DB_ERROR . $mail->ErrorInfo);
     }
     }
 }

@@ -5,7 +5,6 @@ namespace DAO;
 use Model\CreditCard as CreditCard;
 use DAO\UsersDAO as usersDAO;
 
-//FALTA LA IMPLEMENTACION DEL QR
 class CreditCardsDAO  
 {
     private $tableName="credit_cards";
