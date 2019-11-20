@@ -53,7 +53,7 @@ class UserController
   
 
 
-    public function sendPasswordRecuperation()
+    public function sendPasswordRecuperation($email)
     {
         $recuperationCode = $this->codeGenerator();
         $mail = new PHPMailer(true);
@@ -71,7 +71,7 @@ class UserController
 
             //Recipients
             $mail->setFrom('cinemappsupputn@gmail.com', 'CinemApp');
-            $emailToSend = $_GET['email'];
+            $emailToSend = $email;
             $mail->addAddress($emailToSend, 'User');     // Add a recipient
 
             // VAN ARCHIVOS O IMAGENES
