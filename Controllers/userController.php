@@ -40,8 +40,7 @@ class UserController
                         $this->showLoginSignup(SIGNUP_FAILURE);
                     }
                 } catch (\Throwable $ex) {
-                    var_dump($ex);
-                    echo 'Un error ha ocurrido';
+                    $this->showLoginSignup(DB_ERROR);
                 }
             } else {
                 $this->showLoginSignup(EMAIL_DOMAIN_ERROR);
@@ -272,5 +271,4 @@ class UserController
             return false; // FORMATO INVALIDO
         }
     }
-
 }
