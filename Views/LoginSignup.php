@@ -50,7 +50,7 @@ alert('. $message .');
 				<span>Use your account</span>
 				<input class="input-login" name="LoginEmail" type="text" value="<?php if(!empty($_POST['LoginEmail'])){ echo $_POST['LoginEmail']; } ?>" placeholder="Email" required/>
 				<input class="input-login" name="LoginPassword" type="password" placeholder="Contraseña" required/>
-				<a class="login-a" href=<?php echo FRONT_ROOT . "/User/passwordForgotten" ?>>Forgot your password?</a>
+				<!-- <a class="login-a" href=<?php /*echo FRONT_ROOT . "/User/passwordForgotten" */?>>Forgot your password?</a> -->
 				<button class="login-btn">Log In</button>
 			</form>
 		</div>

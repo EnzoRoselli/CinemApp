@@ -126,16 +126,9 @@ class ShowtimeController
 
     public function validateShowtimeDate(Showtime $newShowtime)
     {
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
         $newShowtimeDate = $this->formatDate($newShowtime);
-        $showtimes = $this->showtimeDao->getShowtimesOfAcinema($newShowtime->getTheater()->getCinema());
-        // date_default_timezone_set('America/Argentina/Buenos_Aires');
-
-        $actualDate= date_create(date("Y-m-d"));
-        date_time_set($actualDate,date('H'),date('i'));
-        $actualDate->add(new DateInterval('PT' . 15 . 'M'));
-     
-        
-        
+        $showtimes = $this->showtimeDao->getShowtimesOfAcinema($newShowtime->getTheater()->getCinema());       
     
         foreach ($showtimes as $showtime) {
             $fechaMin = $this->formatDate($showtime);
@@ -143,8 +136,9 @@ class ShowtimeController
 
             $fechaMax = $this->formatDate($showtime);
             $fechaMax->add(new DateInterval('PT' . $showtime->getMovie()->getDuration() . 'M'));
+        
 
-            if ( $newShowtimeDate<$actualDate|| $newShowtimeDate > $fechaMin && $newShowtimeDate < $fechaMax && $showtime->getTheater()->getCinema()->getName() == $newShowtime->getTheater()->getCinema()->getName()) {
+            if ($newShowtime<date('Y-m-d H:i') ||$newShowtimeDate >= $fechaMin && $newShowtimeDate <= $fechaMax && $showtime->getTheater()->getCinema()->getName() == $newShowtime->getTheater()->getCinema()->getName()) {
                 return false;
             }
         }
