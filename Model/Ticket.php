@@ -5,7 +5,7 @@ namespace Model;
 
 class Ticket{
 
-    private $ticketId;
+    private $id;
     private $qr_code;
     private $showtime;
     private $purchase;

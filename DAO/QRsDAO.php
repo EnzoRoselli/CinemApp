@@ -27,9 +27,6 @@ class QRsDAO
         
         QRcode::png($lastId, $fileName);
    
-        //echo '<img src="'.$fileName.'"/>'; 
-       // echo '<img src="../QR/temp/qr-33.png"/>'; 
-      
         try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
@@ -37,6 +34,7 @@ class QRsDAO
             throw $ex;
         }
     }
+    
     public function getByPurchase(Purchase $purchase)
     {
         $QRsList=array();

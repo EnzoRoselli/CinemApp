@@ -6,9 +6,6 @@ namespace Model;
         private $movieId;
         private $genreId;
 
-        /**
-         * Class constructor.
-         */
         public function __construct($movieId = "", $genreId = "")
         {
             $this->movieId = $movieId;

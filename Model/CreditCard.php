@@ -23,7 +23,6 @@ class CreditCard{
     public function getUser(){return $this->user;}
     public function getSecurity_code(){return $this->security_code;}
     public function getLastFour(){
-        //$lastFour =   $credirCard->getNumber();
         return substr($this->getNumber(), -4);
     }
 

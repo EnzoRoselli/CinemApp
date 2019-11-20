@@ -22,7 +22,6 @@ class Showtime{
         $this->hour = $hour;
         $this->language=$language;
         $this->subtitle=$subtitle;
-      //  $this->ticketAvaliable=$this->cinema->getCapacity();
 
     }
 
@@ -47,17 +46,6 @@ class Showtime{
     public function setTicketAvaliable($ticketAvaliable){$this->ticketAvaliable=(int)$ticketAvaliable;     
     }
 
-    
-    public function testValuesValidation()
-    {
-        // if (!empty($this->movie) && !empty($this->cinema) && !empty($this->date) && !empty($this->hour) && $this->ticketAvaliable>-1 && !empty($this->language) && !empty($this->subtitle){
-        //     return true;
-        // }
-        // else{
-        //     return false;
-        // }
-        return true;
-    }
 }
 
 

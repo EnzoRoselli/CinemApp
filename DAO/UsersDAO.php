@@ -14,18 +14,18 @@ class UsersDAO
 
     public function add(User $user)
     {
-        
 
-            $query = "INSERT INTO " . " " . $this->tableName . " " .
-                " (password, email, firstname, lastname, dni) VALUES
+
+        $query = "INSERT INTO " . " " . $this->tableName . " " .
+            " (password, email, firstname, lastname, dni) VALUES
              (:password, :email, :firstname, :lastname, :dni);";
 
-            $parameters["password"] = $user->getPassword();
-            $parameters["email"] = $user->getEmail();
-            $parameters["firstname"] = $user->getName();
-            $parameters["lastname"] = $user->getLastName();
-            $parameters["dni"] = $user->getDni();
-            // var_dump($query);
+        $parameters["password"] = $user->getPassword();
+        $parameters["email"] = $user->getEmail();
+        $parameters["firstname"] = $user->getName();
+        $parameters["lastname"] = $user->getLastName();
+        $parameters["dni"] = $user->getDni();
+
         try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
@@ -52,7 +52,7 @@ class UsersDAO
         try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
-           
+
             if (!empty($resultSet)) {
                 $user = new User();
                 $user->setId($resultSet[0]['id']);
@@ -70,12 +70,12 @@ class UsersDAO
 
     public function searchByUsername($username)
     {
+
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE username=:username";
+
+        $parameters["username"] = $username;
         try {
-
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE username=:username";
-
-            $parameters["username"] = $username;
-
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
         } catch (\Throwable $th) {
@@ -87,9 +87,10 @@ class UsersDAO
 
     public function getAll()
     {
+
+        $this->userList = array();
+        $query = "SELECT * FROM" . ' ' . $this->tableName;
         try {
-            $this->userList = array();
-            $query = "SELECT * FROM" . ' ' . $this->tableName;
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
@@ -110,13 +111,13 @@ class UsersDAO
 
     public function correctCredentials(User $user)
     {
+
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE password=:password and email=:email";
+
+        $parameters["password"] = $user->getPassword();
+        $parameters["email"] = $user->getEmail();
         try {
-
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE password=:password and email=:email";
-
-            $parameters["password"] = $user->getPassword();
-            $parameters["email"] = $user->getEmail();
-
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
             return $resultSet;
@@ -127,12 +128,12 @@ class UsersDAO
 
     public function existsDNI(User $user)
     {
+
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE dni=:dni";
+
+        $parameters["dni"] = $user->getDni();
         try {
-
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE dni=:dni";
-
-            $parameters["dni"] = $user->getDni();
-
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
             return $resultSet;
@@ -143,12 +144,12 @@ class UsersDAO
 
     public function existsUserFromSignUp(User $user)
     {
-        
 
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE dni=:dni or email=:email ";
-            $parameters["dni"] = $user->getDni();
-            $parameters["email"] = $user->getEmail();
-            try {
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE dni=:dni or email=:email ";
+        $parameters["dni"] = $user->getDni();
+        $parameters["email"] = $user->getEmail();
+        try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
             //TESTEO SI EXISTE ALGUNO YA SEA CON DNI OR EMAIL, SI NINGUN REGISTRO SE RELACIONA SE CARGA
@@ -173,12 +174,12 @@ class UsersDAO
 
     public function existsEmail(User $user)
     {
+
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE email=:email";
+
+        $parameters["email"] = $user->getEmail();
         try {
-
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE email=:email";
-
-            $parameters["email"] = $user->getEmail();
-
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
             return $resultSet;

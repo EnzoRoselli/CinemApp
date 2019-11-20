@@ -8,14 +8,15 @@ class QR_
     private $size;
     private $level;
     private $frameSize;
-    private $fileName;//
-    private $ticket;//
+    private $fileName;
+    private $ticket;
 
     public function __construct() {
         $this->size=10;
         $this->level='M';
         $this->frameSize=3;
     }
+    
     public function getSize()
     {
         return $this->size;
@@ -60,18 +61,3 @@ class QR_
     
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>
