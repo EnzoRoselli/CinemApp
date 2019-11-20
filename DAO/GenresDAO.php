@@ -17,11 +17,12 @@ class GenresDAO
 
     public function add(Genre $genre)
     {
-        try {
-            $query = "INSERT INTO " . " " . $this->tableName . " " .
-                " (genre_name) VALUES
+
+        $query = "INSERT INTO " . " " . $this->tableName . " " .
+            " (genre_name) VALUES
                 (:genre_name);";
-            $parameters["genre_name"] = $genre->getName();
+        $parameters["genre_name"] = $genre->getName();
+        try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $ex) {
@@ -30,12 +31,13 @@ class GenresDAO
     }
     public function exists(Genre $genre)
     {
+
+        $query = "SELECT * FROM" . " " . $this->tableName . " WHERE genre_name=:genre_name";
+        $parameters["genre_name"] = $genre->getName();
         try {
-            $query = "SELECT * FROM" . " " . $this->tableName . " WHERE genre_name=:genre_name";
-            $parameters["genre_name"] = $genre->getName();
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
-            
+
             if (!empty($resultSet)) {
                 return true;
             } else {
@@ -48,9 +50,10 @@ class GenresDAO
 
     public function getAll()
     {
+
+        $this->genreList = array();
+        $query = "SELECT * FROM" . ' ' . $this->tableName;
         try {
-            $this->genreList = array();
-            $query = "SELECT * FROM" . ' ' . $this->tableName;
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
@@ -68,17 +71,18 @@ class GenresDAO
     public function getGenresByMovieId($movieId)
     {
         $genreList = array();
-        try {      
-        $query ="select genres.genre_name from ".$this->tableName." "."
+
+        $query = "select genres.genre_name from " . $this->tableName . " " . "
         inner join genres_by_movies on genres_by_movies.id_genre=genres.id and genres_by_movies.id_movie=:movieId;";
         $parameters["movieId"] = $movieId;
-        $this->connection = Connection::GetInstance();
-        $resultSet = $this->connection->Execute($query,$parameters);
-        foreach ($resultSet as $genreName) {
-           array_push($genreList,$genreName['genre_name']);
-        } 
-        return $genreList;
-    } catch (\Throwable $th) {
+        try {
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+            foreach ($resultSet as $genreName) {
+                array_push($genreList, $genreName['genre_name']);
+            }
+            return $genreList;
+        } catch (\Throwable $th) {
             throw $th;
         }
     }

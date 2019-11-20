@@ -6,7 +6,7 @@ use Model\Ticket as Ticket;
 use DAO\UsersDAO as usersDAO;
 use DAO\ShowtimesDAO;
 use DAO\PurchasesDAO;
-//FALTA LA IMPLEMENTACION DEL QR
+
 class TicketsDAO  
 {
     private $tableName="tickets";
@@ -32,9 +32,10 @@ class TicketsDAO
 
     public function searchById($id)
     {
-        try {
+        
             $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id=:id";
             $parameters["id"] = $id;
+            try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
             if ($resultSet != null) {
@@ -68,30 +69,3 @@ class TicketsDAO
        
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

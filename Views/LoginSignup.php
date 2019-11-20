@@ -45,7 +45,7 @@ alert('. $message .');
 			<form class="login-form" action=<?php echo FRONT_ROOT . "/User/loginAction" ?> method="POST" class="login-form">
 				<h2>Log in</h2>
 				<div class="social-container">
-					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> FIJARSE EL LOIGIN DE FB -->
+					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>  -->
 				</div>
 				<span>Use your account</span>
 				<input class="input-login" name="LoginEmail" type="text" value="<?php if(!empty($_POST['LoginEmail'])){ echo $_POST['LoginEmail']; } ?>" placeholder="Email" required/>

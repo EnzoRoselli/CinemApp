@@ -22,7 +22,6 @@ class Showtime{
         $this->hour = $hour;
         $this->language=$language;
         $this->subtitle=$subtitle;
-      //  $this->ticketAvaliable=$this->cinema->getCapacity();
 
     }
 

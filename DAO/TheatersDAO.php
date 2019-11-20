@@ -12,46 +12,47 @@ class TheatersDAO
     private $tableName = "theaters";
     private $cinemasDAO;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->cinemasDAO = new cinemasDAO();
     }
 
     public function add(Theater $theater)
-    {        
-            $query = "INSERT INTO " . " " . $this->tableName . " " .
-                " (theater_name, id_cinema, active,ticket_value, capacity) VALUES
+    {
+        $query = "INSERT INTO " . " " . $this->tableName . " " .
+            " (theater_name, id_cinema, active,ticket_value, capacity) VALUES
                                  (:theater_name,:id_cinema,:active,:ticket_value, :capacity);";
 
-            $parameters["theater_name"] = $theater->getName();
-            $parameters["id_cinema"] = $theater->getCinema()->getId();
-            $parameters["active"] = $theater->getActive();
-            $parameters["ticket_value"] = $theater->getTicketValue();
-            $parameters["capacity"] = $theater->getCapacity();
+        $parameters["theater_name"] = $theater->getName();
+        $parameters["id_cinema"] = $theater->getCinema()->getId();
+        $parameters["active"] = $theater->getActive();
+        $parameters["ticket_value"] = $theater->getTicketValue();
+        $parameters["capacity"] = $theater->getCapacity();
 
         try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $ex) {
             throw $ex;
-        }    
+        }
     }
 
     public function exists(Theater $theater)
     {
-       
+
+
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE " . $this->tableName . ".id_cinema=:id_cinema and theater_name=:theater_name";
+
+        $parameters["id_cinema"] = $theater->getCinema()->getId();
+        $parameters["theater_name"] = $theater->getName();
         try {
-
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE ". $this->tableName . ".id_cinema=:id_cinema and theater_name=:theater_name";
-
-            $parameters["id_cinema"] = $theater->getCinema()->getId();
-            $parameters["theater_name"] = $theater->getName();
-           
             $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query,$parameters);
-            if ($resultSet==null) {
+            $resultSet = $this->connection->Execute($query, $parameters);
+            if ($resultSet == null) {
                 return false;
-            }else{
-                return true;    
+            } else {
+                return true;
             }
         } catch (\Throwable $th) {
             throw $th;
@@ -59,48 +60,47 @@ class TheatersDAO
     }
 
     public function delete($id)
-    {    
+    {
+
+        $query = "DELETE" . " " . "FROM" . " " . $this->tableName . " " . " WHERE id=:id";
+        $parameters["id"] = $id;
         try {
-            $query = "DELETE" . " " ."FROM". " ". $this->tableName . " " . " WHERE id=:id";
-            $parameters["id"] = $id;
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             return true;
         } catch (\Throwable $th) {
             throw $th;
         }
-        
     }
 
     public function activate($cineId)
-    {        
-        try {
-            $query = "UPDATE theaters t, cinemas c
+    {
+
+        $query = "UPDATE theaters t, cinemas c
                         SET t.active = :active
                         WHERE c.id = t.id_cinema AND c.id = :id";
 
-            $parameters["id"] = $cineId;
-            $parameters["active"] = 1;
-
+        $parameters["id"] = $cineId;
+        $parameters["active"] = 1;
+        try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             return true;
         } catch (\Throwable $th) {
             throw $th;
         }
-        
     }
 
     public function desactivate($cineId)
     {
-        try{
-            $query = "UPDATE theaters t, cinemas c
+
+        $query = "UPDATE theaters t, cinemas c
                         SET t.active = :active
                         WHERE c.id = t.id_cinema AND c.id = :id";
 
-            $parameters["id"] = $cineId;
-            $parameters["active"] = 0;
-
+        $parameters["id"] = $cineId;
+        $parameters["active"] = 0;
+        try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
             return true;
@@ -111,55 +111,54 @@ class TheatersDAO
 
     public function searchById($id)
     {
-      
-        try {
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id=:id";
 
-            $parameters["id"] = $id;
-            
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id=:id";
+
+        $parameters["id"] = $id;
+        try {
             $this->connection = Connection::GetInstance();
-         
-            $resultSet = $this->connection->Execute($query,$parameters);
-            if ($resultSet!=null) {
-                $theater=new Theater();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+            if ($resultSet != null) {
+                $theater = new Theater();
                 $theater->setId($resultSet[0]["id"]);
                 $theater->setName($resultSet[0]["theater_name"]);
-                $cinema=$this->cinemasDAO->searchById($resultSet[0]['id_cinema']);
+                $cinema = $this->cinemasDAO->searchById($resultSet[0]['id_cinema']);
                 $theater->setCinema($cinema);
                 if ($cinema->getActive()) {
                     $theater->setActive($resultSet[0]["active"]);
-                }else {
+                } else {
                     $theater->setActive(false);
                 }
-               
+
                 $theater->setTicketValue($resultSet[0]["ticket_value"]);
                 $theater->setCapacity($resultSet[0]["capacity"]);
-            
+
                 return $theater;
-            }else {
+            } else {
                 return null;
             }
-          
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
-    public function modify(Theater $theater) 
+    public function modify(Theater $theater)
     {
 
-        try {
-            
-            $query = "UPDATE " . " " . $this->tableName . " " . "SET theater_name=:theater_name,
-            id_cinema=:id_cinema, active=:active, ticket_value=:ticket_value, capacity=:capacity WHERE id=:id";
-            
-            $parameters["id"] = $theater->getId();
-            $parameters["theater_name"] = $theater->getName();
-            $parameters["id_cinema"] = $theater->getCinema()->getId();
-            $parameters["active"] = $theater->getActive();
-            $parameters["ticket_value"] = $theater->getTicketValue();
-            $parameters["capacity"] = $theater->getCapacity();
 
+
+        $query = "UPDATE " . " " . $this->tableName . " " . "SET theater_name=:theater_name,
+            id_cinema=:id_cinema, active=:active, ticket_value=:ticket_value, capacity=:capacity WHERE id=:id";
+
+        $parameters["id"] = $theater->getId();
+        $parameters["theater_name"] = $theater->getName();
+        $parameters["id_cinema"] = $theater->getCinema()->getId();
+        $parameters["active"] = $theater->getActive();
+        $parameters["ticket_value"] = $theater->getTicketValue();
+        $parameters["capacity"] = $theater->getCapacity();
+        try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $th) {
@@ -169,19 +168,19 @@ class TheatersDAO
 
     public function getSortedTheatersByCineId($CineId)
     {
+
+
+        $theaterList = array();
+
+        $query = "SELECT * FROM " . $this->tableName . " " . "
+            INNER JOIN cinemas ON " . $this->tableName . ".id_cinema =cinemas.:cinema_id 
+            ORDER BY (" . $this->tableName . ".theater_name) DESC";
+
+        $parameters["cinema_id "] = $CineId;
         try {
-            
-            $theaterList=array();
-
-            $query ="SELECT * FROM ".$this->tableName." ". "
-            INNER JOIN cinemas ON ". $this->tableName.".id_cinema =cinemas.:cinema_id 
-            ORDER BY (".$this->tableName.".theater_name) DESC";
-
-            $parameters["cinema_id "] = $CineId;
-            
             $this->connection = Connection::GetInstance();
-            $resultSet=$this->connection->Execute($query, $parameters);
-        
+            $resultSet = $this->connection->Execute($query, $parameters);
+
             foreach ($resultSet as $row) {
                 $theater = new Theater();
                 $theater->setId($row['id']);
@@ -194,25 +193,24 @@ class TheatersDAO
                 $theater->setTicketValue($row['ticket_value']);
                 $theater->setCapacity($row['capacity']);
 
-                array_push($theaterList,$theater);
+                array_push($theaterList, $theater);
             }
 
             return $theaterList;
         } catch (\Throwable $th) {
             throw $th;
         }
-
     }
 
     public function getAll()
     {
 
+
+
+        $theaterList = array();
+
+        $query = "SELECT * FROM" . ' ' . $this->tableName;
         try {
-            
-            $theaterList=array();
-
-            $query = "SELECT * FROM" . ' ' . $this->tableName;
-
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
 
@@ -224,17 +222,17 @@ class TheatersDAO
 
                 $cinema = $this->cinemasDAO->searchById($row['id_cinema']);
                 $theater->setCinema($cinema);
-              
 
-                if($row['active'] == 1 && $cinema->getActive()!=0){
+
+                if ($row['active'] == 1 && $cinema->getActive() != 0) {
                     $theater->setActive(true);
-                }else{
+                } else {
                     $theater->setActive(false);
                 }
-                
+
                 $theater->setTicketValue($row['ticket_value']);
                 $theater->setCapacity($row['capacity']);
-                
+
                 array_push($theaterList, $theater);
             }
             return $theaterList;
@@ -242,5 +240,4 @@ class TheatersDAO
             throw $th;
         }
     }
-
 }

@@ -12,23 +12,23 @@ class MoviesDAO
 
     public function add(Movie $movie)
     {
-        try {
-            $query = "INSERT INTO " . " " . $this->tableName . " " .
-                " (title, duration,original_language,overview,release_date,adult,poster_path) VALUES
+
+        $query = "INSERT INTO " . " " . $this->tableName . " " .
+            " (title, duration,original_language,overview,release_date,adult,poster_path) VALUES
                 (:title,:duration,:original_language,:overview,:release_date,:adult,:poster_path);";
 
-            $parameters["title"] = $movie->getTitle();
-            $parameters["duration"] = $movie->getDuration();
-            $parameters["original_language"] = $movie->getOriginalLanguage();
-            $parameters["overview"] = $movie->getOverview();
-            $parameters["release_date"] = $movie->getReleaseDate();
-            if($movie->getAdult()){
-                $parameters["adult"] = 1;
-            }else{
-                $parameters["adult"] = 0;
-            }
-            $parameters["poster_path"] = $movie->getPosterPath();
-            
+        $parameters["title"] = $movie->getTitle();
+        $parameters["duration"] = $movie->getDuration();
+        $parameters["original_language"] = $movie->getOriginalLanguage();
+        $parameters["overview"] = $movie->getOverview();
+        $parameters["release_date"] = $movie->getReleaseDate();
+        if ($movie->getAdult()) {
+            $parameters["adult"] = 1;
+        } else {
+            $parameters["adult"] = 0;
+        }
+        $parameters["poster_path"] = $movie->getPosterPath();
+        try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $ex) {
@@ -36,21 +36,21 @@ class MoviesDAO
             throw $ex;
         }
     }
-    public function exists(Movie $movie) 
+    public function exists(Movie $movie)
     {
 
+
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE title=:title";
+
+        $parameters["title"] = $movie->getTitle();
         try {
-
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE title=:title";
-
-            $parameters["title"] = $movie->getTitle();
-
             $this->connection = Connection::GetInstance();
 
-            $resultSet = $this->connection->Execute($query,$parameters);
+            $resultSet = $this->connection->Execute($query, $parameters);
 
 
-            if (!empty($resultSet) ) {
+            if (!empty($resultSet)) {
                 $movie = new Movie();
                 $movie->setId($resultSet[0]['id']);
                 $movie->setTitle($resultSet[0]['title']);
@@ -69,11 +69,13 @@ class MoviesDAO
         }
     }
 
-    public function getAll(){
-        try {
+    public function getAll()
+    {
 
-            $this->moviesList = array();
-            $query = "SELECT * FROM" . ' ' . $this->tableName." ". "order by (release_date) desc";
+
+        $this->moviesList = array();
+        $query = "SELECT * FROM" . ' ' . $this->tableName . " " . "order by (release_date) desc";
+        try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
             foreach ($resultSet as $row) {
@@ -86,12 +88,12 @@ class MoviesDAO
                 $movie->setOverview($row['overview']);
                 $movie->setReleaseDate($row['release_date']);
                 $movie->setPosterPath($row['poster_path']);
-                if($row['adult'] == 1){
+                if ($row['adult'] == 1) {
                     $movie->setAdult(true);
-                }else{
+                } else {
                     $movie->setAdult(false);
                 }
-                
+
                 array_push($this->moviesList, $movie);
             }
 
@@ -101,14 +103,16 @@ class MoviesDAO
         }
     }
 
-    public function getMoviesWithShowtimes(){
-        try {
+    public function getMoviesWithShowtimes()
+    {
 
-            $this->moviesList = array();
-            $query = "SELECT * FROM" . ' ' . $this->tableName."  inner join showtimes on showtimes.id_movie=movies.id  group by(movies.id)";
+
+        $this->moviesList = array();
+        $query = "SELECT * FROM" . ' ' . $this->tableName . "  inner join showtimes on showtimes.id_movie=movies.id  group by(movies.id)";
+        try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
-      
+
             foreach ($resultSet as $row) {
 
                 $movie = new Movie();
@@ -119,12 +123,12 @@ class MoviesDAO
                 $movie->setOverview($row['overview']);
                 $movie->setReleaseDate($row['release_date']);
                 $movie->setPosterPath($row['poster_path']);
-                if($row['adult'] == 1){
+                if ($row['adult'] == 1) {
                     $movie->setAdult(true);
-                }else{
+                } else {
                     $movie->setAdult(false);
                 }
-           
+
                 array_push($this->moviesList, $movie);
             }
 
@@ -137,11 +141,11 @@ class MoviesDAO
     public function searchById($id)
     {
 
+
+        $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id=:id";
+
+        $parameters["id"] = $id;
         try {
-            $query = "SELECT * FROM " . " " . $this->tableName . " WHERE id=:id";
-
-            $parameters["id"] = $id;
-
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query, $parameters);
@@ -166,14 +170,14 @@ class MoviesDAO
     }
     public function delete($id)
     {
+
+        $query = "DELETE" . " " . "FROM" . " " . $this->tableName . " " . " WHERE id=:id";
+        $parameters["id"] = $id;
         try {
-            $query = "DELETE" . " " . "FROM" . " " . $this->tableName . " " . " WHERE id=:id";
-            $parameters["id"] = $id;
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $th) {
             throw $th;
         }
     }
-    
 }

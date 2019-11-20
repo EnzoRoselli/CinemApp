@@ -10,7 +10,6 @@ use DAO\GenresXMoviesDAO as GenresXMoviesDAO;
 use Model\Movie as Movie;
 use Model\Genre;
 use Model\GenreXMovie as GenreXMovie;
-use Controllers\HomeController as HomeController;
 
 class APIController
 {

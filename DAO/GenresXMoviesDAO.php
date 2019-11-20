@@ -16,13 +16,13 @@ class GenresXMoviesDAO
 
     public function add(GenreXMovie $genre_x_movie)
     {
-        try {
-            $query = "INSERT INTO " . " " . $this->tableName . " " .
-                " (id_movie, id_genre) VALUES (:id_movie,:id_genre);";
 
-            $parameters["id_movie"] = $genre_x_movie->getMovieId();
-            $parameters["id_genre"] = $genre_x_movie->getGenreId();
-            
+        $query = "INSERT INTO " . " " . $this->tableName . " " .
+            " (id_movie, id_genre) VALUES (:id_movie,:id_genre);";
+
+        $parameters["id_movie"] = $genre_x_movie->getMovieId();
+        $parameters["id_genre"] = $genre_x_movie->getGenreId();
+        try {
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (\Throwable $ex) {
@@ -33,12 +33,12 @@ class GenresXMoviesDAO
 
     public function exists(GenreXMovie $genre_x_movie)
     {
+
+        $query = "SELECT * FROM" . " " . $this->tableName . " WHERE id_movie=:id_movie AND id_genre=:id_genre";
+
+        $parameters["id_movie"] = $genre_x_movie->getMovieId();
+        $parameters["id_genre"] = $genre_x_movie->getGenreId();
         try {
-            $query = "SELECT * FROM" . " " . $this->tableName . " WHERE id_movie=:id_movie AND id_genre=:id_genre";
-
-            $parameters["id_movie"] = $genre_x_movie->getMovieId();
-            $parameters["id_genre"] = $genre_x_movie->getGenreId();
-
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
             if (!empty($resultSet)) {
@@ -53,11 +53,11 @@ class GenresXMoviesDAO
 
     public function getAll()
     {
+
+        $this->genreXmovieList = array();
+
+        $query = "SELECT * FROM" . ' ' . $this->tableName . " " . "order by id_movie asc";
         try {
-            $this->genreXmovieList = array();
-
-            $query = "SELECT * FROM" . ' ' . $this->tableName . " " . "order by id_movie asc";
-
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
 
@@ -70,20 +70,19 @@ class GenresXMoviesDAO
 
                 array_push($this->genreXmovieList, $genre_x_movie);
             }
-            
+
             return $this->genreXmovieList;
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
-    public function getMoviesByGenreId($genreId){
+    public function getMoviesByGenreId($genreId)
+    {
 
-        try {
-            
-            $moviesIdByGenre = array();
+        $moviesIdByGenre = array();
 
-            $query = "SELECT m.*  FROM movies m 
+        $query = "SELECT m.*  FROM movies m 
             INNER JOIN genres_by_movies x ON m.id = x.id_movie 
             INNER JOIN showtimes s ON m.id = s.id_movie AND s.active = true
             INNER JOIN theaters t ON s.id_theater = t.id AND t.active = true
@@ -91,16 +90,11 @@ class GenresXMoviesDAO
             GROUP BY m.id";
 
 
-            $parameters["id_genre"] = $genreId;
-
+        $parameters["id_genre"] = $genreId;
+        try {
             $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query, $parameters);
-
-            // var_dump($resultSet);
-            // var_dump($resultSet);
-
             foreach ($resultSet as $row) {
-                
+
                 $movie = new Movie();
                 $movie->setId($row['id']);
                 $movie->setTitle($row['title']);
@@ -112,14 +106,10 @@ class GenresXMoviesDAO
 
                 array_push($moviesIdByGenre, $movie);
             }
-               
-           return $moviesIdByGenre;
+
+            return $moviesIdByGenre;
         } catch (\Throwable $th) {
             throw $th;
         }
-
     }
-
-    
-
 }
