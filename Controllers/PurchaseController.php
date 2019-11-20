@@ -13,6 +13,7 @@ use DAO\CreditCardsDAO AS CreditCardsDAO;
 use DAO\PurchasesDAO as PurchasesDAO;
 use DAO\QRsDAO as QRsDAO;
 use Controllers\ShowtimeController as ShowtimeController;
+use Controllers\MailsController as MailsController;
 use Model\PHPMailer as PHPMailer;
 use Model\Exceptionn as Exceptionn;
 use Model\STMP;
@@ -27,6 +28,7 @@ class PurchaseController
     private $creditCardsDAO;
     private $purchasesDAO;
     private $QRsDAO;
+    private $mailsController;
 
     public function __construct()
     {
@@ -37,6 +39,7 @@ class PurchaseController
         $this->showtimeController = new ShowtimeController();
         $this->showtimeDao = new ShowtimeDAO();
         $this->QRsDAO=new QRsDAO();
+        $this->mailsController=new MailsController();
         
     }
 
@@ -85,7 +88,7 @@ class PurchaseController
                    
                 $qrsToSend=$this->QRsDAO->getByPurchase($purchase);
 
-                $this->sendPurchaseEmail($purchase,$qrsToSend);
+                $this->mailsController->sendPurchaseEmail($purchase,$qrsToSend);
                 array_push($advices, BUY_SUCCESS);
             }  
     
@@ -115,76 +118,7 @@ class PurchaseController
            return false;
        }
     }
-    public function sendPurchaseEmail(Purchase $purchase,$qrsToSend)
-    {
-        $user = $this->usersDAO->searchById($_SESSION['idUserLogged']);
-        $mail = new PHPMailer(true);
-
-    try {
-        $mail->SMTPDebug = 0;                      // Enable verbose debug output
-        $mail->isSMTP();                                            // Send using SMTP
-        $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = 'cinemappsupputn@gmail.com';                     // SMTP username
-        $mail->Password   = 'UTNATR100';                               // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-        $mail->Port       = 587;                                    // TCP port to connect to
-
-        //Recipients
-        $mail->setFrom('cinemappsupputn@gmail.com', 'CinemApp');
-        $emailToSend = $user->getEmail();
-        $mail->addAddress($emailToSend, 'User');     // Add a recipient
-   // Content
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Thanks you for the purchase';
-       
-              // $mail->addAttachment("../QR/temp/$photo");         // Add attachments
-           //  $mail->addAttachment("../QR/temp/$photo", 'new.jpg');    // Optional name
-       
-           foreach ($qrsToSend as $item) {
-            $photo=$item->getFileName();
-           $mail->AddEmbeddedImage("QR/temp/$photo","qr");
-   
-           }
-        
-        $mail->Body    = '<BODY BGCOLOR="White">
-<body>
-<div Style="align:center;">
-<p> PURCHASE INFORMATION  </p>
-<pre>
-<p>'."Date:". $purchase->getDate() ." - Hour: " .$purchase->getHour()."</p>
-<p>TicketsAmount: " .$purchase->getTicketAmount()."</p>
-<p>Credit Card: " . $purchase->getcreditCard()->getNumber()."</p>
-<p>TOTAL: " .$purchase->getTotal()."</p>".'
-</pre>
-<p>
-</p>
-</div>
-</br>
-<div style=" height="40" align="left">
-<font size="3" color="#000000" style="text-decoration:none;font-family:Lato light">
-<div class="info" Style="align:left;">           
-
-<br>
-<p>Company:   CinemApp   </p> 
-<br>
-</div>
-
-</br>
-<p>-----------------------------------------------------------------------------------------------------------------</p>
-</br>
-<p>( This is an automated message, please do not reply to this message, if you have any queries please contact CinemAppSuppUTN@gmail.com )</p>
-</font>
-</div>
-</body>';
-
-
-        $mail->send();
-        
-    } catch (Exceptionn $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    }
-    }
+    
 
     public function showPurchasesStatistics($cinemasPurchases = "", $moviesPurchases = ""){
 
