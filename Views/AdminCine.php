@@ -154,10 +154,10 @@ include('nav.php');
 					</div>
 					<div class="modal-footer">
 
-						<button type="submit" class="btn btn-med btn-light">Aceptar</button>
-
 						<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancelar</a>
 
+						<button type="submit" class="btn btn-med btn-light">Aceptar</button>
+						
 					</div>
 				</form>
 			<?php } ?>

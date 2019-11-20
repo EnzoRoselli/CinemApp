@@ -128,7 +128,15 @@ class ShowtimeController
     {
         $newShowtimeDate = $this->formatDate($newShowtime);
         $showtimes = $this->showtimeDao->getShowtimesOfAcinema($newShowtime->getTheater()->getCinema());
+        // date_default_timezone_set('America/Argentina/Buenos_Aires');
 
+        $actualDate= date_create(date("Y-m-d"));
+        date_time_set($actualDate,date('H'),date('i'));
+        $actualDate->add(new DateInterval('PT' . 15 . 'M'));
+     
+        
+        
+    
         foreach ($showtimes as $showtime) {
             $fechaMin = $this->formatDate($showtime);
             $fechaMin->modify('-15 minutes');
@@ -136,7 +144,7 @@ class ShowtimeController
             $fechaMax = $this->formatDate($showtime);
             $fechaMax->add(new DateInterval('PT' . $showtime->getMovie()->getDuration() . 'M'));
 
-            if ($newShowtimeDate > $fechaMin && $newShowtimeDate < $fechaMax && $showtime->getTheater()->getCinema()->getName() == $newShowtime->getTheater()->getCinema()->getName()) {
+            if ( $newShowtimeDate<$actualDate|| $newShowtimeDate > $fechaMin && $newShowtimeDate < $fechaMax && $showtime->getTheater()->getCinema()->getName() == $newShowtime->getTheater()->getCinema()->getName()) {
                 return false;
             }
         }

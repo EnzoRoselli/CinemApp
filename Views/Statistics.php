@@ -26,10 +26,11 @@ include('nav.php');
 
 			<thead>
 				<tr>
-					<th style="width: 3%;">Cinema</th>
-					<th style="width: 10%;">Address</th>
-					<th style="width: 20%;">Tickets sold</th>
-					<th style="width: 24%;">Amount</th>
+					<th style="width: 25%;">Cinema</th>
+					
+					<th style="width: 25%;">Tickets sold</th>
+					<th style="width: 25%;">Amount</th>
+					<th style="width: 25%;">Address</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -38,10 +39,11 @@ include('nav.php');
 						?>
 						<tr>
 
-							<td><?= $value->getName(); ?></td>
-							<td><?= $value->getAddress(); ?></td>
+							<td ><?= $value->getName(); ?></td>
+							
 							<td><?= $value->getTotalTickets(); ?></td>
 							<td>$<?= $value->getTotalSales(); ?></td>
+							<td><?= $value->getAddress(); ?></td>
 						</tr>
 				<?php 
 				} ?>
@@ -69,9 +71,10 @@ include('nav.php');
 
 			<thead>
 				<tr>
-					<th style="width: 3%;">Name</th>
-					<th style="width: 20%;">Tickets sold</th>
-					<th style="width: 24%;">Amount</th>
+					<th style="width: 25%;">Name</th>
+					<th style="width: 25%;">Tickets sold</th>
+					<th style="width: 25%;">Amount</th>
+					<th style="width: 25%;"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -83,6 +86,7 @@ include('nav.php');
 							<td><?= $value->getTitle(); ?></td>
 							<td><?= $value->getTotalTickets(); ?></td>
 							<td>$<?= $value->getTotalSales(); ?></td>
+							<td> </td>
 						</tr>
 				<?php 
 				} ?>

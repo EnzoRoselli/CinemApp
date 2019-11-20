@@ -32,7 +32,11 @@ include('nav.php');
                         <p>Day: <?= $showtime->getDate();?></p>
                         <p>Hour: <?= $showtime->getHour();?></p>
                         <p>Language: <?= $showtime->getLanguage()->getName();?></p>
-                        <p>Subtitles: <?= $showtime->isSubtitle();?></p>
+                        <p>Subtitles: <?php if ($showtime->isSubtitle()) {
+											echo 'Yes';
+										} else {
+											echo 'No';
+										}  ?></p>
                     </div>
                     <div class="showtime-details-content-right">
                         <p>Cinema: <?= $showtime->getTheater()->getCinema()->getName();?></p>

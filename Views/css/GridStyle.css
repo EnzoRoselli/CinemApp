@@ -89,7 +89,7 @@
     transform: translateY(-500%);
     opacity: 0;
     font-size: 2.1rem;
-    width: 22vh;
+    width: 28vh;
     transition: all 0.2s ease 0s;
     text-align: center;
 }

@@ -63,8 +63,8 @@ if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
               <li>
                 Lists
                 <ul id="sub-menu" class="sub-menu-admin">
-                  <li><a href=<?=FRONT_ROOT . "/Cine/showCinemasOnTable" ?>>Cinemas</a></li>
-                  <li><a href=<?=FRONT_ROOT . "/Showtime/showShowtimeMenu" ?>>Showtimes</a></li>
+                  <li><a href=<?=FRONT_ROOT . "/Cine/showCinemasOnTable" ?>>Admin Cinemas</a></li>
+                  <li><a href=<?=FRONT_ROOT . "/Showtime/showShowtimeMenu" ?>>Admin Showtimes</a></li>
                   <li><a href=<?=FRONT_ROOT . "/Statistic/showStats" ?>>Sales</a></li>
                 </ul>
               </li>
