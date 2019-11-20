@@ -1,10 +1,3 @@
-<?php
-
-if (isset($_GET['delete']) && isset($_SESSION['loggedUser'])) {
-  session_destroy();
-  header("Location:" . $link .= $_SERVER['REQUEST_URI']);
-}
-?>
 
 <nav>
   <div class="home-btn">

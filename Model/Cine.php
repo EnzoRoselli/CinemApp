@@ -50,9 +50,5 @@ class Cine
         }
     }
 
-    public function testValuesValidation()
-    {
-        if (!empty($this->name) && !empty($this->address)){return true;}
-        else{return false;}
-    }
+   
 }
