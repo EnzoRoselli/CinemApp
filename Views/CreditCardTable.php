@@ -17,7 +17,7 @@ include('nav.php');
                 </div>
                 <div>
                 <label>Security Code</label>
-                <input type="text" class="form-control" name="cc_sc"   pattern = [0-9]{3} title="3 digits at the back of the card" required>             
+                <input type="text" class="form-control" name="cc_sc"  pattern = [0-9]{3} title="3 digits at the back of the card" required>             
                 <input type="hidden" name="origin" value="list">
                 <button type="submit">Add</button>
                 </div>

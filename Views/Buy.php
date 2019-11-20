@@ -80,9 +80,9 @@ include('nav.php');
                     <input type="hidden" name="id" value=<?= $showtime->getShowtimeId() ?>>
                     <div class="form-group">
                         <label>Card Number</label>
-                        <input type="number" class="form-control" name="cc_number" required>
+                        <input type="text" class="form-control" name="cc_number" pattern = [0-9]{16} title="16 digits at the front of the card" required>
                         <label>Security Code</label>
-                        <input type="number" class="form-control" name="sec_code" required>
+                        <input type="text" class="form-control" name="sec_code" pattern = [0-9]{3} title="3 digits at the back of the card" required>
                     </div>
                     <input type="hidden" name="origin" value="buy">
                 </div>
