@@ -24,9 +24,9 @@ class UserController
     }
 
 
-    public function createUser() /// DEBIERA SER LLAMADO POR LA VISTA DE SIGNUP
+    public function createUser($signupName, $signupLastName, $signupDni, $signupEmail, $signupPassword) /// DEBIERA SER LLAMADO POR LA VISTA DE SIGNUP
     {
-        $user = $this->setParameters();
+        $user = $this->setParameters($signupName, $signupLastName, $signupDni, $signupEmail, $signupPassword);
 
         if ($this->checkNotNullParameters($user)) {
 
@@ -51,26 +51,23 @@ class UserController
         }
     }
 
-    function rand_string()
+    function codeGenerator()
     {
-       
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
-            $randomString = ''; 
-          
-            for ($i = 0; $i < 20; $i++) { 
-                $index = rand(0, strlen($characters) - 1); 
-                $randomString .= $characters[$index]; 
-            } 
-          
-            return $randomString; 
-    
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        for ($i = 0; $i < 20; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomString .= $characters[$index];
+        }
+        return $randomString;
     }
 
 
     public function sendPasswordRecuperation()
     {
-        $codeToRecuperation = $this->rand_string();
-            $mail = new PHPMailer(true);
+        $recuperationCode = $this->codeGenerator();
+        $mail = new PHPMailer(true);
 
         try {
             //Server settings
@@ -97,31 +94,32 @@ class UserController
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Reset your password';
             $mail->Body    = '<BODY BGCOLOR="White">
-    <body>
-    <div Style="align:center;">
-    <p>THIS IS THE CODE TO RESET THE PASSWORD: '. $codeToRecuperation.'</p>
-    <p>
-    
-    <img  src="https://lh3.googleusercontent.com/xlISFVMMAlhalr1rhAWU9fketwaeMyakXsxCqzp7KlUNFMZVokoJZVtDjHuOsy3m9Z8" alt= "IMAGE_NAME" height:100px >
-    </p>
-    </div>
-    </br>
-    <div style=" height="40" align="left">
-    <font size="3" color="#000000" style="text-decoration:none;font-family:Lato light">
-    <div class="info" Style="align:left;">           
- 
-    <br>
-    <p>Company:   CinemApp   </p> 
-    <br>
-   </div>
+            <body>
+                <div Style="align:center;">
+                    <p>THIS IS THE CODE TO RESET THE PASSWORD: ' . $recuperationCode . '</p>
+                    <p>
+                        <img  src="https://lh3.googleusercontent.com/xlISFVMMAlhalr1rhAWU9fketwaeMyakXsxCqzp7KlUNFMZVokoJZVtDjHuOsy3m9Z8" alt= "IMAGE_NAME" height:100px >
+                    </p>
+                </div>
 
-    </br>
-    <p>-----------------------------------------------------------------------------------------------------------------</p>
-    </br>
-    <p>( This is an automated message, please do not reply to this message, if you have any queries please contact CinemAppSuppUTN@gmail.com )</p>
-    </font>
-    </div>
-    </body>';
+                </br>
+
+                <div style=" height="40" align="left">
+                    <font size="3" color="#000000" style="text-decoration:none;font-family:Lato light">
+                <div class="info" Style="align:left;"> 
+
+                <br>
+
+                <p>Company:   CinemApp   </p> 
+                <br>
+                </div>
+                </br>
+                <p>-----------------------------------------------------------------------------------------------------------------</p>
+                </br>
+                <p>( This is an automated message, please do not reply to this message, if you have any queries please contact CinemAppSuppUTN@gmail.com )</p>
+                </font>
+                </div>
+            </body>';
 
 
             $mail->send();
@@ -130,6 +128,8 @@ class UserController
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
+
+
     public function passwordForgotten()
     {
         require_once(VIEWS . "/ForgotPassword.php");
@@ -140,7 +140,6 @@ class UserController
 
     public function loginAction($LoginEmail = "", $LoginPassword = "")
     {
-
         if (!empty($LoginEmail) && !empty($LoginPassword)) {
             $UserLogging = new User($LoginEmail, $LoginPassword);
             try {
@@ -149,25 +148,25 @@ class UserController
                     /**ES FALSE CUANDO NO EXISTE EN BASE DE DATOS */
                     $this->showLoginSignup(WRONG_CREDENTIALS);
                 } else {
-                    
-                    if($LoginComprobation[0]['email'] == 'admin@gmail.com'){
+
+                    if ($LoginComprobation[0]['email'] == 'admin@gmail.com') {
                         $_SESSION['loggedAdmin'] = $LoginComprobation[0]['lastname'];
                         $_SESSION['idUserLogged'] = $LoginComprobation[0]['id'];
-                    }else{
-                     
+                    } else {
+
                         $_SESSION['loggedUser'] = $LoginComprobation[0]['lastname'];
                         $_SESSION['idUserLogged'] = $LoginComprobation[0]['id'];
                     }
-                    
+
                     if (!empty($_SESSION['showtimeBuying'])) {
                         $this->ShowtimeController->showBuy($_SESSION['showtimeBuying']);
                     } else {
                         HomeController::showMain();
                     }
-                    /**HABRIA QUE MOSTRAR MENSAJE DE EXITO EN LA VISTA */
                 }
             } catch (Exception $e) {
-                echo "Ha ocurrido un error, por favor intentelo nuevamente";   /* catchear bien esta excepcin PONER ADVICE Y AVISAR*/
+
+                $this->showLoginSignup(DB_ERROR);
             }
         } else {
             $this->showLoginSignup(INCOMPLETE_INPUTS);
@@ -177,7 +176,6 @@ class UserController
     public function logoutAction()
     {
         session_destroy();
-        //$this->ShowMessage(LOGOUT_SUCCESS); /**ESTO HAY QUE CAMBIARLO PARA QUE EL MENSAJE SALGA EN LAS VIEWS */
         session_start();
         HomeController::showMain();
     }
@@ -199,30 +197,25 @@ class UserController
 
 
 
-    public function setParameters()
+    public function setParameters($signupName, $signupLastName, $signupDni, $signupEmail, $signupPassword)
     /**SI LOS INDEX ESTAN SETEADOS CREA UN USUARIO, SINO DEVUELVE FALSE */
     {
-        if ($_POST['SignupDNI']>2147483647 || $_POST['SignupDNI']<-2147483648) {
-            return false; 
-        }else {  
-        if (isset($_POST['SignupEmail'], $_POST['SignupPassword'], $_POST['SignupName'], $_POST['SignupLastName'], $_POST['SignupDNI'])) {
-
-            $email = filter_var($_POST['SignupEmail'], FILTER_SANITIZE_EMAIL);
-            $password = $_POST['SignupPassword'];
-            $user = new User($email, $password);
-            $user->setName($_POST["SignupName"]);
-            $user->setLastName($_POST["SignupLastName"]);
-            $user->setDni($_POST["SignupDNI"]);
-           
-            return $user;
-        } else {
+        if ($signupDni > 2147483647 || $signupDni < -2147483648) {
             return false;
+        } else {
+            if (isset($signupName, $signupLastName, $signupDni, $signupEmail, $signupPassword)) {
+
+                $email = filter_var($signupEmail, FILTER_SANITIZE_EMAIL);
+                $user = new User($email, $signupPassword);
+                $user->setName($signupName);
+                $user->setLastName($signupLastName);
+                $user->setDni($signupDni);
+                return $user;
+            } else {
+                return false;
+            }
         }
     }
-    }
-
-
-
 
 
     private function checkNotNullParameters($user)
@@ -280,11 +273,4 @@ class UserController
         }
     }
 
-
-    public function ShowMessage($message)
-    {
-        echo '<script type="text/javascript">
-        alert(' . $message . ');
-        </script>';
-    }
 }
