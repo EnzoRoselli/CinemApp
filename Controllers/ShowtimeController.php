@@ -151,30 +151,6 @@ class ShowtimeController
         return true;
     }
 
-    public function delete()
-    {
-        try {
-            if (!empty($this->showtimeDao->searchById($_GET['id']))) {
-                $this->showtimeDao->delete($_GET['id']);
-                // $advice = ShowtimeController::showMessage(5);
-            }
-        } catch (\Throwable $th) {
-            // $advice = ShowtimeController::showMessage("DB");
-        }
-    }
-    public function update()
-    {
-        try {
-            if (!empty($this->showtimeDao->searchById($_GET['id']))) {
-                $this->showtimeDao->modify($_GET['id']);
-                // $advice = ShowtimeController::showMessage(2);
-            } else {
-                // $advice = ShowtimeController::showMessage(3);
-            }
-        } catch (\Throwable $th) {
-            // $advice = ShowtimeController::showMessage("DB");
-        }
-    }
 
     public function activate($showtimeId)
     {
