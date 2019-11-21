@@ -76,7 +76,6 @@ class StatisticController{
         foreach($cinemasList as $cinema){
         
             if(($cinemaPurchases = $this->purchaseDAO->getPurchasesByCinemaId($cinema->getId(), $minDate, $maxDate)) != null){
-
                 array_push($statsCinemas, $cinemaPurchases);
             }
             

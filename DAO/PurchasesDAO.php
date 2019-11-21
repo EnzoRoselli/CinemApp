@@ -92,6 +92,8 @@ class PurchasesDAO
     }
     public function getPurchasesByCinemaId($cinemaId, $minDate = "", $maxDate = ""){
 
+        $cinemaPurchasesList = array();
+
         $query = "SELECT a.cinema_name, a.address, ifnull(SUM(a.ticketsAmount),0) AS 'totalTickets', ifnull(SUM(a.total),0) AS 'totalSales' FROM(
                     SELECT c.id, c.cinema_name, c.address, p.ticketsAmount, p.total
                     FROM cinemas c
@@ -124,16 +126,16 @@ class PurchasesDAO
             
             if(!empty($resultSet)){
                 if(!empty($resultSet[0]['cinema_name'])){
-                
-                    $cinemaPurchase = new CinemaPurchases();
-        
-                    $cinemaPurchase->setName($resultSet[0]['cinema_name']);
-                    $cinemaPurchase->setAddress($resultSet[0]['address']);
-                    $cinemaPurchase->setTotalTickets($resultSet[0]['totalTickets']);
-                    $cinemaPurchase->setTotalSales($resultSet[0]['totalSales']);
 
-                    return $cinemaPurchase;
+                    $cinemaPurchase["cinema_name"] = $resultSet[0]['cinema_name'];
+                    $cinemaPurchase["address"] = $resultSet[0]['address'];
+                    $cinemaPurchase["totalTickets"] = $resultSet[0]['totalTickets'];
+                    $cinemaPurchase["totalSales"] = $resultSet[0]['totalSales'];
+
+                    array_push($cinemaPurchasesList, $cinemaPurchase); 
                 }
+
+                return $cinemaPurchasesList;
 
             }else{
                 return null;

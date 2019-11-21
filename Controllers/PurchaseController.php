@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use Model\Purchase as Purchase;
-use Model\Showtime as Showtime;
 use Model\QR_ as QR;
 use Model\Ticket as Ticket;
 use DAO\ShowtimesDAO as ShowtimeDAO;
@@ -14,9 +13,6 @@ use DAO\PurchasesDAO as PurchasesDAO;
 use DAO\QRsDAO as QRsDAO;
 use Controllers\ShowtimeController as ShowtimeController;
 use Controllers\MailsController as MailsController;
-use Model\PHPMailer as PHPMailer;
-use Model\Exceptionn as Exceptionn;
-use Model\STMP;
 
 
 class PurchaseController
