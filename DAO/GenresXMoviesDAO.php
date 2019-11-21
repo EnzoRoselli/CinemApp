@@ -93,6 +93,8 @@ class GenresXMoviesDAO
         $parameters["id_genre"] = $genreId;
         try {
             $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
             foreach ($resultSet as $row) {
 
                 $movie = new Movie();

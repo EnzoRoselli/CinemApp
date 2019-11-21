@@ -31,7 +31,7 @@ class FiltersController
 
         try{
 
-            if (isset($genre) && empty($date)) {
+            if (!empty($genre) && empty($date)) {
                 
                 $moviesByGenre = $this->searchByGenre($genre);
 
@@ -44,7 +44,7 @@ class FiltersController
                     $message = 1;
                 }
                 
-            } else if (isset($date) && empty($genre)) { 
+            } else if (!empty($date) && empty($genre)) { 
 
                 $moviesByDate = $this->searchByDate($date);
 
@@ -55,7 +55,7 @@ class FiltersController
                     $message = 1;
                 }
             
-            }else if (isset($genre) && !empty($date)) {
+            }else if (empty($genre) && !empty($date)) {
 
                 $moviesByGenres = $this->searchByGenre($genre);
 
@@ -66,6 +66,8 @@ class FiltersController
                 }else{
                     $message = 1;
                 }
+            }else{
+                $this->showtimeController->showShowtimesListUser(null,$advices);
             }
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
@@ -81,6 +83,9 @@ class FiltersController
 
     public function searchByGenre($genreId)
     {
+        $advices = array();
+        $moviesByGenre = array();
+
         try {
             $moviesByGenre = $this->genresXmoviesDAO->getMoviesByGenreId($genreId);
  
@@ -93,6 +98,7 @@ class FiltersController
 
     public function searchByDate($dateToSearch)
     {   
+        $advices = array();
 
         try {
 
@@ -130,6 +136,8 @@ class FiltersController
     }
 
     public function filterMoviesByDate($movies, $dateToSearch){
+
+        $advices = array();
 
         try {
 

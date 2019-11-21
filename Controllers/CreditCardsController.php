@@ -84,6 +84,7 @@ class CreditCardsController
     }
 
     public function showCreditCardList($messages=""){
+        require_once(VIEWS . '/ValidateUserSession.php');
         $creditCardList = $this->creditCardsDAO->getCCbyUser($_SESSION['idUserLogged']);
         require_once(VIEWS . "/CreditCardTable.php");
     }

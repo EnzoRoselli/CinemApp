@@ -62,6 +62,7 @@ class ShowtimeController
     public function showShowtimeMenu($cinemaTheaters = array(), $messages = "", $openPopUp = false)
     {
         $advices = array();
+        require_once(VIEWS . '/ValidateAdminSession.php');
         try {
             $cinemasList = $this->cinemasDAO->getAll();
             $theatersList = $this->theatersDAO->getAll();

@@ -19,6 +19,8 @@ class StatisticController{
     }
 
     public function showStats($minDate="", $maxDate = ""){
+
+        require_once(VIEWS . '/ValidateAdminSession.php');
         $statsCinemas = array();
         $statsMovies = array();
         $advices = array();

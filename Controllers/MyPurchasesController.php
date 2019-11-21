@@ -2,8 +2,6 @@
 namespace Controllers;
 use DAO\PurchasesDAO as PurchaseDAO;
 
-
-
 class MyPurchasesController{
 
     private $purchaseDAO;
@@ -44,6 +42,7 @@ class MyPurchasesController{
 
     public function showMyPurchases($userPurchases = array(), $messages = ""){
 
+        require_once(VIEWS . '/ValidateUserSession.php');
         require_once(VIEWS  . '/MyPurchases.php');
     }
 }

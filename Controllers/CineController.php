@@ -169,6 +169,7 @@ class CineController
     */
     public function showCinemasOnTable($cineUpdate = "", $createTheater = "", $messages="", $openPopUp=false)
     {
+        require_once(VIEWS . '/ValidateAdminSession.php');
         $cines = $this->CineDao->getAll();
         require_once(VIEWS  . '/AdminCine.php');
     }
