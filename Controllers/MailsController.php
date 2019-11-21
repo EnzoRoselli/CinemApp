@@ -25,6 +25,7 @@ class MailsController
     }
     public function sendPasswordRecuperation($email)
     {
+        $advices = array();
         $recuperationCode = $this->codeGenerator();
         $mail = new PHPMailer(true);
 
@@ -80,7 +81,8 @@ class MailsController
             $mail->send();
             require_once(VIEWS . "/RecuperatePassword.php");
         } catch (Exceptionn $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            
+            array_push($mail->ErrorInfo);
         }
     }
 

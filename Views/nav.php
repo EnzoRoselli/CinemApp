@@ -1,7 +1,7 @@
 
 <nav>
   <div class="home-btn">
-    <a href="<?php echo FRONT_ROOT . "/Home/Index" ?>">
+    <a href="<?= FRONT_ROOT . "/Home/Index" ?>">
       <div class="home-text">
         <p>Cinem</p>
         <p>App</p>
@@ -10,13 +10,13 @@
     </a>
   </div>
   <div class="home-icon">
-    <a href="<?php echo FRONT_ROOT . "/Home/Index" ?>">
+    <a href="<?= FRONT_ROOT . "/Home/Index" ?>">
       <i class="fas fa-home" id="home-icon"></i>
     </a>
   </div>
 
   <div class="menu-icon">
-    <a href="<?php echo FRONT_ROOT . "/Home/Index" ?>">
+    <a href="<?= FRONT_ROOT . "/Home/Index" ?>">
       <i class="fas fa-bars" id="menu-icon"></i>
     </a>
   </div>
@@ -65,7 +65,7 @@
           </div>  
         </li>
         <li><a href="<?=FRONT_ROOT . "/Showtime/showShowtimesListUser" ?>">Showtimes</a></li>
-        <li><a href="<?php echo  FRONT_ROOT . "/Cine/showCinemasOnTable" ?>">Cinemas</a></li>
+        <li><a href="<?=FRONT_ROOT . "/Cine/showCinemasOnTable" ?>">Cinemas</a></li>
         <li><a href=<?=FRONT_ROOT . "/Home/showMovieGrid" ?>>Movies</a></li>
 
         <li></li>
@@ -89,10 +89,10 @@
     <div class="nav-links">
       <ul>
       <li><a href="<?=FRONT_ROOT . "/Showtime/showShowtimesListUser" ?>">Showtimes</a></li>
-        <li><a href="<?php echo  FRONT_ROOT . "/Cine/showCinemasUser" ?>">Cinemas</a></li>
+        <li><a href="<?= FRONT_ROOT . "/Cine/showCinemasUser" ?>">Cinemas</a></li>
         <li><a href=<?=FRONT_ROOT . "/Home/showMovieGrid" ?>>Movies</a></li>
 
-        <li>   <a href=<?php echo FRONT_ROOT . '/user/showLoginSignup' ?>>Log-Sig</a></li>
+        <li>   <a href=<?= FRONT_ROOT . '/user/showLoginSignup' ?>>Log-Sig</a></li>
       </ul>
 
     </div>

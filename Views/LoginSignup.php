@@ -26,7 +26,7 @@ alert('. $message .');
 
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
-			<form class="login-form" action=<?php echo FRONT_ROOT . "/User/createUser" ?> method="POST" class="login-form">
+			<form class="login-form" action=<?= FRONT_ROOT . "/User/createUser" ?> method="POST" class="login-form">
 				<h2>Create Account</h2>
 				<div class="social-container">
 					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a> -->
@@ -42,7 +42,7 @@ alert('. $message .');
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
-			<form class="login-form" action=<?php echo FRONT_ROOT . "/User/loginAction" ?> method="POST" class="login-form">
+			<form class="login-form" action=<?= FRONT_ROOT . "/User/loginAction" ?> method="POST" class="login-form">
 				<h2>Log in</h2>
 				<div class="social-container">
 					<!-- <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>  -->
@@ -79,6 +79,6 @@ alert('. $message .');
 	</p>
 </footer> -->
 
-	<script src=<?php echo JS_PATH . "/login.js" ?>></script>
+	<script src=<?= JS_PATH . "/login.js" ?>></script>
 	</div>
 </body>

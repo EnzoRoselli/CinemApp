@@ -46,29 +46,29 @@ include('nav.php');
 					foreach ($showtimes as $showtime) {
 						?>
 						<tr>
-							<td><?php echo $showtime->getShowtimeId(); ?></td>
-							<td><?php echo $showtime->getDate(); ?></td>
-							<td><?php echo $showtime->getHour(); ?></td>
-							<td><?php echo $showtime->getMovie()->getTitle(); ?></td>
-							<td><?php echo $showtime->getLanguage()->getName(); ?></td>
+							<td><?= $showtime->getShowtimeId(); ?></td>
+							<td><?= $showtime->getDate(); ?></td>
+							<td><?= $showtime->getHour(); ?></td>
+							<td><?= $showtime->getMovie()->getTitle(); ?></td>
+							<td><?= $showtime->getLanguage()->getName(); ?></td>
 							<td><?php if ($showtime->isSubtitle()) {
 											echo 'Yes';
 										} else {
 											echo 'No';
 										}  ?></td>
-							<td><?php echo $showtime->getTheater()->getCinema()->getName(); ?></td>
-							<td><?php echo $showtime->getTheater()->getName(); ?></td>
-							<td><?php echo $showtime->getTicketAvaliable() . '/' . $showtime->getTheater()->getCapacity(); ?></td>
+							<td><?= $showtime->getTheater()->getCinema()->getName(); ?></td>
+							<td><?= $showtime->getTheater()->getName(); ?></td>
+							<td><?= $showtime->getTicketAvaliable() . '/' . $showtime->getTheater()->getCapacity(); ?></td>
 							<td>
 
 								<?php if ($showtime->getTheater()->getActive() && $showtime->getActive()) {
 											?>
-									<a href=<?php echo  FRONT_ROOT . "/Showtime/desactivate/" .  $showtime->getShowtimeId() ?> name="desactivate" class="btn btn-light">
+									<a href=<?=  FRONT_ROOT . "/Showtime/desactivate/" .  $showtime->getShowtimeId() ?> name="desactivate" class="btn btn-light">
 										<i class="fas fa-toggle-on"></i>
 									</a>
 								<?php } else {
 											?>
-									<a href="<?php echo  FRONT_ROOT . "/Showtime/activate/" .  $showtime->getShowtimeId() ?>" name="activate" class="btn btn-light">
+									<a href="<?=  FRONT_ROOT . "/Showtime/activate/" .  $showtime->getShowtimeId() ?>" name="activate" class="btn btn-light">
 										<i class="fas fa-toggle-off"></i>
 									</a>
 								<?php
@@ -105,12 +105,12 @@ include('nav.php');
 		
 		<div class="popup" id="popup">
 		
-			<a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+			<a href="<?= FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 				
 			<h3><?= "Create a Showtime in " . $cinemaTheaters[0]->getCinema()->getName() ?></h3>
 
 
-			<form action="<?php echo  FRONT_ROOT . "/Showtime/create" ?>" method="POST">
+			<form action="<?=  FRONT_ROOT . "/Showtime/create" ?>" method="POST">
 				<div class="contenedor-inputs">
 
 					<div class="form-group">
@@ -164,7 +164,7 @@ include('nav.php');
 
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-med btn-light"><a href="<?php echo FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup" id="cancel-button-showtime">Cancelar</a></button>
+					<button type="submit" class="btn btn-med btn-light"><a href="<?= FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup" id="cancel-button-showtime">Cancelar</a></button>
 
 					<button type="submit" class="btn btn-med btn-light">Aceptar</button>
 				</div>

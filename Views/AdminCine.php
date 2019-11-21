@@ -7,7 +7,7 @@ include('nav.php');
 <body class="admin-body">
 	<div class="admin-header">
 		<h1>Listado de cines</h1>
-		<form action="<?php echo  FRONT_ROOT . "/Cine/createCinema " ?>" method="POST">
+		<form action="<?=FRONT_ROOT . "/Cine/createCinema " ?>" method="POST">
 			<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
 		</form>
 	</div>
@@ -34,36 +34,36 @@ include('nav.php');
 						?>
 						<tr>
 
-							<td><?php echo $cine->getId(); ?></td>
-							<td><?php echo $cine->getName(); ?></td>
-							<td><?php echo $cine->getAddress(); ?></td>
+							<td><?= $cine->getId(); ?></td>
+							<td><?= $cine->getName(); ?></td>
+							<td><?= $cine->getAddress(); ?></td>
 							<td><?php foreach ($cine->getTheaters() as $theater) {
 											echo $theater->getName() . " - ";
 										} ?></td>
-							<td><?php echo $cine->getCapacity(); ?></td>
+							<td><?= $cine->getCapacity(); ?></td>
 							<td style="padding-left: 100px;">
 								<!-- ----------------------- EDIT ----------------------- -->
-								<a href="<?php echo  FRONT_ROOT . "/Cine/getCinemaToUpdate/" .  $cine->getId() ?>" name="update" class="btn btn-light">
+								<a href="<?=  FRONT_ROOT . "/Cine/getCinemaToUpdate/" .  $cine->getId() ?>" name="update" class="btn btn-light">
 									<i class="fas fa-edit"></i>
 								</a>
 
 								<!-- ----------------------- ACTIVATE ----------------------- -->
 								<?php if ($cine->getActive()) { ?>
-									<a href="<?php echo  FRONT_ROOT . "/Cine/desactivate/" .  $cine->getId() ?>" name="desactivate" class="btn btn-light">
+									<a href="<?=  FRONT_ROOT . "/Cine/desactivate/" .  $cine->getId() ?>" name="desactivate" class="btn btn-light">
 										<i class="fas fa-toggle-on"></i>
 									</a>
 								<?php } else { ?>
 									<!-- ----------------------- DESACTIVATE ----------------------- -->
-									<a href="<?php echo  FRONT_ROOT . "/Cine/activate/" .  $cine->getId() ?>" name="activate" class="btn btn-light">
+									<a href="<?=  FRONT_ROOT . "/Cine/activate/" .  $cine->getId() ?>" name="activate" class="btn btn-light">
 										<i class="fas fa-toggle-off"></i>
 									</a>
 								<?php } ?>
 								<!-- ----------------------- DELETE ----------------------- -->
-								<a href="<?php echo  FRONT_ROOT . "/Cine/delete/" .  $cine->getId() ?>" onclick="return checkDelete()" name="delete" class="btn btn-light">
+								<a href="<?=  FRONT_ROOT . "/Cine/delete/" .  $cine->getId() ?>" onclick="return checkDelete()" name="delete" class="btn btn-light">
 									<i class="fas fa-trash"></i>
 								</a>
 								<!-- ----------------------- ADD THEATER ----------------------- -->
-								<a href="<?php echo  FRONT_ROOT . "/Theater/getCinemaToAddTheater/" .  $cine->getId() ?>" name="addTheater" class="btn btn-light">
+								<a href="<?=  FRONT_ROOT . "/Theater/getCinemaToAddTheater/" .  $cine->getId() ?>" name="addTheater" class="btn btn-light">
 									Add Theater
 								</a>
 
@@ -96,13 +96,13 @@ include('nav.php');
 	<div class="overlay" id="overlay">
 		<div class="popup" id="popup">
 
-			<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+			<a href="<?= FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 
 			<h3>Ingrese los datos</h3>
 
 			<?php if (!isset($createTheater)) { ?>
 
-				<form action="<?php echo  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
+				<form action="<?=  FRONT_ROOT . "/Cine/determinateUpdateCreate " ?>" method="POST">
 					<div class="contenedor-inputs">
 						<input type="hidden" name="id" value=<?php if (isset($cineUpdate)) {
 																			echo $cineUpdate->getId();
@@ -126,12 +126,12 @@ include('nav.php');
 
 						<button type="submit" class="btn btn-med btn-light">Aceptar</button>
 
-						<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancelar</a>
+						<a href="<?= FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancelar</a>
 
 					</div>
 				</form>
 			<?php } else {?>
-				<form action="<?php echo  FRONT_ROOT . "/Theater/create" ?>" method="POST">
+				<form action="<?=  FRONT_ROOT . "/Theater/create" ?>" method="POST">
 					<div class="contenedor-inputs">
 						<p class="pop-up-subtitle"><?= $createTheater->getName(); ?></p>
 
@@ -154,7 +154,7 @@ include('nav.php');
 					</div>
 					<div class="modal-footer">
 
-						<a href="<?php echo FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancelar</a>
+						<a href="<?= FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancelar</a>
 
 						<button type="submit" class="btn btn-med btn-light">Aceptar</button>
 						

@@ -12,8 +12,8 @@
         for($i=0; $i<3 ; $i++){
             ?>
         <div class="miSlider fade">
-            <img src="<?php echo "http://image.tmdb.org/t/p/original/" . $moviesList[$i]->getPosterPath(); ?>">
-            <p><?php echo $moviesList[$i]->getTitle(); ?></p>
+            <img src="<?= "http://image.tmdb.org/t/p/original/" . $moviesList[$i]->getPosterPath(); ?>">
+            <p><?= $moviesList[$i]->getTitle(); ?></p>
         </div>
         <?php
         }
@@ -28,4 +28,4 @@
             <span class="barra" onclick="posicionSlide(3)"></span>
         </div>
     </div>
-    <script src="<?php echo JS_PATH . "/slider.js"?>"></script>
+    <script src="<?= JS_PATH . "/slider.js"?>"></script>

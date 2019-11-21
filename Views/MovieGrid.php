@@ -19,7 +19,7 @@ include('nav.php');
                     <div class="overlay-card-background"></div>
                     <p><?=$genresByMovie[$i]; ?></p>
                     <div class="movie-card-details">
-                        <a href="<?php echo  FRONT_ROOT . "/Showtime/showSelectShowtime/" . $moviesList[$i]->getId() ?>">View Details</a> 
+                        <a href="<?= FRONT_ROOT . "/Showtime/showSelectShowtime/" . $moviesList[$i]->getId() ?>">View Details</a> 
                     </div>
                 </div>
             </button>

@@ -50,7 +50,6 @@ class LanguagesDAO
                 }
             }
         } catch (\Throwable $ex) {
-            echo "problemaa";
             throw $ex;
         }
     }
