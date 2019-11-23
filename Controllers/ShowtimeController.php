@@ -128,7 +128,11 @@ class ShowtimeController
     public function validateShowtimeDate(Showtime $newShowtime)
     {
         date_default_timezone_set('America/Argentina/Buenos_Aires');
-        $newShowtimeDate = $this->formatDate($newShowtime);
+        $newShowtimeMinDateTime = $this->formatDate($newShowtime);
+        $newShowtimeMinDateTime->modify('-15 minutes');
+        $newShowtimeMaxDateTime = $this->formatDate($newShowtime);       
+        $newShowtimeMaxDateTime->add(new DateInterval('PT' . $newShowtime->getMovie()->getDuration() . 'M'));
+
         $showtimes = $this->showtimeDao->getShowtimesOfAcinema($newShowtime->getTheater()->getCinema());       
     
         foreach ($showtimes as $showtime) {
@@ -137,13 +141,20 @@ class ShowtimeController
 
             $fechaMax = $this->formatDate($showtime);
             $fechaMax->add(new DateInterval('PT' . $showtime->getMovie()->getDuration() . 'M'));
-        
+      
 
-            if ($newShowtime<date('Y-m-d H:i') ||$newShowtimeDate >= $fechaMin && $newShowtimeDate <= $fechaMax && $showtime->getTheater()->getCinema()->getName() == $newShowtime->getTheater()->getCinema()->getName()) {
+            if ($newShowtime<date('Y-m-d H:i') || $this->isDateTimeBetweenDateTimes($fechaMin,$fechaMax,$newShowtimeMinDateTime) || $this->isDateTimeBetweenDateTimes($fechaMin,$fechaMax,$newShowtimeMaxDateTime) && $newShowtime->equalsName($showtime->getTheater())){
                 return false;
             }
         }
         return true;
+    }
+    public function isDateTimeBetweenDateTimes($MinDateTime,$MaxDateTime,$newDateTime)
+    {
+       if ($newDateTime<$MaxDateTime && $newDateTime>$MinDateTime) {
+           return true;
+       }
+       return false;
     }
 
 

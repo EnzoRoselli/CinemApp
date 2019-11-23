@@ -33,6 +33,14 @@ class Theater
     public function setActive($active){$this->active=$active;}
     public function setTicketValue($ticketValue){$this->ticketValue=$ticketValue;}
     public function setCapacity($capacity){$this->capacity=$capacity;}
+    public function equalsName($Theater)        
+    {
+        if ($this->getName()==$Theater->getName()) {
+            return true;
+        }
+        return false;
+        
+    }
 
 
 }
