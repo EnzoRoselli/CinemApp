@@ -25,7 +25,7 @@ include('nav.php');
             <div class="shotime-main-row">
             
             <?php foreach ($movieShowtimes as $showtime) {
-                            if ( $showtime->getActuive() && $showtime->getMovie()->getTitle()==$movie->getTitle() && $showtime->getTheater()->getActive()==true && $showtime->getTicketAvaliable()>0) { ?>
+                            if ( $showtime->getActive() && $showtime->getMovie()->getTitle()==$movie->getTitle() && $showtime->getTheater()->getActive()==true && $showtime->getTicketAvaliable()>0) { ?>
             
                 <div class="showtime-details-content">
                     <div class="showtime-details-content-left">

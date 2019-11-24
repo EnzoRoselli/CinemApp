@@ -1,11 +1,14 @@
 <?php
+
 namespace Controllers;
+
 use DAO\PurchasesDAO as PurchaseDAO;
 use DAO\CinemasDAO as CinemaDAO;
 use DAO\MoviesDAO as MoviesDAO;
 
 
-class StatisticController{
+class StatisticController
+{
 
     private $purchaseDAO;
     private $cinemaDAO;
@@ -18,7 +21,8 @@ class StatisticController{
         $this->movieDAO = new MoviesDAO();
     }
 
-    public function showStats($minDate="", $maxDate = ""){
+    public function showStats($viewDate = "", $minDate = "", $maxDate = "")
+    {
 
         require_once(VIEWS . '/ValidateAdminSession.php');
         $statsCinemas = array();
@@ -26,25 +30,23 @@ class StatisticController{
         $advices = array();
 
         try {
-            
+
             $cinemasList = $this->cinemaDAO->getAll();
             $moviesList = $this->movieDAO->getAll();
-    
-            if(!empty($minDate) && !empty($maxDate)){
-                
-                $statsCinemas = $this->getPurchasesByCinemaId($cinemasList, $minDate, $maxDate);
-                $statsMovies = $this->getPurchasesByMovieId($moviesList, $minDate, $maxDate);
 
-    
-                if(empty($statsCinemas) && empty($statsMovies)){
-                    
+            if (!empty($viewDate) && empty($minDate) && empty($maxDate)) {
+
+                $statsCinemas = $this->getPurchasesByCinemaId($cinemasList);
+                $statsMovies = $this->getPurchasesByViewDate($moviesList, $viewDate);
+
+                if (empty($statsCinemas) && empty($statsMovies)) {
+
                     array_push($advices, NOT_FOUND_FILTERS);
                     $this->showStatistics($statsCinemas, $statsMovies, $advices);
-                }else{
-                     $this->showStatistics($statsCinemas, $statsMovies);
+                } else {
+                    $this->showStatistics($statsCinemas, $statsMovies);
                 }
-    
-            }else if((empty($minDate) && !empty($maxDate)) || (!empty($minDate) && empty($maxDate))){
+            } else if (!empty($viewDate) && (!empty($minDate) && !empty($maxDate) || !empty($minDate) && empty($maxDate) || empty($minDate) && !empty($maxDate))) {
 
                 $statsCinemas = $this->getPurchasesByCinemaId($cinemasList);
                 $statsMovies = $this->getPurchasesByMovieId($moviesList);
@@ -52,46 +54,64 @@ class StatisticController{
                 array_push($advices, FILTERS_ERROR);
 
                 $this->showStatistics($statsCinemas, $statsMovies, $advices);
+            } else {
 
-            }else if(empty($minDate) && empty($maxDate)){
+                if (!empty($minDate) && !empty($maxDate)) {
 
-                $statsCinemas = $this->getPurchasesByCinemaId($cinemasList);
-                $statsMovies = $this->getPurchasesByMovieId($moviesList);
+                    $statsCinemas = $this->getPurchasesByCinemaId($cinemasList, $minDate, $maxDate);
+                    $statsMovies = $this->getPurchasesByMovieId($moviesList, $minDate, $maxDate);
 
-                $this->showStatistics($statsCinemas, $statsMovies);
+                    if (empty($statsCinemas) && empty($statsMovies)) {
+
+                        array_push($advices, NOT_FOUND_FILTERS);
+                        $this->showStatistics($statsCinemas, $statsMovies, $advices);
+                    } else {
+                        $this->showStatistics($statsCinemas, $statsMovies);
+                    }
+                } else if ((empty($minDate) && !empty($maxDate)) || (!empty($minDate) && empty($maxDate))) {
+
+                    $statsCinemas = $this->getPurchasesByCinemaId($cinemasList);
+                    $statsMovies = $this->getPurchasesByMovieId($moviesList);
+
+                    array_push($advices, FILTERS_ERROR);
+
+                    $this->showStatistics($statsCinemas, $statsMovies, $advices);
+                } else if (empty($minDate) && empty($maxDate)) {
+
+                    $statsCinemas = $this->getPurchasesByCinemaId($cinemasList);
+                    $statsMovies = $this->getPurchasesByMovieId($moviesList);
+
+                    $this->showStatistics($statsCinemas, $statsMovies);
+                }
             }
-
-
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
         }
-
-          
     }
 
-    public function getPurchasesByCinemaId($cinemasList, $minDate = "", $maxDate = ""){
+    public function getPurchasesByCinemaId($cinemasList, $minDate = "", $maxDate = "")
+    {
 
         $statsCinemas = array();
 
-        foreach($cinemasList as $cinema){
-        
-            if(($cinemaPurchases = $this->purchaseDAO->getPurchasesByCinemaId($cinema->getId(), $minDate, $maxDate)) != null){
+        foreach ($cinemasList as $cinema) {
+
+            if (($cinemaPurchases = $this->purchaseDAO->getPurchasesByCinemaId($cinema->getId(), $minDate, $maxDate)) != null) {
                 array_push($statsCinemas, $cinemaPurchases);
             }
-            
         }
 
         return $statsCinemas;
     }
 
-    public function getPurchasesByMovieId($moviesList, $minDate = "", $maxDate = ""){
+    public function getPurchasesByMovieId($moviesList, $minDate = "", $maxDate = "")
+    {
 
         $statsMovies = array();
 
-        foreach($moviesList as $movie){
-        
-            if(($moviePurchases = $this->purchaseDAO->getPurchasesByMovieId($movie->getId(), $minDate, $maxDate)) != null){
+        foreach ($moviesList as $movie) {
 
+            if (($moviePurchases = $this->purchaseDAO->getPurchasesByMovieId($movie->getId(), $minDate, $maxDate)) != null) {
                 array_push($statsMovies, $moviePurchases);
             }
         }
@@ -99,9 +119,24 @@ class StatisticController{
         return $statsMovies;
     }
 
-    public function showStatistics($statsCinemas = "", $statsMovies = "", $messages = ""){
+    public function getPurchasesByViewDate($moviesList, $viewDate)
+    {
+
+        $statsMovies = array();
+
+        foreach ($moviesList as $movie) {
+
+            if (($moviePurchases = $this->purchaseDAO->getPurchasesByViewDate($movie->getId(), $viewDate)) != null) {
+                array_push($statsMovies, $moviePurchases);
+            }
+        }
+
+        return $statsMovies;
+    }
+
+    public function showStatistics($statsCinemas = "", $statsMovies = "", $messages = "")
+    {
 
         require_once(VIEWS  . '/Statistics.php');
     }
 }
-?>

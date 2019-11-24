@@ -12,9 +12,12 @@ include('nav.php');
 	</div>
 
 	<div class="admin-table">
-		<h2>By Purchases:</h2>
 		<div class="showtimes-list-filters">
 			<form action="<?= FRONT_ROOT . '/Statistic/showStats' ?>" method="POST">
+				<h2>By View Date:</h2>
+				<label for="">Date:</label>
+				<input type="date" name="viewDate">
+				<h2>By Purchases:</h2>
 				<label for="">MinDate:</label>
 				<input type="date" name="minDate">
 				<label for="">MaxDate:</label>
@@ -40,7 +43,6 @@ include('nav.php');
 				<?php
 				foreach ($statsCinemas as $value) {
 					foreach ($value as $index) {
-						
 					?>
 					<tr>
 						<td><?= $index['cinema_name']; ?></td>
@@ -84,15 +86,17 @@ include('nav.php');
 			<tbody>
 				<?php
 				foreach ($statsMovies as $value) {
+					foreach ($value as $index) {
 					?>
 					<tr>
 
-						<td><?= $value->getTitle(); ?></td>
-						<td><?= $value->getTotalTickets(); ?></td>
-						<td>$<?= $value->getTotalSales(); ?></td>
+						<td><?= $index['title']; ?></td>
+						<td><?= $index['totalTickets']; ?></td>
+						<td>$<?= $index['totalSales']; ?></td>
 						<td> </td>
 					</tr>
 				<?php
+					}
 				} ?>
 			</tbody>
 		</table>
