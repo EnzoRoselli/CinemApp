@@ -90,6 +90,7 @@ class PurchasesDAO
             throw $th;
         }
     }
+
     public function getPurchasesByCinemaId($cinemaId, $minDate = "", $maxDate = ""){
 
         $cinemaPurchasesList = array();
@@ -251,12 +252,12 @@ class PurchasesDAO
         }
     }
 
-    public function getPurchasesByViewDate($movieId, $viewDate){
+    public function getMoviePurchasesByViewDate($movieId, $viewDate){
 
         $moviePurchasesList = array();
 
-        $query = "SELECT a.title, a.view_date, ifnull(SUM(a.ticketsAmount),0) AS 'totalTickets', ifnull(SUM(a.total),0) AS 'totalSales' FROM(
-                    SELECT m.id, m.title, s.view_date, p.ticketsAmount, p.total
+        $query = "SELECT a.title, ifnull(SUM(a.ticketsAmount),0) AS 'totalTickets', ifnull(SUM(a.total),0) AS 'totalSales' FROM(
+                    SELECT m.id, m.title, p.ticketsAmount, p.total
                     FROM movies m
                     INNER JOIN showtimes s
                     ON s.id_movie = m.id
@@ -293,6 +294,55 @@ class PurchasesDAO
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function getCinemaPurchasesByViewDate($cinemaId, $viewDate){
+
+        $cinemaPurchasesList = array();
+
+        $query = "SELECT a.cinema_name, a.address, ifnull(SUM(a.ticketsAmount),0) AS 'totalTickets', ifnull(SUM(a.total),0) AS 'totalSales' FROM(
+                    SELECT c.id, c.cinema_name, c.address, p.ticketsAmount, p.total
+                    FROM cinemas c
+                    INNER JOIN theaters th
+                    ON  th.id_cinema = c.id
+                    INNER JOIN showtimes s
+                    ON s.id_theater = th.id
+                    INNER JOIN tickets t
+                    ON t.id_showtime = s.id
+                    INNER JOIN purchases p
+                    ON t.id_purchase = p.id AND s.view_date = :view_date
+                    GROUP BY t.id_showtime, t.id_purchase) a
+                  WHERE a.id = :id_cinema";
+
+        $parameters['id_cinema'] = $cinemaId;
+        $parameters['view_date'] = $viewDate;
+
+
+        try{
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query,$parameters);
+            
+            if(!empty($resultSet)){
+                if(!empty($resultSet[0]['cinema_name'])){
+
+                    $cinemaPurchase["cinema_name"] = $resultSet[0]['cinema_name'];
+                    $cinemaPurchase["address"] = $resultSet[0]['address'];
+                    $cinemaPurchase["totalTickets"] = $resultSet[0]['totalTickets'];
+                    $cinemaPurchase["totalSales"] = $resultSet[0]['totalSales'];
+
+                    array_push($cinemaPurchasesList, $cinemaPurchase); 
+
+                    return $cinemaPurchasesList;
+                }
+
+            }else{
+                return null;
+            }
+        
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
     }
     
 

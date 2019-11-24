@@ -36,8 +36,8 @@ class StatisticController
 
             if (!empty($viewDate) && empty($minDate) && empty($maxDate)) {
 
-                $statsCinemas = $this->getPurchasesByCinemaId($cinemasList);
-                $statsMovies = $this->getPurchasesByViewDate($moviesList, $viewDate);
+                $statsCinemas = $this->getCinemaPurchasesByViewDate($cinemasList, $viewDate);
+                $statsMovies = $this->getMoviePurchasesByViewDate($moviesList, $viewDate);
 
                 if (empty($statsCinemas) && empty($statsMovies)) {
 
@@ -91,7 +91,6 @@ class StatisticController
 
     public function getPurchasesByCinemaId($cinemasList, $minDate = "", $maxDate = "")
     {
-
         $statsCinemas = array();
 
         foreach ($cinemasList as $cinema) {
@@ -106,7 +105,6 @@ class StatisticController
 
     public function getPurchasesByMovieId($moviesList, $minDate = "", $maxDate = "")
     {
-
         $statsMovies = array();
 
         foreach ($moviesList as $movie) {
@@ -119,19 +117,32 @@ class StatisticController
         return $statsMovies;
     }
 
-    public function getPurchasesByViewDate($moviesList, $viewDate)
+    public function getMoviePurchasesByViewDate($moviesList, $viewDate)
     {
-
         $statsMovies = array();
 
         foreach ($moviesList as $movie) {
 
-            if (($moviePurchases = $this->purchaseDAO->getPurchasesByViewDate($movie->getId(), $viewDate)) != null) {
+            if (($moviePurchases = $this->purchaseDAO->getMoviePurchasesByViewDate($movie->getId(), $viewDate)) != null) {
                 array_push($statsMovies, $moviePurchases);
             }
         }
 
         return $statsMovies;
+    }
+
+    public function getCinemaPurchasesByViewDate($cinemasList, $viewDate)
+    {
+        $statsCinemas = array();
+
+        foreach ($cinemasList as $cinema) {
+
+            if (($cinemaPurchases = $this->purchaseDAO->getCinemaPurchasesByViewDate($cinema->getId(), $viewDate)) != null) {
+                array_push($statsCinemas, $cinemaPurchases);
+            }
+        }
+
+        return $statsCinemas;
     }
 
     public function showStatistics($statsCinemas = "", $statsMovies = "", $messages = "")
