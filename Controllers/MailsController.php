@@ -107,7 +107,7 @@ class MailsController
         $mail->addAddress($emailToSend, 'User');     // Add a recipient
    // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Thanks you for the purchase';
+        $mail->Subject = 'Thank you for the purchase';
        
            foreach ($qrsToSend as $item) {
             $photo=$item->getFileName();

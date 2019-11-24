@@ -127,23 +127,24 @@ insert into theaters(theater_name, id_cinema, active, ticket_value, capacity) va
                                                                                                     ,('sala Atmos', 2, true, 200, 400)
                                                                                                     ,('sala 1 ', 3, true, 400, 200)
                                                                                                     ,('sala 2', 4, true, 500, 150);
-/*insert into showtimes(id_language, id_movie,id_theater,view_date,hour,subtitles,active,ticketAvaliable) values(5, 3, 1, '2019-11-02', '11:50', false, true, 400);*/
-/*
-select now();
-
-select * from movies;
-
-select * from cinemas;
-
-select * from theaters;
-*/
-/*select * from theaters WHERE theaters.id_cinema=1;*/
-
-/*drop database cinemapp;*/
+                                                                                                    
+INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
+VALUES (5,2,5,100,'2019-11-20','10:00',0,1);
+INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
+VALUES (5,2,5,100,'2019-11-20','14:00',0,1);
+INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
+VALUES (5,2,5,100,'2019-11-20','18:00',0,1);
+INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
+VALUES (5,2,5,100,'2019-11-20','22:00',0,1);
+INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
+VALUES (5,2,5,100,'2019-11-20','01:00',0,1);
 
 select * from users;
 
 insert into users(password, email, firstname, lastname, dni) values('admin', 'admin@gmail.com', 'admin', 'admin', 99999999);
+insert into users(password, email, firstname, lastname, dni) values('123', 'matiasnicolettimdp@gmail.com', 'Matias', 'Nicoletti', 99999989);
+
+insert into credit_cards(cc_number, id_user, sec_code) values('4552122358964775', 2, '123');
 
 select * from purchases;
 
@@ -153,11 +154,13 @@ select * from showtimes;
 
 select * from credit_cards;
 
+select * from movies;
+
 select * from tickets;
 
-insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 750, 1, 3);
-insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 1750, 1, 3);
-insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 988, 1, 3);
+insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 750, 2, 1);
+insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 1750, 2, 1);
+insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 988, 2, 1);
 
 insert into tickets(id_showtime, id_purchase) values (2,1);
 insert into tickets(id_showtime, id_purchase) values (2,2);
@@ -177,13 +180,3 @@ insert into tickets(id_showtime, id_purchase) values (3,3);
                     GROUP BY t.id_showtime, t.id_purchase) a
                   WHERE a.id = 2      
 			
-INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
-VALUES (5,2,5,100,'2019-11-20','10:00',0,1);
-INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
-VALUES (5,2,5,100,'2019-11-20','14:00',0,1);
-INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
-VALUES (5,2,5,100,'2019-11-20','18:00',0,1);
-INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
-VALUES (5,2,5,100,'2019-11-20','22:00',0,1);
-INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
-VALUES (5,2,5,100,'2019-11-20','01:00',0,1);
