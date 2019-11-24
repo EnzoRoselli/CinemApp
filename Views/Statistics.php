@@ -43,13 +43,13 @@ include('nav.php');
 				<?php
 				foreach ($statsCinemas as $value) {
 					foreach ($value as $index) {
-					?>
-					<tr>
-						<td><?= $index['cinema_name']; ?></td>
-						<td><?= $index['totalTickets']; ?></td>
-						<td>$<?= $index['totalSales']; ?></td>
-						<td><?= $index['address']; ?></td>
-					</tr>
+						?>
+						<tr>
+							<td><?= $index['cinema_name']; ?></td>
+							<td><?= $index['totalTickets']; ?></td>
+							<td>$<?= $index['totalSales']; ?></td>
+							<td><?= $index['address']; ?></td>
+						</tr>
 				<?php
 					}
 				} ?>
@@ -87,14 +87,14 @@ include('nav.php');
 				<?php
 				foreach ($statsMovies as $value) {
 					foreach ($value as $index) {
-					?>
-					<tr>
+						?>
+						<tr>
 
-						<td><?= $index['title']; ?></td>
-						<td><?= $index['totalTickets']; ?></td>
-						<td>$<?= $index['totalSales']; ?></td>
-						<td> </td>
-					</tr>
+							<td><?= $index['title']; ?></td>
+							<td><?= $index['totalTickets']; ?></td>
+							<td>$<?= $index['totalSales']; ?></td>
+							<td> </td>
+						</tr>
 				<?php
 					}
 				} ?>
