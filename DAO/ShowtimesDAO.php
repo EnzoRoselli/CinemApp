@@ -280,7 +280,7 @@ class ShowtimesDAO
         }
     }
 
-    public function getShowtimesOfAcinema(Cine $Cinema)
+    public function getShowtimesOfAcinema($cinemaId)
     {
 
 
@@ -288,7 +288,7 @@ class ShowtimesDAO
         $query = "SELECT * from " . $this->tableName . " "
             . " inner join theaters on theaters.id=showtimes.id_theater 
              inner join cinemas on theaters.id_cinema=cinemas.id 
-             where theaters.id_cinema=" . $Cinema->getId();
+             where theaters.id_cinema=" . $cinemaId;
         try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);

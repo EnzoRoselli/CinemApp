@@ -59,7 +59,7 @@ include('nav.php');
 									</a>
 								<?php } ?>
 								<!-- ----------------------- DELETE ----------------------- -->
-								<a href="<?=  FRONT_ROOT . "/Cine/delete/" .  $cine->getId() ?>" onclick="return checkDelete()" name="delete" class="btn btn-light">
+								<a href="<?=  FRONT_ROOT . "/Cine/delete/" .  $cine->getId() ?>" onclick="return confirm('Are you sure you want to Remove?');" name="delete" class="btn btn-light">
 									<i class="fas fa-trash"></i>
 								</a>
 								<!-- ----------------------- ADD THEATER ----------------------- -->

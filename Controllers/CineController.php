@@ -6,16 +6,18 @@ use Model\Cine as Cine;
 use Model\Theater as Theater;
 use DAO\CinemasDAO as daoCine;
 use DAO\TheatersDAO as theaterDAO;
-
+use DAO\ShowtimesDAO as ShowtimeDAO;
 
 class CineController
 {
 
     private $CineDao;
+    private $showtimeDao;
     public function __construct()
     {
         $this->CineDao = new daoCine();
         $this->theaterDao = new theaterDAO();
+        $this->showtimeDao = new ShowtimeDAO();
 
     }
 
@@ -116,8 +118,15 @@ class CineController
     {
         $advices = array();
         try {
-            $this->CineDao->delete($cineId);
-            array_push($advices, DELETED);
+
+            $showtimes = $this->showtimeDao->getShowtimesOfAcinema($cineId);
+            if(empty($showtimes)){
+                $this->CineDao->delete($cineId);
+                array_push($advices, DELETED);
+            }else{
+                array_push($advices, "Cinema cannot be deleted because there are activated showtimes");
+            }
+            
         } catch (\Throwable $th) {
             array_push($advices, DB_ERROR);
         }
