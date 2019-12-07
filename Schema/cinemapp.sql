@@ -124,9 +124,10 @@ insert into cinemas (cinema_name, address, active) values ('Aldrey', 'Vieja Term
 insert into languages(name_language) values ('English'), ('Spanish'), ('French'), ('Italian'), ('Russian');
 insert into theaters(theater_name, id_cinema, active, ticket_value, capacity) values('sala 1', 1, true, 200, 300)
 																									,('sala 2', 1, true, 350, 200)
+                                                                                                    ,('sala Belgrano', 1, true, 350, 200)
                                                                                                     ,('sala Atmos', 2, true, 200, 400)
-                                                                                                    ,('sala 1 ', 3, true, 400, 200)
-                                                                                                    ,('sala 2', 4, true, 500, 150);
+                                                                                                    ,('sala chica ', 3, true, 400, 200)
+                                                                                                    ,('sala grande', 4, true, 500, 150);
                                                                                                     
 INSERT INTO showtimes (id_movie, id_theater,id_language,ticketAvaliable, view_date,hour,subtitles,active) 
 VALUES (5,2,5,100,'2019-11-20','10:00',0,1);
@@ -157,6 +158,8 @@ select * from credit_cards;
 select * from movies;
 
 select * from tickets;
+
+SELECT * FROM theaters where theaters.theater_name ='sdasda';
 
 insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 750, 2, 1);
 insert into purchases(purchase_date, hour, ticketsAmount, total, id_user, id_cc) values ('2019-10-11', '18:00', 2, 1750, 2, 1);

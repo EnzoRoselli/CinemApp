@@ -36,9 +36,34 @@ class TheaterController
         }
     }
 
+    public function remove($theater){
+        $advices = array();
+        $id = $this->TheatersDAO->getTheaterIdByName($theater); 
+        try{
+            if($id!=null){
+                if ($this->TheatersDAO->isTheaterWithShowtimes($id)){
+                
+                    array_push($advices, REMOVE_THEATER_ERROR);
+                } else {
+                    $this->TheatersDAO->delete($id);
+                    array_push($advices, DELETED);
+                }
+            }
+        }catch (\Throwable $th){
+            array_push($advices, DB_ERROR);
+        }finally{
+            $this->cineController->showCinemasOnTable(null, null, $advices);
+        }
+    }
+
     public function getCinemaToAddTheater($cineId){
         $cinema = $this->CinemasDAO->searchById($cineId);
         $this->cineController->showCinemasOnTable(null, $cinema, null, true);
+    }
+
+    public function getCinemaToRemoveTheater($cineId){
+        $cinema = $this->CinemasDAO->searchById($cineId);
+        $this->cineController->showCinemasOnTable(null, null, null, false, $cineId);
     }
 
     public function checkNotEmptyParameters($Theater)

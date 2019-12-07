@@ -202,11 +202,46 @@ class TheatersDAO
         }
     }
 
+
+    public function isTheaterWithShowtimes($idTheater)
+    {
+        
+        $query = "SELECT * FROM showtimes " . " " . "
+            WHERE showtimes.id_theater " .  "=:id_theater";
+        $parameters["id_theater"] = $idTheater;
+        
+        try {
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+            
+            return !empty($resultSet);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getTheaterIdByName($theater){
+        $query = "SELECT * FROM " . $this->tableName . " " . "
+        where " . $this->tableName . ".theater_name =:theater";
+
+        $parameters["theater"] = $theater;
+        
+        try {
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+            if(!empty($resultSet)){
+                return $resultSet[0]['id'];
+            }else{
+                return null;
+            }
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function getAll()
     {
-
-
-
         $theaterList = array();
 
         $query = "SELECT * FROM" . ' ' . $this->tableName;

@@ -176,8 +176,11 @@ class CineController
         @messages: mensajes en formato de un unico a array para mostrar en un alerta
         @openPopUp: en caso de que se quiera abrir el pop-up
     */
-    public function showCinemasOnTable($cineUpdate = "", $createTheater = "", $messages="", $openPopUp=false)
+    public function showCinemasOnTable($cineUpdate = "", $createTheater = "", $messages="", $openPopUp=false, $removeTheater = null)
     {
+        if($removeTheater!=null){
+            $cinema = $this->CineDao->searchById($removeTheater);
+        }
         require_once(VIEWS . '/ValidateAdminSession.php');
         $cines = $this->CineDao->getAll();
         require_once(VIEWS  . '/AdminCine.php');

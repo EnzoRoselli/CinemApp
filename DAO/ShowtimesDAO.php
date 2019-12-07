@@ -282,13 +282,11 @@ class ShowtimesDAO
 
     public function getShowtimesOfAcinema($cinemaId)
     {
-
-
         $showtimesList = array();
         $query = "SELECT * from " . $this->tableName . " "
             . " inner join theaters on theaters.id=showtimes.id_theater 
              inner join cinemas on theaters.id_cinema=cinemas.id 
-             where theaters.id_cinema=" . $cinemaId;
+             where theaters.id_cinema=" . $cinemaId->getId();
         try {
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
