@@ -184,12 +184,12 @@ class ShowtimeController
 
     public function showShowtimesListUser($filteredMovies = "", $messages = "")
     {
-        $moviesList = $this->moviesDAO->getMoviesWithShowtimes();
+        $moviesList = $this->moviesDAO->getMoviesWithShowtimesActivated();
         $showtimesList = $this->showtimeDao->getAll();
         $genresByMovie = array();
         $genresList = $this->genresDAO->getAll();
 
-
+    
         if (!empty($filteredMovies)) {
 
             $moviesList = $filteredMovies;

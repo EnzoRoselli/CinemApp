@@ -58,7 +58,7 @@ include('nav.php');
                 </div>
                 <div class="showtime-data">
                     <?php foreach ($showtimesList as $showtime) {
-                            if ($showtime->getMovie()->getTitle() == $moviesList[$i]->getTitle() && $showtime->getTheater()->getActive() == true && $showtime->getActive() == true) { ?>
+                            if ($showtime->getMovie()->getTitle() == $moviesList[$i]->getTitle() && $showtime->getTheater()->getActive() && $showtime->getActive() == true) { ?>
                             <div class="showtime-data-items">
                                 <p><?= $showtime->getDate(); ?></p>
                                 <p><?= $showtime->getHour(); ?></p>

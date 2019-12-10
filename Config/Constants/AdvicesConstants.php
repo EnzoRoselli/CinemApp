@@ -20,5 +20,5 @@ if (!defined('BUY_NOT_SUCCESS')) define('BUY_NOT_SUCCESS', 'A problem has happen
 if (!defined('API_INPUT_DATA')) define('API_INPUT_DATA', 'New data has been dowloaded from the API');
 if (!defined('CC_NUMBER_ERROR')) define('CC_NUMBER_ERROR', 'The number must have 16 characters');
 if (!defined('SEC_CODE_ERROR')) define('SEC_CODE_ERROR', 'The number must have 3 characters');
-if (!defined('REMOVE_THEATER_ERROR')) define('REMOVE_THEATER_ERROR', 'The theater you want to remove cointains showtimes');
+if (!defined('REMOVE_THEATER_ERROR')) define('REMOVE_THEATER_ERROR', 'The theater you want to remove contains showtimes');
 ?>
