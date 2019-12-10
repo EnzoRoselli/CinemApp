@@ -137,6 +137,40 @@ class MoviesDAO
             throw $th;
         }
     }
+    public function getMoviesWithShowtimesActivated()
+    {
+
+
+        $this->moviesList = array();
+        $query = "SELECT * FROM" . ' ' . $this->tableName . "  inner join showtimes on showtimes.id_movie=movies.id and showtimes.active=1  group by(movies.id)";
+        try {
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+
+            foreach ($resultSet as $row) {
+
+                $movie = new Movie();
+                $movie->setId($row[0]);
+                $movie->setTitle($row['title']);
+                $movie->setOriginalLanguage($row['original_language']);
+                $movie->setDuration($row['duration']);
+                $movie->setOverview($row['overview']);
+                $movie->setReleaseDate($row['release_date']);
+                $movie->setPosterPath($row['poster_path']);
+                if ($row['adult'] == 1) {
+                    $movie->setAdult(true);
+                } else {
+                    $movie->setAdult(false);
+                }
+
+                array_push($this->moviesList, $movie);
+            }
+
+            return $this->moviesList;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 
     public function searchById($id)
     {
