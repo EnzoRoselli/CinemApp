@@ -19,8 +19,9 @@ include('nav.php');
                     <label>Security Code</label>
                     <input type="text" class="form-control" name="cc_sc" pattern=[0-9]{3} title="3 digits at the back of the card" required>
                     <input type="hidden" name="origin" value="list">
-                    <button type="submit">Add</button>
+                    
                 </div>
+                <button type="submit" id="add-cc">Add</button>
             </form>
         </div>
 
@@ -54,7 +55,7 @@ include('nav.php');
                                                 break;
                                         } ?></td>
                             <td>
-                                <a href="<?php echo  FRONT_ROOT . "/CreditCards/delete/" .  $credirCard->getId() ?>" onclick="return checkDelete()" name="delete" class="btn btn-light">
+                                <a href="<?php echo  FRONT_ROOT . "/CreditCards/delete/" .  $credirCard->getId() ?>" onclick="return confirm('Are you sure you want to Remove?');" name="delete" class="btn btn-light">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
