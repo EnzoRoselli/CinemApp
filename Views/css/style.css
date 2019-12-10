@@ -298,6 +298,29 @@ code {
   margin-left: 15px;
 }
 
+
+
 #form-cc-user label{
   font-size: 1.2rem;
+}
+
+#form-cc-user input{
+  height: 35px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  background-color: #F5F5F5;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+#add-cc{
+  padding: 10px 40px;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #ff411f;
+    border-radius: 2px;
+    transition: all 0.2s ease 0s; 
+    border: none;
+    font-size: 1.2rem;
 }
