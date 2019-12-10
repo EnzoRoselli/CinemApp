@@ -7,10 +7,10 @@ include('nav.php');
 
 <body class="admin-body">
 	<div class="admin-header">
-        <h1>My Purchases</h1>
-        
+		<h1>My Purchases</h1>
+
 	</div>
-	
+
 	<div class="admin-table">
 		<table class="content-table">
 
@@ -27,7 +27,8 @@ include('nav.php');
 			</thead>
 			<tbody>
 				<?php
-				foreach($userPurchases as $value){
+				if (isset($userPurchases)) {
+					foreach ($userPurchases as $value) {
 						?>
 						<tr>
 
@@ -39,24 +40,25 @@ include('nav.php');
 							<td><?= $value['ticketsAmount']; ?></td>
 							<td>$<?= $value['total']; ?></td>
 						</tr>
-				<?php 
+				<?php
+					}
 				} ?>
 			</tbody>
 		</table>
 	</div>
 
 	<?php if (!empty($messages)) {
-	foreach ($messages as $message) ?>
-	<div class="message-container" id="message-container">
-		<div class="message-content">
-			<p><?= $message ?></p>
-			<button id="button-close">Close</button>
+		foreach ($messages as $message) ?>
+		<div class="message-container" id="message-container">
+			<div class="message-content">
+				<p><?= $message ?></p>
+				<button id="button-close">Close</button>
+			</div>
 		</div>
-	</div>
-	<script src="<?= JS_PATH . "/message.js" ?>"></script>
-	<script>
-		openMessage();
-	</script>
-<?php } ?>
-	
+		<script src="<?= JS_PATH . "/message.js" ?>"></script>
+		<script>
+			openMessage();
+		</script>
+	<?php } ?>
+
 </body>
