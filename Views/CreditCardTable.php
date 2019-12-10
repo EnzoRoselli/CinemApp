@@ -9,21 +9,21 @@ include('nav.php');
         <h1>My Credit Cards</h1>
         <h2>Add a new Credit Card</h2>
         <div class="form-group">
-            <form action=<?= FRONT_ROOT . "/CreditCards/add/" ?> method="POST">
+            <form action=<?= FRONT_ROOT . "/CreditCards/add/" ?> method="POST" id="form-cc-user">
                 <div>
-                <label>Card Number</label>
-                <input type="hidden" name="showtimeId" value="showtimeId">
-                <input type="text" class="form-control" name="cc_number" pattern = [0-9]{16} title="16 digits at the front of the card" required>
+                    <label>Card Number</label>
+                    <input type="hidden" name="showtimeId" value="showtimeId">
+                    <input type="text" class="form-control" name="cc_number" pattern=[0-9]{16} title="16 digits at the front of the card" required>
                 </div>
                 <div>
-                <label>Security Code</label>
-                <input type="text" class="form-control" name="cc_sc"  pattern = [0-9]{3} title="3 digits at the back of the card" required>             
-                <input type="hidden" name="origin" value="list">
-                <button type="submit">Add</button>
+                    <label>Security Code</label>
+                    <input type="text" class="form-control" name="cc_sc" pattern=[0-9]{3} title="3 digits at the back of the card" required>
+                    <input type="hidden" name="origin" value="list">
+                    <button type="submit">Add</button>
                 </div>
             </form>
         </div>
-       
+
     </div>
     <div class="admin-table">
         <table class="content-table">
@@ -35,24 +35,24 @@ include('nav.php');
                 </tr>
             </thead>
             <tbody>
-                <?php 
+                <?php
                 if (!empty($creditCardList)) {
-                    foreach ($creditCardList as $credirCard) { 
+                    foreach ($creditCardList as $credirCard) {
                         ?>
                         <tr>
-                            <td><?=$credirCard->getLastFour() ?></td>
-                            <td><?php 
-                            switch (substr($credirCard->getNumber(), 0, 1)) {
-                                case '3':
-                                    echo "MasterCard";
-                                    break;
-                                case '4':
-                                    echo "Visa";
-                                    break;
-                                default:
-                                    echo "Other";
-                                    break;
-                            } ?></td>
+                            <td><?= $credirCard->getLastFour() ?></td>
+                            <td><?php
+                                        switch (substr($credirCard->getNumber(), 0, 1)) {
+                                            case '3':
+                                                echo "MasterCard";
+                                                break;
+                                            case '4':
+                                                echo "Visa";
+                                                break;
+                                            default:
+                                                echo "Other";
+                                                break;
+                                        } ?></td>
                             <td>
                                 <a href="<?php echo  FRONT_ROOT . "/CreditCards/delete/" .  $credirCard->getId() ?>" onclick="return checkDelete()" name="delete" class="btn btn-light">
                                     <i class="fas fa-trash"></i>

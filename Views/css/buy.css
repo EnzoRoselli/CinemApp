@@ -1,136 +1,134 @@
-.buy-container{
-    position: absolute;
-    width: 50vw;
-    
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -40%);
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(233, 233, 233);
-    color: #000000;
-    font-size: 1.2rem;
+.buy-container {
+  position: absolute;
+  width: 50vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(245, 245, 245);
+  color: #000000;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 14px 1px rgb(87, 87, 87);
+  -moz-box-shadow: 0px 0px 14px 1px rgba(87, 87, 81);
+  box-shadow: 0px 0px 14px 1px rgba(87, 87, 87);
 }
 
-.showtime-details-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin: 5px 0;
-    padding: 15px 0;
-    border-bottom: 1px solid #FD3410;
+.showtime-details-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 5px 0;
+  padding: 15px 0;
+  border-bottom: 1px solid #fd3410;
 }
 
-.buy-form{
-    
+.buy-amount-total {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px 0;
+  align-items: center;
+  border-bottom: 1px solid #fd3410;
+}
+.buy-amount-total input {
+  height: 25px;
+  width: 50px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  font-size: 1.3rem;
 }
 
-.buy-amount-total{
-
-    display: flex;
-    justify-content: space-around;
-    padding: 30px 0;
-    align-items: center;
-    border-bottom: 1px solid #FD3410;
-}
-.buy-amount-total input{
-    height: 25px;
-    width: 50px;
-    border: none;
-    outline: none;
-    border-radius: 3px;
-    font-size: 1.3rem;
+.select-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #fd3410;
 }
 
-.select-card{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #FD3410;
+.select-card-item {
+  display: flex;
+  align-items: center;
+  margin: 0px auto;
+  padding: 15px 0px 0 0;
 }
 
-.select-card-item{
-    display: flex;
-    align-items: center;
-    margin: 0px auto;
-    padding: 15px 0px 0 0;
+.select-card-item select {
+  width: 300px;
+  height: 30px;
+  padding: 0 3px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  font-size: 1.3rem;
 }
 
-.select-card-item select{
-    width: 300px;
-    height: 30px;
-    padding: 0 3px;
-    border: none;
-    outline: none;
-    border-radius: 3px;
-    font-size: 1.3rem;
+.buy-actions {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
 }
 
-.buy-actions{
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
+.buy-actions * {
+  margin: 0 15px;
 }
 
-.buy-actions *{
-    margin: 0 15px;
+.buy-btn {
+  padding: 10px 40px;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #fd3410;
+  border-radius: 5px;
+  transition: all 0.2s ease 0s;
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
 }
 
-.buy-btn{
-    padding: 10px 40px;
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #FD3410;
-    border-radius: 5px;
-    transition: all 0.2s ease 0s; 
-    border: none;
-    outline: none;
-    font-size: 1.2rem;
+.buy-btn:hover {
+  background-color: #ee2704;
 }
 
-.buy-btn:hover{   
-    background-color: #ee2704;
+.buy-add-cc {
+  text-decoration: none;
+  color: #000000;
+  margin-bottom: 15px;
 }
 
-.buy-add-cc{
-    text-decoration: none;
-    color: #000000;
-    margin-bottom: 15px;
+#buy-ticket-value {
+  display: none;
 }
 
-#buy-ticket-value{
-    display: none;
+#total-price {
+  width: 80px;
 }
 
-#total-price{
-    width: 80px;
+#ok-btn-amount {
+  width: 130px;
+  height: 25px;
+  font-size: 1rem;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #fd3410;
+  border-radius: 5px;
+  transition: all 0.2s ease 0s;
+  border: none;
+  outline: none;
 }
 
-#ok-btn-amount{
-    width: 130px;
-    height: 25px;
-    font-size: 1rem;
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #FD3410;
-    border-radius: 5px;
-    transition: all 0.2s ease 0s; 
-    border: none;
-    outline: none;
+#buy-ticket-value {
+  display: none;
 }
 
-#buy-ticket-value{
-    display: none;
-}
-
-#dto-advice{
-    position: relative;
-    width: 500px;
-    text-align: center;
-    font-size: 1rem;
-    display: none;
-    transition: all 0.2s ease 0s; 
-    margin:0 auto;  
+#dto-advice {
+  position: relative;
+  width: 500px;
+  text-align: center;
+  font-size: 1rem;
+  display: none;
+  transition: all 0.2s ease 0s;
+  margin: 0 auto;
 }

@@ -23,7 +23,7 @@ include('nav.php');
 				<label for="">MaxDate:</label>
 				<input type="date" name="maxDate">
 
-				<button type="submit" class="buy-btn">Aceptar</button>
+				<button type="submit" class="buy-btn">Confirm</button>
 		</div>
 
 		</form>

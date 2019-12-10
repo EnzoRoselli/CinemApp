@@ -8,7 +8,7 @@ include('nav.php');
 	<div class="admin-header">
 		<h1>Listado de cines</h1>
 		<form action="<?= FRONT_ROOT . "/Cine/createCinema " ?>" method="POST">
-			<button id="btn-abrir-popup" class="btn-small"><i class="fas fa-plus"></i></button>
+			<button id="btn-abrir-popup" class="btn-small btn-abrir-popup-cinema"><i class="fas fa-plus"></i></button>
 		</form>
 	</div>
 
@@ -106,7 +106,7 @@ include('nav.php');
 
 			<a href="<?= FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 
-			<h3>Ingrese los datos</h3>
+			<h3>Complete the fields</h3>
 
 			<?php if (!isset($createTheater)) { ?>
 
@@ -117,24 +117,24 @@ include('nav.php');
 																		} ?>>
 
 						<div class="form-group">
-							<label>Nombre</label>
+							<label>Name</label>
 							<input type="text" class="form-control" name="name" required value=<?php if (isset($cineUpdate)) {
 																											echo $cineUpdate->getName();
 																										} ?>>
 						</div>
 
 						<div class="form-group">
-							<label>Dirección</label>
+							<label>Address</label>
 							<input type="text" class="form-control" name="address" value=<?php if (isset($cineUpdate)) {
 																										echo $cineUpdate->getAddress();
 																									} ?>>
 						</div>
 					</div>
 					<div class="modal-footer">
+					<a href="<?= FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancel</a>
+						<button type="submit" class="btn btn-med btn-light">Confirm</button>
 
-						<button type="submit" class="btn btn-med btn-light">Aceptar</button>
-
-						<a href="<?= FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancelar</a>
+						
 
 					</div>
 				</form>
@@ -146,25 +146,25 @@ include('nav.php');
 						<input type="hidden" name="cinema" value=<?= $createTheater->getId(); ?>>
 
 						<div class="form-group">
-							<label>Nombre</label>
+							<label>Name</label>
 							<input type="text" class="form-control" name="name" required>
 						</div>
 
 						<div class="form-group">
-							<label>Capacidad</label>
+							<label>Capacity</label>
 							<input type="number" class="form-control" name="capacity" min="1" required>
 						</div>
 
 						<div class="form-group">
-							<label>Valor de Entrada</label>
+							<label>Ticket Value</label>
 							<input type="number" class="form-control" name="ticketValue" min="1" required>
 						</div>
 					</div>
 					<div class="modal-footer">
 
-						<a href="<?= FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancelar</a>
+						<a href="<?= FRONT_ROOT . "/Cine/ShowCinemasOnTable" ?>" class="btn btn-med btn-light" id="btn-cerrar-popup" style="text-decoration:none">Cancel</a>
 
-						<button type="submit" class="btn btn-med btn-light">Aceptar</button>
+						<button type="submit" class="btn btn-med btn-light">Confirm</button>
 
 					</div>
 				</form>

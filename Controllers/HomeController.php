@@ -39,7 +39,7 @@
                 array_push($genresByMovie, $genres[0]);
             }
             
-            $lastMovie = $this->moviesDAO->searchById(10);
+            $lastMovie = $this->moviesDAO->searchById(20);
             require_once(VIEWS.'/Slider.php');
             require_once(VIEWS."/Showcase.php");
             require_once(VIEWS.'/lastArrival.php');

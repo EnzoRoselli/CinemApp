@@ -13,7 +13,7 @@ include('nav.php');
         <div class="outstanding-container">
 
             <div class="movie-img">
-                <img src="http://image.tmdb.org/t/p/w780//p69QzIBbN06aTYqRRiCOY1emNBh.jpg" alt="">
+                <img src="http://image.tmdb.org/t/p/w780//zFYYFEhKS6JZvNW7gXeKeqnbcS7.jpg" alt="">
             </div>
 
             <div class="movie-data-arrival">

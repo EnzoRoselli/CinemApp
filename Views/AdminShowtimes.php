@@ -6,18 +6,18 @@ include('nav.php');
 
 <body class="admin-body">
 	<div class="admin-header">
-		<h1>Listado de showtimes</h1>
+		<h1 id="showtimee-header">Showtimes List</h1>
 		
 		<!--<button id="btn-abrir-popup" type="submit" class="btn-small"><i class="fas fa-plus"></i></button> -->
 		<div class="select-cinema-showtime">
 			<form action=<?= FRONT_ROOT . "/Showtime/getCinema" ?> method="POST">
-				<label>Cinema</label>
+				<label id="label-showtime">Cinema</label>
 				<select name="idCinema" class="form-control">
 					<?php foreach ($cinemasList as $cine) { ?>
 						<option value=<?= $cine->getId() ?>><?= $cine->getName() ?></option>
 					<?php } ?>
 				</select>
-				<button id="btn-abrir-popup" type="submit" class="btn-small"><i class="fas fa-plus"></i></button>
+				<button id="btn-abrir-popup" type="submit" class="btn-abrir-popup-showtime"><i class="fas fa-plus"></i></button>
 			</form>
 		</div>
 	</div>
@@ -164,9 +164,9 @@ include('nav.php');
 
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-med btn-light"><a href="<?= FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup" id="cancel-button-showtime">Cancelar</a></button>
+					<button type="submit" class="btn btn-med btn-light"><a href="<?= FRONT_ROOT . "/Showtime/ShowShowtimeMenu" ?>" class="btn-cerrar-popup" id="cancel-button-showtime">Cancel</a></button>
 
-					<button type="submit" class="btn btn-med btn-light">Aceptar</button>
+					<button type="submit" class="btn btn-med btn-light">Confirm</button>
 				</div>
 			</form>
 		</div>

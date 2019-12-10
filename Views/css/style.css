@@ -199,13 +199,7 @@ code {
 /* ADMIN CINE  */
 
 #btn-abrir-popup{
-  width: 30px;
-  height: 30px;
-  background-color: transparent;
-  border: none;
-  border-radius: 50px;
-  transition: .3s ease all;
-  margin-left: 15px;
+  
  }
 
 #btn-abrir-popup:hover{
@@ -249,4 +243,61 @@ code {
 }
 .select-cinema-showtime label{
   margin-right: 15px;
+}
+
+#showtimee-header{
+  position: relative;
+  top: 20px;
+}
+
+.select-cinema-showtime{
+  display: inline;
+}
+
+.select-cinema-showtime select{
+  border-radius: 3px;
+  outline: none;
+  height: 45px;
+  background-color: #F5F5F5;
+  border: none;
+}
+
+.select-cinema-showtime .btn-show{
+    position: absolute;
+    top: 15%;
+    height: 500px;
+}
+
+#label-showtime{
+  font-size: 1.5rem;
+}
+
+.btn-abrir-popup-showtime{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  top: 85%;
+  left: 20%;
+  border-radius: 50px;
+  transition: .3s ease all;
+  margin-left: 15px;
+}
+
+.btn-abrir-popup-cinema{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  top: 25%;
+  left: 18%;
+  border-radius: 50px;
+  transition: .3s ease all;
+  margin-left: 15px;
+}
+
+#form-cc-user label{
+  font-size: 1.2rem;
 }
